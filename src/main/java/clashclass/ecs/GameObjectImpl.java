@@ -6,19 +6,20 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Represents an implementation of GameObject
+ * Represents an implementation of GameObject.
  */
 public class GameObjectImpl implements GameObject {
-    private final int uniqueId;
-    private Set<Component> components;
+    // private static int uniqueIdProgression = 0;
 
-    private static int uniqueIdProgression = 0;
+    private final int uniqueId;
+    private final Set<Component> components;
 
     /**
-     * Constructs the GameObject
+     * Constructs the GameObject.
      */
     public GameObjectImpl() {
-        this.uniqueId = uniqueIdProgression++;
+        // this.uniqueId = uniqueIdProgression++;
+        this.uniqueId = 0;
         this.components = new HashSet<>();
     }
 
@@ -34,7 +35,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    public final void addComponent(Component component) {
+    public final void addComponent(final Component component) {
         this.components.add(component);
     }
 
@@ -42,7 +43,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    public final <T extends Component> Optional<T> getComponentOfType(Class<T> componentType) {
+    public final <T extends Component> Optional<T> getComponentOfType(final Class<T> componentType) {
         return this.components.stream()
                 .filter(componentType::isInstance)
                 .map(componentType::cast)
@@ -50,7 +51,8 @@ public class GameObjectImpl implements GameObject {
     }
 
     /**
-     * Gets an immutable representation of all the components
+     * Gets an immutable representation of all the components.
+     *
      * @return an immutable representation of all the components
      */
     @Override

@@ -1,9 +1,25 @@
 package clashclass.ecs;
 
+/**
+ * Represents a Component, that can be used to compose a GameObject.
+ */
 public interface Component {
-    public void setGameObjectReference(GameObject gameObject);
+    /**
+     * Sets the GameObject that this component is attached to.
+     *
+     * @param gameObject the GameObject
+     */
+    void setGameObject(GameObject gameObject);
 
-    public void initialize();
+    /**
+     * Initializes the Component.
+     */
+    void initialize();
 
-    public void update(float deltaTime);
+    /**
+     * Updates the Component once per frame.
+     *
+     * @param deltaTime time elapsed between the previous and the current frame.
+     */
+    void update(float deltaTime);
 }

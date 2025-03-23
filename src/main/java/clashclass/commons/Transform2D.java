@@ -1,33 +1,66 @@
 package clashclass.commons;
 
-import clashclass.ecs.BaseComponent;
+import clashclass.ecs.AbstractComponent;
 
-public class Transform2D extends BaseComponent {
-    private Vector2 position;
-    private Vector2 rotation;
-    private Vector2 scale;
+/**
+ * Represents a Transform in a two-dimensional space.
+ */
+public class Transform2D extends AbstractComponent {
+    private Vector2D position;
+    private Vector2D rotation;
+    private Vector2D scale;
 
-    public Vector2 getPosition() {
+    /**
+     * Gets the position component.
+     *
+     * @return the position
+     */
+    public Vector2D getPosition() {
         return this.position;
     }
 
-    public Vector2 getRotation() {
+    /**
+     * Gets the rotation component.
+     *
+     * @return the rotation
+     */
+    public Vector2D getRotation() {
         return this.rotation;
     }
 
-    public Vector2 getScale() {
+    /**
+     * Gets the scale component.
+     *
+     * @return the scale
+     */
+    public Vector2D getScale() {
         return this.scale;
     }
 
-    public void setPosition(Vector2 position) {
+    /**
+     * Sets the position component.
+     *
+     * @param position the new position value
+     */
+    public void setPosition(final Vector2D position) {
         this.position = position;
     }
 
-    public void setRotation(Vector2 rotation) {
+    /**
+     * Sets the rotation component.
+     *
+     * @param rotation the new rotation value
+     */
+    public void setRotation(final Vector2D rotation) {
         this.rotation = rotation;
     }
 
-    public void setScale(Vector2 scale) {
+    /**
+     * Sets the scale component.
+     *
+     * @param scale the new scale value
+     */
+    public void setScale(final Vector2D scale) {
         this.scale = scale;
     }
 }

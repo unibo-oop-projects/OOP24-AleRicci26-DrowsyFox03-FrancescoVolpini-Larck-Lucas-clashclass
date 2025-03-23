@@ -9,27 +9,32 @@ import java.util.Set;
 public interface GameObject {
     /**
      * Gets the unique id.
+     *
      * @return unique id
      */
-    public int getUniqueId();
+    int getUniqueId();
 
     /**
      * Adds a component to the set of components.
+     *
      * @param component component to add
      */
-    public void addComponent(Component component);
+    void addComponent(Component component);
 
     /**
      * Tries to the get a component of a specific type.
+     *
      * @param componentType type of the component to get, can be either a class or an interface
-     * @return component of the desired type, if exists, otherwise returns an empty Optional
      * @param <T> the type of the component to get
+     *
+     * @return component of the desired type, if exists, otherwise returns an empty Optional*
      */
     <T extends Component> Optional<T> getComponentOfType(Class<T> componentType);
 
     /**
-     * Gets all the components
+     * Gets all the components.
+     *
      * @return all the components
      */
-    public Set<Component> getComponents();
+    Set<Component> getComponents();
 }
