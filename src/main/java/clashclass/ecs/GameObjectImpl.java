@@ -1,9 +1,9 @@
 package clashclass.ecs;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
+import java.util.LinkedHashSet;
+import java.util.Optional;
+import java.util.Collections;
 
 /**
  * Represents an implementation of GameObject.
@@ -20,7 +20,7 @@ public class GameObjectImpl implements GameObject {
     public GameObjectImpl() {
         // this.uniqueId = uniqueIdProgression++;
         this.uniqueId = 0;
-        this.components = new HashSet<>();
+        this.components = new LinkedHashSet<>();
     }
 
     /**
@@ -71,7 +71,7 @@ public class GameObjectImpl implements GameObject {
          * Constructs the Builder.
          */
         BuilderImpl() {
-            this.components = new HashSet<>();
+            this.components = new LinkedHashSet<>();
         }
 
         /**
