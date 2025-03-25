@@ -15,11 +15,4 @@ public interface Component {
      * Initializes the Component.
      */
     void initialize();
-
-    /**
-     * Updates the Component once per frame.
-     *
-     * @param deltaTime time elapsed between the previous and the current frame.
-     */
-    void update(float deltaTime);
 }

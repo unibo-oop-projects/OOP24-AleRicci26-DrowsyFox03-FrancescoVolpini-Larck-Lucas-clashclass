@@ -32,12 +32,4 @@ public abstract class AbstractComponent implements Component {
     public void initialize() {
 
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void update(final float deltaTime) {
-
-    }
 }
