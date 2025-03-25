@@ -57,4 +57,14 @@ class GameObjectTest {
 
         assertTrue(gameObject.getComponentOfType(HealthComponent.class).isPresent());
     }
+
+    @Test
+    void testGameObjectBuilder() {
+        final var gameObject = new GameObjectImpl.BuilderImpl()
+                .addComponent(new Transform2D())
+                .addComponent(new HealthComponentImpl(100))
+                .build();
+
+        assertEquals(2, gameObject.getComponents().stream().count());
+    }
 }
