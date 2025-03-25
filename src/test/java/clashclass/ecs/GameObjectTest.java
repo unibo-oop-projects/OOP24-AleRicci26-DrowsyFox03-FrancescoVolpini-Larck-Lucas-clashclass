@@ -1,9 +1,11 @@
 package clashclass.ecs;
 
+import clashclass.commons.HealthComponent;
+import clashclass.commons.HealthComponentImpl;
 import clashclass.commons.Vector2D;
-import org.junit.jupiter.api.Test;
-
 import clashclass.commons.Transform2D;
+
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -45,5 +47,14 @@ class GameObjectTest {
 
         assertTrue(returnedComponent.isPresent());
         assertEquals(component1.getPosition(), returnedComponent.get().getPosition());
+    }
+
+    @Test
+    void testGetComponentFromGameObjectAsInterfaceType() {
+        final var gameObject = new GameObjectImpl();
+
+        gameObject.addComponent(new HealthComponentImpl(100));
+
+        assertTrue(gameObject.getComponentOfType(HealthComponent.class).isPresent());
     }
 }
