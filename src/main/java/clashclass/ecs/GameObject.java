@@ -37,4 +37,25 @@ public interface GameObject {
      * @return all the components
      */
     Set<Component> getComponents();
+
+    /**
+     * Represents a fluent Builder for a GameObject.
+     */
+    interface Builder {
+        /**
+         * Adds a component to the Builder.
+         *
+         * @param component the component to add
+         *
+         * @return the same instance of this builder
+         */
+        Builder addComponent(Component component);
+
+        /**
+         * Builds the GameObject.
+         *
+         * @return the GameObject that has been built.
+         */
+        GameObject build();
+    }
 }

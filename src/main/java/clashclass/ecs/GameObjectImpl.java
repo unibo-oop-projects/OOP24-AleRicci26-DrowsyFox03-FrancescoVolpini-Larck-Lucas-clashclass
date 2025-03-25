@@ -60,4 +60,42 @@ public class GameObjectImpl implements GameObject {
     public final Set<Component> getComponents() {
         return Collections.unmodifiableSet(components);
     }
+
+    /**
+     * Represents a GameObject.Builder implementation.
+     */
+    static class BuilderImpl implements Builder {
+        private final Set<Component> components;
+
+        /**
+         * Constructs the Builder.
+         */
+        BuilderImpl() {
+            this.components = new HashSet<>();
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public Builder addComponent(final Component component) {
+            this.components.add(component);
+            return this;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public GameObject build() {
+            if (this.components.isEmpty()) {
+                throw new IllegalStateException("There must be at least one component");
+            }
+
+            final var gameObject = new GameObjectImpl();
+            this.components.forEach(gameObject::addComponent);
+
+            return gameObject;
+        }
+    }
 }
