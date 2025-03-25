@@ -1,9 +1,11 @@
 package clashclass.ecs;
 
+import clashclass.commons.Vector2D;
 import org.junit.jupiter.api.Test;
 
 import clashclass.commons.Transform2D;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GameObjectTest {
@@ -24,5 +26,24 @@ class GameObjectTest {
         final var transform = gameObject.getComponentOfType(Transform2D.class);
 
         assertTrue(transform.isPresent());
+    }
+
+    @Test
+    void testOnlyFirstComponentInGameObjectIsReturned() {
+        final var gameObject = new GameObjectImpl();
+
+        final var component1 = new Transform2D();
+        final var component2 = new Transform2D();
+
+        component1.setPosition(new Vector2D(0, 0));
+        component2.setPosition(new Vector2D(1, 1));
+
+        gameObject.addComponent(component1);
+        gameObject.addComponent(component2);
+
+        final var returnedComponent = gameObject.getComponentOfType(Transform2D.class);
+
+        assertTrue(returnedComponent.isPresent());
+        assertEquals(component1.getPosition(), returnedComponent.get().getPosition());
     }
 }

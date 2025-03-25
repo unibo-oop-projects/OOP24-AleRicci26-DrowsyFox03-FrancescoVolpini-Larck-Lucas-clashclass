@@ -36,6 +36,7 @@ public class GameObjectImpl implements GameObject {
      */
     @Override
     public final void addComponent(final Component component) {
+        component.setGameObject(this);
         this.components.add(component);
     }
 
