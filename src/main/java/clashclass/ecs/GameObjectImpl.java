@@ -79,13 +79,13 @@ public class GameObjectImpl implements GameObject {
     /**
      * Represents a GameObject.Builder implementation.
      */
-    static class BuilderImpl implements Builder {
+    public static class BuilderImpl implements Builder {
         private final Set<Component> components;
 
         /**
          * Constructs the Builder.
          */
-        BuilderImpl() {
+        public BuilderImpl() {
             this.components = new LinkedHashSet<>();
         }
 

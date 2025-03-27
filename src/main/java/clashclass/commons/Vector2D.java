@@ -21,4 +21,22 @@ public record Vector2D(double x, double y) {
 
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
+
+    /**
+     * Creates a vector with zero in both x and y components.
+     *
+     * @return the vector with (0,0)
+     */
+    public static Vector2D zero() {
+        return new Vector2D(0, 0);
+    }
+
+    /**
+     * Creates a vector with one in both x and y components.
+     *
+     * @return the vector with (1,1)
+     */
+    public static Vector2D one() {
+        return new Vector2D(1, 1);
+    }
 }
