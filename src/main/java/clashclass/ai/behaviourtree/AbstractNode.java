@@ -1,4 +1,4 @@
-package clashclass.ai;
+package clashclass.ai.behaviourtree;
 
 /**
  * Represents an abstract implementation of Node.

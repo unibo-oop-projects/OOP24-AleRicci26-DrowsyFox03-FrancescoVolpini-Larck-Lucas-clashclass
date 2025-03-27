@@ -1,4 +1,4 @@
-package clashclass.ai;
+package clashclass.ai.behaviourtree;
 
 import clashclass.ecs.Component;
 import clashclass.ecs.UpdateProvider;

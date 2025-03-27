@@ -1,4 +1,4 @@
-package clashclass.ai;
+package clashclass.ai.behaviourtree;
 
 /**
  * Represents a node that can wait a certain amount of time.

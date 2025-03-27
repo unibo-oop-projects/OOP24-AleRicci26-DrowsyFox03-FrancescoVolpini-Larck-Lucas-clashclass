@@ -1,4 +1,4 @@
-package clashclass.ai;
+package clashclass.ai.behaviourtree;
 
 /**
  * Represents a single Node in a BehaviourTree.

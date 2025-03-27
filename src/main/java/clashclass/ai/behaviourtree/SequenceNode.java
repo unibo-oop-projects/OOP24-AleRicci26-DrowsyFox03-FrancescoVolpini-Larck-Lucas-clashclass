@@ -1,4 +1,4 @@
-package clashclass.ai;
+package clashclass.ai.behaviourtree;
 
 import java.util.List;
 
