@@ -11,7 +11,7 @@ public class PlayerTroopFactoryImpl extends AbstractTroopFactory {
      * {@inheritDoc}
      */
     @Override
-    public GameObject createBarbarian(Vector2D position) {
+    public GameObject createBarbarian(final Vector2D position) {
         return super.createBarbarian(position);
     }
 
@@ -19,7 +19,7 @@ public class PlayerTroopFactoryImpl extends AbstractTroopFactory {
      * {@inheritDoc}
      */
     @Override
-    public GameObject createArcher(Vector2D position) {
+    public GameObject createArcher(final Vector2D position) {
         return super.createArcher(position);
     }
 }

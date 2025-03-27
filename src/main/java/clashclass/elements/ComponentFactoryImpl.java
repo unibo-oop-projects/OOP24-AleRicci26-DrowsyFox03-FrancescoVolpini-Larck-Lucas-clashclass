@@ -5,6 +5,9 @@ import clashclass.commons.Transform2D;
 import clashclass.commons.Vector2D;
 import clashclass.ecs.Component;
 
+/**
+ * Represents an implementation of ComponentFactory.
+ */
 public class ComponentFactoryImpl implements ComponentFactory {
     /**
      * {@inheritDoc}

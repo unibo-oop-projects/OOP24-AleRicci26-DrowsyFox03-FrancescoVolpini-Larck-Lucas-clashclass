@@ -10,6 +10,11 @@ import clashclass.ecs.GameObjectImpl;
 public abstract class AbstractTroopFactory implements TroopFactory {
     private final ComponentFactory componentFactory = new ComponentFactoryImpl();
 
+    /**
+     * Gets the component factory.
+     *
+     * @return the component factory
+     */
     protected final ComponentFactory getComponentFactory() {
         return this.componentFactory;
     }
@@ -18,7 +23,7 @@ public abstract class AbstractTroopFactory implements TroopFactory {
      * {@inheritDoc}
      */
     @Override
-    public GameObject createBarbarian(Vector2D position) {
+    public GameObject createBarbarian(final Vector2D position) {
         return new GameObjectImpl.BuilderImpl()
                 .addComponent(this.componentFactory.createTransform2D(position))
                 .addComponent(this.componentFactory.createHealth(100))
@@ -29,7 +34,7 @@ public abstract class AbstractTroopFactory implements TroopFactory {
      * {@inheritDoc}
      */
     @Override
-    public GameObject createArcher(Vector2D position) {
+    public GameObject createArcher(final Vector2D position) {
         return new GameObjectImpl.BuilderImpl()
                 .addComponent(this.componentFactory.createTransform2D(position))
                 .addComponent(this.componentFactory.createHealth(70))

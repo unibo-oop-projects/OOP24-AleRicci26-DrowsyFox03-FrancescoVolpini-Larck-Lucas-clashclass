@@ -17,7 +17,7 @@ public class Transform2D extends AbstractComponent {
      * @param rotation the initial rotation
      * @param scale the initial scale
      */
-    public Transform2D(Vector2D position, Vector2D rotation, Vector2D scale) {
+    public Transform2D(final Vector2D position, final Vector2D rotation, final Vector2D scale) {
         this.position = position;
         this.rotation = rotation;
         this.scale = scale;
