@@ -13,6 +13,7 @@ public class GameObjectImpl implements GameObject {
 
     private final int uniqueId;
     private final Set<Component> components;
+    private boolean destroyedFlag;
 
     /**
      * Constructs the GameObject.
@@ -21,6 +22,7 @@ public class GameObjectImpl implements GameObject {
         // this.uniqueId = uniqueIdProgression++;
         this.uniqueId = 0;
         this.components = new LinkedHashSet<>();
+        this.destroyedFlag = false;
     }
 
     /**
@@ -59,6 +61,19 @@ public class GameObjectImpl implements GameObject {
     @Override
     public final Set<Component> getComponents() {
         return Collections.unmodifiableSet(components);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void destroy() {
+        this.destroyedFlag = true;
+    }
+
+    @Override
+    public final boolean isMarkedAsDestroyed() {
+        return this.destroyedFlag;
     }
 
     /**

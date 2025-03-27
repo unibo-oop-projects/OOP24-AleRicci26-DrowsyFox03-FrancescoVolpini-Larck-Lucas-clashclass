@@ -39,6 +39,18 @@ public interface GameObject {
     Set<Component> getComponents();
 
     /**
+     * Destroys the GameObject and all its components.
+     */
+    void destroy();
+
+    /**
+     * Returns whether the GameObject has been marked to be destroyed.
+     *
+     * @return true if the GameObject is marked as destroyed, false otherwise
+     */
+    boolean isMarkedAsDestroyed();
+
+    /**
      * Represents a fluent Builder for a GameObject.
      */
     interface Builder {
