@@ -24,9 +24,8 @@ public abstract class AbstractTroopFactory implements TroopFactory {
      */
     @Override
     public GameObject createBarbarian(final Vector2D position) {
-        return new GameObjectImpl.BuilderImpl()
-                .addComponent(this.componentFactory.createTransform2D(position))
-                .addComponent(this.componentFactory.createHealth(100))
+        return this.addBarbarianComponents(new GameObjectImpl.BuilderImpl()
+                .addComponent(this.componentFactory.createTransform2D(position)))
                 .build();
     }
 
@@ -35,9 +34,26 @@ public abstract class AbstractTroopFactory implements TroopFactory {
      */
     @Override
     public GameObject createArcher(final Vector2D position) {
-        return new GameObjectImpl.BuilderImpl()
-                .addComponent(this.componentFactory.createTransform2D(position))
-                .addComponent(this.componentFactory.createHealth(70))
+        return this.addArcherComponents(new GameObjectImpl.BuilderImpl()
+                .addComponent(this.componentFactory.createTransform2D(position)))
                 .build();
     }
+
+    /**
+     * Completes the creation of a barbarian GameObject.
+     *
+     * @param builder the builder of the GameObject
+     *
+     * @return the builder after the addition of the new components
+     */
+    protected abstract GameObject.Builder addBarbarianComponents(GameObject.Builder builder);
+
+    /**
+     * Completes the creation of an archer GameObject.
+     *
+     * @param builder the builder of the GameObject
+     *
+     * @return the builder after the addition of the new components
+     */
+    protected abstract GameObject.Builder addArcherComponents(GameObject.Builder builder);
 }

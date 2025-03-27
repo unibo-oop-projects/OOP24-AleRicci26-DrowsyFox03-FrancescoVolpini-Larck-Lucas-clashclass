@@ -1,6 +1,5 @@
 package clashclass.elements;
 
-import clashclass.commons.Vector2D;
 import clashclass.ecs.GameObject;
 
 /**
@@ -11,15 +10,15 @@ public class PlayerTroopFactoryImpl extends AbstractTroopFactory {
      * {@inheritDoc}
      */
     @Override
-    public GameObject createBarbarian(final Vector2D position) {
-        return super.createBarbarian(position);
+    protected GameObject.Builder addBarbarianComponents(final GameObject.Builder builder) {
+        return builder;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public GameObject createArcher(final Vector2D position) {
-        return super.createArcher(position);
+    protected GameObject.Builder addArcherComponents(final GameObject.Builder builder) {
+        return builder;
     }
 }

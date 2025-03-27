@@ -24,6 +24,22 @@ public class Transform2D extends AbstractComponent {
     }
 
     /**
+     * Constructs the Transform with a position and default rotation and scale.
+     *
+     * @param position the initial position
+     */
+    public Transform2D(final Vector2D position) {
+        this(position, Vector2D.zero(), Vector2D.one());
+    }
+
+    /**
+     * Constructs a default Transform.
+     */
+    public Transform2D() {
+        this(Vector2D.zero(), Vector2D.one(), Vector2D.zero());
+    }
+
+    /**
      * Gets the position component.
      *
      * @return the position
