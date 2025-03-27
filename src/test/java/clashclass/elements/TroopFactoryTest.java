@@ -3,9 +3,9 @@ package clashclass.elements;
 import clashclass.commons.HealthComponent;
 import clashclass.commons.Transform2D;
 import clashclass.commons.Vector2D;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TroopFactoryTest {
