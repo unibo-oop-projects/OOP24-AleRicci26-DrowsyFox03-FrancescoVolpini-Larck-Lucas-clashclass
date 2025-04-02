@@ -3,7 +3,7 @@ package clashclass.ai.pathfinding;
 /**
  * Represents a node used for pathfinding.
  */
-public interface Node {
+public interface PathNode {
     /**
      * Gets the x component of the node.
      *

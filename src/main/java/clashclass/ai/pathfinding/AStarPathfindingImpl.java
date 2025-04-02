@@ -10,7 +10,7 @@ public class AStarPathfindingImpl implements PathfindingAlgorithm {
      * {@inheritDoc}
      */
     @Override
-    public List<Node> findPath(final List<Node> nodes, final Node start, final Node end) {
+    public List<PathNode> findPath(final List<PathNode> nodes, final PathNode start, final PathNode end) {
         return List.of();
     }
 }

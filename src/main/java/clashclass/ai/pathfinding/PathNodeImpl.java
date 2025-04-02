@@ -3,7 +3,7 @@ package clashclass.ai.pathfinding;
 /**
  * Represents an implementation of a pathfinding Node.
  */
-public class NodeImpl implements Node {
+public class PathNodeImpl implements PathNode {
     private final int x;
     private final int y;
 
@@ -13,7 +13,7 @@ public class NodeImpl implements Node {
      * @param x the x component
      * @param y the y component
      */
-    public NodeImpl(final int x, final int y) {
+    public PathNodeImpl(final int x, final int y) {
         this.x = x;
         this.y = y;
     }

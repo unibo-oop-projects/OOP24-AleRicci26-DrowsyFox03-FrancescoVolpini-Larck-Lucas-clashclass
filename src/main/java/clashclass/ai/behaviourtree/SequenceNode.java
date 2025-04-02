@@ -11,7 +11,7 @@ public class SequenceNode extends AbstractCompositeNode {
      *
      * @param children the list of child nodes
      */
-    public SequenceNode(final List<AbstractNode> children) {
+    public SequenceNode(final List<AbstractBehaviourNode> children) {
         super(children);
     }
 

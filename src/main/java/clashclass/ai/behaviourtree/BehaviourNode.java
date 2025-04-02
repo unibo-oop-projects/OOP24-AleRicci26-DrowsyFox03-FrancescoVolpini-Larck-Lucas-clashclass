@@ -3,7 +3,7 @@ package clashclass.ai.behaviourtree;
 /**
  * Represents a single Node in a BehaviourTree.
  */
-public interface Node {
+public interface BehaviourNode {
     /**
      * Initializes the node properties before processing it.
      */

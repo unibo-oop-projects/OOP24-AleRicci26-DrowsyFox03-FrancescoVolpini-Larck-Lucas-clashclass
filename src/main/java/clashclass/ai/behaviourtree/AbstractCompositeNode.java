@@ -5,8 +5,8 @@ import java.util.List;
 /**
  * Represents an abstract composite node, a node which can have children.
  */
-public abstract class AbstractCompositeNode extends AbstractNode {
-    private final List<AbstractNode> children;
+public abstract class AbstractCompositeNode extends AbstractBehaviourNode {
+    private final List<AbstractBehaviourNode> children;
     private int currentChildIndex;
 
     /**
@@ -14,7 +14,7 @@ public abstract class AbstractCompositeNode extends AbstractNode {
      *
      * @param children the list of child nodes
      */
-    public AbstractCompositeNode(final List<AbstractNode> children) {
+    public AbstractCompositeNode(final List<AbstractBehaviourNode> children) {
         this.children = children;
     }
 
@@ -31,7 +31,7 @@ public abstract class AbstractCompositeNode extends AbstractNode {
      *
      * @return the child nodes
      */
-    protected final List<AbstractNode> getChildren() {
+    protected final List<AbstractBehaviourNode> getChildren() {
         return this.children;
     }
 

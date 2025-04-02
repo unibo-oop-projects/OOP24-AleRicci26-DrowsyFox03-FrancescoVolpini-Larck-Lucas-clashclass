@@ -3,7 +3,7 @@ package clashclass.ai.behaviourtree;
 /**
  * Represents an abstract implementation of Node.
  */
-public abstract class AbstractNode implements Node {
+public abstract class AbstractBehaviourNode implements BehaviourNode {
     /**
      * {@inheritDoc}
      */
