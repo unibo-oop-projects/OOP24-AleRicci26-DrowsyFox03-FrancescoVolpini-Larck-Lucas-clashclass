@@ -15,6 +15,7 @@ public class PathNodeImpl implements PathNode {
      *
      * @param x the x component
      * @param y the y component
+     * @param cost the cost of the node
      */
     public PathNodeImpl(final int x, final int y, final float cost) {
         this.x = x;
