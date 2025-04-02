@@ -1,5 +1,7 @@
 package clashclass.ai.pathfinding;
 
+import clashclass.commons.Vector2D;
+
 /**
  * Represents a node used for pathfinding.
  */
@@ -17,4 +19,18 @@ public interface PathNode {
      * @return the y component of the node
      */
     int getY();
+
+    /**
+     * Gets the position vector of the node.
+     *
+     * @return the position vector with components (x,y)
+     */
+    Vector2D getPosition();
+
+    /**
+     * Gets the cost of the node.
+     *
+     * @return the cost of the node
+     */
+    float getCost();
 }
