@@ -5,14 +5,17 @@ package clashclass.ecs;
  */
 public class GameEngineImpl implements GameEngine {
     private final GameScene currentScene;
-    private boolean isRunning;
+    private final GameLoop gameLoop;
+    private final Thread gameLoopThread;
 
     /**
      * Constructs the game engine.
      */
     public GameEngineImpl() {
         this.currentScene = new GameSceneImpl();
-        this.isRunning = false;
+        this.gameLoop = new GameLoopImpl(60.0f);
+        this.gameLoop.setCurrentScene(this.currentScene);
+        this.gameLoopThread = new Thread(this.gameLoop);
     }
 
     /**
@@ -20,11 +23,7 @@ public class GameEngineImpl implements GameEngine {
      */
     @Override
     public final void start() {
-        this.isRunning = true;
-
-        while (this.isRunning) {
-            this.currentScene.updateGameObjects(0);
-        }
+        this.gameLoopThread.start();
     }
 
     /**
@@ -32,7 +31,7 @@ public class GameEngineImpl implements GameEngine {
      */
     @Override
     public final void stop() {
-        this.isRunning = false;
+        this.gameLoopThread.interrupt();
     }
 
     /**
