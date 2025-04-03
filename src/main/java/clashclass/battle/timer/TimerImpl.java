@@ -1,5 +1,7 @@
 package clashclass.battle.timer;
-
+/**
+ * Represent the Timer Implementation
+ */
 public class TimerImpl implements Timer {
 
     private static final long TIME_UNIT = 1000;  //the time unit is 1 second
@@ -14,7 +16,9 @@ public class TimerImpl implements Timer {
         this.seconds = 0;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         if (isRunning) {
@@ -26,7 +30,9 @@ public class TimerImpl implements Timer {
         timerThread.start();
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void stop() {
         if (!isRunning) {
@@ -43,7 +49,9 @@ public class TimerImpl implements Timer {
         }
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onFinished() {
         if (isRunning) {
