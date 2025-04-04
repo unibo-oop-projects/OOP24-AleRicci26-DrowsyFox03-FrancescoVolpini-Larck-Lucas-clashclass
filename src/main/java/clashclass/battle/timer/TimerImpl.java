@@ -1,11 +1,15 @@
 package clashclass.battle.timer;
+
+import java.util.Optional;
+
 /**
  * Represent the Timer Implementation
  */
 public class TimerImpl implements Timer {
 
     private static final long TIME_UNIT = 1000;  //the time unit is 1 second
-    private static final int TIME_LIMIT = 180;   //time limit in seconds (3 minutes)
+    private static final int TIME_LIMIT = 180;//time limit in seconds (3 minutes)
+    private static final int RESET=0;
     private long seconds;
     private boolean isRunning;
     private Thread timerThread;
@@ -13,7 +17,7 @@ public class TimerImpl implements Timer {
 
     public TimerImpl() {
         this.isRunning = false;
-        this.seconds = 0;
+        this.seconds = RESET;
     }
 
     /**
@@ -24,8 +28,8 @@ public class TimerImpl implements Timer {
         if (isRunning) {
             return;
         }
-        isRunning = true;
-        seconds = 0;
+        switchIsRunning();
+        seconds = RESET;
         timerThread = new Thread(this::runTimer);
         timerThread.start();
     }
@@ -38,8 +42,8 @@ public class TimerImpl implements Timer {
         if (!isRunning) {
             return;
         }
-        isRunning = false;
-        if (timerThread != null && timerThread.isAlive()) {
+        switchIsRunning();
+        if (Optional.ofNullable(timerThread).isPresent() && timerThread.isAlive()) {
             timerThread.interrupt();
             try {
                 timerThread.join();     // Wait for the timer thread to finish execution
@@ -78,4 +82,8 @@ public class TimerImpl implements Timer {
         }
     }
 
+
+    private void switchIsRunning() {
+        isRunning = !isRunning;
+    }
 }
