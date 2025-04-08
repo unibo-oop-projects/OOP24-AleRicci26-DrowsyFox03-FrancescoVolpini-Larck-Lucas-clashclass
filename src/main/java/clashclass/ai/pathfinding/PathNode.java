@@ -1,6 +1,9 @@
 package clashclass.ai.pathfinding;
 
 import clashclass.commons.Vector2D;
+import clashclass.ecs.GameObject;
+
+import java.util.Optional;
 
 /**
  * Represents a node used for pathfinding.
@@ -33,4 +36,11 @@ public interface PathNode {
      * @return the cost of the node
      */
     float getCost();
+
+    /**
+     * Gets the GameObject associated with this node, if any.
+     *
+     * @return the GameObject associated, if present, otherwise an empty Optional
+     */
+    Optional<GameObject> getRefGameObject();
 }
