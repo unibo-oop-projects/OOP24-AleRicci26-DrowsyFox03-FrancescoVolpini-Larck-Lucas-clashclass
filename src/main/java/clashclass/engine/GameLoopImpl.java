@@ -1,4 +1,4 @@
-package clashclass.ecs;
+package clashclass.engine;
 
 /**
  * Represents a GameLoop implementation.

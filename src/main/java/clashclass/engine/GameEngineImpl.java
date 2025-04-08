@@ -1,4 +1,6 @@
-package clashclass.ecs;
+package clashclass.engine;
+
+import clashclass.ecs.GameObject;
 
 /**
  * Represents a GameEngine implementation.

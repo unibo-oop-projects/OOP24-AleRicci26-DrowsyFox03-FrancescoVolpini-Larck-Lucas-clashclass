@@ -1,4 +1,6 @@
-package clashclass.ecs;
+package clashclass.engine;
+
+import clashclass.ecs.GameObject;
 
 import java.util.function.Consumer;
 

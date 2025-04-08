@@ -1,4 +1,6 @@
-package clashclass.ecs;
+package clashclass.engine;
+
+import clashclass.ecs.GameObject;
 
 /**
  * Represents the game engine, which holds all the GameObjects in a specific scene.

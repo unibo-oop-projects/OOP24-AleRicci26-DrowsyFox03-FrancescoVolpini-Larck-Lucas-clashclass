@@ -1,4 +1,7 @@
-package clashclass.ecs;
+package clashclass.engine;
+
+import clashclass.ecs.GameObject;
+import clashclass.ecs.UpdateProvider;
 
 import java.util.HashSet;
 import java.util.Set;
