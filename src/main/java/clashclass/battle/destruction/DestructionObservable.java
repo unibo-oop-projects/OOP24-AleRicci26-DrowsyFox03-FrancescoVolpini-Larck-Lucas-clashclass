@@ -1,21 +1,27 @@
 package clashclass.battle.destruction;
 
-//destructionObservable deve chiamare update di UpdateProvider
-//update va implementato all interno di destructionObservable
+import clashclass.ecs.Component;
 
-public interface DestructionObservable {
+/**
+ * Indicates that an object can be observed for destruction events.
+ *
+ * Each building in the game has its own DestructionObservable instance,
+ * which allows DestructionObservers to subscribe and receive notifications
+ * when the building is destroyed.
+ */
+public interface DestructionObservable extends Component {
     /**
-     * Add an observer to the set of Observers
+     * Add an observer to the set of Observers.
+     *
      * @param observer to add
      */
     void addObserver(DestructionObserver observer);
 
     /**
-     * Remove an observer to the set of Observers
+     * Remove an observer to the set of Observers.
+     *
      * @param observer to remove
      */
     void removeObserver(DestructionObserver observer);
-
 }
-
 

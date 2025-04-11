@@ -1,4 +1,6 @@
 package clashclass.battle.destruction;
 
-public interface EndBattleAllVillageDestroyed {
+public interface EndBattleAllVillageDestroyed extends DestructionObserver{
+
+   boolean isFullyDestroyed();
 }
