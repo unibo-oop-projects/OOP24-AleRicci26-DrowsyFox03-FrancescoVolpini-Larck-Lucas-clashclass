@@ -1,7 +1,5 @@
 package clashclass.resources;
 
-import java.time.temporal.ValueRange;
-
 public class ResourceManagerImpl implements ResourceManager {
     private final int MAX_VALUE;
     private int currentValue;
@@ -12,22 +10,12 @@ public class ResourceManagerImpl implements ResourceManager {
     }
     @Override
     public void increase(int value) {
-        int updatedValue = this.currentValue + value;
-        if (ValueRange.of(0, MAX_VALUE).isValidIntValue(updatedValue)) {
-            this.currentValue = updatedValue;
-        } else {
-            System.out.println("Value is out of the Range.");
-        }
+        this.currentValue = Math.min(MAX_VALUE, this.currentValue - value);
     }
 
     @Override
     public void decrease(int value) {
-        int updatedValue = this.currentValue - value;
-        if (ValueRange.of(0, MAX_VALUE).isValidIntValue(updatedValue)) {
-            this.currentValue = updatedValue;
-        } else {
-            System.out.println("Value is out of the Range.");
-        }
+        this.currentValue = Math.max(0, this.currentValue - value);
     }
 
     @Override
