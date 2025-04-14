@@ -10,7 +10,7 @@ public class PlayerTroopFactoryImpl extends AbstractTroopFactory {
      * {@inheritDoc}
      */
     @Override
-    protected GameObject.Builder addBarbarianComponents(final GameObject.Builder builder) {
+    protected GameObject.Builder createAdditionalBarbarianComponents(final GameObject.Builder builder) {
         return builder;
     }
 
@@ -18,7 +18,7 @@ public class PlayerTroopFactoryImpl extends AbstractTroopFactory {
      * {@inheritDoc}
      */
     @Override
-    protected GameObject.Builder addArcherComponents(final GameObject.Builder builder) {
+    protected GameObject.Builder createAdditionalArcherComponents(final GameObject.Builder builder) {
         return builder;
     }
 }

@@ -10,7 +10,7 @@ public class BattleTroopFactoryImpl extends AbstractTroopFactory {
      * {@inheritDoc}
      */
     @Override
-    protected GameObject.Builder addBarbarianComponents(final GameObject.Builder builder) {
+    protected GameObject.Builder createAdditionalBarbarianComponents(final GameObject.Builder builder) {
         return builder
                 .addComponent(this.getComponentFactory().createHealth(100));
     }
@@ -19,7 +19,7 @@ public class BattleTroopFactoryImpl extends AbstractTroopFactory {
      * {@inheritDoc}
      */
     @Override
-    protected GameObject.Builder addArcherComponents(final GameObject.Builder builder) {
+    protected GameObject.Builder createAdditionalArcherComponents(final GameObject.Builder builder) {
         return builder
                 .addComponent(this.getComponentFactory().createHealth(70));
     }
