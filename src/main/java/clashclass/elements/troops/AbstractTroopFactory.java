@@ -1,8 +1,10 @@
-package clashclass.elements;
+package clashclass.elements.troops;
 
 import clashclass.commons.Vector2D;
 import clashclass.ecs.GameObject;
 import clashclass.ecs.GameObjectImpl;
+import clashclass.elements.ComponentFactory;
+import clashclass.elements.ComponentFactoryImpl;
 
 import java.util.function.Function;
 

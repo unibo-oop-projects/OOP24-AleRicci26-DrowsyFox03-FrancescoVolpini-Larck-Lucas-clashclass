@@ -1,4 +1,4 @@
-package clashclass.elements;
+package clashclass.elements.troops;
 
 import clashclass.ecs.GameObject;
 

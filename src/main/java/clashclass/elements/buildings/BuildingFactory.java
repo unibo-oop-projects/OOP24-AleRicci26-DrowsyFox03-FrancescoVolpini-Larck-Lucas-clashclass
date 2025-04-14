@@ -1,4 +1,4 @@
-package clashclass.elements;
+package clashclass.elements.buildings;
 
 import clashclass.commons.Vector2D;
 import clashclass.ecs.GameObject;

@@ -1,7 +1,7 @@
 package clashclass.engine;
 
 import clashclass.commons.Vector2D;
-import clashclass.elements.BattleTroopFactoryImpl;
+import clashclass.elements.troops.BattleTroopFactoryImpl;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

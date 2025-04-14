@@ -1,4 +1,4 @@
-package clashclass.elements;
+package clashclass.elements.troops;
 
 import clashclass.commons.HealthComponent;
 import clashclass.commons.Transform2D;
