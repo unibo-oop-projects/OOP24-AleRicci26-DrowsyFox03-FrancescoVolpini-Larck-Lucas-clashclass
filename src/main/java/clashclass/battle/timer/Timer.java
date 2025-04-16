@@ -24,4 +24,11 @@ public interface Timer {
      * Stops the timer and notifies that the time is up.
      */
     void onFinished();
+
+    /**
+     * Returns the current elapsed time in seconds.
+     *
+     * @return elapsed time in seconds.
+     */
+    long getElapsedTime();
 }
