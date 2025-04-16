@@ -1,5 +1,4 @@
 package clashclass.battle.destruction;
-import clashclass.ecs.Component;
 import clashclass.ecs.GameObject;
 import clashclass.ecs.AbstractComponent;
 
