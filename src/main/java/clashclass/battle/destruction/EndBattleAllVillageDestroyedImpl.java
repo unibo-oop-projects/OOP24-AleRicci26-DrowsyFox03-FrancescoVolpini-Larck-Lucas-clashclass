@@ -22,7 +22,8 @@ public class EndBattleAllVillageDestroyedImpl extends AbstractComponent implemen
      */
     @Override
     public boolean isFullyDestroyed() {
-        return BattleReportController.getPercentage()==100?true:false;
+        //return BattleReportController.getPercentage()==100?true:false;
+        return false;
     }
 
     /**
@@ -31,8 +32,8 @@ public class EndBattleAllVillageDestroyedImpl extends AbstractComponent implemen
     @Override
     public void notifyDestruction(GameObject obj) {
         if(isFullyDestroyed()){
+            //AbstractEndBattleEvent.EndBattle();
             obj.destroy();
-            AbstractEndBattleEvent.EndBattle();
         }
     }
 }

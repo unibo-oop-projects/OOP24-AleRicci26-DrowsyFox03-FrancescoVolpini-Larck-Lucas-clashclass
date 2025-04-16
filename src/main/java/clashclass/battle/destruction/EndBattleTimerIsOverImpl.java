@@ -1,11 +1,12 @@
 package clashclass.battle.destruction;
-import clashclass.battle.timer.Timer;
-import clashclass.battle.timer.TimerImpl;
+import clashclass.ecs.Component;
+import clashclass.ecs.GameObject;
+import clashclass.ecs.AbstractComponent;
 
 /**
  * Represent the implementation of EndBattleTimerIsOver
  */
-public class EndBattleTimerIsOverImpl implements EndBattleTimerIsOver{
+public class EndBattleTimerIsOverImpl extends AbstractComponent implements EndBattleTimerIsOver{
 
     /**
      * initialize the timer flag to not finished
@@ -19,7 +20,18 @@ public class EndBattleTimerIsOverImpl implements EndBattleTimerIsOver{
      * {@inheritDoc}
      */
     @Override
-    public boolean IsFinished() {
+    public boolean isFinished() {
         return timeFinished;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void notifyDestruction(GameObject obj) {
+        if(isFinished()){
+            //AbstractEndBattleEvent.EndBattle();
+            obj.destroy();
+        }
     }
 }
