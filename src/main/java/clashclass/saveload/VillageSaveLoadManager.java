@@ -1,75 +1,70 @@
 package clashclass.saveload;
 
-import clashclass.ai.pathfinding.*;
 import clashclass.ecs.GameObject;
+import clashclass.elements.ComponentFactory;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.*;
+/**
+ * Main manager class for handling village save/load operations.
+ */
+public class VillageSaveLoadManager {
+    private final VillageEncoder encoder;
+    private final VillageDecoder playerDecoder;
+    private final VillageDecoder battleDecoder;
+    private final FileWriter fileWriter;
+    private final ComponentFactory componentFactory;
+    private final Path savesDirectory;
 
-
-public class SaveLoadManagerImpl implements SaveLoadManager {
-    private static final String CSV_DELIMITER = ",";
-    private static final String CSV_HEADER = "x,y,cost,hasGameObject";
-    private static final int EXPECTED_CSV_COLUMNS = 4;
-    private static final int INDEX_X = 0;
-    private static final int INDEX_Y = 1;
-    private static final int INDEX_COST = 2;
-    private static final int INDEX_HAS_GAMEOBJECT = 3;
-
-
-    @Override
-    public void saveGridToCSV(PathNodeGrid grid, String filePath) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            // Write header
-            writer.write(CSV_HEADER);
-            writer.newLine();
-
-            // Write nodes data
-            for (PathNode node : grid.getNodes()) {
-                String line = String.format("%d,%d,%.1f,%b",
-                        node.getX(),
-                        node.getY(),
-                        node.getCost(),
-                        node.getRefGameObject().isPresent()
-                );
-                writer.write(line);
-                writer.newLine();
-            }
-        }
+    public VillageSaveLoadManager(
+            VillageEncoder encoder,
+            VillageDecoder playerDecoder,
+            VillageDecoder battleDecoder,
+            FileWriter fileWriter,
+            ComponentFactory componentFactory,
+            Path savesDirectory
+    ) {
+        this.encoder = encoder;
+        this.playerDecoder = playerDecoder;
+        this.battleDecoder = battleDecoder;
+        this.fileWriter = fileWriter;
+        this.componentFactory = componentFactory;
+        this.savesDirectory = savesDirectory;
     }
 
-    @Override
-    public PathNodeGrid loadGridFromCSV(String filePath) throws IOException {
+    /**
+     * Saves a collection of GameObjects to file.
+     * @param gameObjects The GameObjects to save
+     * @param fileName The name of the save file
+     * @throws IOException If saving fails
+     */
+    public void saveVillage(Set<GameObject> gameObjects, String fileName) throws IOException {
+        String encoded = encoder.encode(gameObjects);
+        Path filePath = savesDirectory.resolve(fileName + ".csv");
+        fileWriter.writeToFile(encoded, filePath);
+    }
 
-        Set<PathNode> nodes = new HashSet<>();
-        int maxSize = 0;
+    /**
+     * Loads GameObjects for a player village from file.
+     * @param fileName The name of the save file
+     * @return Set of loaded GameObjects
+     * @throws IOException If loading fails
+     */
+    public Set<GameObject> loadPlayerVillage(String fileName) throws IOException {
+        String data = Files.readString(savesDirectory.resolve(fileName + ".csv"));
+        return playerDecoder.decode(data);
+    }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            // Skip header
-            reader.readLine();
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] values = line.split(CSV_DELIMITER);
-                if (values.length != EXPECTED_CSV_COLUMNS) {
-                    throw new IOException("Invalid CSV format");
-                }
-
-                int x = Integer.parseInt(values[INDEX_X]);
-                int y = Integer.parseInt(values[INDEX_Y]);
-                float cost = Float.parseFloat(values[INDEX_COST]);
-                boolean hasGameObject = Boolean.parseBoolean(values[INDEX_HAS_GAMEOBJECT]);
-
-                // Keep track of grid size
-                maxSize = Math.max(maxSize, Math.max(x, y) + 1);
-
-                // Create node
-                PathNode node = new PathNodeImpl(x, y, cost, null);
-                nodes.add(node);
-            }
-        }
-
-        return new PathNodeGridImpl(maxSize, nodes);
+    /**
+     * Loads GameObjects for a battle village from file.
+     * @param fileName The name of the save file
+     * @return Set of loaded GameObjects
+     * @throws IOException If loading fails
+     */
+    public Set<GameObject> loadBattleVillage(String fileName) throws IOException {
+        String data = Files.readString(savesDirectory.resolve(fileName + ".csv"));
+        return battleDecoder.decode(data);
     }
 }
 
