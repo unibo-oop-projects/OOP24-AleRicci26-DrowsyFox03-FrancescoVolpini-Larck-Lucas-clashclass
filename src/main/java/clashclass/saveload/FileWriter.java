@@ -1,5 +1,8 @@
 package clashclass.saveload;
 
+import java.io.IOException;
+import java.nio.file.Path;
+
 /**
  * Interface for writing data to files.
  */
@@ -11,6 +14,6 @@ public interface FileWriter {
      * @param filePath the path where to write the file
      * @throws IOException if there's an error writing the file
      */
-    void writeToFile(String data, String filePath) throws IOException;
+    void writeToFile(String data, Path filePath) throws IOException;
 }
 
