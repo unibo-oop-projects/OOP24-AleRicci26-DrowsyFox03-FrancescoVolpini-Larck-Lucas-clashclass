@@ -28,7 +28,7 @@ public class VillageEncoderImpl implements VillageEncoder {
 
             Vector2D position = transform.getPosition();
 
-            builder.append(getGameObjectType(gameObject))
+            builder.append(getGameObjectType(gameObject)) //TO BE: use enum class for unique ID
                     .append(CSV_DELIMITER)
                     .append(position.x())
                     .append(CSV_DELIMITER)
@@ -60,7 +60,7 @@ public class VillageEncoderImpl implements VillageEncoder {
     }
     private String encodeComponent(Component component) {
         // Add specific component encoding logic here
-        return null; // Placeholder
+        return null;
     }
 
 }
