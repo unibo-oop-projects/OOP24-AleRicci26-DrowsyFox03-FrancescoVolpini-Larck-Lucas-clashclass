@@ -6,7 +6,7 @@ import clashclass.ecs.Component;
  * Indicates that an object can be observed for destruction events.
  *
  * Each building in the game has its own DestructionObservable instance,
- * which allows DestructionObservers to subscribe and receive notifications
+ * which allows DestructionObservers to subscribe and get notified
  * when the building is destroyed.
  */
 public interface DestructionObservable extends Component {
