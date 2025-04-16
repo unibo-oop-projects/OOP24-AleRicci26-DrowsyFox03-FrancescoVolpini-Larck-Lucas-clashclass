@@ -31,7 +31,6 @@ public class EndBattleAllVillageDestroyedImpl extends AbstractComponent implemen
     @Override
     public void notifyDestruction(GameObject obj) {
         if(isFullyDestroyed()){
-            //qui vanno distrutti tutti gli oggetti effettivamente
             obj.destroy();
             AbstractEndBattleEvent.EndBattle();
         }
