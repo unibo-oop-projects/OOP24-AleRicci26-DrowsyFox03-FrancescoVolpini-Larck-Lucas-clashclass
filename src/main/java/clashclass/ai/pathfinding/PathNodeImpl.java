@@ -66,4 +66,9 @@ public class PathNodeImpl implements PathNode {
     public Optional<GameObject> getRefGameObject() {
         return this.refGameObject;
     }
+
+    @Override
+    public String toString() {
+        return "(" + this.position.x() + "," + this.position.y() + ")";
+    }
 }

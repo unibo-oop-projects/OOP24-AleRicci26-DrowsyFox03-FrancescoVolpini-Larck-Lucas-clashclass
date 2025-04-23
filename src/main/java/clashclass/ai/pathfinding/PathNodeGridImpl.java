@@ -63,10 +63,11 @@ public class PathNodeGridImpl implements PathNodeGrid {
         final var kernel = List.of(-1, 0, 1);
 
         return kernel.stream()
-                .filter(i -> x + i > 0 && x + i < size)
+                .filter(i -> x + i >= 0 && x + i < size)
                 .flatMap(i -> kernel.stream()
-                        .filter(j -> y + j > 0 && y + j < size)
-                        .map(j -> this.nodes[x + i][x + j]))
+                        .filter(j -> y + j >= 0 && y + j < size &&
+                                !(i == 0 && j == 0) && (i == 0 || j == 0))
+                        .map(j -> this.nodes[x + i][y + j]))
                 .collect(Collectors.toUnmodifiableSet());
     }
 

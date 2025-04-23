@@ -33,15 +33,33 @@ public class AStarPathfindingImpl implements PathfindingAlgorithm {
                 .map(AStarPathNode::new)
                 .toList();
 
-        final var start = new AStarPathNode(startPathNode);
-        final var end = new AStarPathNode(endPathNode);
+        final var startTemp = new AStarPathNode(startPathNode);
+        final var endTemp = new AStarPathNode(endPathNode);
+
+        final var start = nodes.stream()
+                .filter(node -> node.equals(startTemp))
+                .toList()
+                .get(0);
+
+        final var end = nodes.stream()
+                .filter(node -> node.equals(endTemp))
+                .toList()
+                .get(0);
 
         this.openSet.clear();
         this.closedSet.clear();
 
+        nodes.forEach(node -> {
+                node.setCostH(this.distanceHeuristic.calculateDistance(node.getPosition(), end.getPosition()));
+                node.setCostF(node.getCostG() + node.getCostH());
+        });
+
         start.setCostG(0.0f);
         start.setCostH(this.distanceHeuristic.calculateDistance(start.getPosition(), end.getPosition()));
         start.setCostF(start.getCostG() + start.getCostH());
+
+        end.setCostH(0.0f);
+        end.setCostF(start.getCostG() + start.getCostH());
 
         this.openSet.add(start);
 
@@ -68,8 +86,8 @@ public class AStarPathfindingImpl implements PathfindingAlgorithm {
                                 .filter(node ->
                                         (int)node.getPosition().x() == neighborPosition.x() &&
                                         (int)node.getPosition().y() == neighborPosition.y())
-                                .toList()
-                                .getFirst();
+                                .findFirst()
+                                .get();
 
                         if (this.closedSet.contains(neighbor)) {
                             return;
@@ -84,9 +102,8 @@ public class AStarPathfindingImpl implements PathfindingAlgorithm {
                             neighbor.setCostH(this.distanceHeuristic.calculateDistance(neighbor.getPosition(), end.getPosition()));
                             neighbor.setCostF(neighbor.getCostG() + neighbor.getCostH());
 
-                            if (!this.openSet.contains(neighbor)) {
-                                this.openSet.add(neighbor);
-                            }
+                            this.openSet.remove(neighbor);
+                            this.openSet.add(neighbor);
                         }
                     });
         }
@@ -107,6 +124,19 @@ public class AStarPathfindingImpl implements PathfindingAlgorithm {
             this.costH = Float.POSITIVE_INFINITY;
             this.costF = Float.POSITIVE_INFINITY;
             this.parentNode = null;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            AStarPathNode other = (AStarPathNode)obj;
+            return this.getPathNode().getPosition().x() == other.getPathNode().getPosition().x() &&
+                    this.getPathNode().getPosition().y() == other.getPathNode().getPosition().y();
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(this.getPathNode().getPosition());
         }
 
         public PathNode getPathNode() {
