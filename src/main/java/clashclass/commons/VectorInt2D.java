@@ -1,12 +1,12 @@
 package clashclass.commons;
 
 /**
- * Represents a Vector in two dimensions (x,y).
+ * Represents an integer Vector in two dimensions (x,y).
  *
  * @param x the x component of the vector
  * @param y the y component of the vector
  */
-public record Vector2D(double x, double y) {
+public record VectorInt2D(int x, int y) {
     /**
      * Calculates the exact distance between two vectors.
      *
@@ -14,9 +14,9 @@ public record Vector2D(double x, double y) {
      *
      * @return the distance between this vector and the other given vector
      */
-    public double distance(final Vector2D other) {
-        final double deltaX = x - other.x;
-        final double deltaY = y - other.y;
+    public double distance(final VectorInt2D other) {
+        final int deltaX = x - other.x;
+        final int deltaY = y - other.y;
 
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
@@ -26,8 +26,8 @@ public record Vector2D(double x, double y) {
      *
      * @return the vector with (0,0)
      */
-    public static Vector2D zero() {
-        return new Vector2D(0, 0);
+    public static VectorInt2D zero() {
+        return new VectorInt2D(0, 0);
     }
 
     /**
@@ -35,7 +35,7 @@ public record Vector2D(double x, double y) {
      *
      * @return the vector with (1,1)
      */
-    public static Vector2D one() {
-        return new Vector2D(1, 1);
+    public static VectorInt2D one() {
+        return new VectorInt2D(1, 1);
     }
 }

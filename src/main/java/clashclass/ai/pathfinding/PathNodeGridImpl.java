@@ -1,5 +1,7 @@
 package clashclass.ai.pathfinding;
 
+import clashclass.commons.VectorInt2D;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -26,7 +28,8 @@ public class PathNodeGridImpl implements PathNodeGrid {
         IntStream.range(0, size).forEach(i ->
                 IntStream.range(0, size).forEach(j -> {
                     if (this.nodes[i][j] == null) {
-                        this.nodes[i][j] = new PathNodeImpl(i, j, 0, null);
+                        final var position = new VectorInt2D(i, j);
+                        this.nodes[i][j] = new PathNodeImpl(position, 0, Optional.empty());
                     }
                 }));
     }
@@ -60,10 +63,18 @@ public class PathNodeGridImpl implements PathNodeGrid {
         final var kernel = List.of(-1, 0, 1);
 
         return kernel.stream()
-                .filter(i -> x + i > 0 && x + i < size)
+                .filter(i -> x + i >= 0 && x + i < size)
                 .flatMap(i -> kernel.stream()
-                        .filter(j -> y + j > 0 && y + j < size)
-                        .map(j -> this.nodes[x + i][x + j]))
+                        .filter(j -> y + j >= 0 && y + j < size &&
+                                !(i == 0 && j == 0) && (i == 0 || j == 0))
+                        .map(j -> this.nodes[x + i][y + j]))
+                .collect(Collectors.toUnmodifiableSet());
+    }
+
+    @Override
+    public Set<VectorInt2D> getNeighborsPositionsOfNode(PathNode node) {
+        return this.getNeighborsOfNode(node).stream()
+                .map(PathNode::getPosition)
                 .collect(Collectors.toUnmodifiableSet());
     }
 }
