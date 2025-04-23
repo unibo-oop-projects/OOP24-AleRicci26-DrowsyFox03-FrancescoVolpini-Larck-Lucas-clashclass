@@ -1,6 +1,6 @@
 package clashclass.ai.pathfinding;
 
-import clashclass.commons.Vector2D;
+import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
 
 import java.util.Optional;
@@ -28,7 +28,7 @@ public interface PathNode {
      *
      * @return the position vector with components (x,y)
      */
-    Vector2D getPosition();
+    VectorInt2D getPosition();
 
     /**
      * Gets the cost of the node.

@@ -9,11 +9,11 @@ public interface PathfindingAlgorithm {
     /**
      * Finds a path from the start node to the given target, traversing the nodes.
      *
-     * @param nodes all the nodes in the grid
+     * @param nodeGrid the grid which contains all the nodes
      * @param start the start node
      * @param end the end node
      *
      * @return the ordered list of nodes representing the path to the target
      */
-    List<PathNode> findPath(List<PathNode> nodes, PathNode start, PathNode end);
+    List<PathNode> findPath(PathNodeGrid nodeGrid, PathNode start, PathNode end);
 }
