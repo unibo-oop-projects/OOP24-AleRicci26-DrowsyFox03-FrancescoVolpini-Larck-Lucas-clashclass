@@ -2,12 +2,7 @@ package clashclass.ai.pathfinding;
 
 import clashclass.commons.Vector2D;
 
-import java.util.HashSet;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Represents an implementation of A*, a well-know pathfinding algorithm.
@@ -24,7 +19,7 @@ public class AStarPathfindingImpl implements PathfindingAlgorithm {
      * @param distanceHeuristic the heuristic to use for distance estimation
      */
     public AStarPathfindingImpl(final DistanceHeuristic distanceHeuristic) {
-        this.openSet = new PriorityQueue<>();
+        this.openSet = new PriorityQueue<>(Comparator.comparingDouble(AStarPathNode::getCostF));
         this.closedSet = new HashSet<>();
         this.distanceHeuristic = distanceHeuristic;
     }
