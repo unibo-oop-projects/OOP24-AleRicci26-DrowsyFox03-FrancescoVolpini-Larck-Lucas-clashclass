@@ -1,6 +1,7 @@
 package clashclass.battle.destruction;
 import clashclass.ecs.GameObject;
 import clashclass.ecs.AbstractComponent;
+import clashclass.battle.endbattle.AbstractBattleEvent;
 
 /**
  * Represent the implementation of EndBattleTimerIsOver
@@ -29,8 +30,13 @@ public class EndBattleTimerIsOverImpl extends AbstractComponent implements EndBa
     @Override
     public void notifyDestruction(GameObject obj) {
         if(isFinished()){
-            //AbstractEndBattleEvent.EndBattle();
-            obj.destroy();
+            // Use AbstractBattleEvent to end the battle
+            new AbstractBattleEvent() {
+                @Override
+                public void endBattle() {
+                    EndBattle(obj);
+                }
+            }.endBattle();
         }
     }
 }
