@@ -21,6 +21,18 @@ public record Vector2D(double x, double y) {
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 
+    public Vector2D Add(final Vector2D other) {
+        return new Vector2D(this.x + other.x, this.y + other.y);
+    }
+
+    public Vector2D Subtract(final Vector2D other) {
+        return new Vector2D(this.x - other.x, this.y - other.y);
+    }
+
+    public Vector2D Multiply(final double scalar) {
+        return new Vector2D(this.x * scalar, this.y * scalar);
+    }
+
     /**
      * Creates a vector with zero in both x and y components.
      *
