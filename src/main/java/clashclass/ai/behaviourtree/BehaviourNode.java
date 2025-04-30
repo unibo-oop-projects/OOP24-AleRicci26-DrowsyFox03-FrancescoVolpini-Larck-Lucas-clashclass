@@ -1,5 +1,7 @@
 package clashclass.ai.behaviourtree;
 
+import clashclass.ai.behaviourtree.blackboard.Blackboard;
+
 /**
  * Represents a single Node in a BehaviourTree.
  */
@@ -22,6 +24,13 @@ public interface BehaviourNode {
      * Clears the node properties after processing it.
      */
     void onExit();
+
+    /**
+     * Sets the {@link BehaviourTree}'s {@link Blackboard} reference.
+     *
+     * @param blackboard the blackboard reference
+     */
+    void setBlackboard(Blackboard blackboard);
 
     /**
      * Represents the state of a node.

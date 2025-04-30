@@ -1,5 +1,7 @@
 package clashclass.ai.behaviourtree;
 
+import clashclass.ai.behaviourtree.blackboard.Blackboard;
+import clashclass.ai.behaviourtree.blackboard.BlackboardImpl;
 import clashclass.ecs.AbstractComponent;
 
 /**
@@ -7,6 +9,7 @@ import clashclass.ecs.AbstractComponent;
  */
 public class BehaviourTreeImpl extends AbstractComponent implements BehaviourTree {
     private final AbstractBehaviourNode rootNode;
+    private final Blackboard blackboard;
 
     /**
      * Constructs the behaviour tree.
@@ -14,7 +17,9 @@ public class BehaviourTreeImpl extends AbstractComponent implements BehaviourTre
      * @param rootNode the root node of the tree
      */
     public BehaviourTreeImpl(final AbstractBehaviourNode rootNode) {
+        this.blackboard = new BlackboardImpl();
         this.rootNode = rootNode;
+        this.rootNode.setBlackboard(blackboard);
     }
 
     /**
