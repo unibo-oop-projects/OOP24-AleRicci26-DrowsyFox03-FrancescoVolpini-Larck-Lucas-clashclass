@@ -23,7 +23,7 @@ public class EndBattleAllVillageDestroyedImpl extends AbstractComponent implemen
      */
     @Override
     public boolean isFullyDestroyed() {
-        //return BattleReportController.getPercentage()==100?true:false;
+        // return battleReportController.getDestructionPercentage() >= 100.0;
         return false;
     }
 
