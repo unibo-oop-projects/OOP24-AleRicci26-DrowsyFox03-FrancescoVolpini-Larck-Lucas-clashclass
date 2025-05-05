@@ -1,11 +1,19 @@
 package clashclass.battle.battlereport;
 
+/**
+ * Implementation of the BattleReportView interface.
+ * Handles displaying the battle report to the user in a Clash of Clans style.
+ */
 public class BattleReportViewImpl implements BattleReportView {
 
-
+    // Constants for star display
     private static final String STAR_FILLED = "★";
     private static final String STAR_EMPTY = "☆";
 
+    /**
+     * {@inheritDoc}
+     * Updates all display elements with the current model data.
+     */
     @Override
     public void update(final BattleReportModel model) {
         displayDestructionPercentage(model.getDestructionPercentage());
@@ -15,11 +23,20 @@ public class BattleReportViewImpl implements BattleReportView {
         displayTroopCount(model.getTroopCount());
     }
 
+    /**
+     * {@inheritDoc}
+     * Displays the destruction percentage in a formatted way.
+     */
     @Override
     public void displayDestructionPercentage(final double percentage) {
         System.out.println("Destruction: " + String.format("%.1f", percentage) + "%");
     }
 
+    /**
+     * {@inheritDoc}
+     * Displays the stars earned in the battle in a Clash of Clans style.
+     * Example: ★★☆ for 2 stars.
+     */
     @Override
     public void displayStars(final int stars) {
         StringBuilder starDisplay = new StringBuilder();
@@ -37,6 +54,10 @@ public class BattleReportViewImpl implements BattleReportView {
         System.out.println("Stars: " + starDisplay.toString());
     }
 
+    /**
+     * {@inheritDoc}
+     * Displays the resources stolen during the battle.
+     */
     @Override
     public void displayStolenResources(final ResourceManager resources) {
         System.out.println("Resources stolen:");
@@ -44,6 +65,10 @@ public class BattleReportViewImpl implements BattleReportView {
         System.out.println("  Elixir: " + resources.getElixir());
     }
 
+    /**
+     * {@inheritDoc}
+     * Displays the battle result (victory or defeat).
+     */
     @Override
     public void displayBattleResult(final boolean isVictory) {
         if (isVictory) {
@@ -53,11 +78,20 @@ public class BattleReportViewImpl implements BattleReportView {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * Displays the count of troops used in the battle.
+     */
     @Override
     public void displayTroopCount(final int troopCount) {
         System.out.println("Troops used: " + troopCount);
     }
 
+    /**
+     * Displays a complete battle report summary.
+     *
+     * @param model The BattleReportModel containing the data to display
+     */
     public void displayBattleReportSummary(final BattleReportModel model) {
         System.out.println("=== BATTLE REPORT ===");
 
