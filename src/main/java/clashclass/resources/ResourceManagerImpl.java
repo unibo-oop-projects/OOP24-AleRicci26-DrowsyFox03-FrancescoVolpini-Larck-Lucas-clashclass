@@ -4,8 +4,8 @@ package clashclass.resources;
  * Represents a ResourceManager implementation.
  */
 public class ResourceManagerImpl implements ResourceManager {
-    private final int MAX_VALUE;
-    private int currentValue;
+    private final double MAX_VALUE;
+    private double currentValue;
 
     /**
      * Construct ResourceManager.
@@ -21,7 +21,7 @@ public class ResourceManagerImpl implements ResourceManager {
      * {@inheritDoc}
      */
     @Override
-    public void increase(int value) {
+    public void increase(double value) {
         this.currentValue = Math.min(MAX_VALUE, this.currentValue - value);
     }
 
@@ -29,7 +29,7 @@ public class ResourceManagerImpl implements ResourceManager {
      * {@inheritDoc}
      */
     @Override
-    public void decrease(int value) {
+    public void decrease(double value) {
         this.currentValue = Math.max(0, this.currentValue - value);
     }
 
@@ -37,7 +37,7 @@ public class ResourceManagerImpl implements ResourceManager {
      * {@inheritDoc}
      */
     @Override
-    public int getCurrentValue() {
+    public double getCurrentValue() {
         return this.currentValue;
     }
 }
