@@ -32,12 +32,11 @@ public class TimerTest {
     }
 
     @Test
-    public void testTimerIncrementsSeconds() throws Exception {
+    public void testElapsedTimeIncreases() throws Exception {
         timer.start();
-        Thread.sleep(1100);
-        var secondsField = TimerImpl.class.getDeclaredField("seconds");
-        secondsField.setAccessible(true);
-        assertTrue((long) secondsField.get(timer) > 0, "Seconds should increment");
+        Thread.sleep(1100); // Wait for just over 1 second
+        long elapsed = timer.getElapsedTime();
+        assertTrue(elapsed >= 1, "Elapsed time should be at least 1 second");
         timer.stop();
     }
 
@@ -51,15 +50,19 @@ public class TimerTest {
     }
 
     @Test
-    public void testTimeLimit() throws Exception {
+    public void testTimeLimitStop() throws Exception {
         timer.start();
-        var secondsField = TimerImpl.class.getDeclaredField("seconds");
-        secondsField.setAccessible(true);
+        // Artificially set startTime to TIME_LIMIT seconds ago
+        var startTimeField = TimerImpl.class.getDeclaredField("startTime");
+        startTimeField.setAccessible(true);
         var timeLimitField = TimerImpl.class.getDeclaredField("TIME_LIMIT");
         timeLimitField.setAccessible(true);
         int timeLimit = (int) timeLimitField.get(null);
-        secondsField.set(timer, timeLimit - 1);
-        Thread.sleep(1200);
+        startTimeField.set(timer, System.currentTimeMillis() - (timeLimit * 1000));
+
+        // Give a moment for runTimer to pick it up
+        Thread.sleep(1100);
+
         var isRunningField = TimerImpl.class.getDeclaredField("isRunning");
         isRunningField.setAccessible(true);
         assertFalse((boolean) isRunningField.get(timer), "Timer should stop at time limit");
