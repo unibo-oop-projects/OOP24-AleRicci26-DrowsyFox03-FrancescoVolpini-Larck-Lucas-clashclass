@@ -21,7 +21,7 @@ public interface ResourceManager {
     /**
      * Returns the current value of the resource.
      *
-     * @return the resource value as an int
+     * @return the resource value as a double
      */
     double getCurrentValue();
 }

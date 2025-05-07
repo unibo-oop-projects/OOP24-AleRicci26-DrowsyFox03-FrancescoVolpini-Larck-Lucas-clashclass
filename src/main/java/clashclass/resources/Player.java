@@ -19,8 +19,7 @@ public class Player {
         playerResources.put(RESOURCE_TYPE.ELIXIR, elixirManager);
         playerResources.put(RESOURCE_TYPE.GEMS, gemsManager);
     }
-
-    public EnumMap<RESOURCE_TYPE, ResourceManagerImpl> getPlayerResources () {
-        return this.playerResources;
+    public EnumMap<RESOURCE_TYPE, ResourceManagerImpl> getPlayerResources() {
+        return playerResources;
     }
 }
