@@ -6,7 +6,6 @@ import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactory;
 import clashclass.elements.buildings.BuildingFactory;
 import clashclass.elements.buildings.BuildingFactoryMapper;
-import clashclass.elements.buildings.PlayerBuildingFactoryImpl;
 import clashclass.elements.buildings.VillageElementData;
 
 import java.util.HashSet;
@@ -18,7 +17,7 @@ public class PlayerVillageDecoderImpl implements VillageDecoder {
     private final BuildingFactoryMapper buildingFactoryMapper;
 
     // Update the constructor
-    public PlayerVillageDecoderImpl(PlayerBuildingFactoryImpl buildingFactory) {
+    public PlayerVillageDecoderImpl() {
         this.buildingFactory = buildingFactory;
         this.buildingFactoryMapper = new BuildingFactoryMapper(buildingFactory);
     }

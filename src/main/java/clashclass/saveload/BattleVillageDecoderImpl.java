@@ -4,7 +4,6 @@ import clashclass.commons.VectorInt2D;
 import clashclass.commons.Vector2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactory;
-import clashclass.elements.buildings.BattleBuildingFactoryImpl;
 import clashclass.elements.buildings.BuildingFactoryMapper;
 import clashclass.elements.buildings.BuildingFactory;
 import clashclass.elements.buildings.VillageElementData;
@@ -18,7 +17,7 @@ public class BattleVillageDecoderImpl implements VillageDecoder {
     private final BuildingFactoryMapper buildingFactoryMapper;
 
 
-    public BattleVillageDecoderImpl(BattleBuildingFactoryImpl buildingFactory) {
+    public BattleVillageDecoderImpl() {
         this.buildingFactory = buildingFactory;
         this.buildingFactoryMapper = new BuildingFactoryMapper(buildingFactory);
 
