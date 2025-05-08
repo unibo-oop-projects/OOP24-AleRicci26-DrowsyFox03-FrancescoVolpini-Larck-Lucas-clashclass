@@ -22,13 +22,17 @@ public class VillageEncoderImpl implements VillageEncoder {
         StringBuilder builder = new StringBuilder();
         builder.append(getHeader());
 
-        // Group GameObjects by their type
-        Map<VillageElementData, List<GameObject>> groupedByType = groupGameObjectsByType(gameObjects);
+        Map<VillageElementData, Integer> counters = new EnumMap<>(VillageElementData.class);
 
-        // Generate CSV entries
-        groupedByType.forEach((type, objects) -> {
-            int instanceId = 1;
-            for (GameObject gameObject : objects) {
+
+        for (GameObject gameObject : gameObjects) {
+            // Determine the type of this GameObject
+            Optional<VillageElementData> typeOpt = determineType(gameObject);
+
+            if (typeOpt.isPresent()) {
+                VillageElementData type = typeOpt.get();
+
+                // Get the transform for position info
                 Transform2D transform = gameObject.getComponentOfType(Transform2D.class)
                         .orElseThrow(() -> new IllegalStateException("GameObject must have Transform2D"));
 
@@ -36,33 +40,26 @@ public class VillageEncoderImpl implements VillageEncoder {
 
                 builder.append(String.format("%d,%d,%d,%d%s",
                         type.ordinal(),
-                        instanceId++,
+                        gameObject.getUniqueId(),
                         (int) position.x(),
                         (int) position.y(),
                         NEW_LINE));
             }
-        });
 
+        }
         return builder.toString();
     }
 
-    private Map<VillageElementData, List<GameObject>> groupGameObjectsByType(Set<GameObject> gameObjects) {
-        Map<VillageElementData, List<GameObject>> groupedByType = new EnumMap<>(VillageElementData.class);
-
-        for (GameObject obj : gameObjects) {
-            // Try to identify which VillageElementData type this GameObject represents
-            Optional<VillageElementData> matchingType = Arrays.stream(VillageElementData.values())
-                    .filter(type -> {
-                        // Check if this object has components that match this type
-                        // This is a simplified approach - you might need a more robust type identification
-                        return obj.hasComponent(type.name() + "Component");
-                    })
-                    .findFirst();
-
-            matchingType.ifPresent(type ->
-                    groupedByType.computeIfAbsent(type, k -> new ArrayList<>()).add(obj));
+    private Optional<VillageElementData> determineType(GameObject gameObject) {
+        // Try to identify which VillageElementData type this GameObject represents
+        for (VillageElementData type : VillageElementData.values()) {
+            String componentName = type.name() + "Component";
+            if (gameObject.getComponents().stream()
+                    .anyMatch(c -> c.getClass().getSimpleName().equals(componentName))) {
+                return Optional.of(type);
+            }
         }
+        return Optional.empty();
 
-        return groupedByType;
     }
 }

@@ -61,7 +61,7 @@ public class PlayerVillageDecoderImpl implements VillageDecoder {
 
                 // Create GameObject using the player building factory
                 GameObject gameObject = buildingFactoryMapper.getFactoryFor(type).apply(vectorToVector2D(new VectorInt2D(x, y)));
-
+                gameObjects.add(gameObject);
             }
         }
 

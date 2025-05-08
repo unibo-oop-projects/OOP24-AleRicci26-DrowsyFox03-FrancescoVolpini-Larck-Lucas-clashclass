@@ -31,7 +31,6 @@ class VillageSaveLoadTest {
     void setUp() {
         fileWriter = new SimpleFileWriterImpl();
         encoder = new VillageEncoderImpl();
-        decoder = new VillageDecoderImpl();
         var componentFactory = new ComponentFactoryImpl();
 
         // The componentFactory will be set inside the VillageSaveLoadManager constructor
@@ -59,7 +58,7 @@ class VillageSaveLoadTest {
     @Test
     void testVillageEncodingDecoding() {
         // Create some game objects
-        Set<GameObject> originalObjects = createTestGameObjects();
+        // Set<GameObject> originalObjects = createTestGameObjects();
 
         // Encode and then decode
         String encoded = encoder.encode(originalObjects);
@@ -142,7 +141,7 @@ class VillageSaveLoadTest {
 
     /**
      * Helper method to create a set of game objects for testing
-     */
+     *
     private Set<GameObject> createTestGameObjects() {
         Set<GameObject> objects = new HashSet<>();
 
@@ -155,10 +154,7 @@ class VillageSaveLoadTest {
         objects.add(VillageElementData.getFactory(VillageElementData.GOLD_EXTRACTOR)
                 .apply(new VectorInt2D(30, 35)));
 
-        return objects;
-    }
 
-    /**
      * Helper method to create a different set of game objects for testing
      */
     private Set<GameObject> createSecondTestGameObjects() {

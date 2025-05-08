@@ -1,9 +1,11 @@
 package clashclass.saveload;
 
 import clashclass.commons.VectorInt2D;
+import clashclass.commons.Vector2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactory;
 import clashclass.elements.buildings.BattleBuildingFactoryImpl;
+import clashclass.elements.buildings.BuildingFactoryMapper;
 import clashclass.elements.buildings.BuildingFactory;
 import clashclass.elements.buildings.VillageElementData;
 
@@ -13,10 +15,25 @@ import java.util.Set;
 public class BattleVillageDecoderImpl implements VillageDecoder {
     private ComponentFactory componentFactory;
     private final BuildingFactory buildingFactory;
+    private final BuildingFactoryMapper buildingFactoryMapper;
+
 
     public BattleVillageDecoderImpl(BattleBuildingFactoryImpl buildingFactory) {
         this.buildingFactory = buildingFactory;
+        this.buildingFactoryMapper = new BuildingFactoryMapper(buildingFactory);
+
     }
+    /**
+     * Converts a VectorInt2D to a Vector2D.
+     *
+     * @param vector the integer vector to convert
+     * @return the equivalent Vector2D
+     */
+
+    private Vector2D vectorToVector2D(VectorInt2D vector) {
+        return new Vector2D(vector.x(), vector.y());
+    }
+
 
     @Override
     public void setComponentFactory(ComponentFactory componentFactory) {
@@ -44,7 +61,8 @@ public class BattleVillageDecoderImpl implements VillageDecoder {
                 VillageElementData type = VillageElementData.values()[typeOrdinal];
 
                 // Create GameObject using the battle building factory
-                GameObject gameObject = buildingFactory.createBuilding(type, new VectorInt2D(x, y));
+                GameObject gameObject = buildingFactoryMapper.getFactoryFor(type)
+                        .apply(vectorToVector2D(new VectorInt2D(x, y)));
                 gameObjects.add(gameObject);
             }
         }

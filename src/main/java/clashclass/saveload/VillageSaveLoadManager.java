@@ -15,7 +15,6 @@ public class VillageSaveLoadManager {
     private final VillageDecoder playerDecoder;
     private final VillageDecoder battleDecoder;
     private final FileWriter fileWriter;
-    private final ComponentFactory componentFactory;
     private final Path savesDirectory;
 
     public VillageSaveLoadManager(
@@ -23,20 +22,13 @@ public class VillageSaveLoadManager {
             VillageDecoder playerDecoder,
             VillageDecoder battleDecoder,
             FileWriter fileWriter,
-            ComponentFactory componentFactory, //if decoders need this parameter
             Path savesDirectory
     ) {
         this.encoder = encoder;
         this.playerDecoder = playerDecoder;
         this.battleDecoder = battleDecoder;
         this.fileWriter = fileWriter;
-        this.componentFactory = componentFactory;
         this.savesDirectory = savesDirectory;
-
-        // Set the component factory for the decoders
-        playerDecoder.setComponentFactory(componentFactory);
-        battleDecoder.setComponentFactory(componentFactory);
-
     }
 
     /**
