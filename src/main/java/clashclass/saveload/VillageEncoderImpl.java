@@ -7,11 +7,10 @@ import clashclass.ecs.GameObject;
 import clashclass.elements.buildings.VillageElementData;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class VillageEncoderImpl implements VillageEncoder {
-    private static final String CSV_DELIMITER= ",";
-    private static final String NEW_LINE= "\n";
+    private static final String CSV_DELIMITER = ",";
+    private static final String NEW_LINE = "\n";
 
     @Override
     public String getHeader() {
@@ -23,18 +22,8 @@ public class VillageEncoderImpl implements VillageEncoder {
         StringBuilder builder = new StringBuilder();
         builder.append(getHeader());
 
-        // Group GameObjects by their type by checking which factory created them
-        Map<VillageElementData, List<GameObject>> groupedByType = new EnumMap<>(VillageElementData.class);
-
-        // Group objects by type
-        for (GameObject obj : gameObjects) {
-            for (VillageElementData type : VillageElementData.values()) {
-                if (VillageElementData.getFactory(type).equals(obj)) {
-                    groupedByType.computeIfAbsent(type, k -> new ArrayList<>()).add(obj);
-                    break;
-                }
-            }
-        }
+        // Group GameObjects by their type
+        Map<VillageElementData, List<GameObject>> groupedByType = groupGameObjectsByType(gameObjects);
 
         // Generate CSV entries
         groupedByType.forEach((type, objects) -> {
@@ -56,6 +45,24 @@ public class VillageEncoderImpl implements VillageEncoder {
 
         return builder.toString();
     }
+
+    private Map<VillageElementData, List<GameObject>> groupGameObjectsByType(Set<GameObject> gameObjects) {
+        Map<VillageElementData, List<GameObject>> groupedByType = new EnumMap<>(VillageElementData.class);
+
+        for (GameObject obj : gameObjects) {
+            // Try to identify which VillageElementData type this GameObject represents
+            Optional<VillageElementData> matchingType = Arrays.stream(VillageElementData.values())
+                    .filter(type -> {
+                        // Check if this object has components that match this type
+                        // This is a simplified approach - you might need a more robust type identification
+                        return obj.hasComponent(type.name() + "Component");
+                    })
+                    .findFirst();
+
+            matchingType.ifPresent(type ->
+                    groupedByType.computeIfAbsent(type, k -> new ArrayList<>()).add(obj));
+        }
+
+        return groupedByType;
+    }
 }
-
-

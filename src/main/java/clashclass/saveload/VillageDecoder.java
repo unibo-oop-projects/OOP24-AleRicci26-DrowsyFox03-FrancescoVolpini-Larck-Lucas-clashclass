@@ -10,18 +10,17 @@ import java.util.Set;
  */
 public interface VillageDecoder {
     /**
-     * Decodes a CSV String representation back into a Village object.
-     *
-     * @param encodedVillage the CSV String to decode
-     * @return Set of reconstructed GameObjects
+     * Sets the component factory to be used during decoding
+     * @param componentFactory the factory to use
+     */
+    void setComponentFactory(ComponentFactory componentFactory);
+
+    /**
+     * Decodes a string representation into game objects
+     * @param encodedVillage the encoded village string
+     * @return a set of game objects
      */
     Set<GameObject> decode(String encodedVillage);
 
-    /**
-     * Sets the component factory used to create components during decoding.
-     *
-     * @param componentFactory the factory used to create components
-     */
-    void setComponentFactory(ComponentFactory componentFactory);
 
 }
