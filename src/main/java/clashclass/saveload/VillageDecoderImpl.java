@@ -2,14 +2,25 @@ package clashclass.saveload;
 
 import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
+import clashclass.elements.ComponentFactory;
 import clashclass.elements.buildings.VillageElementData;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class VillageDecoderImpl implements VillageDecoder {
+    private ComponentFactory componentFactory;
+
+    @Override
+    public void setComponentFactory(ComponentFactory componentFactory) {
+        this.componentFactory = componentFactory;
+    }
+
     @Override
     public Set<GameObject> decode(String encodedVillage) {
+        if (componentFactory == null) {
+            throw new IllegalStateException("ComponentFactory must be set before decoding");
+        }
         Set<GameObject> gameObjects = new HashSet<>();
         String[] lines = encodedVillage.split("\n");
 

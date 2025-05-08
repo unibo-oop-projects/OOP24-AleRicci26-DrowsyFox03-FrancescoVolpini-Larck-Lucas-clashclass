@@ -32,8 +32,9 @@ class VillageSaveLoadTest {
         fileWriter = new SimpleFileWriterImpl();
         encoder = new VillageEncoderImpl();
         decoder = new VillageDecoderImpl();
-        var componentFactory = new ComponentFactoryImpl(); // This might need mocking
+        var componentFactory = new ComponentFactoryImpl();
 
+        // The componentFactory will be set inside the VillageSaveLoadManager constructor
         saveLoadManager = new VillageSaveLoadManager(
                 encoder,
                 decoder, // Using the same decoder for both player and battle

@@ -23,7 +23,7 @@ public class VillageSaveLoadManager {
             VillageDecoder playerDecoder,
             VillageDecoder battleDecoder,
             FileWriter fileWriter,
-            ComponentFactory componentFactory,
+            ComponentFactory componentFactory, //if decoders need this parameter
             Path savesDirectory
     ) {
         this.encoder = encoder;
@@ -32,6 +32,11 @@ public class VillageSaveLoadManager {
         this.fileWriter = fileWriter;
         this.componentFactory = componentFactory;
         this.savesDirectory = savesDirectory;
+
+        // Set the component factory for the decoders
+        playerDecoder.setComponentFactory(componentFactory);
+        battleDecoder.setComponentFactory(componentFactory);
+
     }
 
     /**
