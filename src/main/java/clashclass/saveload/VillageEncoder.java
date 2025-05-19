@@ -14,5 +14,7 @@ public interface VillageEncoder {
      * @return the encoded CSV String representation
      */
     String encode(Set<GameObject> gameObjects);
+    String getHeader();
+
 }
 
