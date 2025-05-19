@@ -1,4 +1,5 @@
 package clashclass.battle.battlereport;
+import clashclass.resources.ResourceManager;
 
 /**
  * Interface for the Battle Report Model.

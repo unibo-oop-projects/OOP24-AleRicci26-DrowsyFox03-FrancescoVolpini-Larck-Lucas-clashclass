@@ -2,6 +2,7 @@ package clashclass.battle.battlereport;
 
 import clashclass.ecs.AbstractComponent;
 import clashclass.ecs.GameObject;
+import clashclass.resources.ResourceManager;
 
 /**
  * Manager for tracking village destruction during battle.
@@ -34,9 +35,9 @@ public class VillageDestructionManagerImpl extends AbstractComponent implements 
         // This is a placeholder - in a real implementation, you would check if the
         // GameObject has a component that contains resources
         // For example:
-        // if (obj.hasComponent(BuildingResourceComponent.class)) {
-        //     ResourceManager resources = obj.getComponent(BuildingResourceComponent.class).getResources();
-        //     battleReportController.increaseStolenResources(resources);
-        // }
+         if (obj.hasComponent(BuildingResourceComponent.class)) {
+             ResourceManager resources = obj.getComponent(BuildingResourceComponent.class).getResources();
+             battleReportController.increaseStolenResources(resources);
+         }
     }
 }

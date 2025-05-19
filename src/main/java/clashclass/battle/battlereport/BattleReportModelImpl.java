@@ -1,5 +1,8 @@
 package clashclass.battle.battlereport;
 
+import clashclass.resources.ResourceManager;
+import clashclass.resources.ResourceManagerImpl;
+
 /**
  * Implementation of the BattleReportModel interface.
  * Stores and manages the battle report data.
@@ -9,7 +12,7 @@ public class BattleReportModelImpl implements BattleReportModel {
     private double destructionPercentage;
     private ResourceManager stolenResources;
     private boolean townHallDestroyed;
-    private int totalBuildings;
+    private final int totalBuildings;
     private int destroyedBuildings;
     private int troopCount;
 
@@ -20,7 +23,7 @@ public class BattleReportModelImpl implements BattleReportModel {
      */
     public BattleReportModelImpl(final int totalBuildings) {
         this.destructionPercentage = 0.0;
-        this.stolenResources = new ResourceManager();
+        this.stolenResources = new ResourceManagerImpl();
         this.townHallDestroyed = false;
         this.totalBuildings = totalBuildings;
         this.destroyedBuildings = 0;
@@ -148,3 +151,18 @@ public class BattleReportModelImpl implements BattleReportModel {
         return getStars() > 0;
     }
 }
+
+//When a building is destroyed, VillageDestructionManagerImpl checks for a BuildingResourceComponent, extracts the stealable resources, and adds them to the battle report.
+//The extractPercentage method ensures only a portion of the building's resources are stolen, as in Clash of Clans.
+//All classes in battlereport now use the correct ResourceManager type.
+//
+//public ResourceManager extractPercentage(double percentage) {
+//    ResourceManager result = new ResourceManager();
+//    for (String type : this.getResourceTypes()) {
+//        int amount = this.getResource(type);
+//        int steal = (int) (amount * (percentage / 100.0));
+//        result.addResource(type, steal);
+//        this.removeResource(type, steal);
+//    }
+//    return result;
+//}

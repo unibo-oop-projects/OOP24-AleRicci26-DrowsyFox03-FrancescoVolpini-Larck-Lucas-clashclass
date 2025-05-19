@@ -1,5 +1,5 @@
 package clashclass.battle.battlereport;
-
+import clashclass.resources.ResourceManager;
 /**
  * Interface for the Battle Report View.
  * Defines how the battle report is displayed to the user.
