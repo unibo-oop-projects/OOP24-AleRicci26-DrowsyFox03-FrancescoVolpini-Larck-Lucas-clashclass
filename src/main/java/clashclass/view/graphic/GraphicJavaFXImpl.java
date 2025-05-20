@@ -33,9 +33,9 @@ public class GraphicJavaFXImpl implements Graphic {
     private void storeSprites() {
         spritesMap = new HashMap<>();
         this.spritesMap.put("grass",
-                new Image(ClassLoader.getSystemResourceAsStream("sprites/grass.png")));
+                new Image(ClassLoader.getSystemResourceAsStream("sprites/grass.jpg")));
         this.spritesMap.put("wall",
-                new Image(ClassLoader.getSystemResourceAsStream("sprites/wall.png")));
+                new Image(ClassLoader.getSystemResourceAsStream("sprites/wall.jpg")));
     }
     /**
      * {@inheritDoc}
