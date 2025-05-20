@@ -4,12 +4,13 @@ import java.util.Set;
 import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Collections;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Represents an implementation of GameObject.
  */
 public class GameObjectImpl implements GameObject {
-    //private static int uniqueIdProgression = 0;
+    private static final AtomicInteger COUNTER = new AtomicInteger();
 
     private final int uniqueId;
     private final Set<Component> components;
@@ -19,8 +20,7 @@ public class GameObjectImpl implements GameObject {
      * Constructs the GameObject.
      */
     public GameObjectImpl() {
-        //this.uniqueId = uniqueIdProgression++;
-        this.uniqueId = 0;
+        this.uniqueId = COUNTER.getAndIncrement();
         this.components = new LinkedHashSet<>();
         this.destroyedFlag = false;
     }
