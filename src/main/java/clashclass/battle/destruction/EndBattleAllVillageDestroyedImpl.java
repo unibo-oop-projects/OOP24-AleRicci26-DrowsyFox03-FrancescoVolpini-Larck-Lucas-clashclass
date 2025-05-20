@@ -2,6 +2,7 @@ package clashclass.battle.destruction;
 
 import clashclass.ecs.AbstractComponent;
 import clashclass.ecs.GameObject;
+import clashclass.battle.endbattle.AbstractBattleEvent;
 
 /**
  * Implementation of EndBattleAllVillageDestroyed interface
@@ -22,7 +23,8 @@ public class EndBattleAllVillageDestroyedImpl extends AbstractComponent implemen
      */
     @Override
     public boolean isFullyDestroyed() {
-        return BattleReportController.getPercentage()==100?true:false;
+        // return battleReportController.getDestructionPercentage() >= 100.0;
+        return false;
     }
 
     /**
@@ -31,9 +33,12 @@ public class EndBattleAllVillageDestroyedImpl extends AbstractComponent implemen
     @Override
     public void notifyDestruction(GameObject obj) {
         if(isFullyDestroyed()){
-            //qui vanno distrutti tutti gli oggetti effettivamente
-            obj.destroy();
-            AbstractEndBattleEvent.EndBattle();
+            new AbstractBattleEvent() {
+                @Override
+                public void endBattle() {
+                    EndBattle(obj);
+                }
+            }.endBattle();
         }
     }
 }
