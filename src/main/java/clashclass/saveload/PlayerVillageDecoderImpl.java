@@ -6,20 +6,19 @@ import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactory;
 import clashclass.elements.buildings.BuildingFactory;
 import clashclass.elements.buildings.BuildingFactoryMapper;
+import clashclass.elements.buildings.PlayerBuildingFactoryImpl;
 import clashclass.elements.buildings.VillageElementData;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class PlayerVillageDecoderImpl implements VillageDecoder {
     private ComponentFactory componentFactory;
-    private final BuildingFactory buildingFactory;
-    private final BuildingFactoryMapper buildingFactoryMapper;
+    private final BuildingFactoryMapper<PlayerBuildingFactoryImpl> mapper;
 
-    // Update the constructor
-    public PlayerVillageDecoderImpl() {
-        this.buildingFactory = buildingFactory;
-        this.buildingFactoryMapper = new BuildingFactoryMapper(buildingFactory);
+    public PlayerVillageDecoderImpl(PlayerBuildingFactoryImpl buildingFactory) {
+        this.mapper = new BuildingFactoryMapper(Objects.requireNonNull(buildingFactory));
     }
 
     /**
@@ -40,30 +39,35 @@ public class PlayerVillageDecoderImpl implements VillageDecoder {
 
     @Override
     public Set<GameObject> decode(String encodedVillage) {
-        if (componentFactory == null) {
-            throw new IllegalStateException("ComponentFactory must be set before decoding");
-        }
+        Objects.requireNonNull(componentFactory,
+                "ComponentFactory must be set before decoding");
 
         Set<GameObject> gameObjects = new HashSet<>();
-        String[] lines = encodedVillage.split("\n");
 
-        // Skip header
-        for (int i = 1; i < lines.length; i++) {
-            String[] parts = lines[i].split(",");
-            if (parts.length >= 4) {
-                int typeOrdinal = Integer.parseInt(parts[0]);
-                int x = Integer.parseInt(parts[2]);
-                int y = Integer.parseInt(parts[3]);
+        for (String line : encodedVillage.split("\\R")) {             // \n o \r\n
+            line = line.strip();
+            if (line.isEmpty() || line.startsWith("TYPE")) continue;
 
-                // Get the VillageElementData enum from ordinal
-                VillageElementData type = VillageElementData.values()[typeOrdinal];
+            /* TYPE,INSTANCE_ID,POS_X,POS_Y */
+            String[] parts = line.split(",", -1);
+            if (parts.length < 4) continue;
+            VillageElementData type;
 
-                // Create GameObject using the player building factory
-                GameObject gameObject = buildingFactoryMapper.getFactoryFor(type).apply(vectorToVector2D(new VectorInt2D(x, y)));
-                gameObjects.add(gameObject);
+            try {
+                type = VillageElementData.valueOf(parts[0]);
+            } catch (IllegalArgumentException ex) {
+                type = VillageElementData.values()[Integer.parseInt(parts[0])];
             }
-        }
 
+            /* p[1] = progressivo per-tipo → ignorato */
+
+            int x = Integer.parseInt(parts[2].trim());
+            int y = Integer.parseInt(parts[3].trim());
+
+            GameObject go = mapper.getFactoryFor(type)
+                    .apply(new Vector2D(x, y));
+            gameObjects.add(go);
+        }
         return gameObjects;
     }
 }

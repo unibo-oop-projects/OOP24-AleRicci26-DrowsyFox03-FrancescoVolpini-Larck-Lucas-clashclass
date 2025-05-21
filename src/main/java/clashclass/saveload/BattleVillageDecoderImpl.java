@@ -13,12 +13,10 @@ import java.util.Set;
 
 public class BattleVillageDecoderImpl implements VillageDecoder {
     private ComponentFactory componentFactory;
-    private final BuildingFactory buildingFactory;
     private final BuildingFactoryMapper buildingFactoryMapper;
 
 
-    public BattleVillageDecoderImpl() {
-        this.buildingFactory = buildingFactory;
+    public BattleVillageDecoderImpl(BuildingFactory battleBuildingFactory) {
         this.buildingFactoryMapper = new BuildingFactoryMapper(buildingFactory);
 
     }
