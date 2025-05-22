@@ -1,130 +1,76 @@
 package clashclass.battle.battlereport;
+
 import clashclass.resources.ResourceManager;
 
-/**
- * Implementation of the BattleReportView interface.
- * Handles displaying the battle report to the user in a Clash of Clans style.
- */
 public class BattleReportViewImpl implements BattleReportView {
+    private static final String SEPARATOR = "====================";
 
-    // Constants for star display
-    private static final String STAR_FILLED = "★";
-    private static final String STAR_EMPTY = "☆";
-
-    /**
-     * {@inheritDoc}
-     * Updates all display elements with the current model data.
-     */
     @Override
-    public void update(final BattleReportModel model) {
+    public void update(BattleReportModel model) {
         displayDestructionPercentage(model.getDestructionPercentage());
         displayStars(model.getStars());
-        displayStolenResources(model.getStolenResources());
+        displayStolenResources(model.getStolenGold(), model.getStolenElixir());
         displayBattleResult(model.isVictory());
         displayTroopCount(model.getTroopCount());
     }
 
-    /**
-     * {@inheritDoc}
-     * Displays the destruction percentage in a formatted way.
-     */
     @Override
-    public void displayDestructionPercentage(final double percentage) {
-        System.out.println("Destruction: " + String.format("%.1f", percentage) + "%");
+    public void displayDestructionPercentage(double percentage) {
+        System.out.println("\n" + SEPARATOR);
+        System.out.println("Battle Report");
+        System.out.println(SEPARATOR);
+        System.out.println("Destruction: " + formatPercentage(percentage));
     }
 
-    /**
-     * {@inheritDoc}
-     * Displays the stars earned in the battle in a Clash of Clans style.
-     * Example: ★★☆ for 2 stars.
-     */
     @Override
-    public void displayStars(final int stars) {
-        StringBuilder starDisplay = new StringBuilder();
-
-        // Add filled stars
-        for (int i = 0; i < stars; i++) {
-            starDisplay.append(STAR_FILLED);
-        }
-
-        // Add empty stars
-        for (int i = stars; i < 3; i++) {
-            starDisplay.append(STAR_EMPTY);
-        }
-
-        System.out.println("Stars: " + starDisplay.toString());
+    public void displayStars(int stars) {
+        System.out.println("\n" + SEPARATOR);
+        System.out.println("Battle Stars");
+        System.out.println(SEPARATOR);
+        System.out.println("Stars Earned: " + stars + "/3");
+        System.out.println(getStarDisplay(stars));
     }
 
-    /**
-     * {@inheritDoc}
-     * Displays the resources stolen during the battle.
-     */
     @Override
-    public void displayStolenResources(final ResourceManager resources) {
-        System.out.println("Resources stolen:");
-       // System.out.println("  Gold: " + resources.getGold());
-        // System.out.println("  Elixir: " + resources.getElixir());
-    }
-
-    /**
-     * {@inheritDoc}
-     * Displays the battle result (victory or defeat).
-     */
-    @Override
-    public void displayBattleResult(final boolean isVictory) {
-        if (isVictory) {
-            System.out.println("VICTORY!");
-        } else {
-            System.out.println("DEFEAT!");
+    public void displayStolenResources(ResourceManager resources) {
+        System.out.println("\n" + SEPARATOR);
+        System.out.println("Resources Stolen");
+        System.out.println(SEPARATOR);
+        // Since the BattleReportModel separates gold and elixir, this method might need adjustment
+        // Currently using default implementation for interface compatibility
+        if (resources != null) {
+            System.out.println("Resources: " + formatNumber(resources.getCurrentValue()));
         }
     }
 
-    /**
-     * {@inheritDoc}
-     * Displays the count of troops used in the battle.
-     */
     @Override
-    public void displayTroopCount(final int troopCount) {
-        System.out.println("Troops used: " + troopCount);
+    public void displayBattleResult(boolean isVictory) {
+        System.out.println("\nBattle Outcome: " + (isVictory ? "Victory!" : "Defeat"));
     }
 
-    /**
-     * Displays a complete battle report summary.
-     *
-     * @param model The BattleReportModel containing the data to display
-     */
-    public void displayBattleReportSummary(final BattleReportModel model) {
-        System.out.println("=== BATTLE REPORT ===");
+    @Override
+    public void displayTroopCount(int troopCount) {
+        System.out.println("Troops Used: " + troopCount);
+    }
 
-        // Display stars
-        StringBuilder starDisplay = new StringBuilder();
-        for (int i = 0; i < model.getStars(); i++) {
-            starDisplay.append(STAR_FILLED);
-        }
-        for (int i = model.getStars(); i < 3; i++) {
-            starDisplay.append(STAR_EMPTY);
-        }
-        System.out.println(starDisplay.toString());
+    private String formatPercentage(double value) {
+        return String.format("%.1f%%", value);
+    }
 
-        // Display destruction percentage
-        System.out.println("Destruction: " + String.format("%.1f", model.getDestructionPercentage()) + "%");
+    private String formatNumber(int value) {
+        return String.format("%,d", value);
+    }
 
-        // Display resources
-        ResourceManager resources = model.getStolenResources();
-        System.out.println("Resources stolen:");
-      //  System.out.println("  Gold: " + resources.getGold());
-       // System.out.println("  Elixir: " + resources.getElixir());
+    private String getStarDisplay(int stars) {
+        return "★".repeat(stars) + "☆".repeat(3 - stars);
+    }
 
-        // Display troop count
-        System.out.println("Troops used: " + model.getTroopCount());
-
-        // Display result
-        if (model.isVictory()) {
-            System.out.println("VICTORY!");
-        } else {
-            System.out.println("DEFEAT!");
-        }
-
-        System.out.println("=====================");
+    // Helper method to handle separate gold and elixir resources
+    private void displayStolenResources(ResourceManager gold, ResourceManager elixir) {
+        System.out.println("\n" + SEPARATOR);
+        System.out.println("Resources Stolen");
+        System.out.println(SEPARATOR);
+        System.out.println("Gold: " + formatNumber(gold.getCurrentValue()));
+        System.out.println("Elixir: " + formatNumber(elixir.getCurrentValue()));
     }
 }
