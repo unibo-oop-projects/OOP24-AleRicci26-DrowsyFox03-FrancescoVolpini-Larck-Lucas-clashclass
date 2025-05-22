@@ -1,5 +1,7 @@
 package clashclass.battle.battlereport;
 
+import clashclass.resources.ResourceManager;
+
 /**
  * Implementation of the BattleReportController interface.
  * Coordinates between the model and view components of the battle report.

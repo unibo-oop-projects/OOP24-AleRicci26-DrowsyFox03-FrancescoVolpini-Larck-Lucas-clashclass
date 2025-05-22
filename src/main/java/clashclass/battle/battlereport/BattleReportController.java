@@ -1,5 +1,7 @@
 package clashclass.battle.battlereport;
 
+import clashclass.resources.ResourceManager;
+
 /**
  * Interface for the Battle Report Controller.
  * Manages the battle report data including destruction percentage and stolen resources.
