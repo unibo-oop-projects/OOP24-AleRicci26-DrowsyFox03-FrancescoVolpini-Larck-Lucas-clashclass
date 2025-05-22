@@ -6,92 +6,80 @@ import clashclass.resources.ResourceManager;
  * Defines the data structure and operations for battle reports.
  */
 public interface BattleReportModel {
-
     /**
      * Get the current destruction percentage of the village.
-     *
      * @return The destruction percentage (0-100)
      */
     double getDestructionPercentage();
 
     /**
      * Set the destruction percentage of the village.
-     *
      * @param percentage The new destruction percentage (0-100)
      */
     void setDestructionPercentage(double percentage);
 
     /**
      * Increase the destruction percentage by a calculated amount.
-     * This is called when a building is destroyed.
      */
     void increaseDestructionPercentage();
 
     /**
      * Get the number of stars earned in the battle (0-3).
-     * In Clash of Clans style:
-     * - 1 star: 50% destruction
-     * - 2 stars: Town Hall destroyed
-     * - 3 stars: 100% destruction
-     *
      * @return The number of stars (0-3)
      */
     int getStars();
 
     /**
-     * Get the resources stolen during the battle.
-     *
-     * @return The ResourceManager containing stolen resources
+     * Get the gold stolen during the battle.
+     * @return The ResourceManager containing stolen gold
      */
-    ResourceManager getStolenResources();
+    ResourceManager getStolenGold();
 
     /**
-     * Set the resources stolen during the battle.
-     *
-     * @param resources The ResourceManager containing stolen resources
+     * Get the elixir stolen during the battle.
+     * @return The ResourceManager containing stolen elixir
      */
-    void setStolenResources(ResourceManager resources);
+    ResourceManager getStolenElixir();
 
     /**
-     * Add resources to the stolen resources.
-     *
-     * @param resources The ResourceManager containing resources to add
+     * Add stolen gold resources.
+     * @param gold The ResourceManager containing gold to add
      */
-    void addStolenResources(ResourceManager resources);
+    void addStolenGold(ResourceManager gold);
+
+    /**
+     * Add stolen elixir resources.
+     * @param elixir The ResourceManager containing elixir to add
+     */
+    void addStolenElixir(ResourceManager elixir);
 
     /**
      * Check if the Town Hall has been destroyed.
-     *
-     * @return true if the Town Hall is destroyed, false otherwise
+     * @return true if destroyed, false otherwise
      */
     boolean isTownHallDestroyed();
 
     /**
      * Set the Town Hall destruction status.
-     *
-     * @param destroyed true if the Town Hall is destroyed, false otherwise
+     * @param destroyed true if destroyed, false otherwise
      */
     void setTownHallDestroyed(boolean destroyed);
 
     /**
      * Get the total number of troops used in the battle.
-     *
      * @return The total number of troops used
      */
     int getTroopCount();
 
     /**
      * Set the total number of troops used in the battle.
-     *
      * @param count The total number of troops used
      */
     void setTroopCount(int count);
 
     /**
-     * Check if the battle resulted in a victory.
-     * A victory is achieved if at least 1 star is earned.
-     *
-     * @return true if the battle was a victory, false otherwise
+     * Check if the battle resulted in a victory (at least 1 star).
+     * @return true if victory, false otherwise
      */
     boolean isVictory();
 }
