@@ -5,33 +5,35 @@ import clashclass.ecs.GameObject;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
  * Maps building types to their factory methods
  */
-public class BuildingFactoryMapper {
+public class BuildingFactoryMapper<F extends BuildingFactory> {
     private final Map<VillageElementData, Function<Vector2D, GameObject>> buildingIdToFactory;
-    private final BuildingFactory buildingFactory;
+    private final F factory;
 
-    public BuildingFactoryMapper(BuildingFactory buildingFactory) {
-        this.buildingFactory = buildingFactory;
+    public BuildingFactoryMapper(F factory) {
+        this.factory = Objects.requireNonNull(factory);
         this.buildingIdToFactory = new EnumMap<>(VillageElementData.class);
         initializeMap();
     }
 
     private void initializeMap() {
         // Map each building type to its corresponding factory method
-        buildingIdToFactory.put(VillageElementData.TOWN_HALL, buildingFactory::createTownHall);
-        buildingIdToFactory.put(VillageElementData.WALL, buildingFactory::createWall);
-        buildingIdToFactory.put(VillageElementData.CANNON, buildingFactory::createCannon);
-        buildingIdToFactory.put(VillageElementData.ARCHER_TOWER, buildingFactory::createArcherTower);
-        buildingIdToFactory.put(VillageElementData.GOLD_STORAGE, buildingFactory::createGoldStorage);
-        buildingIdToFactory.put(VillageElementData.ELIXIR_STORAGE, buildingFactory::createElixirStorage);
-        buildingIdToFactory.put(VillageElementData.GOLD_EXTRACTOR, buildingFactory::createGoldExtractor);
-        buildingIdToFactory.put(VillageElementData.ELIXIR_EXTRACTOR, buildingFactory::createElixirExtractor);
-        buildingIdToFactory.put(VillageElementData.ARMY_CAMP, buildingFactory::createArmyCamp);
-        buildingIdToFactory.put(VillageElementData.BARRACKS, buildingFactory::createBarracks);
+        buildingIdToFactory.put(VillageElementData.TOWN_HALL, factory::createTownHall);
+        buildingIdToFactory.put(VillageElementData.WALL, factory::createWall);
+        buildingIdToFactory.put(VillageElementData.CANNON, factory::createCannon);
+        buildingIdToFactory.put(VillageElementData.ARCHER_TOWER, factory::createArcherTower);
+        buildingIdToFactory.put(VillageElementData.GOLD_STORAGE, factory::createGoldStorage);
+        buildingIdToFactory.put(VillageElementData.ELIXIR_STORAGE, factory::createElixirStorage);
+        buildingIdToFactory.put(VillageElementData.GOLD_EXTRACTOR, factory::createGoldExtractor);
+        buildingIdToFactory.put(VillageElementData.ELIXIR_EXTRACTOR, factory::createElixirExtractor);
+        buildingIdToFactory.put(VillageElementData.ARMY_CAMP, factory::createArmyCamp);
+        buildingIdToFactory.put(VillageElementData.BARRACKS, factory::createBarracks);
     }
 
     /**
@@ -42,9 +44,11 @@ public class BuildingFactoryMapper {
      */
     public Function<Vector2D, GameObject> getFactoryFor(VillageElementData buildingType) {
         Function<Vector2D, GameObject> factory = buildingIdToFactory.get(buildingType);
-        if (factory == null) {
-            throw new IllegalArgumentException("No factory method found for building type: " + buildingType);
+        return Optional.ofNullable(buildingIdToFactory.get(buildingType))
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "No factory for " + buildingType));
         }
-        return factory;
-    }
+
+    public F getFactory() {return factory;}
+
 }

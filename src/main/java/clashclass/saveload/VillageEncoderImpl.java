@@ -1,8 +1,6 @@
 package clashclass.saveload;
 
 import clashclass.commons.Transform2D;
-import clashclass.commons.Vector2D;
-import clashclass.ecs.Component;
 import clashclass.ecs.GameObject;
 import clashclass.elements.buildings.VillageElementData;
 
@@ -19,8 +17,8 @@ public class VillageEncoderImpl implements VillageEncoder {
 
     @Override
     public String encode(Set<GameObject> gameObjects) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(getHeader());
+        StringBuilder builder = new StringBuilder(getHeader());
+
 
         Map<VillageElementData, Integer> counters = new EnumMap<>(VillageElementData.class);
 
@@ -32,18 +30,22 @@ public class VillageEncoderImpl implements VillageEncoder {
             if (typeOpt.isPresent()) {
                 VillageElementData type = typeOpt.get();
 
+                int progressive=counters.merge(type,1,(prev,inc)->prev+1);
                 // Get the transform for position info
                 Transform2D transform = gameObject.getComponentOfType(Transform2D.class)
                         .orElseThrow(() -> new IllegalStateException("GameObject must have Transform2D"));
 
-                Vector2D position = transform.getPosition();
+                int x = (int) transform.getPosition().x();
+                int y = (int) transform.getPosition().y();
 
-                builder.append(String.format("%d,%d,%d,%d%s",
-                        type.ordinal(),
-                        gameObject.getUniqueId(),
-                        (int) position.x(),
-                        (int) position.y(),
-                        NEW_LINE));
+                builder.append(type.name())
+                        .append(CSV_DELIMITER)
+                        .append(progressive)
+                        .append(CSV_DELIMITER)
+                        .append(x)
+                        .append(CSV_DELIMITER)
+                        .append(y)
+                        .append(NEW_LINE);
             }
 
         }
