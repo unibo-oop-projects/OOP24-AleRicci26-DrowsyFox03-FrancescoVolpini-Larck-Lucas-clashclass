@@ -1,28 +1,48 @@
 package clashclass.battle.battlereport;
+
 import clashclass.resources.ResourceManager;
+
 /**
- * Interface for the Battle Report Controller.
- * Manages the battle report data including destruction percentage and stolen resources.
+ * Controller interface for battle report management
  */
 public interface BattleReportController {
+    /**
+     * Updates destruction percentage
+     * @param percentage New destruction percentage
+     */
+    void updateDestructionPercentage(double percentage);
 
     /**
-     * Increases the destruction percentage of the village.
-     * This is called when a building is destroyed.
+     * Increases destruction percentage based on building destruction
      */
     void increaseDestructionPercentage();
 
     /**
-     * Increases the amount of stolen resources.
-     *
-     * @param resourceManager The resource manager containing the resources to be added
+     * Adds stolen gold to report
+     * @param gold Amount of gold stolen
      */
-    void increaseStolenResources(ResourceManager resourceManager);
+    void addStolenGold(ResourceManager gold);
 
     /**
-     * Sets the total number of troops used in the battle.
-     *
-     * @param count The total number of troops used
+     * Adds stolen elixir to report
+     * @param elixir Amount of elixir stolen
      */
-    void setTroopCount(int count);
+    void addStolenElixir(ResourceManager elixir);
+
+    /**
+     * Updates town hall destruction status
+     * @param destroyed Whether town hall was destroyed
+     */
+    void setTownHallDestroyed(boolean destroyed);
+
+    /**
+     * Updates troop count
+     * @param count Number of troops used
+     */
+    void updateTroopCount(int count);
+
+    /**
+     * @return Current battle report model
+     */
+    BattleReportModel getModel();
 }
