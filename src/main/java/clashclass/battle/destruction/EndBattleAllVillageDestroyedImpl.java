@@ -14,7 +14,7 @@ public class EndBattleAllVillageDestroyedImpl extends AbstractComponent implemen
     /**
      * Initialize the flag of the village to not destroyed
      */
-    EndBattleAllVillageDestroyedImpl(){
+    public EndBattleAllVillageDestroyedImpl(){
         this.isFullyDestroyed=false;
     }
 
