@@ -2,7 +2,6 @@ package clashclass.saveload;
 
 import clashclass.commons.Vector2D;
 import clashclass.ecs.GameObject;
-import clashclass.elements.ComponentFactory;
 import clashclass.elements.ComponentFactoryImpl;
 import clashclass.elements.buildings.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,37 +22,36 @@ class VillageSaveLoadTest {
     Path tempDir;
 
     private VillageSaveLoadManager saveLoadManager;
-    private ComponentFactory componentFactory;
-    private PlayerBuildingFactoryImpl playerBuildingFactory;
-    private BattleBuildingFactoryImpl battleBuildingFactory;
+    private FileWriter fileWriter;
+    private VillageEncoder encoder;
     private PlayerVillageDecoderImpl playerDecoder;
     private BattleVillageDecoderImpl battleDecoder;
     private BuildingFactoryMapper<PlayerBuildingFactoryImpl> playerMapper;
     private BuildingFactoryMapper<BattleBuildingFactoryImpl> battleMapper;
-    private VillageEncoder encoder;
+
 
     @BeforeEach
     void setUp() {
-        componentFactory = new ComponentFactoryImpl();
-        playerBuildingFactory = new PlayerBuildingFactoryImpl();
-        battleBuildingFactory = new BattleBuildingFactoryImpl();
+        fileWriter = new SimpleFileWriterImpl();
+        encoder = new VillageEncoderImpl();
+
+        PlayerBuildingFactoryImpl playerBuildingFactory = new PlayerBuildingFactoryImpl();
+        BattleBuildingFactoryImpl battleBuildingFactory = new BattleBuildingFactoryImpl();
 
         playerDecoder = new PlayerVillageDecoderImpl(playerBuildingFactory);
-        battleDecoder = new BattleVillageDecoderImpl(battleBuildingFactory);
+        playerDecoder.setComponentFactory(new ComponentFactoryImpl());
 
-        playerDecoder.setComponentFactory(componentFactory);
-        battleDecoder.setComponentFactory(componentFactory);
+        battleDecoder = new BattleVillageDecoderImpl(battleBuildingFactory);
+        battleDecoder.setComponentFactory(new ComponentFactoryImpl());
 
         playerMapper = new BuildingFactoryMapper<>(playerBuildingFactory);
         battleMapper = new BuildingFactoryMapper<>(battleBuildingFactory);
-
-        encoder = new VillageEncoderImpl();
 
         saveLoadManager = new VillageSaveLoadManager(
                 encoder,
                 playerDecoder,
                 battleDecoder,
-                new SimpleFileWriterImpl(),
+                fileWriter,
                 tempDir
         );
     }
