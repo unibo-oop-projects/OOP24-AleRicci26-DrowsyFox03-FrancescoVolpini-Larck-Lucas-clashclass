@@ -9,18 +9,16 @@ import clashclass.elements.buildings.BuildingFactory;
 import clashclass.elements.buildings.VillageElementData;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class BattleVillageDecoderImpl implements VillageDecoder {
     private ComponentFactory componentFactory;
-    private final BuildingFactory buildingFactory;
-    private final BuildingFactoryMapper buildingFactoryMapper;
+    private final BuildingFactoryMapper<?> buildingFactoryMapper;
 
 
-    public BattleVillageDecoderImpl() {
-        this.buildingFactory = buildingFactory;
-        this.buildingFactoryMapper = new BuildingFactoryMapper(buildingFactory);
-
+    public BattleVillageDecoderImpl(BuildingFactory buildingFactory) {
+        this.buildingFactoryMapper = new BuildingFactoryMapper<>(Objects.requireNonNull(buildingFactory));
     }
     /**
      * Converts a VectorInt2D to a Vector2D.

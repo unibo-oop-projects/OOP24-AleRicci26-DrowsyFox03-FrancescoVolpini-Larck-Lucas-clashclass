@@ -9,17 +9,16 @@ import clashclass.elements.buildings.BuildingFactoryMapper;
 import clashclass.elements.buildings.VillageElementData;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class PlayerVillageDecoderImpl implements VillageDecoder {
     private ComponentFactory componentFactory;
-    private final BuildingFactory buildingFactory;
-    private final BuildingFactoryMapper buildingFactoryMapper;
+    private final BuildingFactoryMapper<?> buildingFactoryMapper;
 
     // Update the constructor
-    public PlayerVillageDecoderImpl() {
-        this.buildingFactory = buildingFactory;
-        this.buildingFactoryMapper = new BuildingFactoryMapper(buildingFactory);
+    public PlayerVillageDecoderImpl(BuildingFactory buildingFactory) {
+        this.buildingFactoryMapper = new BuildingFactoryMapper<>(Objects.requireNonNull(buildingFactory));
     }
 
     /**
