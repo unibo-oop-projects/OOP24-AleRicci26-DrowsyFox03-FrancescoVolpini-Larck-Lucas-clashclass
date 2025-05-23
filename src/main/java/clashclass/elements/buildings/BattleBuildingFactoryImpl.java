@@ -1,5 +1,6 @@
 package clashclass.elements.buildings;
 
+import clashclass.commons.BuildingTypeComponentImpl;
 import clashclass.ecs.GameObject;
 
 /**
@@ -12,6 +13,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
     @Override
     protected GameObject.Builder createAdditionalTownHallComponents(final GameObject.Builder builder) {
         return builder
+                .addComponent(new BuildingTypeComponentImpl(VillageElementData.TOWN_HALL))
                 .addComponent(this.getComponentFactory().createHealth(100));
     }
 
@@ -21,6 +23,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
     @Override
     protected GameObject.Builder createAdditionalWallComponents(final GameObject.Builder builder) {
         return builder
+                .addComponent(new BuildingTypeComponentImpl(VillageElementData.TOWN_HALL))
                 .addComponent(this.getComponentFactory().createHealth(100));
     }
 
@@ -30,6 +33,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
     @Override
     protected GameObject.Builder createAdditionalCannonComponents(final GameObject.Builder builder) {
         return builder
+                .addComponent(new BuildingTypeComponentImpl(VillageElementData.TOWN_HALL))
                 .addComponent(this.getComponentFactory().createHealth(100));
     }
 
@@ -39,6 +43,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
     @Override
     protected GameObject.Builder createAdditionalArcherTowerComponents(final GameObject.Builder builder) {
         return builder
+                .addComponent(new BuildingTypeComponentImpl(VillageElementData.TOWN_HALL))
                 .addComponent(this.getComponentFactory().createHealth(100));
     }
 
@@ -48,6 +53,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
     @Override
     protected GameObject.Builder createAdditionalGoldStorageComponents(final GameObject.Builder builder) {
         return builder
+                .addComponent(new BuildingTypeComponentImpl(VillageElementData.TOWN_HALL))
                 .addComponent(this.getComponentFactory().createHealth(100));
     }
 
@@ -57,6 +63,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
     @Override
     protected GameObject.Builder createAdditionalElixirStorageComponents(final GameObject.Builder builder) {
         return builder
+                .addComponent(new BuildingTypeComponentImpl(VillageElementData.TOWN_HALL))
                 .addComponent(this.getComponentFactory().createHealth(100));
     }
 
@@ -66,6 +73,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
     @Override
     protected GameObject.Builder createAdditionalGoldExtractorComponents(final GameObject.Builder builder) {
         return builder
+                .addComponent(new BuildingTypeComponentImpl(VillageElementData.TOWN_HALL))
                 .addComponent(this.getComponentFactory().createHealth(100));
     }
 
@@ -75,6 +83,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
     @Override
     protected GameObject.Builder createAdditionalElixirExtractorComponents(final GameObject.Builder builder) {
         return builder
+                .addComponent(new BuildingTypeComponentImpl(VillageElementData.TOWN_HALL))
                 .addComponent(this.getComponentFactory().createHealth(100));
     }
 
@@ -84,6 +93,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
     @Override
     protected GameObject.Builder createAdditionalArmyCampComponents(final GameObject.Builder builder) {
         return builder
+                .addComponent(new BuildingTypeComponentImpl(VillageElementData.TOWN_HALL))
                 .addComponent(this.getComponentFactory().createHealth(100));
     }
 
@@ -93,6 +103,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
     @Override
     protected GameObject.Builder createAdditionalBarracksComponents(final GameObject.Builder builder) {
         return builder
+                .addComponent(new BuildingTypeComponentImpl(VillageElementData.TOWN_HALL))
                 .addComponent(this.getComponentFactory().createHealth(100));
     }
 }

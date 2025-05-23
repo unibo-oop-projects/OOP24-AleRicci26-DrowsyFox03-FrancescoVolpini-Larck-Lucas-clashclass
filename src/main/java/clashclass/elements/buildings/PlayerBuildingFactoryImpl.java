@@ -1,5 +1,7 @@
 package clashclass.elements.buildings;
 
+import clashclass.commons.BuildingTypeComponent;
+import clashclass.commons.BuildingTypeComponentImpl;
 import clashclass.ecs.GameObject;
 
 /**
@@ -11,7 +13,7 @@ public class PlayerBuildingFactoryImpl extends AbstractBuildingFactory {
      */
     @Override
     protected GameObject.Builder createAdditionalTownHallComponents(final GameObject.Builder builder) {
-        return builder;
+        return builder.addComponent(new BuildingTypeComponentImpl(VillageElementData.TOWN_HALL));
     }
 
     /**
@@ -19,7 +21,7 @@ public class PlayerBuildingFactoryImpl extends AbstractBuildingFactory {
      */
     @Override
     protected GameObject.Builder createAdditionalWallComponents(final GameObject.Builder builder) {
-        return builder;
+        return builder.addComponent(new BuildingTypeComponentImpl(VillageElementData.WALL));
     }
 
     /**
@@ -27,7 +29,7 @@ public class PlayerBuildingFactoryImpl extends AbstractBuildingFactory {
      */
     @Override
     protected GameObject.Builder createAdditionalCannonComponents(final GameObject.Builder builder) {
-        return builder;
+        return builder.addComponent(new BuildingTypeComponentImpl(VillageElementData.CANNON));
     }
 
     /**
@@ -35,7 +37,7 @@ public class PlayerBuildingFactoryImpl extends AbstractBuildingFactory {
      */
     @Override
     protected GameObject.Builder createAdditionalArcherTowerComponents(final GameObject.Builder builder) {
-        return builder;
+        return builder.addComponent(new BuildingTypeComponentImpl(VillageElementData.ARCHER_TOWER));
     }
 
     /**
@@ -43,7 +45,7 @@ public class PlayerBuildingFactoryImpl extends AbstractBuildingFactory {
      */
     @Override
     protected GameObject.Builder createAdditionalGoldStorageComponents(final GameObject.Builder builder) {
-        return builder;
+        return builder.addComponent(new BuildingTypeComponentImpl(VillageElementData.GOLD_STORAGE));
     }
 
     /**
@@ -51,7 +53,7 @@ public class PlayerBuildingFactoryImpl extends AbstractBuildingFactory {
      */
     @Override
     protected GameObject.Builder createAdditionalElixirStorageComponents(final GameObject.Builder builder) {
-        return builder;
+        return builder.addComponent(new BuildingTypeComponentImpl(VillageElementData.ELIXIR_STORAGE));
     }
 
     /**
@@ -59,7 +61,7 @@ public class PlayerBuildingFactoryImpl extends AbstractBuildingFactory {
      */
     @Override
     protected GameObject.Builder createAdditionalGoldExtractorComponents(final GameObject.Builder builder) {
-        return builder;
+        return builder.addComponent(new BuildingTypeComponentImpl(VillageElementData.GOLD_EXTRACTOR));
     }
 
     /**
@@ -67,7 +69,7 @@ public class PlayerBuildingFactoryImpl extends AbstractBuildingFactory {
      */
     @Override
     protected GameObject.Builder createAdditionalElixirExtractorComponents(final GameObject.Builder builder) {
-        return builder;
+        return builder.addComponent(new BuildingTypeComponentImpl(VillageElementData.ELIXIR_EXTRACTOR));
     }
 
     /**
@@ -75,7 +77,7 @@ public class PlayerBuildingFactoryImpl extends AbstractBuildingFactory {
      */
     @Override
     protected GameObject.Builder createAdditionalArmyCampComponents(final GameObject.Builder builder) {
-        return builder;
+        return builder.addComponent(new BuildingTypeComponentImpl(VillageElementData.ARMY_CAMP));
     }
 
     /**
@@ -83,6 +85,6 @@ public class PlayerBuildingFactoryImpl extends AbstractBuildingFactory {
      */
     @Override
     protected GameObject.Builder createAdditionalBarracksComponents(final GameObject.Builder builder) {
-        return builder;
+        return builder.addComponent(new BuildingTypeComponentImpl(VillageElementData.BARRACKS));
     }
 }
