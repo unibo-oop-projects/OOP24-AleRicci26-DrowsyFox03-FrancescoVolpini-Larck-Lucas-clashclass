@@ -1,5 +1,7 @@
 package clashclass.battle.battlereport;
 
+import clashclass.resources.ResourceManager;
+
 /**
  * Implementation of the BattleReportView interface.
  * Handles displaying the battle report to the user in a Clash of Clans style.
