@@ -1,6 +1,7 @@
 package clashclass.battle.battlereport;
 
 import clashclass.resources.ResourceManager;
+import clashclass.resources.ResourceManagerImpl;
 
 /**
  * Implementation of the BattleReportModel interface.
@@ -22,7 +23,7 @@ public class BattleReportModelImpl implements BattleReportModel {
      */
     public BattleReportModelImpl(final int totalBuildings) {
         this.destructionPercentage = 0.0;
-        this.stolenResources = new ResourceManager();
+        this.stolenResources = new ResourceManagerImpl(1000000);
         this.townHallDestroyed = false;
         this.totalBuildings = totalBuildings;
         this.destroyedBuildings = 0;
@@ -107,7 +108,7 @@ public class BattleReportModelImpl implements BattleReportModel {
      */
     @Override
     public void addStolenResources(final ResourceManager resources) {
-        this.stolenResources.addResources(resources);
+//        this.stolenResources.addResources(resources);
     }
 
     /**

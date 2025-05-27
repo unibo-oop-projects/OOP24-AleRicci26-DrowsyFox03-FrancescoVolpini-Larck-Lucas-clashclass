@@ -63,8 +63,8 @@ public class BattleReportViewImpl implements BattleReportView {
     @Override
     public void displayStolenResources(final ResourceManager resources) {
         System.out.println("Resources stolen:");
-        System.out.println("  Gold: " + resources.getGold());
-        System.out.println("  Elixir: " + resources.getElixir());
+//        System.out.println("  Gold: " + resources.getGold());
+//        System.out.println("  Elixir: " + resources.getElixir());
     }
 
     /**
@@ -113,8 +113,8 @@ public class BattleReportViewImpl implements BattleReportView {
         // Display resources
         ResourceManager resources = model.getStolenResources();
         System.out.println("Resources stolen:");
-        System.out.println("  Gold: " + resources.getGold());
-        System.out.println("  Elixir: " + resources.getElixir());
+//        System.out.println("  Gold: " + resources.getGold());
+//        System.out.println("  Elixir: " + resources.getElixir());
 
         // Display troop count
         System.out.println("Troops used: " + model.getTroopCount());
