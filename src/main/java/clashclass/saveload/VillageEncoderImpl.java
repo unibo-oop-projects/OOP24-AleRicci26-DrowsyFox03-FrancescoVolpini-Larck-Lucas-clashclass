@@ -1,5 +1,6 @@
 package clashclass.saveload;
 
+import clashclass.commons.BuildingTypeComponent;
 import clashclass.commons.Transform2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.buildings.VillageElementData;
@@ -53,15 +54,7 @@ public class VillageEncoderImpl implements VillageEncoder {
     }
 
     private Optional<VillageElementData> determineType(GameObject gameObject) {
-        // Try to identify which VillageElementData type this GameObject represents
-        for (VillageElementData type : VillageElementData.values()) {
-            String componentName = type.name() + "Component";
-            if (gameObject.getComponents().stream()
-                    .anyMatch(c -> c.getClass().getSimpleName().equals(componentName))) {
-                return Optional.of(type);
-            }
-        }
-        return Optional.empty();
-
+        return gameObject.getComponentOfType(BuildingTypeComponent.class)
+                .map(BuildingTypeComponent::getBuildingType);
     }
 }
