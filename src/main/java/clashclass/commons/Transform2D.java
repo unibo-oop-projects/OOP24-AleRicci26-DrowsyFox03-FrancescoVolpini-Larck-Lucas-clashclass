@@ -1,14 +1,17 @@
 package clashclass.commons;
 
 import clashclass.ecs.AbstractComponent;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.List;
 
 /**
  * Represents a Transform in a two-dimensional space.
  */
-public class Transform2D extends AbstractComponent {
+public class Transform2D extends AbstractComponent implements PositionChangeObservable {
     private Vector2D position;
     private Vector2D rotation;
     private Vector2D scale;
+    private final List<PositionChangeObserver> positionObservers = new CopyOnWriteArrayList<>();
 
     /**
      * Constructs the Transform.
@@ -72,7 +75,9 @@ public class Transform2D extends AbstractComponent {
      * @param position the new position value
      */
     public void setPosition(final Vector2D position) {
+        final Vector2D oldPosition = this.position;
         this.position = position;
+        notifyPositionChange(oldPosition, position);
     }
 
     /**
@@ -91,5 +96,31 @@ public class Transform2D extends AbstractComponent {
      */
     public void setScale(final Vector2D scale) {
         this.scale = scale;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addPositionChangeObserver(final PositionChangeObserver observer) {
+        positionObservers.add(observer);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removePositionChangeObserver(final PositionChangeObserver observer) {
+        positionObservers.remove(observer);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void notifyPositionChange(final Vector2D oldPosition, final Vector2D newPosition) {
+        for (PositionChangeObserver observer : positionObservers) {
+            observer.onPositionChanged(getGameObject(), oldPosition, newPosition);
+        }
     }
 }
