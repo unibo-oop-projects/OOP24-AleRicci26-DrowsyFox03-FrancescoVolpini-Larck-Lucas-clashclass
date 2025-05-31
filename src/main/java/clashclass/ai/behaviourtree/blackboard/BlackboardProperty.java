@@ -14,6 +14,13 @@ public interface BlackboardProperty<T> {
     T getValue();
 
     /**
+     * Sets the property's value.
+     *
+     * @param value the property's new value
+     */
+    void setValue(T value);
+
+    /**
      * Gets the property's type.
      *
      * @return the property's type

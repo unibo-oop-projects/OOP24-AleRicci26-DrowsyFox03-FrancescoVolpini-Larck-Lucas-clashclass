@@ -6,7 +6,7 @@ package clashclass.ai.behaviourtree.blackboard;
  * @param <T> the type of the property
  */
 public class BlackboardPropertyImpl<T> implements BlackboardProperty<T> {
-    private final T value;
+    private T value;
     private final Class<T> type;
 
     /**
@@ -28,6 +28,17 @@ public class BlackboardPropertyImpl<T> implements BlackboardProperty<T> {
         return this.value;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setValue(T value) {
+       this.value = value;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Class<T> getType() {
         return type;
