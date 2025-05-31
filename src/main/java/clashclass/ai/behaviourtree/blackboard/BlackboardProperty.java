@@ -12,4 +12,11 @@ public interface BlackboardProperty<T> {
      * @return the property's value
      */
     T getValue();
+
+    /**
+     * Gets the property's type.
+     *
+     * @return the property's type
+     */
+    Class<T> getType();
 }

@@ -6,7 +6,7 @@ import clashclass.ai.behaviourtree.blackboard.Blackboard;
  * Represents a root node, where the {@link BehaviourTree} starts.
  */
 public class RootNode extends AbstractBehaviourNode {
-    private AbstractBehaviourNode child;
+    private final AbstractBehaviourNode child;
 
     /**
      * Constructs the root node.

@@ -28,11 +28,13 @@ public class BlackboardImpl implements Blackboard {
      * {@inheritDoc}
      */
     @Override
-    public BlackboardProperty<?> getProperty(final String name) {
-        if (this.hasProperty(name)) {
-            return this.map.get(name);
+    @SuppressWarnings("unchecked")
+    public <T> BlackboardProperty<T> getProperty(final String name, final Class<T> type) {
+        final var property = map.get(name);
+        if (property == null || !type.isAssignableFrom(property.getType())) {
+            return null;
         }
-        return null;
+        return (BlackboardProperty<T>) property;
     }
 
     /**

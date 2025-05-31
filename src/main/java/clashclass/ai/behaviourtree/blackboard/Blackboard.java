@@ -19,7 +19,7 @@ public interface Blackboard {
      *
      * @return the value of the property
      */
-    BlackboardProperty<?> getProperty(String name);
+    <T> BlackboardProperty<T> getProperty(String name, Class<T> type);
 
     /**
      * Checks whether a property exists in the blackboard.

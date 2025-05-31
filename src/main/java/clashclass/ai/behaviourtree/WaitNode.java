@@ -3,7 +3,7 @@ package clashclass.ai.behaviourtree;
 /**
  * Represents a node that can wait a certain amount of time.
  */
-public class WaitBehaviourNode extends AbstractBehaviourNode {
+public class WaitNode extends AbstractBehaviourNode {
     private final float duration;
     private float currentTime;
 
@@ -12,7 +12,7 @@ public class WaitBehaviourNode extends AbstractBehaviourNode {
      *
      * @param duration the duration of the wait node
      */
-    public WaitBehaviourNode(final float duration) {
+    public WaitNode(final float duration) {
         this.duration = duration;
     }
 
