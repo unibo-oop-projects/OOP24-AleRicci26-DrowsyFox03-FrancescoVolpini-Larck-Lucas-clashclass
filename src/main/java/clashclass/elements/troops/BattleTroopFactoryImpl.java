@@ -2,6 +2,8 @@ package clashclass.elements.troops;
 
 import clashclass.ai.behaviourtree.BehaviourTreeFactory;
 import clashclass.ai.behaviourtree.BehaviourTreeTroopFactoryImpl;
+import clashclass.ai.logic.CalculateDamageLogicFactory;
+import clashclass.ai.logic.CalculateDamageLogicFactoryImpl;
 import clashclass.ecs.GameObject;
 import clashclass.stats.TroopBaseStatsComponent;
 
@@ -10,9 +12,11 @@ import clashclass.stats.TroopBaseStatsComponent;
  */
 public class BattleTroopFactoryImpl extends AbstractTroopFactory {
     private final BehaviourTreeFactory behaviourTreeFactory;
+    private final CalculateDamageLogicFactory damageLogicFactory;
 
     public BattleTroopFactoryImpl() {
         this.behaviourTreeFactory = new BehaviourTreeTroopFactoryImpl();
+        this.damageLogicFactory = new CalculateDamageLogicFactoryImpl();
     }
 
     /**
@@ -23,6 +27,7 @@ public class BattleTroopFactoryImpl extends AbstractTroopFactory {
         return builder
                 .addComponent(this.getComponentFactory().createHealth(100))
                 .addComponent(new TroopBaseStatsComponent(100, 30, 1, 1))
+                .addComponent(this.damageLogicFactory.createForBarbarian())
                 .addComponent(this.behaviourTreeFactory.create());
     }
 
@@ -34,6 +39,7 @@ public class BattleTroopFactoryImpl extends AbstractTroopFactory {
         return builder
                 .addComponent(this.getComponentFactory().createHealth(70))
                 .addComponent(new TroopBaseStatsComponent(70, 25, 2, 2))
+                .addComponent(this.damageLogicFactory.createForArcher())
                 .addComponent(this.behaviourTreeFactory.create());
     }
 }
