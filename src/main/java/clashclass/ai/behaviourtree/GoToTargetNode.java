@@ -6,21 +6,22 @@ import clashclass.ecs.GameObject;
 
 public class GoToTargetNode extends AbstractBehaviourNode {
     private final float distanceToTargetTolerance;
-    private final GameObject actor;
+    private BlackboardProperty<GameObject> actorProp;
     private BlackboardProperty<GameObject> targetProp;
 
-    public GoToTargetNode(final GameObject actor, final float distanceToTargetTolerance) {
-        this.actor = actor;
+    public GoToTargetNode(final float distanceToTargetTolerance) {
         this.distanceToTargetTolerance = distanceToTargetTolerance;
     }
 
     @Override
     public void onEnter() {
+        this.actorProp = this.getBlackboard().getProperty("actor", GameObject.class);
         this.targetProp = this.getBlackboard().getProperty("target", GameObject.class);
     }
 
     @Override
     public State onUpdate(final float deltaTime) {
+        final var actor = this.actorProp.getValue();
         final var target = this.targetProp.getValue();
 
         final var actorPosition = actor.getComponentOfType(Transform2D.class).get().getPosition();

@@ -7,12 +7,11 @@ import clashclass.ecs.GameObject;
 
 public class ChooseNextTargetNode extends AbstractBehaviourNode {
     private final ChooseTargetLogic chooseTargetLogic;
-    private final GameObject actor;
-    private BlackboardProperty<GameObjectListWrapper> potentialTargetsProp;
+    private BlackboardProperty<GameObject> actorProp;
     private BlackboardProperty<GameObject> targetProp;
+    private BlackboardProperty<GameObjectListWrapper> potentialTargetsProp;
 
-    public ChooseNextTargetNode(final GameObject actor, final ChooseTargetLogic chooseTargetLogic) {
-        this.actor = actor;
+    public ChooseNextTargetNode(final ChooseTargetLogic chooseTargetLogic) {
         this.chooseTargetLogic = chooseTargetLogic;
     }
 
@@ -21,8 +20,9 @@ public class ChooseNextTargetNode extends AbstractBehaviourNode {
      */
     @Override
     public void onEnter() {
-        this.potentialTargetsProp = this.getBlackboard().getProperty("potentialTargets", GameObjectListWrapper.class);
+        this.actorProp = this.getBlackboard().getProperty("actor", GameObject.class);
         this.targetProp = this.getBlackboard().getProperty("target", GameObject.class);
+        this.potentialTargetsProp = this.getBlackboard().getProperty("potentialTargets", GameObjectListWrapper.class);
     }
 
     /**
@@ -30,9 +30,10 @@ public class ChooseNextTargetNode extends AbstractBehaviourNode {
      */
     @Override
     public State onUpdate(final float deltaTime) {
+        final var actor = this.actorProp.getValue();
         final var potentialTargets = this.potentialTargetsProp.getValue().list();
-        final var nextTarget = chooseTargetLogic.chooseTarget(this.actor, potentialTargets);
 
+        final var nextTarget = chooseTargetLogic.chooseTarget(actor, potentialTargets);
         this.targetProp.setValue(nextTarget);
 
         return State.SUCCESS;
