@@ -1,12 +1,21 @@
 package clashclass.elements.buildings;
 
+import clashclass.ai.behaviourtree.BehaviourTreeDefenseBuildingFactoryImpl;
+import clashclass.ai.behaviourtree.BehaviourTreeFactory;
 import clashclass.commons.BuildingTypeComponentImpl;
 import clashclass.ecs.GameObject;
+import clashclass.stats.DefenseBuildingBaseStatsComponent;
 
 /**
  * Represents an implementation of BuildingFactory used for battle.
  */
 public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
+    private final BehaviourTreeFactory behaviourTreeFactory;
+
+    public BattleBuildingFactoryImpl() {
+        this.behaviourTreeFactory = new BehaviourTreeDefenseBuildingFactoryImpl();
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -34,7 +43,9 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
     protected GameObject.Builder createAdditionalCannonComponents(final GameObject.Builder builder) {
         return builder
                 .addComponent(new BuildingTypeComponentImpl(VillageElementData.CANNON))
-                .addComponent(this.getComponentFactory().createHealth(100));
+                .addComponent(this.getComponentFactory().createHealth(100))
+                .addComponent(new DefenseBuildingBaseStatsComponent(100, 20, 1, 5))
+                .addComponent(this.behaviourTreeFactory.create());
     }
 
     /**
@@ -44,7 +55,9 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
     protected GameObject.Builder createAdditionalArcherTowerComponents(final GameObject.Builder builder) {
         return builder
                 .addComponent(new BuildingTypeComponentImpl(VillageElementData.ARCHER_TOWER))
-                .addComponent(this.getComponentFactory().createHealth(100));
+                .addComponent(this.getComponentFactory().createHealth(100))
+                .addComponent(new DefenseBuildingBaseStatsComponent(80, 15, 2, 9))
+                .addComponent(this.behaviourTreeFactory.create());
     }
 
     /**

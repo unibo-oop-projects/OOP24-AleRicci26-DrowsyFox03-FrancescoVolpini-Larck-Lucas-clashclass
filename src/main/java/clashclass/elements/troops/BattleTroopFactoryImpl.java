@@ -3,6 +3,7 @@ package clashclass.elements.troops;
 import clashclass.ai.behaviourtree.BehaviourTreeFactory;
 import clashclass.ai.behaviourtree.BehaviourTreeTroopFactoryImpl;
 import clashclass.ecs.GameObject;
+import clashclass.stats.TroopBaseStatsComponent;
 
 /**
  * Represents an implementation of TroopFactory used for battle.
@@ -21,6 +22,7 @@ public class BattleTroopFactoryImpl extends AbstractTroopFactory {
     protected GameObject.Builder createAdditionalBarbarianComponents(final GameObject.Builder builder) {
         return builder
                 .addComponent(this.getComponentFactory().createHealth(100))
+                .addComponent(new TroopBaseStatsComponent(100, 30, 1, 1))
                 .addComponent(this.behaviourTreeFactory.create());
     }
 
@@ -30,6 +32,8 @@ public class BattleTroopFactoryImpl extends AbstractTroopFactory {
     @Override
     protected GameObject.Builder createAdditionalArcherComponents(final GameObject.Builder builder) {
         return builder
-                .addComponent(this.getComponentFactory().createHealth(70));
+                .addComponent(this.getComponentFactory().createHealth(70))
+                .addComponent(new TroopBaseStatsComponent(70, 25, 2, 2))
+                .addComponent(this.behaviourTreeFactory.create());
     }
 }
