@@ -2,17 +2,13 @@ package clashclass.ai.behaviourtree;
 
 import clashclass.ai.behaviourtree.blackboard.BlackboardProperty;
 import clashclass.ai.logic.CalculateDamageLogic;
+import clashclass.ai.logic.DamageLogicComponent;
 import clashclass.commons.HealthComponent;
 import clashclass.ecs.GameObject;
 
 public class DamageTargetNode extends AbstractBehaviourNode {
-    private final CalculateDamageLogic damageLogic;
     private BlackboardProperty<GameObject> actorProp;
     private BlackboardProperty<GameObject> targetProp;
-
-    public DamageTargetNode(final CalculateDamageLogic damageLogic) {
-        this.damageLogic = damageLogic;
-    }
 
     /**
      * {@inheritDoc}
@@ -31,7 +27,9 @@ public class DamageTargetNode extends AbstractBehaviourNode {
         final var actor = this.actorProp.getValue();
         final var target = this.targetProp.getValue();
 
-        final var damage = this.damageLogic.calculateDamage(actor, target);
+        final var damage = actor.getComponentOfType(DamageLogicComponent.class).get()
+                .getDamageLogic()
+                .calculateDamage(actor, target);
 
         final var targetHealth = target.getComponentOfType(HealthComponent.class).get();
         targetHealth.decrease(damage);
