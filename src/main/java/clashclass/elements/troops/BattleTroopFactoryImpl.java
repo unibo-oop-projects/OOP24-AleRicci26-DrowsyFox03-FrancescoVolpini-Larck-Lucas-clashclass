@@ -1,7 +1,7 @@
 package clashclass.elements.troops;
 
 import clashclass.ai.behaviourtree.BehaviourTreeFactory;
-import clashclass.ai.behaviourtree.BehaviourTreeFactoryImpl;
+import clashclass.ai.behaviourtree.BehaviourTreeTroopFactoryImpl;
 import clashclass.ecs.GameObject;
 
 /**
@@ -11,7 +11,7 @@ public class BattleTroopFactoryImpl extends AbstractTroopFactory {
     private final BehaviourTreeFactory behaviourTreeFactory;
 
     public BattleTroopFactoryImpl() {
-        this.behaviourTreeFactory = new BehaviourTreeFactoryImpl();
+        this.behaviourTreeFactory = new BehaviourTreeTroopFactoryImpl();
     }
 
     /**
