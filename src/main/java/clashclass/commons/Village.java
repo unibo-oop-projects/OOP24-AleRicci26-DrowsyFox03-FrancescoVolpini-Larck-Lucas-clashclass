@@ -9,29 +9,21 @@ public class Village {
     private final GameObject[][] groundGrid;
     private final GameObject[][] objectGrid;
     private final CommonGameObjectsFactory commonGameObjectFactory;
-    private final int size;
-    private final int tileSize;
 
-    public Village(final int size, final int tileSize) {
-        this.size = size;
-        this.tileSize = tileSize;
-        this.groundGrid = new GameObject[size][size];
-        this.objectGrid = new GameObject[size][size];
+    public Village() {
+        this.groundGrid = new GameObject[GameConstants.VILLAGE_SIZE][GameConstants.VILLAGE_SIZE];
+        this.objectGrid = new GameObject[GameConstants.VILLAGE_SIZE][GameConstants.VILLAGE_SIZE];
         this.commonGameObjectFactory = new CommonGameObjectFactoryImpl();
 
         this.createGroundTiles();
     }
 
     private void createGroundTiles() {
-        IntStream.range(0, size).forEach(i ->
-                IntStream.range(0, size).forEach(j -> {
+        IntStream.range(0, GameConstants.VILLAGE_SIZE).forEach(i ->
+                IntStream.range(0, GameConstants.VILLAGE_SIZE).forEach(j -> {
                     this.groundGrid[i][j] = this.commonGameObjectFactory
                             .createVillageGroundTile(new Vector2D(i, j));
                 }));
-    }
-
-    public int getSize() {
-        return size;
     }
 
     public void placeBuilding(GameObject building, VectorInt2D position, int width, int height) {
