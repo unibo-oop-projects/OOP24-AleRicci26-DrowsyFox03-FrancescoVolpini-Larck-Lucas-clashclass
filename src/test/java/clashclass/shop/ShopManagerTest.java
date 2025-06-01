@@ -1,8 +1,5 @@
-package java.clashclass.shop;
+package clashclass.shop;
 
-import clashclass.shop.ShopItem;
-import clashclass.shop.ShopItemImpl;
-import clashclass.shop.ShopManagerImpl;
 import clashclass.resources.RESOURCE_TYPE;
 import clashclass.resources.Player;
 
