@@ -1,5 +1,6 @@
 package clashclass.battle.battlereport;
 
+import clashclass.ecs.GameObject;
 import clashclass.resources.ResourceManager;
 
 /**
@@ -26,7 +27,7 @@ public interface BattleReportModel {
      * Increase the destruction percentage by a calculated amount.
      * This is called when a building is destroyed.
      */
-    void increaseDestructionPercentage();
+    void increaseDestructionPercentage(GameObject destroyedBuilding);
 
     /**
      * Get the number of stars earned in the battle (0-3).

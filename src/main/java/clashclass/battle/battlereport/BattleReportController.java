@@ -1,5 +1,6 @@
 package clashclass.battle.battlereport;
 
+import clashclass.ecs.GameObject;
 import clashclass.resources.ResourceManager;
 
 /**
@@ -12,7 +13,7 @@ public interface BattleReportController {
      * Increases the destruction percentage of the village.
      * This is called when a building is destroyed.
      */
-    void increaseDestructionPercentage();
+    void increaseDestructionPercentage(GameObject destroyedBuilding);
 
     /**
      * Increases the amount of stolen resources.

@@ -26,9 +26,9 @@ public class VillageDestructionManagerImpl extends AbstractComponent implements 
      * Updates the BattleReportController with the destruction information.
      */
     @Override
-    public void notifyDestruction(final GameObject obj) {
+    public void notifyDestruction(final GameObject destroyedBuilding) {
         // Increase the destruction percentage in the battle report
-        battleReportController.increaseDestructionPercentage();
+        battleReportController.increaseDestructionPercentage(destroyedBuilding);
 
         // Check if the destroyed object has resources to steal
         // This is a placeholder - in a real implementation, you would check if the

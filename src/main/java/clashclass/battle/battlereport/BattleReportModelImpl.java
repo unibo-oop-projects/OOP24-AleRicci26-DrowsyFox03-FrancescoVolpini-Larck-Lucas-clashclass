@@ -1,5 +1,8 @@
 package clashclass.battle.battlereport;
 
+import clashclass.commons.BuildingTypeComponent;
+import clashclass.ecs.GameObject;
+import clashclass.elements.buildings.VillageElementData;
 import clashclass.resources.ResourceManager;
 import clashclass.resources.ResourceManagerImpl;
 
@@ -51,11 +54,17 @@ public class BattleReportModelImpl implements BattleReportModel {
      * Increases the destruction percentage based on the number of buildings destroyed.
      */
     @Override
-    public void increaseDestructionPercentage() {
+    public void increaseDestructionPercentage(final GameObject destroyedBuilding) {
         destroyedBuildings++;
         this.destructionPercentage = (double) destroyedBuildings / totalBuildings * 100.0;
         // Ensure percentage doesn't exceed 100%
         this.destructionPercentage = Math.min(100.0, this.destructionPercentage);
+
+        destroyedBuilding.getComponentOfType(BuildingTypeComponent.class).ifPresent(type -> {
+            if (type.getBuildingType().equals(VillageElementData.TOWN_HALL)) {
+                this.setTownHallDestroyed(true);
+            }
+        });
     }
 
     /**

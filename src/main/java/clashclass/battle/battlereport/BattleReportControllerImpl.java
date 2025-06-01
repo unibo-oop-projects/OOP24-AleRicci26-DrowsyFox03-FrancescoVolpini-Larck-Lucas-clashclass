@@ -1,5 +1,6 @@
 package clashclass.battle.battlereport;
 
+import clashclass.ecs.GameObject;
 import clashclass.resources.ResourceManager;
 
 /**
@@ -30,8 +31,8 @@ public class BattleReportControllerImpl implements BattleReportController {
      * Increases the destruction percentage in the model and updates the view.
      */
     @Override
-    public void increaseDestructionPercentage() {
-        model.increaseDestructionPercentage();
+    public void increaseDestructionPercentage(final GameObject destroyedBuilding) {
+        model.increaseDestructionPercentage(destroyedBuilding);
         updateView();
     }
 

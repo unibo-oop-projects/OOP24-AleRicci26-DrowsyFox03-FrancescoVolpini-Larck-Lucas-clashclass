@@ -26,16 +26,16 @@ public class BattleTroopsBehaviorManagerImpl extends AbstractComponent implement
      * {@inheritDoc}
      */
     @Override
-    public void notifyDestruction(GameObject obj) {
+    public void notifyDestruction(final GameObject destroyedBuilding) {
         // When a building is destroyed, update the behavior of troops
-        updateTroopsBehavior();
+        updateTroopsBehavior(destroyedBuilding);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void updateTroopsBehavior() {
+    public void updateTroopsBehavior(final GameObject destroyedBuilding) {
         //chiama AiNodesBuilder
         // AiNodesBuilder.buildNodes(troops);
 
