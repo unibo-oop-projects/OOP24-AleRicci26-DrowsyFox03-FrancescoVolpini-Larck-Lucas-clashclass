@@ -1,5 +1,6 @@
 package clashclass;
 
+import clashclass.view.graphic.WindowJavaFX;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -13,11 +14,7 @@ public final class JavaFXApp extends Application {
 
     @Override
     public void start(final Stage primaryStage) {
-        final Label message = new Label("Hello, JavaFX!");
-        message.setFont(new Font(100));
-        primaryStage.setScene(new Scene(message));
-        primaryStage.setTitle("Hello");
-        primaryStage.show();
+        new WindowJavaFX().launchWindow();
     }
 
     /**

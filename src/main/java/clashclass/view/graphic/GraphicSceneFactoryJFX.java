@@ -2,6 +2,9 @@ package clashclass.view.graphic;
 
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.nio.file.Paths;
+
 /**
  * JavaFX-based implementation of GraphicSceneFactory.
  */
@@ -20,5 +23,15 @@ public class GraphicSceneFactoryJFX implements GraphicSceneFactory {
     @Override
     public BaseScene createMenuScene(Window window) {
         return new MenuJFX(stage, window);
+    }
+
+    @Override
+    public BaseScene createPlayerVillageScene(Window window) {
+        try {
+            return new PlayerVillageSceneJFX(window, stage, Paths.get("data_villages/default_village.csv"));
+        } catch (IOException e) {
+            System.err.println("Player village file not found ");
+            return null;
+        }
     }
 }

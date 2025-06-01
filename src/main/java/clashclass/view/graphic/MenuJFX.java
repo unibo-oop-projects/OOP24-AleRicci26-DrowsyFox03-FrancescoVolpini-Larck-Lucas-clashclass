@@ -1,5 +1,9 @@
 package clashclass.view.graphic;
 
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -18,6 +22,19 @@ public class MenuJFX extends AbstractBaseScene{
      */
     @Override
     public void initializeScene() {
-        //TODO ficcaci dentro roba
+        Image image = new Image(ClassLoader.getSystemResourceAsStream("sprites/town-hall.png"));
+
+        ImageView imageView = new ImageView(image);
+        imageView.setX(100);
+        imageView.setY(150);
+        imageView.setFitWidth(64);
+        imageView.setFitHeight(64);
+
+        Pane root = new Pane(imageView);
+        Scene scene = new Scene(root, 800, 600);
+
+        this.stage.setTitle("clashclass");
+        this.stage.setScene(scene);
+        this.stage.show();
     }
 }

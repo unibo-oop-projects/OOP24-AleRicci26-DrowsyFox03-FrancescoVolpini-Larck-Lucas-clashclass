@@ -7,6 +7,7 @@ public abstract class AbstractBaseScene implements BaseScene {
     private final Window window;
     private static final double WINDOW_WIDTH = 1920; //TODO da rendere scalabile T^T
     private static final double WINDOW_HEIGHT = 1080;
+    private Graphic graphics;
 
     protected AbstractBaseScene(final Window window) {
         this.window = window;
@@ -31,5 +32,13 @@ public abstract class AbstractBaseScene implements BaseScene {
      */
     public final double getWindowHeight() {
         return WINDOW_HEIGHT;
+    }
+
+    protected Graphic getGraphics() {
+        return graphics;
+    }
+
+    protected void setGraphics(final Graphic graphics) {
+        this.graphics = graphics;
     }
 }

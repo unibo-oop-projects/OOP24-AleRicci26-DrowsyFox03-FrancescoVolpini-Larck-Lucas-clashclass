@@ -10,7 +10,7 @@ public abstract class AbstractWindow implements Window {
      */
     @Override
     public void launchWindow() {
-        final var window = this.createMenuScene();
+        final var window = this.getGraphicSceneFactory().createPlayerVillageScene(this);
         window.initializeScene();
     }
 

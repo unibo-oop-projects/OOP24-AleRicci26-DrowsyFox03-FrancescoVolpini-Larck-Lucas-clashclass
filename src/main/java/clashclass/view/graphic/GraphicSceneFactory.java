@@ -11,4 +11,6 @@ public interface GraphicSceneFactory {
      * @return a BaseScene instance representing the menu
      */
     BaseScene createMenuScene(Window window);
+
+    BaseScene createPlayerVillageScene(Window window);
 }
