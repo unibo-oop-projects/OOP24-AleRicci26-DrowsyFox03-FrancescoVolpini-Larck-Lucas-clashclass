@@ -4,6 +4,8 @@ import clashclass.ecs.DrawableComponent;
 import clashclass.ecs.GraphicComponent;
 import clashclass.view.graphic.Graphic;
 
+import java.util.stream.Collectors;
+
 /**
  * Represents a GameLoop implementation.
  */
@@ -40,7 +42,6 @@ public class GameLoopImpl implements GameLoop {
         while (!Thread.currentThread().isInterrupted()) {
             this.calculateDeltaTime();
 
-            this.graphics.clearRect();
             this.updateGameObjects();
             this.drawGameObjects();
 
@@ -61,10 +62,10 @@ public class GameLoopImpl implements GameLoop {
     }
 
     private void drawGameObjects() {
-        this.currentScene.getGameObjects().stream()
+        this.graphics.render(this.currentScene.getGameObjects().stream()
                 .filter(x -> x.getComponentOfType(GraphicComponent.class).isPresent())
-                .forEach(x -> x.getComponentOfType(GraphicComponent.class).get()
-                        .draw(this.graphics));
+                .map(x -> x.getComponentOfType(GraphicComponent.class).get())
+                .collect(Collectors.toUnmodifiableSet()));
     }
 
     /**

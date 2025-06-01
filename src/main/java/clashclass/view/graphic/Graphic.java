@@ -1,5 +1,8 @@
 package clashclass.view.graphic;
 import clashclass.ecs.GameObject;
+import clashclass.ecs.GraphicComponent;
+
+import java.util.Set;
 
 /**
  * Interface to draw GameObjects.
@@ -7,6 +10,8 @@ import clashclass.ecs.GameObject;
 public interface Graphic {
 
     void clearRect();
+
+    void render(Set<GraphicComponent> graphicComponents);
 
     /**
      * Method to draw a sprite.

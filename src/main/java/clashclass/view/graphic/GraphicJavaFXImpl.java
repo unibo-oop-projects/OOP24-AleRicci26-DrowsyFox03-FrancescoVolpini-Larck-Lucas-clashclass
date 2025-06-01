@@ -3,10 +3,13 @@ package clashclass.view.graphic;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.function.Consumer;
 
 import clashclass.ecs.GameObject;
 import clashclass.commons.Transform2D;
 import clashclass.ecs.GraphicComponent;
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.canvas.GraphicsContext;
@@ -56,6 +59,15 @@ public class GraphicJavaFXImpl implements Graphic {
     @Override
     public void clearRect() {
         this.gc.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
+    }
+
+    @Override
+    public void render(final Set<GraphicComponent> graphicComponents) {
+        Platform.runLater(() -> {
+            this.clearRect();
+            graphicComponents.forEach(graphicComponent ->
+                   graphicComponent.draw(this));
+        });
     }
 
     /**
