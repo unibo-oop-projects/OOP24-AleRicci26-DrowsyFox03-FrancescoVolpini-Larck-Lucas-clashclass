@@ -95,8 +95,8 @@ public class GraphicJavaFXImpl implements Graphic {
 
             this.gc.drawImage(
                     image,
-                    position.x() * 23 - image.getWidth() / 2,
-                    position.y() * 23 - image.getHeight() / 2,
+                    position.x() - image.getWidth() / 2,
+                    position.y() - image.getHeight() / 2,
                     image.getWidth(),
                     image.getHeight());
 

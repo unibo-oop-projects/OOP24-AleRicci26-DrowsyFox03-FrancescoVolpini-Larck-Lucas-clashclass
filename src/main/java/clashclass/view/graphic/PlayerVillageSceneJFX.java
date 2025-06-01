@@ -30,6 +30,6 @@ public class PlayerVillageSceneJFX extends VillageSceneJFX {
      */
     @Override
     protected String getSceneTitle() {
-        return "Player Village";
+        return "Clash Of Class";
     }
 }

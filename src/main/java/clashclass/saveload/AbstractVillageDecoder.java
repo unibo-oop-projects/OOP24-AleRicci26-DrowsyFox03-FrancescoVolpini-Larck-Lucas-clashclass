@@ -37,8 +37,8 @@ public abstract class AbstractVillageDecoder implements VillageDecoder {
                     type = VillageElementData.values()[Integer.parseInt(parts[0])];
                 }
 
-                int x = Integer.parseInt(parts[2].trim());
-                int y = Integer.parseInt(parts[3].trim());
+                int x = Integer.parseInt(parts[2].trim()) * 23;
+                int y = Integer.parseInt(parts[3].trim()) * 23;
 
                 GameObject go = createGameObject(type, new Vector2D(x, y));
                 result.add(go);
