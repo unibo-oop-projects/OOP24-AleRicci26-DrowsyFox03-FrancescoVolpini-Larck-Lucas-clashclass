@@ -27,7 +27,8 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
     protected GameObject.Builder createAdditionalTownHallComponents(final GameObject.Builder builder) {
         return builder
                 .addComponent(new BuildingTypeComponentImpl(VillageElementData.TOWN_HALL))
-                .addComponent(this.getComponentFactory().createHealth(100));
+                .addComponent(this.getComponentFactory().createHealth(100))
+                .ad;
     }
 
     /**

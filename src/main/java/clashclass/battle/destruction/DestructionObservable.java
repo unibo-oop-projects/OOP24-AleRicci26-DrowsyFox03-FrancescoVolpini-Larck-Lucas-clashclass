@@ -1,6 +1,7 @@
 package clashclass.battle.destruction;
 
 import clashclass.ecs.Component;
+import clashclass.ecs.UpdateProvider;
 
 /**
  * Indicates that an object can be observed for destruction events.
@@ -9,7 +10,7 @@ import clashclass.ecs.Component;
  * which allows DestructionObservers to subscribe and get notified
  * when the building is destroyed.
  */
-public interface DestructionObservable extends Component {
+public interface DestructionObservable extends Component, UpdateProvider {
     /**
      * Add an observer to the set of Observers.
      *
