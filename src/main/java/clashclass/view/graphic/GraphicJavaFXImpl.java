@@ -7,6 +7,7 @@ import java.util.Objects;
 import clashclass.ecs.GameObject;
 import clashclass.commons.Transform2D;
 import clashclass.ecs.GraphicComponent;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -23,9 +24,11 @@ public class GraphicJavaFXImpl implements Graphic {
     private final double dpiH;
     private double width;
     private double height;
+    private final Canvas canvas;
 
-    GraphicJavaFXImpl(final GraphicsContext gc, final double dpiW, final double dpiH) {
+    GraphicJavaFXImpl(final GraphicsContext gc, final Canvas canvas, final double dpiW, final double dpiH) {
         this.gc = gc;
+        this.canvas = canvas;
         this.dpiW = dpiW;
         this.dpiH = dpiH;
         storeSprites();
@@ -52,7 +55,7 @@ public class GraphicJavaFXImpl implements Graphic {
 
     @Override
     public void clearRect() {
-        this.gc.clearRect(0, 0, width, height);
+        this.gc.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
     }
 
     /**
@@ -72,10 +75,20 @@ public class GraphicJavaFXImpl implements Graphic {
             final var position = go.getComponentOfType(Transform2D.class).get().getPosition();
             final var image = spritesMap.get(spriteName);
 
+            double scaleX = canvas.getWidth() / dpiW;
+            double scaleY = canvas.getHeight() / dpiH;
+
+            gc.save();
+            gc.scale(scaleX, scaleY);
+
             this.gc.drawImage(
                     image,
                     position.x() * 23 - image.getWidth() / 2,
-                    position.y() * 23 - image.getHeight() / 2);
+                    position.y() * 23 - image.getHeight() / 2,
+                    image.getWidth(),
+                    image.getHeight());
+
+            this.gc.restore();
         });
     }
 

@@ -34,7 +34,7 @@ public abstract class VillageSceneJFX extends AbstractBaseScene{
 
         Canvas canvas = new Canvas(getWindowWidth(), getWindowHeight());
         this.gc = canvas.getGraphicsContext2D();
-        this.setGraphics(new GraphicJavaFXImpl(gc, getWindowWidth(), getWindowHeight()));
+        this.setGraphics(new GraphicJavaFXImpl(gc, canvas, getWindowWidth(), getWindowHeight()));
 
         Pane root = new Pane(canvas);
         Scene scene = new Scene(root, getWindowWidth(), getWindowHeight());
@@ -42,8 +42,15 @@ public abstract class VillageSceneJFX extends AbstractBaseScene{
         stage.setTitle(getSceneTitle());
         stage.show();
 
+        canvas.widthProperty().bind(scene.widthProperty());
+        canvas.heightProperty().bind(scene.heightProperty());
+
+//        canvas.widthProperty().addListener((obs, oldVal, newVal) -> redraw());
+//        canvas.heightProperty().addListener((obs, oldVal, newVal) -> redraw());
+
         final GameEngine gameEngine = new GameEngineImpl(this.getGraphics());
         this.gameObjects.forEach(gameEngine::addGameObject);
+
         gameEngine.start();
 
         initializeScene();
