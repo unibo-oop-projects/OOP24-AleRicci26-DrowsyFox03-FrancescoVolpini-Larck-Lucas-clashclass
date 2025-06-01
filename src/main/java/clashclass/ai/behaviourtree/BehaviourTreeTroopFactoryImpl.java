@@ -1,6 +1,5 @@
 package clashclass.ai.behaviourtree;
 
-import clashclass.ai.logic.CalculateTroopDamageLogicImpl;
 import clashclass.ai.logic.ChooseTargetNearestLogicImpl;
 
 import java.util.List;
@@ -12,10 +11,10 @@ public class BehaviourTreeTroopFactoryImpl implements BehaviourTreeFactory {
             new RootNode(
                 new SequenceNode(List.of(
                     new ChooseNextTargetNode(new ChooseTargetNearestLogicImpl()),
-                    new GoToTargetNode(0.5f),
+                    new GoToTargetNode(0.1f),
                     new WaitNode(0.5f),
                     new SequenceNode(List.of(
-                        new DamageTargetNode(new CalculateTroopDamageLogicImpl()),
+                        new DamageTargetNode(),
                         new WaitNode(0.5f)
                     ))
                 ))

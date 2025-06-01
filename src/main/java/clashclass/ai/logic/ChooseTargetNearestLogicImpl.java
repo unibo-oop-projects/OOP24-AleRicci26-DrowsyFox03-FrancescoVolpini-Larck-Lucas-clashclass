@@ -23,6 +23,6 @@ public class ChooseTargetNearestLogicImpl implements ChooseTargetLogic {
                         .get()
                         .getPosition()
                         .distance(actorPosition)))
-                .get();
+                .orElseThrow();
     }
 }

@@ -22,7 +22,7 @@ public class ChooseTargetLogicTest {
 
         final var building1 = buildingsFactory.createCannon(new Vector2D(1, 2));
         final var building2 = buildingsFactory.createCannon(new Vector2D(1, 3));
-        final var building3 = buildingsFactory.createCannon(new Vector2D(2, 0));
+        final var building3 = buildingsFactory.createCannon(new Vector2D(2, 1));
 
         final var targetsList = List.of(building1, building2, building3);
 
