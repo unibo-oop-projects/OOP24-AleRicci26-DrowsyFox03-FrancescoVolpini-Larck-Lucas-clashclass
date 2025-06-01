@@ -6,6 +6,8 @@ import clashclass.ecs.GameObject;
  */
 public interface Graphic {
 
+    void clearRect();
+
     /**
      * Method to draw a sprite.
      * @param gameObject the GameObject to draw

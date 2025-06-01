@@ -1,5 +1,9 @@
 package clashclass.engine;
 
+import clashclass.ecs.DrawableComponent;
+import clashclass.ecs.GraphicComponent;
+import clashclass.view.graphic.Graphic;
+
 /**
  * Represents a GameLoop implementation.
  */
@@ -10,13 +14,15 @@ public class GameLoopImpl implements GameLoop {
     private float deltaTime;
     private long sleepTime;
     private GameScene currentScene;
+    private final Graphic graphics;
 
     /**
      * Constructs the GameLoop.
      *
      * @param fps the desired number of frames per seconds
      */
-    public GameLoopImpl(final float fps) {
+    public GameLoopImpl(final Graphic graphic, final float fps) {
+        this.graphics = graphic;
         this.fps = fps;
         this.secondsBetweenTwoFrames = 1.0f / fps;
         this.lastTime = 0;
@@ -33,7 +39,11 @@ public class GameLoopImpl implements GameLoop {
 
         while (!Thread.currentThread().isInterrupted()) {
             this.calculateDeltaTime();
-            this.currentScene.updateGameObjects(deltaTime);
+
+            this.graphics.clearRect();
+            this.updateGameObjects();
+            this.drawGameObjects();
+
             this.calculateSleepTime();
 
             if (this.sleepTime > 0) {
@@ -44,6 +54,17 @@ public class GameLoopImpl implements GameLoop {
                 }
             }
         }
+    }
+
+    private void updateGameObjects() {
+        this.currentScene.updateGameObjects(deltaTime);
+    }
+
+    private void drawGameObjects() {
+        this.currentScene.getGameObjects().stream()
+                .filter(x -> x.getComponentOfType(GraphicComponent.class).isPresent())
+                .forEach(x -> x.getComponentOfType(GraphicComponent.class).get()
+                        .draw(this.graphics));
     }
 
     /**

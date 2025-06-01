@@ -3,7 +3,7 @@ package clashclass.ecs;
 /**
  * Abstract class that represents the GraphicComponent of a GameObject.
  */
-public abstract class GraphicComponent extends AbstractComponent {
+public abstract class GraphicComponent extends AbstractComponent implements DrawableComponent {
     private final double width;
     private final double height;
 

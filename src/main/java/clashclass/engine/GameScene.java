@@ -2,6 +2,7 @@ package clashclass.engine;
 
 import clashclass.ecs.GameObject;
 
+import java.util.Set;
 import java.util.function.Consumer;
 
 /**
@@ -28,4 +29,6 @@ public interface GameScene {
      * @param gameObject the GameObject to add
      */
     void addGameObject(GameObject gameObject);
+
+    Set<GameObject> getGameObjects();
 }

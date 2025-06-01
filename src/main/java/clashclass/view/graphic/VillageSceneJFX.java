@@ -3,6 +3,8 @@ package clashclass.view.graphic;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactoryImpl;
 import clashclass.elements.buildings.PlayerBuildingFactoryImpl;
+import clashclass.engine.GameEngine;
+import clashclass.engine.GameEngineImpl;
 import clashclass.saveload.PlayerVillageDecoderImpl;
 import clashclass.saveload.VillageDecoder;
 import javafx.scene.Scene;
@@ -40,6 +42,10 @@ public abstract class VillageSceneJFX extends AbstractBaseScene{
         stage.setTitle(getSceneTitle());
         stage.show();
 
+        final GameEngine gameEngine = new GameEngineImpl(this.getGraphics());
+        this.gameObjects.forEach(gameEngine::addGameObject);
+        gameEngine.start();
+
         initializeScene();
     }
     /**
@@ -47,7 +53,7 @@ public abstract class VillageSceneJFX extends AbstractBaseScene{
      */
     @Override
     public void initializeScene() {
-        drawAllGameObjects();
+
     }
 
     protected void drawAllGameObjects() {

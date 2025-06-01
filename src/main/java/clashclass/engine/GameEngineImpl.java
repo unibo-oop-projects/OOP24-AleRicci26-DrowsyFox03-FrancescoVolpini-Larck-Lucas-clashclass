@@ -1,6 +1,7 @@
 package clashclass.engine;
 
 import clashclass.ecs.GameObject;
+import clashclass.view.graphic.Graphic;
 
 /**
  * Represents a GameEngine implementation.
@@ -13,9 +14,9 @@ public class GameEngineImpl implements GameEngine {
     /**
      * Constructs the game engine.
      */
-    public GameEngineImpl() {
+    public GameEngineImpl(final Graphic graphic) {
         this.currentScene = new GameSceneImpl();
-        this.gameLoop = new GameLoopImpl(60.0f);
+        this.gameLoop = new GameLoopImpl(graphic, 60.0f);
         this.gameLoop.setCurrentScene(this.currentScene);
         this.gameLoopThread = new Thread(this.gameLoop);
     }

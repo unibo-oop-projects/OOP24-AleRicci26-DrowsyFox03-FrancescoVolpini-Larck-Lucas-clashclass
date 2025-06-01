@@ -2,6 +2,7 @@ package clashclass.view.graphic;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import clashclass.ecs.GameObject;
 import clashclass.commons.Transform2D;
@@ -31,12 +32,29 @@ public class GraphicJavaFXImpl implements Graphic {
     }
 
     private void storeSprites() {
-        spritesMap = new HashMap<>();
-        this.spritesMap.put("grass",
-                new Image(ClassLoader.getSystemResourceAsStream("sprites/grass.jpg")));
-        this.spritesMap.put("wall",
-                new Image(ClassLoader.getSystemResourceAsStream("sprites/wall.jpg")));
+        this.spritesMap = new HashMap<>();
+        this.spritesMap.put("grass-tile", this.loadImage("grass-tile.png"));
+        this.spritesMap.put("archer-tower", this.loadImage("archer-tower.png"));
+        this.spritesMap.put("barracks", this.loadImage("barracks.png"));
+        this.spritesMap.put("campfire", this.loadImage("campfire.png"));
+        this.spritesMap.put("cannon", this.loadImage("cannon.png"));
+        this.spritesMap.put("elisir-extractor", this.loadImage("elisir-extractor.png"));
+        this.spritesMap.put("elisir-storage", this.loadImage("elisir-storage.png"));
+        this.spritesMap.put("gold-extractor", this.loadImage("gold-extractor.png"));
+        this.spritesMap.put("gold-storage", this.loadImage("gold-storage.png"));
+        this.spritesMap.put("town-hall", this.loadImage("town-hall.png"));
+        this.spritesMap.put("wall", this.loadImage("wall.png"));
     }
+
+    private Image loadImage(final String path) {
+        return new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("sprites/" + path)));
+    }
+
+    @Override
+    public void clearRect() {
+        this.gc.clearRect(0, 0, width, height);
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -44,12 +62,20 @@ public class GraphicJavaFXImpl implements Graphic {
     public void drawSprites(GameObject go, String spriteName) {
         go.getComponentOfType(GraphicComponent.class).ifPresent(component -> {
             computeGameObjectBounds(go, component);
+//            this.gc.drawImage(
+//                spritesMap.get(spriteName),
+//                    gameObjectX - width / 2,
+//                    gameObjectY - height / 2,
+//                    width,
+//                    height);
+
+            final var position = go.getComponentOfType(Transform2D.class).get().getPosition();
+            final var image = spritesMap.get(spriteName);
+
             this.gc.drawImage(
-                spritesMap.get(spriteName),
-                    gameObjectX - width / 2,
-                    gameObjectY - height / 2,
-                    width,
-                    height);
+                    image,
+                    position.x() * 23 - image.getWidth() / 2,
+                    position.y() * 23 - image.getHeight() / 2);
         });
     }
 
@@ -71,10 +97,10 @@ public class GraphicJavaFXImpl implements Graphic {
 
     private void computeGameObjectBounds(GameObject go, GraphicComponent graphicComponent) {
         go.getComponentOfType(Transform2D.class).ifPresent(t2DComponent -> {
-            gameObjectX = t2DComponent.getPosition().x() * this.dpiW;
-            gameObjectY = t2DComponent.getPosition().y() * this.dpiH;
+            gameObjectX = t2DComponent.getPosition().x();// * this.dpiW;
+            gameObjectY = t2DComponent.getPosition().y();// * this.dpiH;
         });
-        width = graphicComponent.getWidth() * this.dpiW;
-        height = graphicComponent.getHeight() * this.dpiH;
+        width = graphicComponent.getWidth(); // * this.dpiW;
+        height = graphicComponent.getHeight(); // * this.dpiH;
     }
 }

@@ -3,6 +3,7 @@ package clashclass.engine;
 import clashclass.ecs.GameObject;
 import clashclass.ecs.UpdateProvider;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -48,5 +49,10 @@ public class GameSceneImpl implements GameScene {
         if (gameObject instanceof UpdateProvider) {
             this.gameObjectsToUpdate.add((UpdateProvider) gameObject);
         }
+    }
+
+    @Override
+    public Set<GameObject> getGameObjects() {
+        return this.gameObjects;
     }
 }

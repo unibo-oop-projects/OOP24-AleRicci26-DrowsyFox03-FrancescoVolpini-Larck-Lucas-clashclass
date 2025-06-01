@@ -1,13 +1,16 @@
 package clashclass.view.graphic;
 
+import clashclass.engine.GameEngine;
+
 /**
  * Abstract class containing all the basic methods and variables for a BaseScene.
  */
 public abstract class AbstractBaseScene implements BaseScene {
     private final Window window;
-    private static final double WINDOW_WIDTH = 1920; //TODO da rendere scalabile T^T
-    private static final double WINDOW_HEIGHT = 1080;
+    private static final double WINDOW_WIDTH = 600; //TODO da rendere scalabile T^T
+    private static final double WINDOW_HEIGHT = 400;
     private Graphic graphics;
+    private GameEngine gameEngine;
 
     protected AbstractBaseScene(final Window window) {
         this.window = window;

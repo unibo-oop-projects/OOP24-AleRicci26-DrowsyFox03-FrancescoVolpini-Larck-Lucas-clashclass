@@ -1,5 +1,7 @@
 package clashclass.ecs;
 
+import clashclass.view.graphic.Graphic;
+
 /**
  * Concrete implementation of GraphicComponent for rendering GameObjects.
  */
@@ -13,5 +15,10 @@ public class GraphicComponentImpl extends GraphicComponent {
      */
     public GraphicComponentImpl(final double width, final double height) {
         super(width, height);
+    }
+
+    @Override
+    public void draw(Graphic graphics) {
+        graphics.drawRectangle(this.getGameObject());
     }
 }
