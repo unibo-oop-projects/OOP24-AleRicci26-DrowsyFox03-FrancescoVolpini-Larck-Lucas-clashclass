@@ -1,6 +1,6 @@
 package clashclass.saveload;
 
-import clashclass.commons.Village;
+import clashclass.village.Village;
 import clashclass.elements.ComponentFactory;
 
 /**

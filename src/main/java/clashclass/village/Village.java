@@ -1,5 +1,8 @@
-package clashclass.commons;
+package clashclass.village;
 
+import clashclass.commons.GameConstants;
+import clashclass.commons.GridTileData2D;
+import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.commons.CommonGameObjectFactoryImpl;
 import clashclass.elements.commons.CommonGameObjectsFactory;

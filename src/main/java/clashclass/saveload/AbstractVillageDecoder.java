@@ -1,18 +1,14 @@
 package clashclass.saveload;
 
-import clashclass.commons.GridTileData2D;
-import clashclass.commons.Vector2D;
 import clashclass.commons.VectorInt2D;
-import clashclass.commons.Village;
+import clashclass.village.Village;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactory;
 import clashclass.elements.buildings.VillageElementData;
 import clashclass.resources.Player;
 import clashclass.resources.RESOURCE_TYPE;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 public abstract class AbstractVillageDecoder implements VillageDecoder {
 

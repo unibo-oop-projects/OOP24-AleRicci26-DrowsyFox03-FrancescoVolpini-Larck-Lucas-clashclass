@@ -1,7 +1,7 @@
 package clashclass.view.graphic;
 
 import clashclass.commons.GridTileData2D;
-import clashclass.commons.Village;
+import clashclass.village.Village;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactoryImpl;
 import clashclass.elements.buildings.PlayerBuildingFactoryImpl;

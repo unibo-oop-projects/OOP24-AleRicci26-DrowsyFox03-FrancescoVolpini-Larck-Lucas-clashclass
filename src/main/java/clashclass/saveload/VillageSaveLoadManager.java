@@ -1,8 +1,7 @@
 package clashclass.saveload;
 
-import clashclass.commons.Village;
+import clashclass.village.Village;
 import clashclass.ecs.GameObject;
-import clashclass.elements.ComponentFactory;
 
 import java.io.*;
 import java.nio.file.Files;
