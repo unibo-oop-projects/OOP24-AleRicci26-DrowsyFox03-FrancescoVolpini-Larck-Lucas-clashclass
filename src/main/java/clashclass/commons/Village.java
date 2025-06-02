@@ -34,7 +34,7 @@ public class Village {
     public void placeBuilding(GameObject building, VectorInt2D position, int width, int height) {
         IntStream.range(0, width).forEach(i ->
                 IntStream.range(0, height).forEach(j -> {
-                    this.objectGrid[position.x() + i][position.y() + j] = building;
+                    this.objectGrid[position.x() - i][position.y() - j] = building;
                 }));
     }
 

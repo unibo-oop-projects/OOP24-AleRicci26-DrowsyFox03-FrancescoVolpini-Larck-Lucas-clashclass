@@ -17,11 +17,11 @@ public class GridTileData2D extends AbstractComponent {
         return this.position;
     }
 
-    int getRowSpan() {
+    public int getRowSpan() {
         return this.rowSpan;
     }
 
-    int getColSpan() {
+    public int getColSpan() {
         return this.colSpan;
     }
 }

@@ -62,11 +62,14 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
         final var player = new Player();
         final var village = new Village();
 
-        this.gameObjects.forEach(gameObject -> village.placeBuilding(
-                gameObject,
-                gameObject.getComponentOfType(GridTileData2D.class).get().getPosition(),
-                1,
-                1));
+        this.gameObjects.forEach(gameObject -> {
+            final var gridTileData = gameObject.getComponentOfType(GridTileData2D.class).get();
+            village.placeBuilding(
+                    gameObject,
+                    gridTileData.getPosition(),
+                    gridTileData.getRowSpan(),
+                    gridTileData.getColSpan());
+        });
 
         village.getGroundObjects().forEach(gameEngine::addGameObject);
         village.getGameObjects().forEach(gameEngine::addGameObject);

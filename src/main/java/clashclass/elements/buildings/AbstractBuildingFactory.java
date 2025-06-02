@@ -43,11 +43,13 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
      */
     @Override
     public final GameObject createTownHall(final VectorInt2D position) {
+        final var buildingData = VillageElementData.TOWN_HALL;
         return this.createWithFactoryMethod(this::createAdditionalTownHallComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new GridTileData2D(position, 3, 3))
-                        .addComponent(new ImageRendererImpl(VillageElementData.TOWN_HALL.getName(), 1)));
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility
+                                .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
+                        .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
+                        .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
     /**
@@ -55,11 +57,13 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
      */
     @Override
     public final GameObject createWall(final VectorInt2D position) {
+        final var buildingData = VillageElementData.WALL;
         return this.createWithFactoryMethod(this::createAdditionalWallComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new GridTileData2D(position, 1, 1))
-                        .addComponent(new ImageRendererImpl(VillageElementData.WALL.getName(), 1)));
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility
+                                .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
+                        .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
+                        .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
     /**
@@ -67,11 +71,13 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
      */
     @Override
     public final GameObject createCannon(final VectorInt2D position) {
+        final var buildingData = VillageElementData.CANNON;
         return this.createWithFactoryMethod(this::createAdditionalCannonComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new GridTileData2D(position, 2, 2))
-                        .addComponent(new ImageRendererImpl(VillageElementData.CANNON.getName(), 1)));
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility
+                                .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
+                        .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
+                        .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
     /**
@@ -79,11 +85,13 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
      */
     @Override
     public final GameObject createArcherTower(final VectorInt2D position) {
+        final var buildingData = VillageElementData.ARCHER_TOWER;
         return this.createWithFactoryMethod(this::createAdditionalArcherTowerComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new GridTileData2D(position, 2, 2))
-                        .addComponent(new ImageRendererImpl(VillageElementData.ARCHER_TOWER.getName(), 1)));
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility
+                                .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
+                        .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
+                        .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
     /**
@@ -91,11 +99,13 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
      */
     @Override
     public final GameObject createGoldStorage(final VectorInt2D position) {
+        final var buildingData = VillageElementData.GOLD_STORAGE;
         return this.createWithFactoryMethod(this::createAdditionalGoldStorageComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new GridTileData2D(position, 2, 2))
-                        .addComponent(new ImageRendererImpl(VillageElementData.GOLD_STORAGE.getName(), 1)));
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility
+                                .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
+                        .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
+                        .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
     /**
@@ -103,11 +113,13 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
      */
     @Override
     public final GameObject createElixirStorage(final VectorInt2D position) {
+        final var buildingData = VillageElementData.ELIXIR_STORAGE;
         return this.createWithFactoryMethod(this::createAdditionalElixirStorageComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new GridTileData2D(position, 2, 2))
-                        .addComponent(new ImageRendererImpl(VillageElementData.ELIXIR_STORAGE.getName(), 1)));
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility
+                                .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
+                        .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
+                        .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
     /**
@@ -115,11 +127,13 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
      */
     @Override
     public final GameObject createGoldExtractor(final VectorInt2D position) {
+        final var buildingData = VillageElementData.GOLD_EXTRACTOR;
         return this.createWithFactoryMethod(this::createAdditionalGoldExtractorComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new GridTileData2D(position, 2, 2))
-                        .addComponent(new ImageRendererImpl(VillageElementData.GOLD_EXTRACTOR.getName(), 1)));
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility
+                                .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
+                        .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
+                        .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
     /**
@@ -127,11 +141,13 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
      */
     @Override
     public final GameObject createElixirExtractor(final VectorInt2D position) {
+        final var buildingData = VillageElementData.ELIXIR_EXTRACTOR;
         return this.createWithFactoryMethod(this::createAdditionalElixirExtractorComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new GridTileData2D(position, 2, 2))
-                        .addComponent(new ImageRendererImpl(VillageElementData.ELIXIR_EXTRACTOR.getName(), 1)));
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility
+                                .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
+                        .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
+                        .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
     /**
@@ -139,11 +155,13 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
      */
     @Override
     public final GameObject createArmyCamp(final VectorInt2D position) {
+        final var buildingData = VillageElementData.ARMY_CAMP;
         return this.createWithFactoryMethod(this::createAdditionalArmyCampComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new GridTileData2D(position, 3, 3))
-                        .addComponent(new ImageRendererImpl(VillageElementData.ARMY_CAMP.getName(), 1)));
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility
+                                .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
+                        .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
+                        .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
     /**
@@ -151,11 +169,13 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
      */
     @Override
     public final GameObject createBarracks(final VectorInt2D position) {
+        final var buildingData = VillageElementData.BARRACKS;
         return this.createWithFactoryMethod(this::createAdditionalBarracksComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new GridTileData2D(position, 2, 2))
-                        .addComponent(new ImageRendererImpl(VillageElementData.BARRACKS.getName(), 1)));
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility
+                                .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
+                        .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
+                        .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
     /**
