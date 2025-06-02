@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
 
+import clashclass.commons.GameConstants;
 import clashclass.ecs.GameObject;
 import clashclass.commons.Transform2D;
 import clashclass.ecs.GraphicComponent;
@@ -76,7 +77,7 @@ public class GraphicJavaFXImpl implements Graphic {
     @Override
     public void drawSprites(GameObject go, String spriteName) {
         go.getComponentOfType(GraphicComponent.class).ifPresent(component -> {
-            computeGameObjectBounds(go, component);
+//            computeGameObjectBounds(go, component);
 //            this.gc.drawImage(
 //                spritesMap.get(spriteName),
 //                    gameObjectX - width / 2,
@@ -95,10 +96,10 @@ public class GraphicJavaFXImpl implements Graphic {
 
             this.gc.drawImage(
                     image,
-                    position.x() - image.getWidth() / 2,
-                    position.y() - image.getHeight() / 2,
-                    image.getWidth(),
-                    image.getHeight());
+                    position.x() - (image.getWidth() * GameConstants.TILE_SCALE) / 2,
+                    position.y() - (image.getHeight() * GameConstants.TILE_SCALE) / 2,
+                    image.getWidth() * GameConstants.TILE_SCALE,
+                    image.getHeight() * GameConstants.TILE_SCALE);
 
             this.gc.restore();
         });

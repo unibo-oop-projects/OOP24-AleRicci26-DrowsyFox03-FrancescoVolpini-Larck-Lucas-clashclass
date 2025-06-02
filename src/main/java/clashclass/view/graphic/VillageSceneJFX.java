@@ -3,8 +3,10 @@ package clashclass.view.graphic;
 import clashclass.ai.pathfinding.PathNodeGrid;
 import clashclass.ai.pathfinding.PathNodeGridImpl;
 import clashclass.ai.pathfinding.PathNodeImpl;
+import clashclass.commons.CellPosition2D;
 import clashclass.commons.Vector2D;
 import clashclass.commons.VectorInt2D;
+import clashclass.commons.Village;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactoryImpl;
 import clashclass.elements.buildings.PlayerBuildingFactoryImpl;
@@ -17,6 +19,7 @@ import clashclass.saveload.VillageDecoder;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Cell;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -58,21 +61,18 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
 //        canvas.heightProperty().addListener((obs, oldVal, newVal) -> redraw());
 
         final GameEngine gameEngine = new GameEngineImpl(this.getGraphics());
-        this.gameObjects.forEach(gameEngine::addGameObject);
 
         final var player = new Player();
-        final var size = 40;
+        final var village = new Village();
 
-        final var commonGameObjectFactory = new CommonGameObjectFactoryImpl();
+        this.gameObjects.forEach(gameObject -> village.placeBuilding(
+                gameObject,
+                gameObject.getComponentOfType(CellPosition2D.class).get().getPosition(),
+                1,
+                1));
 
-        IntStream.range(0, size).forEach(i ->
-                IntStream.range(0, size).forEach(j -> {
-                    int isoX = (i - j) * (23 / 2);
-                    int isoY = (i + j) * (23 / 2);
-
-                    gameEngine.addGameObject(commonGameObjectFactory
-                            .createVillageGroundTile(new Vector2D(isoX, isoY)));
-                }));
+        village.getGroundObjects().forEach(gameEngine::addGameObject);
+        village.getGameObjects().forEach(gameEngine::addGameObject);
 
         gameEngine.start();
 

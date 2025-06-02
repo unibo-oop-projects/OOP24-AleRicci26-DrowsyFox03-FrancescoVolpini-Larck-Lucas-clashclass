@@ -1,6 +1,7 @@
 package clashclass.saveload;
 
 import clashclass.commons.Vector2D;
+import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactory;
 import clashclass.elements.buildings.VillageElementData;
@@ -37,14 +38,14 @@ public abstract class AbstractVillageDecoder implements VillageDecoder {
                     type = VillageElementData.values()[Integer.parseInt(parts[0])];
                 }
 
-                int x = Integer.parseInt(parts[2].trim()) * 23;
-                int y = Integer.parseInt(parts[3].trim()) * 23;
+                int x = Integer.parseInt(parts[2].trim());
+                int y = Integer.parseInt(parts[3].trim());
 
-                GameObject go = createGameObject(type, new Vector2D(x, y));
+                GameObject go = createGameObject(type, new VectorInt2D(x, y));
                 result.add(go);
             }
             return result;
         }
 
-        protected abstract GameObject createGameObject(VillageElementData type, Vector2D position);
+        protected abstract GameObject createGameObject(VillageElementData type, VectorInt2D position);
     }

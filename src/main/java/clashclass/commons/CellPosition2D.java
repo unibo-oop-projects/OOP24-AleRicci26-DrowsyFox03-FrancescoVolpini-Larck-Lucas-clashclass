@@ -8,4 +8,8 @@ public class CellPosition2D extends AbstractComponent {
     public CellPosition2D(final VectorInt2D position) {
         this.position = position;
     }
+
+    public VectorInt2D getPosition() {
+        return this.position;
+    }
 }

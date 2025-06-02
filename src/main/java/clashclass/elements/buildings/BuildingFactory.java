@@ -1,6 +1,6 @@
 package clashclass.elements.buildings;
 
-import clashclass.commons.Vector2D;
+import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
 
 /**
@@ -14,7 +14,7 @@ public interface BuildingFactory {
      *
      * @return the GameObject that represents the town hall
      */
-    GameObject createTownHall(Vector2D position);
+    GameObject createTownHall(VectorInt2D position);
 
     /**
      * Creates a wall.
@@ -23,7 +23,7 @@ public interface BuildingFactory {
      *
      * @return the GameObject that represents the wall
      */
-    GameObject createWall(Vector2D position);
+    GameObject createWall(VectorInt2D position);
 
     /**
      * Creates a cannon.
@@ -32,7 +32,7 @@ public interface BuildingFactory {
      *
      * @return the GameObject that represents the cannon
      */
-    GameObject createCannon(Vector2D position);
+    GameObject createCannon(VectorInt2D position);
 
     /**
      * Creates an archer tower.
@@ -41,7 +41,7 @@ public interface BuildingFactory {
      *
      * @return the GameObject that represents the archer tower
      */
-    GameObject createArcherTower(Vector2D position);
+    GameObject createArcherTower(VectorInt2D position);
 
     /**
      * Creates a gold storage.
@@ -50,7 +50,7 @@ public interface BuildingFactory {
      *
      * @return the GameObject that represents the gold storage
      */
-    GameObject createGoldStorage(Vector2D position);
+    GameObject createGoldStorage(VectorInt2D position);
 
     /**
      * Creates an elixir storage.
@@ -59,7 +59,7 @@ public interface BuildingFactory {
      *
      * @return the GameObject that represents the elixir storage
      */
-    GameObject createElixirStorage(Vector2D position);
+    GameObject createElixirStorage(VectorInt2D position);
 
     /**
      * Creates a gold extractor.
@@ -68,7 +68,7 @@ public interface BuildingFactory {
      *
      * @return the GameObject that represents the gold extractor
      */
-    GameObject createGoldExtractor(Vector2D position);
+    GameObject createGoldExtractor(VectorInt2D position);
 
     /**
      * Creates an elixir extractor.
@@ -77,7 +77,7 @@ public interface BuildingFactory {
      *
      * @return the GameObject that represents the elixir extractor
      */
-    GameObject createElixirExtractor(Vector2D position);
+    GameObject createElixirExtractor(VectorInt2D position);
 
     /**
      * Creates an army camp.
@@ -86,7 +86,7 @@ public interface BuildingFactory {
      *
      * @return the GameObject that represents the army camp
      */
-    GameObject createArmyCamp(Vector2D position);
+    GameObject createArmyCamp(VectorInt2D position);
 
     /**
      * Creates the barracks.
@@ -95,5 +95,5 @@ public interface BuildingFactory {
      *
      * @return the GameObject that represents the barracks
      */
-    GameObject createBarracks(Vector2D position);
+    GameObject createBarracks(VectorInt2D position);
 }

@@ -1,6 +1,9 @@
 package clashclass.elements.commons;
 
+import clashclass.commons.CellPosition2D;
+import clashclass.commons.GameConstants;
 import clashclass.commons.Vector2D;
+import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
 import clashclass.ecs.GameObjectImpl;
 import clashclass.ecs.ImageRendererImpl;
@@ -14,10 +17,19 @@ public class CommonGameObjectFactoryImpl implements CommonGameObjectsFactory {
         this.componentFactory = new ComponentFactoryImpl();
     }
 
+    private Vector2D convertGridToWorldPosition(final VectorInt2D gridPosition) {
+        final var tileOffset = (double) GameConstants.TILE_PIXEL_SIZE / 2;
+        return new Vector2D(
+                (gridPosition.x() - gridPosition.y()) * tileOffset + 300,
+                (gridPosition.x() + gridPosition.y()) * tileOffset
+        );
+    }
+
     @Override
-    public GameObject createVillageGroundTile(Vector2D position) {
+    public GameObject createVillageGroundTile(VectorInt2D position) {
         return new GameObjectImpl.BuilderImpl()
-                .addComponent(this.componentFactory.createTransform2D(position))
+                .addComponent(this.componentFactory.createTransform2D(convertGridToWorldPosition(position)))
+                .addComponent(new CellPosition2D(position))
                 .addComponent(new ImageRendererImpl("grass-tile"))
                 .build();
     }

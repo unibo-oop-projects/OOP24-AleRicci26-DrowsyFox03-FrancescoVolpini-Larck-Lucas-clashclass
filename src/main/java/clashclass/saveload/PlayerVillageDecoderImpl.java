@@ -1,6 +1,7 @@
 package clashclass.saveload;
 
 import clashclass.commons.Vector2D;
+import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.buildings.BuildingFactory;
 import clashclass.elements.buildings.BuildingFactoryMapper;
@@ -16,7 +17,7 @@ public class PlayerVillageDecoderImpl extends AbstractVillageDecoder {
     }
 
     @Override
-    protected GameObject createGameObject(VillageElementData type, Vector2D position) {
+    protected GameObject createGameObject(VillageElementData type, VectorInt2D position) {
         return buildingFactoryMapper.getFactoryFor(type).apply(position);
     }
 }

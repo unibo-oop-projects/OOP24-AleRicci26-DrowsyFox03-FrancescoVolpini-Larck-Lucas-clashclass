@@ -1,6 +1,7 @@
 package clashclass.elements.buildings;
 
 import clashclass.commons.Vector2D;
+import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
 
 import java.util.EnumMap;
@@ -13,7 +14,7 @@ import java.util.function.Function;
  * Maps building types to their factory methods
  */
 public class BuildingFactoryMapper<F extends BuildingFactory> {
-    private final Map<VillageElementData, Function<Vector2D, GameObject>> buildingIdToFactory;
+    private final Map<VillageElementData, Function<VectorInt2D, GameObject>> buildingIdToFactory;
     private final F factory;
 
     public BuildingFactoryMapper(F factory) {
@@ -42,8 +43,8 @@ public class BuildingFactoryMapper<F extends BuildingFactory> {
      * @param buildingType The type of building to create
      * @return Function that creates the building at a given position
      */
-    public Function<Vector2D, GameObject> getFactoryFor(VillageElementData buildingType) {
-        Function<Vector2D, GameObject> factory = buildingIdToFactory.get(buildingType);
+    public Function<VectorInt2D, GameObject> getFactoryFor(VillageElementData buildingType) {
+        Function<VectorInt2D, GameObject> factory = buildingIdToFactory.get(buildingType);
         return Optional.ofNullable(buildingIdToFactory.get(buildingType))
                 .orElseThrow(() -> new IllegalArgumentException(
                         "No factory for " + buildingType));
