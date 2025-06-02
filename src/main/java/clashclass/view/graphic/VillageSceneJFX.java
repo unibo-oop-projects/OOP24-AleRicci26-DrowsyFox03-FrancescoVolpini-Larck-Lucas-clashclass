@@ -63,6 +63,10 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
 
         final GameEngine gameEngine = new GameEngineImpl(Optional.of(this.getGraphics()));
 
+        stage.setOnCloseRequest(event -> {
+            gameEngine.stop();
+        });
+
         final var player = new Player();
         final var village = new Village();
 
