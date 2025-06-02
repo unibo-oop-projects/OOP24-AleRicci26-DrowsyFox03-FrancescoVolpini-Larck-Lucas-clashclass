@@ -46,7 +46,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
         return this.createWithFactoryMethod(this::createAdditionalTownHallComponents,
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new CellPosition2D(position))
+                        .addComponent(new GridTileData2D(position, 3, 3))
                         .addComponent(new ImageRendererImpl("town-hall", 1)));
     }
 
@@ -58,7 +58,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
         return this.createWithFactoryMethod(this::createAdditionalWallComponents,
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new CellPosition2D(position))
+                        .addComponent(new GridTileData2D(position, 1, 1))
                         .addComponent(new ImageRendererImpl("wall", 1)));
     }
 
@@ -70,7 +70,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
         return this.createWithFactoryMethod(this::createAdditionalCannonComponents,
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new CellPosition2D(position))
+                        .addComponent(new GridTileData2D(position, 2, 2))
                         .addComponent(new ImageRendererImpl("cannon", 1)));
     }
 
@@ -82,7 +82,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
         return this.createWithFactoryMethod(this::createAdditionalArcherTowerComponents,
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new CellPosition2D(position))
+                        .addComponent(new GridTileData2D(position, 2, 2))
                         .addComponent(new ImageRendererImpl("archer-tower", 1)));
     }
 
@@ -94,7 +94,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
         return this.createWithFactoryMethod(this::createAdditionalGoldStorageComponents,
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new CellPosition2D(position))
+                        .addComponent(new GridTileData2D(position, 2, 2))
                         .addComponent(new ImageRendererImpl("gold-storage", 1)));
     }
 
@@ -106,7 +106,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
         return this.createWithFactoryMethod(this::createAdditionalElixirStorageComponents,
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new CellPosition2D(position))
+                        .addComponent(new GridTileData2D(position, 2, 2))
                         .addComponent(new ImageRendererImpl("elisir-storage", 1)));
     }
 
@@ -118,7 +118,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
         return this.createWithFactoryMethod(this::createAdditionalGoldExtractorComponents,
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new CellPosition2D(position))
+                        .addComponent(new GridTileData2D(position, 2, 2))
                         .addComponent(new ImageRendererImpl("gold-extractor", 1)));
     }
 
@@ -130,7 +130,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
         return this.createWithFactoryMethod(this::createAdditionalElixirExtractorComponents,
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new CellPosition2D(position))
+                        .addComponent(new GridTileData2D(position, 2, 2))
                         .addComponent(new ImageRendererImpl("elisir-extractor", 1)));
     }
 
@@ -142,7 +142,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
         return this.createWithFactoryMethod(this::createAdditionalArmyCampComponents,
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new CellPosition2D(position))
+                        .addComponent(new GridTileData2D(position, 3, 3))
                         .addComponent(new ImageRendererImpl("campfire", 1)));
     }
 
@@ -154,7 +154,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
         return this.createWithFactoryMethod(this::createAdditionalBarracksComponents,
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                        .addComponent(new CellPosition2D(position))
+                        .addComponent(new GridTileData2D(position, 2, 2))
                         .addComponent(new ImageRendererImpl("barracks", 1)));
     }
 

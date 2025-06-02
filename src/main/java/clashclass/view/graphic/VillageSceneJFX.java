@@ -1,16 +1,10 @@
 package clashclass.view.graphic;
 
-import clashclass.ai.pathfinding.PathNodeGrid;
-import clashclass.ai.pathfinding.PathNodeGridImpl;
-import clashclass.ai.pathfinding.PathNodeImpl;
-import clashclass.commons.CellPosition2D;
-import clashclass.commons.Vector2D;
-import clashclass.commons.VectorInt2D;
+import clashclass.commons.GridTileData2D;
 import clashclass.commons.Village;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactoryImpl;
 import clashclass.elements.buildings.PlayerBuildingFactoryImpl;
-import clashclass.elements.commons.CommonGameObjectFactoryImpl;
 import clashclass.engine.GameEngine;
 import clashclass.engine.GameEngineImpl;
 import clashclass.resources.Player;
@@ -19,7 +13,6 @@ import clashclass.saveload.VillageDecoder;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Cell;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -28,7 +21,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.IntStream;
 
 public abstract class VillageSceneJFX extends AbstractBaseScene {
     private final VillageDecoder decoder;
@@ -72,7 +64,7 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
 
         this.gameObjects.forEach(gameObject -> village.placeBuilding(
                 gameObject,
-                gameObject.getComponentOfType(CellPosition2D.class).get().getPosition(),
+                gameObject.getComponentOfType(GridTileData2D.class).get().getPosition(),
                 1,
                 1));
 
