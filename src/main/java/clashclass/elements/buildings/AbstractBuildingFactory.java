@@ -47,7 +47,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new GridTileData2D(position, 3, 3))
-                        .addComponent(new ImageRendererImpl("town-hall", 1)));
+                        .addComponent(new ImageRendererImpl(VillageElementData.TOWN_HALL.getName(), 1)));
     }
 
     /**
@@ -59,7 +59,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new GridTileData2D(position, 1, 1))
-                        .addComponent(new ImageRendererImpl("wall", 1)));
+                        .addComponent(new ImageRendererImpl(VillageElementData.WALL.getName(), 1)));
     }
 
     /**
@@ -71,7 +71,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new GridTileData2D(position, 2, 2))
-                        .addComponent(new ImageRendererImpl("cannon", 1)));
+                        .addComponent(new ImageRendererImpl(VillageElementData.CANNON.getName(), 1)));
     }
 
     /**
@@ -83,7 +83,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new GridTileData2D(position, 2, 2))
-                        .addComponent(new ImageRendererImpl("archer-tower", 1)));
+                        .addComponent(new ImageRendererImpl(VillageElementData.ARCHER_TOWER.getName(), 1)));
     }
 
     /**
@@ -95,7 +95,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new GridTileData2D(position, 2, 2))
-                        .addComponent(new ImageRendererImpl("gold-storage", 1)));
+                        .addComponent(new ImageRendererImpl(VillageElementData.GOLD_STORAGE.getName(), 1)));
     }
 
     /**
@@ -107,7 +107,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new GridTileData2D(position, 2, 2))
-                        .addComponent(new ImageRendererImpl("elisir-storage", 1)));
+                        .addComponent(new ImageRendererImpl(VillageElementData.ELIXIR_STORAGE.getName(), 1)));
     }
 
     /**
@@ -119,7 +119,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new GridTileData2D(position, 2, 2))
-                        .addComponent(new ImageRendererImpl("gold-extractor", 1)));
+                        .addComponent(new ImageRendererImpl(VillageElementData.GOLD_EXTRACTOR.getName(), 1)));
     }
 
     /**
@@ -131,7 +131,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new GridTileData2D(position, 2, 2))
-                        .addComponent(new ImageRendererImpl("elisir-extractor", 1)));
+                        .addComponent(new ImageRendererImpl(VillageElementData.ELIXIR_EXTRACTOR.getName(), 1)));
     }
 
     /**
@@ -143,7 +143,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new GridTileData2D(position, 3, 3))
-                        .addComponent(new ImageRendererImpl("campfire", 1)));
+                        .addComponent(new ImageRendererImpl(VillageElementData.ARMY_CAMP.getName(), 1)));
     }
 
     /**
@@ -155,7 +155,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new GridTileData2D(position, 2, 2))
-                        .addComponent(new ImageRendererImpl("barracks", 1)));
+                        .addComponent(new ImageRendererImpl(VillageElementData.BARRACKS.getName(), 1)));
     }
 
     /**

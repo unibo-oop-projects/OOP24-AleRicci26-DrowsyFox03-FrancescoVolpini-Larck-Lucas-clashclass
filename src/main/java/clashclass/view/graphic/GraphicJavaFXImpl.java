@@ -7,6 +7,7 @@ import clashclass.commons.GameConstants;
 import clashclass.ecs.GameObject;
 import clashclass.commons.Transform2D;
 import clashclass.ecs.GraphicComponent;
+import clashclass.elements.buildings.VillageElementData;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
@@ -37,21 +38,21 @@ public class GraphicJavaFXImpl implements Graphic {
 
     private void storeSprites() {
         this.spritesMap = new HashMap<>();
-        this.spritesMap.put("grass-tile", this.loadImage("grass-tile.png"));
-        this.spritesMap.put("archer-tower", this.loadImage("archer-tower.png"));
-        this.spritesMap.put("barracks", this.loadImage("barracks.png"));
-        this.spritesMap.put("campfire", this.loadImage("campfire.png"));
-        this.spritesMap.put("cannon", this.loadImage("cannon.png"));
-        this.spritesMap.put("elisir-extractor", this.loadImage("elisir-extractor.png"));
-        this.spritesMap.put("elisir-storage", this.loadImage("elisir-storage.png"));
-        this.spritesMap.put("gold-extractor", this.loadImage("gold-extractor.png"));
-        this.spritesMap.put("gold-storage", this.loadImage("gold-storage.png"));
-        this.spritesMap.put("town-hall", this.loadImage("town-hall.png"));
-        this.spritesMap.put("wall", this.loadImage("wall.png"));
+        this.spritesMap.put("grass-tile", this.loadImage("grass-tile"));
+        this.spritesMap.put(VillageElementData.ARCHER_TOWER.getName(), this.loadImage(VillageElementData.ARCHER_TOWER.getName()));
+        this.spritesMap.put(VillageElementData.BARRACKS.getName(), this.loadImage(VillageElementData.BARRACKS.getName()));
+        this.spritesMap.put(VillageElementData.ARMY_CAMP.getName(), this.loadImage(VillageElementData.ARMY_CAMP.getName()));
+        this.spritesMap.put(VillageElementData.CANNON.getName(), this.loadImage(VillageElementData.CANNON.getName()));
+        this.spritesMap.put(VillageElementData.ELIXIR_EXTRACTOR.getName(), this.loadImage(VillageElementData.ELIXIR_EXTRACTOR.getName()));
+        this.spritesMap.put(VillageElementData.ELIXIR_STORAGE.getName(), this.loadImage(VillageElementData.ELIXIR_STORAGE.getName()));
+        this.spritesMap.put(VillageElementData.GOLD_EXTRACTOR.getName(), this.loadImage(VillageElementData.GOLD_EXTRACTOR.getName()));
+        this.spritesMap.put(VillageElementData.GOLD_STORAGE.getName(), this.loadImage(VillageElementData.GOLD_STORAGE.getName()));
+        this.spritesMap.put(VillageElementData.TOWN_HALL.getName(), this.loadImage(VillageElementData.TOWN_HALL.getName()));
+        this.spritesMap.put(VillageElementData.WALL.getName(), this.loadImage(VillageElementData.WALL.getName()));
     }
 
     private Image loadImage(final String path) {
-        return new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("sprites/" + path)));
+        return new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("sprites/" + path + ".png")));
     }
 
     @Override

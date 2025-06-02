@@ -31,12 +31,9 @@ public abstract class AbstractVillageDecoder implements VillageDecoder {
                 String[] parts = line.split(",", -1);
                 if (parts.length < 4) continue;
 
-                VillageElementData type;
-                try {
-                    type = VillageElementData.valueOf(parts[0]);
-                } catch (IllegalArgumentException ex) {
-                    type = VillageElementData.values()[Integer.parseInt(parts[0])];
-                }
+                VillageElementData type = VillageElementData
+                        .getValueFromName(parts[0])
+                        .orElseThrow(() -> new IllegalArgumentException("Invalid type: " + parts[0]));
 
                 int x = Integer.parseInt(parts[2].trim());
                 int y = Integer.parseInt(parts[3].trim());

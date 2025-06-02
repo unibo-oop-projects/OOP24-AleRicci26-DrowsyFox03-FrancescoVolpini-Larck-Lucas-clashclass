@@ -18,7 +18,7 @@ public class CommonGameObjectFactoryImpl implements CommonGameObjectsFactory {
     public GameObject createVillageGroundTile(VectorInt2D position) {
         return new GameObjectImpl.BuilderImpl()
                 .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
-                .addComponent(new GridTileData2D(position))
+                .addComponent(new GridTileData2D(position, 1, 1))
                 .addComponent(new ImageRendererImpl("grass-tile", 0))
                 .build();
     }
