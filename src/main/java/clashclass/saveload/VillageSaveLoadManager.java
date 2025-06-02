@@ -1,5 +1,6 @@
 package clashclass.saveload;
 
+import clashclass.commons.Village;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactory;
 
@@ -49,7 +50,7 @@ public class VillageSaveLoadManager {
      * @return Set of loaded GameObjects
      * @throws IOException If loading fails
      */
-    public Set<GameObject> loadPlayerVillage(String fileName) throws IOException {
+    public Village loadPlayerVillage(String fileName) throws IOException {
         String data = Files.readString(savesDirectory.resolve(fileName + ".csv"));
         return playerDecoder.decode(data);
     }
@@ -60,7 +61,7 @@ public class VillageSaveLoadManager {
      * @return Set of loaded GameObjects
      * @throws IOException If loading fails
      */
-    public Set<GameObject> loadBattleVillage(String fileName) throws IOException {
+    public Village loadBattleVillage(String fileName) throws IOException {
         String data = Files.readString(savesDirectory.resolve(fileName + ".csv"));
         return battleDecoder.decode(data);
     }

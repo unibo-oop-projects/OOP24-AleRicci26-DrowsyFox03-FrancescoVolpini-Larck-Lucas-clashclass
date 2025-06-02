@@ -20,12 +20,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
-import java.util.Set;
 
 public abstract class VillageSceneJFX extends AbstractBaseScene {
     private final VillageDecoder decoder;
-    protected final Set<GameObject> gameObjects;
     protected final GraphicsContext gc;
+    protected final Village village;
 
     public VillageSceneJFX(Window window, Stage stage, Path csvPath) throws IOException {
         super(window);
@@ -34,7 +33,7 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
         decoder.setComponentFactory(new ComponentFactoryImpl());
 
         String csvData = Files.readString(csvPath);
-        this.gameObjects = decodeVillage(csvData);
+        this.village = decodeVillage(csvData);
 
         Canvas canvas = new Canvas(getWindowWidth(), getWindowHeight());
         this.gc = canvas.getGraphicsContext2D();
@@ -60,9 +59,9 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
         });
 
         final var player = new Player();
-        final var village = new Village();
+        final var village = new Village(player);
 
-        this.gameObjects.forEach(gameObject -> {
+        this.village.getBuildings().forEach(gameObject -> {
             final var gridTileData = gameObject.getComponentOfType(GridTileData2D.class).get();
             village.placeBuilding(
                     gameObject,
@@ -86,7 +85,7 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
 
     }
 
-    private Set<GameObject> decodeVillage(String csvData) {
+    private Village decodeVillage(String csvData) {
         return this.decoder.decode(csvData);
     }
 
