@@ -69,7 +69,8 @@ public class GraphicJavaFXImpl implements Graphic {
                     .sorted(Comparator
                             .comparingInt(this::getSortingLayer)
                             .thenComparingDouble(this::getSortingIsometricCoordinates)
-                            .thenComparingDouble(this::getSortingGridSpanWeight))
+//                            .thenComparingDouble(this::getSortingIsometricCoordinates)
+                    )
                     .forEach(graphicComponent -> graphicComponent.draw(this));
         });
     }
@@ -79,9 +80,14 @@ public class GraphicJavaFXImpl implements Graphic {
     }
 
     private double getSortingIsometricCoordinates(final GraphicComponent graphicComponent) {
-        final var bottom = graphicComponent.getGameObject()
-                .getComponentOfType(GridTileData2D.class).get()
-                .getPosition();
+        final var tileData = graphicComponent.getGameObject()
+                .getComponentOfType(GridTileData2D.class).get();
+        final var bottom = tileData.getPosition();
+
+//        final var top = new VectorInt2D(
+//                bottom.x() - (tileData.getRowSpan() - 1),
+//                bottom.y() - (tileData.getColSpan() - 1)
+//        );
 
         return bottom.x() + bottom.y();
     }
@@ -90,7 +96,7 @@ public class GraphicJavaFXImpl implements Graphic {
         final var gridTileData = graphicComponent.getGameObject()
                 .getComponentOfType(GridTileData2D.class).get();
 
-        return -(gridTileData.getRowSpan() + gridTileData.getColSpan());
+        return gridTileData.getRowSpan() + gridTileData.getColSpan();
     }
 
     /**
