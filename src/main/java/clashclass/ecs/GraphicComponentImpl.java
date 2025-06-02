@@ -14,7 +14,7 @@ public class GraphicComponentImpl extends GraphicComponent {
      * @param height the height of the component
      */
     public GraphicComponentImpl(final double width, final double height) {
-        super(width, height);
+        super(width, height, 0);
     }
 
     @Override

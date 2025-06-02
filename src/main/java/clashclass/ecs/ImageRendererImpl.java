@@ -5,8 +5,8 @@ import clashclass.view.graphic.Graphic;
 public class ImageRendererImpl extends GraphicComponent {
     private final String spriteName;
 
-    public ImageRendererImpl(String spriteName) {
-        super(1, 1);
+    public ImageRendererImpl(final String spriteName, final int layer) {
+        super(1, 1, layer);
         this.spriteName = spriteName;
     }
 

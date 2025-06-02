@@ -42,10 +42,11 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
     }
 
     private Vector2D convertGridToWorldPosition(final VectorInt2D gridPosition) {
-        final var tileOffset = (double) GameConstants.TILE_PIXEL_SIZE / 2;
+        final double step = GameConstants.TILE_PIXEL_SIZE * GameConstants.TILE_SCALE / 2.0;
+
         return new Vector2D(
-                (gridPosition.x() - gridPosition.y()) * tileOffset + 300,
-                (gridPosition.x() + gridPosition.y()) * tileOffset
+                (gridPosition.x() - gridPosition.y()) * step + GameConstants.SCREEN_WIDTH / 2.0,
+                (gridPosition.x() + gridPosition.y()) * step
         );
     }
 
@@ -58,7 +59,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
-                        .addComponent(new ImageRendererImpl("town-hall")));
+                        .addComponent(new ImageRendererImpl("town-hall", 1)));
     }
 
     /**
@@ -70,7 +71,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
-                        .addComponent(new ImageRendererImpl("wall")));
+                        .addComponent(new ImageRendererImpl("wall", 1)));
     }
 
     /**
@@ -82,7 +83,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
-                        .addComponent(new ImageRendererImpl("cannon")));
+                        .addComponent(new ImageRendererImpl("cannon", 1)));
     }
 
     /**
@@ -94,7 +95,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
-                        .addComponent(new ImageRendererImpl("archer-tower")));
+                        .addComponent(new ImageRendererImpl("archer-tower", 1)));
     }
 
     /**
@@ -106,7 +107,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
-                        .addComponent(new ImageRendererImpl("gold-storage")));
+                        .addComponent(new ImageRendererImpl("gold-storage", 1)));
     }
 
     /**
@@ -118,7 +119,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
-                        .addComponent(new ImageRendererImpl("elisir-storage")));
+                        .addComponent(new ImageRendererImpl("elisir-storage", 1)));
     }
 
     /**
@@ -130,7 +131,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
-                        .addComponent(new ImageRendererImpl("gold-extractor")));
+                        .addComponent(new ImageRendererImpl("gold-extractor", 1)));
     }
 
     /**
@@ -142,7 +143,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
-                        .addComponent(new ImageRendererImpl("elisir-extractor")));
+                        .addComponent(new ImageRendererImpl("elisir-extractor", 1)));
     }
 
     /**
@@ -154,7 +155,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
-                        .addComponent(new ImageRendererImpl("campfire")));
+                        .addComponent(new ImageRendererImpl("campfire", 1)));
     }
 
     /**
@@ -166,7 +167,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                 builder -> builder
                         .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
-                        .addComponent(new ImageRendererImpl("barracks")));
+                        .addComponent(new ImageRendererImpl("barracks", 1)));
     }
 
     /**

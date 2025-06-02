@@ -1,5 +1,6 @@
 package clashclass.view.graphic;
 
+import clashclass.commons.GameConstants;
 import clashclass.engine.GameEngine;
 
 /**
@@ -7,8 +8,8 @@ import clashclass.engine.GameEngine;
  */
 public abstract class AbstractBaseScene implements BaseScene {
     private final Window window;
-    private static final double WINDOW_WIDTH = 600; //TODO da rendere scalabile T^T
-    private static final double WINDOW_HEIGHT = 400;
+    private static final double WINDOW_WIDTH = GameConstants.SCREEN_WIDTH;
+    private static final double WINDOW_HEIGHT = GameConstants.SCREEN_HEIGHT;
     private Graphic graphics;
     private GameEngine gameEngine;
 

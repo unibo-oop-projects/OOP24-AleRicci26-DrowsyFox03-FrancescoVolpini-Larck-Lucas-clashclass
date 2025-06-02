@@ -6,15 +6,17 @@ package clashclass.ecs;
 public abstract class GraphicComponent extends AbstractComponent implements DrawableComponent {
     private final double width;
     private final double height;
+    private final int layer;
 
     /**
      * Protected Builder for GraphicComponent.
      * @param width of the GraphicComponent
      * @param height of the GraphicComponent
      */
-    protected GraphicComponent(final double width, final double height) {
+    protected GraphicComponent(final double width, final double height, final int layer) {
         this.width = width;
         this.height = height;
+        this.layer = layer;
     }
 
     /**
@@ -29,5 +31,9 @@ public abstract class GraphicComponent extends AbstractComponent implements Draw
      */
     public double getHeight() {
         return height;
+    }
+
+    public int getLayer() {
+        return this.layer;
     }
 }

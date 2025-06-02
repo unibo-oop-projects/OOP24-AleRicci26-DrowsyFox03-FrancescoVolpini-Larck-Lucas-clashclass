@@ -1,9 +1,6 @@
 package clashclass.view.graphic;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 
 import clashclass.commons.GameConstants;
@@ -66,8 +63,12 @@ public class GraphicJavaFXImpl implements Graphic {
     public void render(final Set<GraphicComponent> graphicComponents) {
         Platform.runLater(() -> {
             this.clearRect();
-            graphicComponents.forEach(graphicComponent ->
-                   graphicComponent.draw(this));
+            graphicComponents.stream()
+                    .sorted(Comparator
+                            .comparingInt(GraphicComponent::getLayer)
+                            .thenComparingDouble(x -> x.getGameObject()
+                                    .getComponentOfType(Transform2D.class).get().getPosition().y()))
+                    .forEach(graphicComponent -> graphicComponent.draw(this));
         });
     }
 
@@ -97,7 +98,7 @@ public class GraphicJavaFXImpl implements Graphic {
             this.gc.drawImage(
                     image,
                     position.x() - (image.getWidth() * GameConstants.TILE_SCALE) / 2,
-                    position.y() - (image.getHeight() * GameConstants.TILE_SCALE) / 2,
+                    position.y() - (image.getHeight() * GameConstants.TILE_SCALE),
                     image.getWidth() * GameConstants.TILE_SCALE,
                     image.getHeight() * GameConstants.TILE_SCALE);
 

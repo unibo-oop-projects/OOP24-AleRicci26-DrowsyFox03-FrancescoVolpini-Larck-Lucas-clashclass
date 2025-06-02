@@ -18,10 +18,11 @@ public class CommonGameObjectFactoryImpl implements CommonGameObjectsFactory {
     }
 
     private Vector2D convertGridToWorldPosition(final VectorInt2D gridPosition) {
-        final var tileOffset = (double) GameConstants.TILE_PIXEL_SIZE / 2;
+        final double step = GameConstants.TILE_PIXEL_SIZE * GameConstants.TILE_SCALE / 2.0;
+
         return new Vector2D(
-                (gridPosition.x() - gridPosition.y()) * tileOffset + 300,
-                (gridPosition.x() + gridPosition.y()) * tileOffset
+                (gridPosition.x() - gridPosition.y()) * step + GameConstants.SCREEN_WIDTH / 2.0,
+                (gridPosition.x() + gridPosition.y()) * step
         );
     }
 
@@ -30,7 +31,7 @@ public class CommonGameObjectFactoryImpl implements CommonGameObjectsFactory {
         return new GameObjectImpl.BuilderImpl()
                 .addComponent(this.componentFactory.createTransform2D(convertGridToWorldPosition(position)))
                 .addComponent(new CellPosition2D(position))
-                .addComponent(new ImageRendererImpl("grass-tile"))
+                .addComponent(new ImageRendererImpl("grass-tile", 0))
                 .build();
     }
 }

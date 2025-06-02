@@ -12,6 +12,13 @@ public interface Component {
     void setGameObject(GameObject gameObject);
 
     /**
+     * Gets the GameObject that this Component is attached to.
+     *
+     * @return the GameObject
+     */
+    GameObject getGameObject();
+
+    /**
      * Initializes the Component.
      */
     void initialize();

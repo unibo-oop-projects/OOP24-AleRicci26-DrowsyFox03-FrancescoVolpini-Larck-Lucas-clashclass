@@ -7,11 +7,9 @@ public abstract class AbstractComponent implements Component {
     private GameObject gameObject;
 
     /**
-     * Gets the GameObject that this Component is attached to.
-     *
-     * @return the GameObject
+     * {@inheritDoc}
      */
-    protected final GameObject getGameObject() {
+    public final GameObject getGameObject() {
         return this.gameObject;
     }
 
