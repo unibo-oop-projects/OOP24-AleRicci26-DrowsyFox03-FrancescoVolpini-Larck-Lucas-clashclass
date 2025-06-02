@@ -1,9 +1,10 @@
 package clashclass.view.graphic;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 import clashclass.commons.GameConstants;
+import clashclass.commons.GridTileData2D;
+import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
 import clashclass.commons.Transform2D;
 import clashclass.ecs.GraphicComponent;
@@ -66,11 +67,30 @@ public class GraphicJavaFXImpl implements Graphic {
             this.clearRect();
             graphicComponents.stream()
                     .sorted(Comparator
-                            .comparingInt(GraphicComponent::getLayer)
-                            .thenComparingDouble(x -> x.getGameObject()
-                                    .getComponentOfType(Transform2D.class).get().getPosition().y()))
+                            .comparingInt(this::getSortingLayer)
+                            .thenComparingDouble(this::getSortingIsometricCoordinates)
+                            .thenComparingDouble(this::getSortingGridSpanWeight))
                     .forEach(graphicComponent -> graphicComponent.draw(this));
         });
+    }
+
+    private int getSortingLayer(final GraphicComponent graphicComponent) {
+        return graphicComponent.getLayer();
+    }
+
+    private double getSortingIsometricCoordinates(final GraphicComponent graphicComponent) {
+        final var bottom = graphicComponent.getGameObject()
+                .getComponentOfType(GridTileData2D.class).get()
+                .getPosition();
+
+        return bottom.x() + bottom.y();
+    }
+
+    private double getSortingGridSpanWeight(final GraphicComponent graphicComponent) {
+        final var gridTileData = graphicComponent.getGameObject()
+                .getComponentOfType(GridTileData2D.class).get();
+
+        return -(gridTileData.getRowSpan() + gridTileData.getColSpan());
     }
 
     /**
