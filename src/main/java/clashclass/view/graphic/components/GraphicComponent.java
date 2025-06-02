@@ -1,4 +1,6 @@
-package clashclass.ecs;
+package clashclass.view.graphic.components;
+
+import clashclass.ecs.AbstractComponent;
 
 /**
  * Abstract class that represents the GraphicComponent of a GameObject.

@@ -4,11 +4,10 @@ import java.util.*;
 
 import clashclass.commons.GameConstants;
 import clashclass.commons.GridTileData2D;
-import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
 import clashclass.commons.Transform2D;
-import clashclass.ecs.GraphicComponent;
 import clashclass.elements.buildings.VillageElementData;
+import clashclass.view.graphic.components.GraphicComponent;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;

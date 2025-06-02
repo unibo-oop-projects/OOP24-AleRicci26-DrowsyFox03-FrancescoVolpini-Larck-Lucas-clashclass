@@ -1,6 +1,6 @@
 package clashclass.view.graphic;
 import clashclass.ecs.GameObject;
-import clashclass.ecs.GraphicComponent;
+import clashclass.view.graphic.components.GraphicComponent;
 
 import java.util.Set;
 

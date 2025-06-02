@@ -1,6 +1,8 @@
 package clashclass.view.graphic;
 
+import clashclass.commons.ConversionUtility;
 import clashclass.commons.GridTileData2D;
+import clashclass.commons.Vector2D;
 import clashclass.village.Village;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactoryImpl;
@@ -56,6 +58,16 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
 
         stage.setOnCloseRequest(event -> {
             gameEngine.stop();
+        });
+
+        scene.setOnMouseClicked(event -> {
+            double worldX = event.getSceneX();
+            double worldY = event.getSceneY();
+
+            final var gridPosition = ConversionUtility
+                    .convertWorldToGridPosition(new Vector2D(worldX, worldY));
+
+            System.out.println(gridPosition.x() + " " + gridPosition.y());
         });
 
         final var player = new Player();

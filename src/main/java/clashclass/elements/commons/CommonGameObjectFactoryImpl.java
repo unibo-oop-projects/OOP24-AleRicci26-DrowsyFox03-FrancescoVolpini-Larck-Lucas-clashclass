@@ -3,7 +3,7 @@ package clashclass.elements.commons;
 import clashclass.commons.*;
 import clashclass.ecs.GameObject;
 import clashclass.ecs.GameObjectImpl;
-import clashclass.ecs.ImageRendererImpl;
+import clashclass.view.graphic.components.ImageRendererImpl;
 import clashclass.elements.ComponentFactory;
 import clashclass.elements.ComponentFactoryImpl;
 
