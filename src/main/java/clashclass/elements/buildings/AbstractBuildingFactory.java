@@ -1,9 +1,6 @@
 package clashclass.elements.buildings;
 
-import clashclass.commons.CellPosition2D;
-import clashclass.commons.GameConstants;
-import clashclass.commons.Vector2D;
-import clashclass.commons.VectorInt2D;
+import clashclass.commons.*;
 import clashclass.ecs.GameObject;
 import clashclass.ecs.GameObjectImpl;
 import clashclass.ecs.ImageRendererImpl;
@@ -41,15 +38,6 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
         return additionalBuilder.apply(mainBuilder.apply(new GameObjectImpl.BuilderImpl())).build();
     }
 
-    private Vector2D convertGridToWorldPosition(final VectorInt2D gridPosition) {
-        final double step = GameConstants.TILE_PIXEL_SIZE * GameConstants.TILE_SCALE / 2.0;
-
-        return new Vector2D(
-                (gridPosition.x() - gridPosition.y()) * step + GameConstants.SCREEN_WIDTH / 2.0,
-                (gridPosition.x() + gridPosition.y()) * step
-        );
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -57,7 +45,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
     public final GameObject createTownHall(final VectorInt2D position) {
         return this.createWithFactoryMethod(this::createAdditionalTownHallComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
                         .addComponent(new ImageRendererImpl("town-hall", 1)));
     }
@@ -69,7 +57,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
     public final GameObject createWall(final VectorInt2D position) {
         return this.createWithFactoryMethod(this::createAdditionalWallComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
                         .addComponent(new ImageRendererImpl("wall", 1)));
     }
@@ -81,7 +69,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
     public final GameObject createCannon(final VectorInt2D position) {
         return this.createWithFactoryMethod(this::createAdditionalCannonComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
                         .addComponent(new ImageRendererImpl("cannon", 1)));
     }
@@ -93,7 +81,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
     public final GameObject createArcherTower(final VectorInt2D position) {
         return this.createWithFactoryMethod(this::createAdditionalArcherTowerComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
                         .addComponent(new ImageRendererImpl("archer-tower", 1)));
     }
@@ -105,7 +93,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
     public final GameObject createGoldStorage(final VectorInt2D position) {
         return this.createWithFactoryMethod(this::createAdditionalGoldStorageComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
                         .addComponent(new ImageRendererImpl("gold-storage", 1)));
     }
@@ -117,7 +105,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
     public final GameObject createElixirStorage(final VectorInt2D position) {
         return this.createWithFactoryMethod(this::createAdditionalElixirStorageComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
                         .addComponent(new ImageRendererImpl("elisir-storage", 1)));
     }
@@ -129,7 +117,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
     public final GameObject createGoldExtractor(final VectorInt2D position) {
         return this.createWithFactoryMethod(this::createAdditionalGoldExtractorComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
                         .addComponent(new ImageRendererImpl("gold-extractor", 1)));
     }
@@ -141,7 +129,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
     public final GameObject createElixirExtractor(final VectorInt2D position) {
         return this.createWithFactoryMethod(this::createAdditionalElixirExtractorComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
                         .addComponent(new ImageRendererImpl("elisir-extractor", 1)));
     }
@@ -153,7 +141,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
     public final GameObject createArmyCamp(final VectorInt2D position) {
         return this.createWithFactoryMethod(this::createAdditionalArmyCampComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
                         .addComponent(new ImageRendererImpl("campfire", 1)));
     }
@@ -165,7 +153,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
     public final GameObject createBarracks(final VectorInt2D position) {
         return this.createWithFactoryMethod(this::createAdditionalBarracksComponents,
                 builder -> builder
-                        .addComponent(this.componentFactory.createTransform2D(this.convertGridToWorldPosition(position)))
+                        .addComponent(this.componentFactory.createTransform2D(ConversionUtility.convertGridToWorldPosition(position)))
                         .addComponent(new CellPosition2D(position))
                         .addComponent(new ImageRendererImpl("barracks", 1)));
     }

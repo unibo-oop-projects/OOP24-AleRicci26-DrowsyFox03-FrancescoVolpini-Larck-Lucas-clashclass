@@ -49,6 +49,7 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
         this.setGraphics(new GraphicJavaFXImpl(gc, canvas, getWindowWidth(), getWindowHeight()));
 
         Pane root = new Pane(canvas);
+        root.setStyle("-fx-background-color: #0a8f32;");
         Scene scene = new Scene(root, getWindowWidth(), getWindowHeight());
         stage.setScene(scene);
         stage.setTitle(getSceneTitle());
