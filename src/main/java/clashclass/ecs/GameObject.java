@@ -1,5 +1,7 @@
 package clashclass.ecs;
 
+import clashclass.engine.GameScene;
+
 import java.util.Optional;
 import java.util.Set;
 
@@ -13,6 +15,8 @@ public interface GameObject {
      * @return unique id
      */
     int getUniqueId();
+
+    void setScene(GameScene scene);
 
     /**
      * Adds a component to the set of components.
@@ -37,6 +41,8 @@ public interface GameObject {
      * @return all the components
      */
     Set<Component> getComponents();
+
+    GameScene getScene();
 
     /**
      * Destroys the GameObject and all its components.

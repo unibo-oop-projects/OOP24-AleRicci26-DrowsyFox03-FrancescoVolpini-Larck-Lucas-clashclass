@@ -6,4 +6,5 @@ import clashclass.ecs.GameObject;
 
 public interface CommonGameObjectsFactory {
     GameObject createVillageGroundTile(VectorInt2D position);
+    GameObject createUIElement();
 }

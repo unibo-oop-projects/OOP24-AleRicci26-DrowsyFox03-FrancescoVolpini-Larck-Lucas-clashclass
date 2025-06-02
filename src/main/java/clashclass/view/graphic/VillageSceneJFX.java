@@ -12,6 +12,10 @@ import clashclass.engine.GameEngineImpl;
 import clashclass.resources.Player;
 import clashclass.saveload.PlayerVillageDecoderImpl;
 import clashclass.saveload.VillageDecoder;
+import clashclass.village.manager.PlayerVillageController;
+import clashclass.village.manager.PlayerVillageControllerImpl;
+import clashclass.village.manager.PlayerVillageModelImpl;
+import clashclass.village.manager.PlayerVillageViewJavaFXImpl;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -84,6 +88,11 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
 
         village.getGroundObjects().forEach(gameEngine::addGameObject);
         village.getGameObjects().forEach(gameEngine::addGameObject);
+
+        final var playerVillageController = new PlayerVillageControllerImpl(
+                new PlayerVillageModelImpl(),
+                new PlayerVillageViewJavaFXImpl(gameEngine)
+        );
 
         gameEngine.start();
 

@@ -1,4 +1,5 @@
 package clashclass.view.graphic;
+import clashclass.commons.Rect2D;
 import clashclass.ecs.GameObject;
 import clashclass.view.graphic.components.GraphicComponent;
 
@@ -24,5 +25,5 @@ public interface Graphic {
      * Method to draw a rectangle.
      * @param gameObject the GameObject to draw
      */
-    void drawRectangle (GameObject gameObject);
+    void drawRectangle (GameObject gameObject, Rect2D rect);
 }

@@ -6,6 +6,7 @@ import clashclass.ecs.GameObjectImpl;
 import clashclass.view.graphic.components.ImageRendererImpl;
 import clashclass.elements.ComponentFactory;
 import clashclass.elements.ComponentFactoryImpl;
+import clashclass.view.graphic.components.UIRendererImpl;
 
 public class CommonGameObjectFactoryImpl implements CommonGameObjectsFactory {
     private final ComponentFactory componentFactory;
@@ -21,6 +22,13 @@ public class CommonGameObjectFactoryImpl implements CommonGameObjectsFactory {
                         .convertGridToWorldPosition(position, 1, 1)))
                 .addComponent(new GridTileData2D(position, 1, 1))
                 .addComponent(new ImageRendererImpl("grass-tile", 0))
+                .build();
+    }
+
+    @Override
+    public GameObject createUIElement() {
+        return new GameObjectImpl.BuilderImpl()
+                .addComponent(new UIRendererImpl(1, 1, 2))
                 .build();
     }
 }

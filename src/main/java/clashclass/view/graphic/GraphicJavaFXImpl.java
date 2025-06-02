@@ -4,6 +4,7 @@ import java.util.*;
 
 import clashclass.commons.GameConstants;
 import clashclass.commons.GridTileData2D;
+import clashclass.commons.Rect2D;
 import clashclass.ecs.GameObject;
 import clashclass.commons.Transform2D;
 import clashclass.elements.buildings.VillageElementData;
@@ -117,9 +118,8 @@ public class GraphicJavaFXImpl implements Graphic {
 
             double scaleX = canvas.getWidth() / dpiW;
             double scaleY = canvas.getHeight() / dpiH;
-
-            gc.save();
-            gc.scale(scaleX, scaleY);
+            this.gc.save();
+            this.gc.scale(scaleX, scaleY);
 
             this.gc.drawImage(
                     image,
@@ -127,7 +127,6 @@ public class GraphicJavaFXImpl implements Graphic {
                     position.y() - (image.getHeight() * GameConstants.TILE_SCALE),
                     image.getWidth() * GameConstants.TILE_SCALE,
                     image.getHeight() * GameConstants.TILE_SCALE);
-
             this.gc.restore();
         });
     }
@@ -136,15 +135,22 @@ public class GraphicJavaFXImpl implements Graphic {
      * {@inheritDoc}
      */
     @Override
-    public void drawRectangle(GameObject go) {
+    public void drawRectangle(GameObject go, Rect2D rect) {
         go.getComponentOfType(GraphicComponent.class).ifPresent(graphicComponent -> {
-            computeGameObjectBounds(go, graphicComponent);
-            this.gc.setFill(Color.GREEN);
+//            computeGameObjectBounds(go, graphicComponent);
+
+            double scaleX = canvas.getWidth() / dpiW;
+            double scaleY = canvas.getHeight() / dpiH;
+            this.gc.save();
+            this.gc.scale(scaleX, scaleY);
+
+            this.gc.setFill(Color.RED);
             this.gc.fillRect(
-                    gameObjectX - width / 2,
-                    gameObjectY - height / 2,
-                    width,
-                    height);
+                    rect.position().x(),
+                    rect.position().y(),
+                    rect.size().x(),
+                    rect.size().y());
+            this.gc.restore();
         });
     }
 
