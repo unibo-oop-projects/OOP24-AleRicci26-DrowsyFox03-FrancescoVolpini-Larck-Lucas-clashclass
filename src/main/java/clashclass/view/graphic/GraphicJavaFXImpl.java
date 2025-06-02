@@ -135,7 +135,7 @@ public class GraphicJavaFXImpl implements Graphic {
      * {@inheritDoc}
      */
     @Override
-    public void drawRectangle(GameObject go, Rect2D rect) {
+    public void drawRectangle(final GameObject go, final String colorEx, final Rect2D rect) {
         go.getComponentOfType(GraphicComponent.class).ifPresent(graphicComponent -> {
 //            computeGameObjectBounds(go, graphicComponent);
 
@@ -144,7 +144,8 @@ public class GraphicJavaFXImpl implements Graphic {
             this.gc.save();
             this.gc.scale(scaleX, scaleY);
 
-            this.gc.setFill(Color.RED);
+            final var color = Color.web(colorEx);
+            this.gc.setFill(color);
             this.gc.fillRect(
                     rect.position().x(),
                     rect.position().y(),

@@ -25,5 +25,5 @@ public interface Graphic {
      * Method to draw a rectangle.
      * @param gameObject the GameObject to draw
      */
-    void drawRectangle (GameObject gameObject, Rect2D rect);
+    void drawRectangle (GameObject gameObject, String colorEx, Rect2D rect);
 }

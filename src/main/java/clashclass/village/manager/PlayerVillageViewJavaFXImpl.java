@@ -24,7 +24,7 @@ public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
     private void redraw(final PlayerVillageModel model) {
         uiGameObject.getComponentOfType(UIRendererImpl.class).ifPresent(uiRenderer -> {
             uiRenderer.setDrawFunction(graphics -> {
-                graphics.drawRectangle(this.uiGameObject, new Rect2D(
+                graphics.drawRectangle(this.uiGameObject, "#FF0000", new Rect2D(
                         new VectorInt2D(20, 100),
                         new VectorInt2D(300, 50)));
                 // TODO ...
