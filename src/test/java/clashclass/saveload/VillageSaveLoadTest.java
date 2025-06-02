@@ -1,6 +1,7 @@
 package clashclass.saveload;
 
 import clashclass.commons.Vector2D;
+import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactoryImpl;
 import clashclass.elements.buildings.*;
@@ -122,13 +123,13 @@ class VillageSaveLoadTest {
 
         // Create buildings using the factory mapper
         objects.add(factoryMapper.getFactoryFor(VillageElementData.ARCHER_TOWER)
-                .apply(new Vector2D(50, 55)));
+                .apply(new VectorInt2D(50, 55)));
         objects.add(factoryMapper.getFactoryFor(VillageElementData.GOLD_STORAGE)
-                .apply(new Vector2D(60, 65)));
+                .apply(new VectorInt2D(60, 65)));
         objects.add(factoryMapper.getFactoryFor(VillageElementData.WALL)
-                .apply(new Vector2D(70, 75)));
+                .apply(new VectorInt2D(70, 75)));
         objects.add(factoryMapper.getFactoryFor(VillageElementData.ELIXIR_EXTRACTOR)
-                .apply(new Vector2D(80, 85)));
+                .apply(new VectorInt2D(80, 85)));
 
         return objects;
     }

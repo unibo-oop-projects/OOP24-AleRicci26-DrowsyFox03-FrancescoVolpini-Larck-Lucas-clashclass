@@ -1,9 +1,9 @@
 package clashclass.engine;
 
-import clashclass.ecs.DrawableComponent;
 import clashclass.ecs.GraphicComponent;
 import clashclass.view.graphic.Graphic;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -16,14 +16,14 @@ public class GameLoopImpl implements GameLoop {
     private float deltaTime;
     private long sleepTime;
     private GameScene currentScene;
-    private final Graphic graphics;
+    private final Optional<Graphic> graphics;
 
     /**
      * Constructs the GameLoop.
      *
      * @param fps the desired number of frames per seconds
      */
-    public GameLoopImpl(final Graphic graphic, final float fps) {
+    public GameLoopImpl(final Optional<Graphic> graphic, final float fps) {
         this.graphics = graphic;
         this.fps = fps;
         this.secondsBetweenTwoFrames = 1.0f / fps;
@@ -62,10 +62,11 @@ public class GameLoopImpl implements GameLoop {
     }
 
     private void drawGameObjects() {
-        this.graphics.render(this.currentScene.getGameObjects().stream()
-                .filter(x -> x.getComponentOfType(GraphicComponent.class).isPresent())
-                .map(x -> x.getComponentOfType(GraphicComponent.class).get())
-                .collect(Collectors.toUnmodifiableSet()));
+        this.graphics.ifPresent(graphic -> graphic
+                .render(this.currentScene.getGameObjects().stream()
+                    .filter(x -> x.getComponentOfType(GraphicComponent.class).isPresent())
+                    .map(x -> x.getComponentOfType(GraphicComponent.class).get())
+                    .collect(Collectors.toUnmodifiableSet())));
     }
 
     /**

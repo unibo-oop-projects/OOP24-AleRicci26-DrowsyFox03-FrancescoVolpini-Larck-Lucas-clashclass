@@ -61,7 +61,7 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
 //        canvas.widthProperty().addListener((obs, oldVal, newVal) -> redraw());
 //        canvas.heightProperty().addListener((obs, oldVal, newVal) -> redraw());
 
-        final GameEngine gameEngine = new GameEngineImpl(this.getGraphics());
+        final GameEngine gameEngine = new GameEngineImpl(Optional.of(this.getGraphics()));
 
         final var player = new Player();
         final var village = new Village();
