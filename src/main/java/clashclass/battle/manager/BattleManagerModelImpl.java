@@ -12,14 +12,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class BattleManagerModelImpl implements BattleManagerModel {
-    private final Path battleVillageCsvPath;
     private GameStateManager gameStateManager;
-    private Village battleVillage;
+    private final Village playerVillage;
+    private final Village battleVillage;
     private TROOP_TYPE currentSelectedTroop;
 
-    public BattleManagerModelImpl(final Path battleVillageCsvPath) {
-        this.battleVillageCsvPath = battleVillageCsvPath;
-        this.loadBattleVillage();
+    public BattleManagerModelImpl(final Path playerVillageCsvPath, final Path battleVillageCsvPath) {
+        this.playerVillage = this.loadVillage(playerVillageCsvPath);
+        this.battleVillage = this.loadVillage(battleVillageCsvPath);
     }
 
     @Override
@@ -27,16 +27,17 @@ public class BattleManagerModelImpl implements BattleManagerModel {
         this.gameStateManager = gameStateManager;
     }
 
-    private void loadBattleVillage()
+    private Village loadVillage(final Path csvPath)
     {
         try {
             final var decoder = new BattleVillageDecoderImpl();
             decoder.setComponentFactory(new ComponentFactoryImpl());
-            final var csvData = Files.readString(this.battleVillageCsvPath);
-            this.battleVillage = decoder.decode(csvData);
+            final var csvData = Files.readString(csvPath);
+            return decoder.decode(csvData);
         } catch (IOException e) {
-            System.err.println("Could not read battle Village");
+            System.err.println("Could not read village data");
         }
+        return null;
     }
 
     @Override
@@ -47,6 +48,11 @@ public class BattleManagerModelImpl implements BattleManagerModel {
     @Override
     public GameStateManager getGameStateManager() {
         return this.gameStateManager;
+    }
+
+    @Override
+    public Village getPlayerVillage() {
+        return this.playerVillage;
     }
 
     @Override

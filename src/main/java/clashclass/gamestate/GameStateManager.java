@@ -7,7 +7,6 @@ public interface GameStateManager {
     void setStatePlayerVillage();
     void setStateBattle();
     GameEngine getGameEngine();
-    Village getPlayerVillage();
     void startEngine();
     void stopEngine();
 }

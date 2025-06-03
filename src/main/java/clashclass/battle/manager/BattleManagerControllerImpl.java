@@ -4,8 +4,6 @@ import clashclass.ecs.GameObject;
 import clashclass.elements.troops.TROOP_TYPE;
 import clashclass.gamestate.GameStateManager;
 
-import java.io.IOException;
-
 public class BattleManagerControllerImpl implements BattleManagerController {
     private final BattleManagerModel model;
     private final BattleManagerView view;

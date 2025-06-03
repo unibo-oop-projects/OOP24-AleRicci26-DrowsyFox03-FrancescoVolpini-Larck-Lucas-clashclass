@@ -20,22 +20,17 @@ public class GameStateManagerImpl implements GameStateManager {
     private final Supplier<GameStateController> playerVillageStateCreator;
     private final Supplier<GameStateController> battleStateCreator;
     private final GameEngine gameEngine;
-    private final Village playerVillage;
     private GameStateController currentGameStateController;
 
     public GameStateManagerImpl(
-            final Path csvPath,
             final Graphic graphic,
             final Supplier<GameStateController> playerVillageStateCreator,
-            final Supplier<GameStateController> battleStateCreator) throws IOException {
+            final Supplier<GameStateController> battleStateCreator) {
         this.playerVillageStateCreator = playerVillageStateCreator;
         this.battleStateCreator = battleStateCreator;
 
         final var decoder = new PlayerVillageDecoderImpl();
         decoder.setComponentFactory(new ComponentFactoryImpl());
-
-        final var csvData = Files.readString(csvPath);
-        this.playerVillage = decoder.decode(csvData);
 
         this.gameEngine = new GameEngineImpl(Optional.of(graphic));
         this.setStatePlayerVillage();
@@ -58,11 +53,6 @@ public class GameStateManagerImpl implements GameStateManager {
     @Override
     public GameEngine getGameEngine() {
         return this.gameEngine;
-    }
-
-    @Override
-    public Village getPlayerVillage() {
-        return this.playerVillage;
     }
 
     @Override

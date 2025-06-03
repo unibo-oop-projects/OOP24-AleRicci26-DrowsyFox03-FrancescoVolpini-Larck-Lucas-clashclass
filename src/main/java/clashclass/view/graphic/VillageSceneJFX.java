@@ -67,13 +67,12 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
         });
 
         final var gameStateManager = new GameStateManagerImpl(
-                playerCsvPath,
                 graphics,
                 () -> new PlayerVillageControllerImpl(
-                        new PlayerVillageModelImpl(),
+                        new PlayerVillageModelImpl(playerCsvPath),
                         new PlayerVillageViewJavaFXImpl(scene, root, this.getWindowWidth(), this.getWindowHeight())),
                 () -> new BattleManagerControllerImpl(
-                        new BattleManagerModelImpl(battleCsvPath),
+                        new BattleManagerModelImpl(playerCsvPath, battleCsvPath),
                         new BattleManagerViewJavaFXImpl(root)
                 )
         );

@@ -8,6 +8,7 @@ public interface BattleManagerModel {
     void setGameStateManager(GameStateManager gameStateManager);
     void setCurrentSelectedTroop(TROOP_TYPE troopType);
     GameStateManager getGameStateManager();
+    Village getPlayerVillage();
     Village getBattleVillage();
     TROOP_TYPE getCurrentSelectedTroop();
 }
