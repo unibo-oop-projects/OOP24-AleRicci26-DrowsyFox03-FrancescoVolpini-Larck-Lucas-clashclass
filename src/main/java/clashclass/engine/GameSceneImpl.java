@@ -39,6 +39,15 @@ public class GameSceneImpl implements GameScene {
         this.gameObjectsToUpdate.forEach(gameObject -> gameObject.update(deltaTime));
     }
 
+    @Override
+    public void checkForDestroyedGameObjects() {
+        this.gameObjects.stream()
+                .filter(GameObject::isMarkedAsDestroyed)
+                .filter(gameObject -> gameObject instanceof UpdateProvider)
+                .forEach(gameObject -> this.gameObjectsToUpdate.remove((UpdateProvider) gameObject));
+        this.gameObjects.removeIf(GameObject::isMarkedAsDestroyed);
+    }
+
     /**
      * {@inheritDoc}
      */

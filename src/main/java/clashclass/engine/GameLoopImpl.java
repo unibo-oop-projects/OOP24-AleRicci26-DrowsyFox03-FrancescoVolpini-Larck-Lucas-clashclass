@@ -44,6 +44,7 @@ public class GameLoopImpl implements GameLoop {
 
             this.updateGameObjects();
             this.drawGameObjects();
+            this.checkForDestroyedGameObjects();
 
             this.calculateSleepTime();
 
@@ -67,6 +68,10 @@ public class GameLoopImpl implements GameLoop {
                     .filter(x -> x.getComponentOfType(GraphicComponent.class).isPresent())
                     .map(x -> x.getComponentOfType(GraphicComponent.class).get())
                     .collect(Collectors.toUnmodifiableSet())));
+    }
+
+    private void checkForDestroyedGameObjects() {
+        this.currentScene.checkForDestroyedGameObjects();
     }
 
     /**

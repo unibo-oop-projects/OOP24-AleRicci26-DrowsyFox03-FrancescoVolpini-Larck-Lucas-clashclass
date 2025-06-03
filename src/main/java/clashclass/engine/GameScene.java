@@ -23,6 +23,8 @@ public interface GameScene {
      */
     void updateGameObjects(float deltaTime);
 
+    void checkForDestroyedGameObjects();
+
     /**
      * Adds a GameObject to the scene.
      *
