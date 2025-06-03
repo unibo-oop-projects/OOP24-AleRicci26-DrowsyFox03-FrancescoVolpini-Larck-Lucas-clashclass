@@ -19,6 +19,8 @@ import clashclass.village.manager.PlayerVillageViewJavaFXImpl;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -45,8 +47,36 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
         this.gc = canvas.getGraphicsContext2D();
         this.setGraphics(new GraphicJavaFXImpl(gc, canvas, getWindowWidth(), getWindowHeight()));
 
-        Pane root = new Pane(canvas);
+        AnchorPane root = new AnchorPane();
         root.setStyle("-fx-background-color: #0a8f32;");
+        root.getChildren().add(canvas);
+        AnchorPane.setTopAnchor(canvas, 0.0);
+        AnchorPane.setLeftAnchor(canvas, 0.0);
+
+        Button battleButton = new Button("Battle");
+        root.getChildren().add(battleButton);
+        AnchorPane.setBottomAnchor(battleButton, 20.0);
+        AnchorPane.setLeftAnchor(battleButton, 20.0);
+        battleButton.prefWidthProperty().bind(root.widthProperty().multiply(0.1));
+        battleButton.prefHeightProperty().bind(root.heightProperty().multiply(0.15));
+
+        battleButton.widthProperty().addListener((obs, oldVal, newVal) -> {
+            double newFontSize = newVal.doubleValue() * 0.2f;
+            battleButton.setStyle("-fx-font-size: " + newFontSize + "px;");
+        });
+
+        Button shopButton = new Button("Shop");
+        root.getChildren().add(shopButton);
+        AnchorPane.setBottomAnchor(shopButton, 20.0);
+        AnchorPane.setRightAnchor(shopButton, 20.0);
+        shopButton.prefWidthProperty().bind(root.widthProperty().multiply(0.1));
+        shopButton.prefHeightProperty().bind(root.heightProperty().multiply(0.15));
+
+        shopButton.widthProperty().addListener((obs, oldVal, newVal) -> {
+            double newFontSize = newVal.doubleValue() * 0.2f;
+            shopButton.setStyle("-fx-font-size: " + newFontSize + "px;");
+        });
+
         Scene scene = new Scene(root, getWindowWidth(), getWindowHeight());
         stage.setScene(scene);
         stage.setTitle(getSceneTitle());
