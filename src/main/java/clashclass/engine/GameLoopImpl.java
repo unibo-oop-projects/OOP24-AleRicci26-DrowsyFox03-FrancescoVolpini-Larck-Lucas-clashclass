@@ -1,9 +1,12 @@
 package clashclass.engine;
 
+import clashclass.ecs.GameObject;
 import clashclass.view.graphic.components.GraphicComponent;
 import clashclass.view.graphic.Graphic;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -63,9 +66,12 @@ public class GameLoopImpl implements GameLoop {
     }
 
     private void drawGameObjects() {
+        Set<GameObject> gameObjectsCopy;
+        synchronized (this.currentScene.getGameObjects()) {
+            gameObjectsCopy = new HashSet<>(this.currentScene.getGameObjects());
+        }
         this.graphics.ifPresent(graphic -> graphic
-                .render(this.currentScene.getGameObjects().stream()
-                    .collect(Collectors.toSet()).stream()
+                .render(gameObjectsCopy.stream()
                         .filter(x -> x.getComponentOfType(GraphicComponent.class).isPresent())
                         .map(x -> x.getComponentOfType(GraphicComponent.class).get())
                         .collect(Collectors.toUnmodifiableSet())));
