@@ -1,4 +1,6 @@
 package clashclass.battle.manager;
 
-public interface BattleManagerController {
+import clashclass.gamestate.GameStateController;
+
+public interface BattleManagerController extends GameStateController {
 }

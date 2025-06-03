@@ -1,29 +1,33 @@
 package clashclass.village.manager;
 
-import clashclass.commons.Rect2D;
-import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.commons.CommonGameObjectFactoryImpl;
 import clashclass.engine.GameEngine;
+import clashclass.view.graphic.GraphicJavaFXImpl;
 import clashclass.view.graphic.components.UIRendererImpl;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
 public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
-    private final GameEngine gameEngine;
-    private final GameObject uiGameObject;
-    private final AnchorPane root;
+    private AnchorPane root;
     private PlayerVillageController controller;
+    private Button battleButton;
+    private Button shopButton;
 
-    public PlayerVillageViewJavaFXImpl(final GameEngine gameEngine, final AnchorPane root) {
-        this.gameEngine = gameEngine;
+    public PlayerVillageViewJavaFXImpl(
+            final Scene scene,
+            final AnchorPane root,
+            final double widowWidth,
+            final double windowHeight) {
+        final var factory = new CommonGameObjectFactoryImpl();
+
         this.root = root;
 
-        final var factory = new CommonGameObjectFactoryImpl();
-        this.uiGameObject = factory.createUIElement();
-        this.gameEngine.addGameObject(this.uiGameObject);
+        this.root.setStyle("-fx-background-color: #0A8F32;");
 
-        Button battleButton = new Button("Battle");
+        this.battleButton = new Button("Battle");
         root.getChildren().add(battleButton);
         AnchorPane.setBottomAnchor(battleButton, 20.0);
         AnchorPane.setLeftAnchor(battleButton, 20.0);
@@ -36,7 +40,7 @@ public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
         });
         battleButton.setOnAction(event -> this.controller.openBattleMode());
 
-        Button shopButton = new Button("Shop");
+        this.shopButton = new Button("Shop");
         root.getChildren().add(shopButton);
         AnchorPane.setBottomAnchor(shopButton, 20.0);
         AnchorPane.setRightAnchor(shopButton, 20.0);
@@ -62,18 +66,18 @@ public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
 
     @Override
     public void clearScene() {
-        this.uiGameObject.destroy();
-        this.root.getChildren().clear();
+        this.root.getChildren().remove(this.battleButton);
+        this.root.getChildren().remove(this.shopButton);
     }
 
     private void redraw(final PlayerVillageModel model) {
-        uiGameObject.getComponentOfType(UIRendererImpl.class).ifPresent(uiRenderer -> {
-            uiRenderer.setDrawFunction(graphics -> {
-//                graphics.drawRectangle(this.uiGameObject, "#FF0000", new Rect2D(
-//                        new VectorInt2D(20, 100),
-//                        new VectorInt2D(300, 50)));
-                // TODO ...
-            });
-        });
+//        uiGameObject.getComponentOfType(UIRendererImpl.class).ifPresent(uiRenderer -> {
+//            uiRenderer.setDrawFunction(graphics -> {
+////                graphics.drawRectangle(this.uiGameObject, "#FF0000", new Rect2D(
+////                        new VectorInt2D(20, 100),
+////                        new VectorInt2D(300, 50)));
+//                // TODO ...
+//            });
+//        });
     }
 }

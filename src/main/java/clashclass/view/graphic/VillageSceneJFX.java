@@ -1,8 +1,11 @@
 package clashclass.view.graphic;
 
+import clashclass.battle.manager.BattleManagerControllerImpl;
 import clashclass.commons.ConversionUtility;
 import clashclass.commons.GridTileData2D;
 import clashclass.commons.Vector2D;
+import clashclass.gamestate.GameStateManager;
+import clashclass.gamestate.GameStateManagerImpl;
 import clashclass.village.Village;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactoryImpl;
@@ -30,45 +33,26 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 public abstract class VillageSceneJFX extends AbstractBaseScene {
-    private final VillageDecoder decoder;
-    protected final GraphicsContext gc;
-    protected final Village village;
-
     public VillageSceneJFX(Window window, Stage stage, Path csvPath) throws IOException {
         super(window);
 
-        decoder = new PlayerVillageDecoderImpl(new PlayerBuildingFactoryImpl());
-        decoder.setComponentFactory(new ComponentFactoryImpl());
-
-        String csvData = Files.readString(csvPath);
-        this.village = decodeVillage(csvData);
-
-        Canvas canvas = new Canvas(getWindowWidth(), getWindowHeight());
-        this.gc = canvas.getGraphicsContext2D();
-        this.setGraphics(new GraphicJavaFXImpl(gc, canvas, getWindowWidth(), getWindowHeight()));
-
         AnchorPane root = new AnchorPane();
-        root.setStyle("-fx-background-color: #0a8f32;");
-        root.getChildren().add(canvas);
-        AnchorPane.setTopAnchor(canvas, 0.0);
-        AnchorPane.setLeftAnchor(canvas, 0.0);
 
         Scene scene = new Scene(root, getWindowWidth(), getWindowHeight());
         stage.setScene(scene);
         stage.setTitle(getSceneTitle());
         stage.show();
 
+        Canvas canvas = new Canvas(getWindowWidth(), getWindowHeight());
+        final var gc = canvas.getGraphicsContext2D();
+        final var graphics = new GraphicJavaFXImpl(gc, canvas, getWindowWidth(), getWindowHeight());
+
+        root.getChildren().add(canvas);
+        AnchorPane.setTopAnchor(canvas, 0.0);
+        AnchorPane.setLeftAnchor(canvas, 0.0);
+
         canvas.widthProperty().bind(scene.widthProperty());
         canvas.heightProperty().bind(scene.heightProperty());
-
-//        canvas.widthProperty().addListener((obs, oldVal, newVal) -> redraw());
-//        canvas.heightProperty().addListener((obs, oldVal, newVal) -> redraw());
-
-        final GameEngine gameEngine = new GameEngineImpl(Optional.of(this.getGraphics()));
-
-        stage.setOnCloseRequest(event -> {
-            gameEngine.stop();
-        });
 
         scene.setOnMouseClicked(event -> {
             double worldX = event.getSceneX();
@@ -80,27 +64,20 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
             System.out.println(gridPosition.x() + " " + gridPosition.y());
         });
 
-        final var player = new Player();
-        final var village = new Village(player);
-
-        this.village.getBuildings().forEach(gameObject -> {
-            final var gridTileData = gameObject.getComponentOfType(GridTileData2D.class).get();
-            village.placeBuilding(
-                    gameObject,
-                    gridTileData.getPosition(),
-                    gridTileData.getRowSpan(),
-                    gridTileData.getColSpan());
-        });
-
-        village.getGroundObjects().forEach(gameEngine::addGameObject);
-        village.getGameObjects().forEach(gameEngine::addGameObject);
-
-        final var playerVillageController = new PlayerVillageControllerImpl(
-                new PlayerVillageModelImpl(),
-                new PlayerVillageViewJavaFXImpl(gameEngine, root)
+        final var gameStateManager = new GameStateManagerImpl(
+                csvPath,
+                graphics,
+                () -> new PlayerVillageControllerImpl(
+                        new PlayerVillageModelImpl(),
+                        new PlayerVillageViewJavaFXImpl(scene, root, this.getWindowWidth(), this.getWindowHeight())),
+                () -> new BattleManagerControllerImpl()
         );
 
-        gameEngine.start();
+        stage.setOnCloseRequest(event -> {
+            gameStateManager.stopEngine();
+        });
+
+        gameStateManager.startEngine();
 
         initializeScene();
     }
@@ -110,10 +87,6 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
     @Override
     public void initializeScene() {
 
-    }
-
-    private Village decodeVillage(String csvData) {
-        return this.decoder.decode(csvData);
     }
 
     // Da implementare per mappare correttamente i tipi in sprite

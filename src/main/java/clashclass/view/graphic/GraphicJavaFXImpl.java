@@ -29,7 +29,7 @@ public class GraphicJavaFXImpl implements Graphic {
     private double height;
     private final Canvas canvas;
 
-    GraphicJavaFXImpl(final GraphicsContext gc, final Canvas canvas, final double dpiW, final double dpiH) {
+    public GraphicJavaFXImpl(final GraphicsContext gc, final Canvas canvas, final double dpiW, final double dpiH) {
         this.gc = gc;
         this.canvas = canvas;
         this.dpiW = dpiW;
@@ -61,17 +61,21 @@ public class GraphicJavaFXImpl implements Graphic {
         this.gc.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
     }
 
+    private void drawGameObjects(final Set<GraphicComponent> graphicComponents) {
+        graphicComponents.stream()
+                .sorted(Comparator
+                                .comparingInt(this::getSortingLayer)
+                                .thenComparingDouble(this::getSortingIsometricCoordinates)
+//                            .thenComparingDouble(this::getSortingIsometricCoordinates)
+                )
+                .forEach(graphicComponent -> graphicComponent.draw(this));
+    }
+
     @Override
     public void render(final Set<GraphicComponent> graphicComponents) {
         Platform.runLater(() -> {
             this.clearRect();
-            graphicComponents.stream()
-                    .sorted(Comparator
-                            .comparingInt(this::getSortingLayer)
-                            .thenComparingDouble(this::getSortingIsometricCoordinates)
-//                            .thenComparingDouble(this::getSortingIsometricCoordinates)
-                    )
-                    .forEach(graphicComponent -> graphicComponent.draw(this));
+            this.drawGameObjects(graphicComponents);
         });
     }
 

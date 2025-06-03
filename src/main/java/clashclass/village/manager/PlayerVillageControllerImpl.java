@@ -1,5 +1,6 @@
 package clashclass.village.manager;
 
+import clashclass.ecs.GameObject;
 import clashclass.gamestate.GameStateManager;
 
 public class PlayerVillageControllerImpl implements PlayerVillageController {
@@ -10,6 +11,7 @@ public class PlayerVillageControllerImpl implements PlayerVillageController {
         this.model = model;
         this.view = view;
         this.view.setController(this);
+
         this.updateView();
     }
 
@@ -30,10 +32,19 @@ public class PlayerVillageControllerImpl implements PlayerVillageController {
     @Override
     public void setGameStateManager(final GameStateManager gameStateManager) {
         this.model.setGameStateManager(gameStateManager);
+
+        final var gameManager = model.getGameStateManager();
+        gameManager.getPlayerVillage().getGroundObjects().forEach(gameManager.getGameEngine()::addGameObject);
+        gameManager.getPlayerVillage().getGameObjects().forEach(gameManager.getGameEngine()::addGameObject);
+
+        this.updateView();
     }
 
     @Override
     public void clearScene() {
+        final var gameManager = model.getGameStateManager();
+        gameManager.getPlayerVillage().getGroundObjects().forEach(GameObject::destroy);
+        gameManager.getPlayerVillage().getGameObjects().forEach(GameObject::destroy);
         this.view.clearScene();
     }
 }
