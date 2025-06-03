@@ -12,8 +12,8 @@ import java.util.Set;
 
 public class PlayerVillageSceneJFX extends VillageSceneJFX {
 
-    public PlayerVillageSceneJFX(Window window, Stage stage, Path csvPath) throws IOException {
-        super(window, stage, csvPath);
+    public PlayerVillageSceneJFX(Window window, Stage stage, Path playerCsvPath, Path battleCsvPath) throws IOException {
+        super(window, stage, playerCsvPath, battleCsvPath);
     }
 
     /**

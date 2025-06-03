@@ -65,9 +65,10 @@ public class GameLoopImpl implements GameLoop {
     private void drawGameObjects() {
         this.graphics.ifPresent(graphic -> graphic
                 .render(this.currentScene.getGameObjects().stream()
-                    .filter(x -> x.getComponentOfType(GraphicComponent.class).isPresent())
-                    .map(x -> x.getComponentOfType(GraphicComponent.class).get())
-                    .collect(Collectors.toUnmodifiableSet())));
+                    .collect(Collectors.toSet()).stream()
+                        .filter(x -> x.getComponentOfType(GraphicComponent.class).isPresent())
+                        .map(x -> x.getComponentOfType(GraphicComponent.class).get())
+                        .collect(Collectors.toUnmodifiableSet())));
     }
 
     private void checkForDestroyedGameObjects() {

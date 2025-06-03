@@ -1,15 +1,48 @@
 package clashclass.battle.manager;
 
+import clashclass.ecs.GameObject;
+import clashclass.elements.troops.TROOP_TYPE;
 import clashclass.gamestate.GameStateManager;
 
-public class BattleManagerControllerImpl implements BattleManagerController{
+import java.io.IOException;
+
+public class BattleManagerControllerImpl implements BattleManagerController {
+    private final BattleManagerModel model;
+    private final BattleManagerView view;
+
+    public BattleManagerControllerImpl(final BattleManagerModel model, final BattleManagerView view) {
+        this.model = model;
+        this.view = view;
+        this.view.setController(this);
+    }
+
     @Override
     public void setGameStateManager(GameStateManager gameStateManager) {
+        this.model.setGameStateManager(gameStateManager);
 
+        final var battleVillage = this.model.getBattleVillage();
+        final var gameEngine = this.model.getGameStateManager().getGameEngine();
+        battleVillage.getGroundObjects().forEach(gameEngine::addGameObject);
+        battleVillage.getGameObjects().forEach(gameEngine::addGameObject);
+
+        this.view.setArmyCampTroops(this.model);
     }
 
     @Override
     public void clearScene() {
+        final var battleVillage = this.model.getBattleVillage();
+        battleVillage.getGroundObjects().forEach(GameObject::destroy);
+        battleVillage.getGameObjects().forEach(GameObject::destroy);
+        this.view.clearScene();
+    }
 
+    @Override
+    public void endBattle() {
+        this.model.getGameStateManager().setStatePlayerVillage();
+    }
+
+    @Override
+    public void setCurrentSelectedTroop(final TROOP_TYPE troop) {
+        this.model.setCurrentSelectedTroop(troop);
     }
 }

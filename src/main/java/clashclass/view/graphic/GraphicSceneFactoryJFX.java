@@ -28,7 +28,11 @@ public class GraphicSceneFactoryJFX implements GraphicSceneFactory {
     @Override
     public BaseScene createPlayerVillageScene(Window window) {
         try {
-            return new PlayerVillageSceneJFX(window, stage, Paths.get("data_villages/default_village.csv"));
+            return new PlayerVillageSceneJFX(
+                    window,
+                    stage,
+                    Paths.get("data_villages/default_village.csv"),
+                    Paths.get("data_villages/default_village.csv"));
         } catch (IOException e) {
             System.err.println("Player village file not found ");
             return null;

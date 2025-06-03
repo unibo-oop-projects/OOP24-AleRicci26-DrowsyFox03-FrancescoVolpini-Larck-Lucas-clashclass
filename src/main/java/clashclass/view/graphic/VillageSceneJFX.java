@@ -1,6 +1,8 @@
 package clashclass.view.graphic;
 
 import clashclass.battle.manager.BattleManagerControllerImpl;
+import clashclass.battle.manager.BattleManagerModelImpl;
+import clashclass.battle.manager.BattleManagerViewJavaFXImpl;
 import clashclass.commons.ConversionUtility;
 import clashclass.commons.GridTileData2D;
 import clashclass.commons.Vector2D;
@@ -33,7 +35,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 public abstract class VillageSceneJFX extends AbstractBaseScene {
-    public VillageSceneJFX(Window window, Stage stage, Path csvPath) throws IOException {
+    public VillageSceneJFX(Window window, Stage stage, Path playerCsvPath, Path battleCsvPath) throws IOException {
         super(window);
 
         AnchorPane root = new AnchorPane();
@@ -65,12 +67,15 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
         });
 
         final var gameStateManager = new GameStateManagerImpl(
-                csvPath,
+                playerCsvPath,
                 graphics,
                 () -> new PlayerVillageControllerImpl(
                         new PlayerVillageModelImpl(),
                         new PlayerVillageViewJavaFXImpl(scene, root, this.getWindowWidth(), this.getWindowHeight())),
-                () -> new BattleManagerControllerImpl()
+                () -> new BattleManagerControllerImpl(
+                        new BattleManagerModelImpl(battleCsvPath),
+                        new BattleManagerViewJavaFXImpl(root)
+                )
         );
 
         stage.setOnCloseRequest(event -> {

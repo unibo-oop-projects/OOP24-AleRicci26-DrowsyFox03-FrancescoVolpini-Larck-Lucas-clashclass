@@ -31,7 +31,7 @@ public class GameStateManagerImpl implements GameStateManager {
         this.playerVillageStateCreator = playerVillageStateCreator;
         this.battleStateCreator = battleStateCreator;
 
-        final var decoder = new PlayerVillageDecoderImpl(new PlayerBuildingFactoryImpl());
+        final var decoder = new PlayerVillageDecoderImpl();
         decoder.setComponentFactory(new ComponentFactoryImpl());
 
         final var csvData = Files.readString(csvPath);

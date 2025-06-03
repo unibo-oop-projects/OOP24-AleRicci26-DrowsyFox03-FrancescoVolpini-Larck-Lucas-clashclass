@@ -11,10 +11,10 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
 public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
-    private AnchorPane root;
+    private final AnchorPane root;
+    private final Button battleButton;
+    private final Button shopButton;
     private PlayerVillageController controller;
-    private Button battleButton;
-    private Button shopButton;
 
     public PlayerVillageViewJavaFXImpl(
             final Scene scene,

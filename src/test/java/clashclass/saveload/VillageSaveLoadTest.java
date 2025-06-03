@@ -39,10 +39,10 @@ class VillageSaveLoadTest {
         PlayerBuildingFactoryImpl playerBuildingFactory = new PlayerBuildingFactoryImpl();
         BattleBuildingFactoryImpl battleBuildingFactory = new BattleBuildingFactoryImpl();
 
-        playerDecoder = new PlayerVillageDecoderImpl(playerBuildingFactory);
+        playerDecoder = new PlayerVillageDecoderImpl();
         playerDecoder.setComponentFactory(new ComponentFactoryImpl());
 
-        battleDecoder = new BattleVillageDecoderImpl(battleBuildingFactory);
+        battleDecoder = new BattleVillageDecoderImpl();
         battleDecoder.setComponentFactory(new ComponentFactoryImpl());
 
         playerMapper = new BuildingFactoryMapper<>(playerBuildingFactory);

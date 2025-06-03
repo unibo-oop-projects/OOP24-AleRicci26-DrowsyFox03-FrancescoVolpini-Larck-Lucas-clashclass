@@ -62,7 +62,7 @@ public abstract class AbstractVillageDecoder implements VillageDecoder {
                 if (line.startsWith("TYPE")) break;
 
                 String[] parts = line.split(",", -1);
-                if (parts.length < 4) continue;
+                if (parts.length < 2) continue;
 
                 TROOP_TYPE type = TROOP_TYPE
                         .getValueFromName(parts[0])

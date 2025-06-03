@@ -3,6 +3,7 @@ package clashclass.resources;
 import clashclass.elements.troops.TROOP_TYPE;
 
 import java.util.EnumMap;
+import java.util.Set;
 
 /**
  * Class that provide the player with different resources.
@@ -33,5 +34,21 @@ public class Player {
             return;
         }
         this.armyCampTroops.put(troopType, count);
+    }
+
+    public void removeArmyCampTroop(final TROOP_TYPE troopType, int count) {
+        if (this.armyCampTroops.containsKey(troopType)) {
+            final var newCount = this.armyCampTroops.get(troopType) - count;
+
+            if (newCount < 0) {
+                this.armyCampTroops.remove(troopType);
+            } else {
+                this.armyCampTroops.put(troopType, newCount);
+            }
+        }
+    }
+
+    public Set<TROOP_TYPE> getArmyCampTroopTypes() {
+        return this.armyCampTroops.keySet();
     }
 }

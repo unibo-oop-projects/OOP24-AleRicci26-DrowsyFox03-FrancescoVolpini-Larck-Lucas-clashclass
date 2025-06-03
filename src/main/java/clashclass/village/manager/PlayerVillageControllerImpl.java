@@ -3,9 +3,15 @@ package clashclass.village.manager;
 import clashclass.ecs.GameObject;
 import clashclass.gamestate.GameStateManager;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class PlayerVillageControllerImpl implements PlayerVillageController {
     private final PlayerVillageModel model;
     private final PlayerVillageView view;
+
+    private Set<GameObject> groundObjectsCopy;
+    private Set<GameObject> gameObjectsCopy;
 
     public PlayerVillageControllerImpl(final PlayerVillageModel model, final PlayerVillageView view) {
         this.model = model;
@@ -34,17 +40,19 @@ public class PlayerVillageControllerImpl implements PlayerVillageController {
         this.model.setGameStateManager(gameStateManager);
 
         final var gameManager = model.getGameStateManager();
-        gameManager.getPlayerVillage().getGroundObjects().forEach(gameManager.getGameEngine()::addGameObject);
-        gameManager.getPlayerVillage().getGameObjects().forEach(gameManager.getGameEngine()::addGameObject);
+        this.groundObjectsCopy = gameManager.getPlayerVillage().getGroundObjects().stream().collect(Collectors.toSet());
+        this.gameObjectsCopy = gameManager.getPlayerVillage().getGameObjects().stream().collect(Collectors.toSet());
+
+        this.groundObjectsCopy.forEach(gameManager.getGameEngine()::addGameObject);
+        this.gameObjectsCopy.forEach(gameManager.getGameEngine()::addGameObject);
 
         this.updateView();
     }
 
     @Override
     public void clearScene() {
-        final var gameManager = model.getGameStateManager();
-        gameManager.getPlayerVillage().getGroundObjects().forEach(GameObject::destroy);
-        gameManager.getPlayerVillage().getGameObjects().forEach(GameObject::destroy);
+        this.groundObjectsCopy.forEach(GameObject::destroy);
+        this.gameObjectsCopy.forEach(GameObject::destroy);
         this.view.clearScene();
     }
 }
