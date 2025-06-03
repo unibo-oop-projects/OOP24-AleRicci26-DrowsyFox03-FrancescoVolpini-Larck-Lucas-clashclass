@@ -1,0 +1,142 @@
+package clashclass.battle.battlereport;
+
+import clashclass.ecs.GameObject;
+import clashclass.ecs.GameObjectImpl;
+import clashclass.resources.ResourceManager;
+import clashclass.resources.ResourceManagerImpl;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class BattleReportTest {
+
+    private BattleReportModelImpl model;
+    private BattleReportControllerImpl controller;
+    private VillageDestructionManagerImpl destructionManager;
+
+    @BeforeEach
+    public void setUp() {
+        // Initialize real implementations
+        model = new BattleReportModelImpl(5); // Assuming the village has 5 buildings
+        BattleReportViewImpl view = new BattleReportViewImpl();
+        controller = new BattleReportControllerImpl(model, view);
+        destructionManager = new VillageDestructionManagerImpl(controller);
+    }
+
+    @Test
+    public void testIncreaseDestructionPercentage() {
+        // Create a mock GameObject (real implementation not provided, so a dummy is used)
+        GameObject destroyedBuilding = new GameObjectImpl(); // Example object; simulate a building
+
+        // Notify destruction
+        destructionManager.notifyDestruction(destroyedBuilding);
+
+        // Assert that the destruction percentage has increased
+        double expectedPercentage = 20.0; // Assuming 1 building destroyed out of 5 increases 20%
+        assertEquals(expectedPercentage, model.getDestructionPercentage(), 0.01, "Destruction percentage should match expected value.");
+    }
+
+    @Test
+    public void testIncreaseStolenResources() {
+        // Initial stolen resources in the game model should be zero
+        assertEquals(1000000, model.getStolenResources().getCurrentValue(), "Initial stolen resources should be the max value.");
+
+        // Step 1: Add the first set of stolen resources
+        ResourceManager firstResources = new ResourceManagerImpl(0); // Start with zero
+        firstResources.increase(500); // Simulate stealing 500 resources
+        controller.increaseStolenResources(firstResources);
+
+        // Verify the stolen resources have increased to 500
+        assertEquals(500, model.getStolenResources().getCurrentValue(),
+                "Stolen resources should increase to 500 after adding the first set.");
+
+        // Step 2: Add another set of stolen resources
+        ResourceManager secondResources = new ResourceManagerImpl(0); // Start with zero
+        secondResources.increase(1000); // Simulate stealing 1000 resources
+        controller.increaseStolenResources(secondResources);
+
+        // Verify the stolen resources have increased to 1500 (500 + 1000)
+        assertEquals(1500, model.getStolenResources().getCurrentValue(),
+                "Stolen resources should increase to 1500 after adding the second set.");
+    }
+
+
+
+    @Test
+    public void testSetTroopCount() {
+        // Set troop count
+        int troopCount = 25;
+        controller.setTroopCount(troopCount);
+
+        // Assert that the troop count is set in the model
+        assertEquals(troopCount, model.getTroopCount(), "Troop count should be set correctly in the model.");
+    }
+
+    @Test
+    public void testNotifyTownHallDestroyed() {
+        // Notify that the Town Hall has been destroyed
+        controller.notifyTownHallDestroyed();
+
+        // Assert that the model reflects Town Hall as destroyed
+        assertTrue(model.isTownHallDestroyed(), "The model should indicate that the Town Hall is destroyed.");
+    }
+
+    @Test
+    public void testGetDestructionPercentage() {
+        // Simulate some destruction
+        GameObject destroyedBuilding = new GameObjectImpl(); // Dummy object
+        destructionManager.notifyDestruction(destroyedBuilding);
+
+        // Get the destruction percentage via the controller
+        double percentage = controller.getDestructionPercentage();
+
+        // Assert the percentage matches the expected value
+        assertEquals(20.0, percentage, 0.01, "Destruction percentage should be 20% after 1 building destroyed.");
+    }
+
+    @Test
+    public void testGetStars() {
+        // Destroy buildings to earn stars (simulate rules like 50% destruction earns 1 star)
+        GameObject building1 = new GameObjectImpl();
+        GameObject building2 = new GameObjectImpl();
+        GameObject building3 = new GameObjectImpl();
+
+        destructionManager.notifyDestruction(building1);
+        destructionManager.notifyDestruction(building2);
+        destructionManager.notifyDestruction(building3);
+
+        // Assert correct stars via model and controller
+        assertEquals(1, model.getStars(), "Model should reflect 1 star for 50% destruction.");
+        assertEquals(1, controller.getStars(), "Controller should return 1 star for the battle.");
+    }
+
+
+    @Test
+    public void testIsVictory() {
+        // Destroy buildings to earn a star (simulate rules like 50% destruction earns 1 star)
+        GameObject building1 = new GameObjectImpl();
+        GameObject building2 = new GameObjectImpl();
+        GameObject building3 = new GameObjectImpl();
+
+        destructionManager.notifyDestruction(building1);
+        destructionManager.notifyDestruction(building2);
+        destructionManager.notifyDestruction(building3);
+
+        // Assert that the battle is marked as a victory
+        assertTrue(controller.isVictory(), "The battle should be marked as a victory if at least 1 star is earned.");
+    }
+
+
+    @Test
+    public void testVillageDestructionManagerCoordinatesWithController() {
+        // Create a destroyed building object
+        GameObject destroyedBuilding = new GameObjectImpl();
+
+        // Notify destruction
+        destructionManager.notifyDestruction(destroyedBuilding);
+
+        // Assert that the destruction percentage is updated
+        assertEquals(20.0, model.getDestructionPercentage(), 0.01, "Destruction percentage should increase in the model.");
+    }
+}
