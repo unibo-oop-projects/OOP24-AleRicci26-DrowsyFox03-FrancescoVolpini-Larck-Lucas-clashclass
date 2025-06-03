@@ -1,6 +1,7 @@
 package clashclass.shop;
 
 import clashclass.resources.RESOURCE_TYPE;
+import clashclass.resources.ResourceManager;
 import clashclass.resources.ResourceManagerImpl;
 import clashclass.resources.Player;
 
@@ -28,7 +29,7 @@ public class ShopItemImpl implements ShopItem {
      * {@inheritDoc}
      */
     @Override
-    public ResourceManagerImpl getResourceManager() {
+    public ResourceManager getResourceManager() {
         return player.getPlayerResources().get(type);
     }
 

@@ -1,5 +1,7 @@
 package clashclass.resources;
 
+import clashclass.elements.troops.TROOP_TYPE;
+
 import java.util.EnumMap;
 
 /**
@@ -7,19 +9,29 @@ import java.util.EnumMap;
  */
 public class Player {
     private static final int GENERIC_VALUE = 10;
-    private final EnumMap<RESOURCE_TYPE, ResourceManagerImpl>
+    private final EnumMap<RESOURCE_TYPE, ResourceManager>
             playerResources = new EnumMap<>(RESOURCE_TYPE.class);
+    private final EnumMap<TROOP_TYPE, Integer> armyCampTroops = new EnumMap<>(TROOP_TYPE.class);
 
     public Player() {
-        ResourceManagerImpl goldManager = new ResourceManagerImpl(GENERIC_VALUE);
-        ResourceManagerImpl elixirManager = new ResourceManagerImpl(GENERIC_VALUE);
-        ResourceManagerImpl gemsManager = new ResourceManagerImpl(GENERIC_VALUE);
+        ResourceManager goldManager = new ResourceManagerImpl(GENERIC_VALUE);
+        ResourceManager elixirManager = new ResourceManagerImpl(GENERIC_VALUE);
+        ResourceManager gemsManager = new ResourceManagerImpl(GENERIC_VALUE);
 
         playerResources.put(RESOURCE_TYPE.GOLD, goldManager);
         playerResources.put(RESOURCE_TYPE.ELIXIR, elixirManager);
         playerResources.put(RESOURCE_TYPE.GEMS, gemsManager);
     }
-    public EnumMap<RESOURCE_TYPE, ResourceManagerImpl> getPlayerResources() {
+
+    public EnumMap<RESOURCE_TYPE, ResourceManager> getPlayerResources() {
         return playerResources;
+    }
+
+    public void addArmyCampTroop(final TROOP_TYPE troopType, int count) {
+        if (this.armyCampTroops.containsKey(troopType)) {
+            this.armyCampTroops.put(troopType, this.armyCampTroops.get(troopType) + count);
+            return;
+        }
+        this.armyCampTroops.put(troopType, count);
     }
 }

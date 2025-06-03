@@ -1,6 +1,7 @@
 package clashclass.saveload;
 
 import clashclass.commons.VectorInt2D;
+import clashclass.elements.troops.TROOP_TYPE;
 import clashclass.village.Village;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactory;
@@ -31,7 +32,7 @@ public abstract class AbstractVillageDecoder implements VillageDecoder {
             for (String line : lines) {
                 line = line.strip();
                 if (line.isEmpty() || line.startsWith("ResourceType")) continue;
-                if (line.startsWith("TYPE")) break;
+                if (line.startsWith("TroopType")) break;
 
                 String[] parts = line.split(",", -1);
                 if (parts.length < 3) continue;
@@ -45,6 +46,30 @@ public abstract class AbstractVillageDecoder implements VillageDecoder {
                 } catch (IllegalArgumentException e) {
                     throw new IllegalArgumentException("Invalid resource type or values: " + line, e);
                 }
+            }
+
+            boolean troopsSectionStarted = false;
+
+            for (String line : lines) {
+                line = line.strip();
+                if (!troopsSectionStarted) {
+                    if (!line.startsWith("TroopType")) continue;
+
+                    troopsSectionStarted = true;
+                    continue;
+                }
+
+                if (line.startsWith("TYPE")) break;
+
+                String[] parts = line.split(",", -1);
+                if (parts.length < 4) continue;
+
+                TROOP_TYPE type = TROOP_TYPE
+                        .getValueFromName(parts[0])
+                        .orElseThrow(() -> new IllegalArgumentException("Invalid type: " + parts[0]));
+
+                int count = Integer.parseInt(parts[1].trim());
+                player.addArmyCampTroop(type, count);
             }
 
             boolean buildingsSectionStarted = false;

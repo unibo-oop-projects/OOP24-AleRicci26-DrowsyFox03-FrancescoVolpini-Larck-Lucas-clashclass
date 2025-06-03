@@ -1,5 +1,6 @@
 package clashclass.shop;
 
+import clashclass.resources.ResourceManager;
 import clashclass.resources.ResourceManagerImpl;
 import clashclass.resources.RESOURCE_TYPE;
 
@@ -12,7 +13,7 @@ public interface ShopItem {
      *
      * @return the ResourceManager needed by the item
      */
-    ResourceManagerImpl getResourceManager();
+    ResourceManager getResourceManager();
 
     /**
      * Return the price of the item.
