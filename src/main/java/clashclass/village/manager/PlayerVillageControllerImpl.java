@@ -1,5 +1,7 @@
 package clashclass.village.manager;
 
+import clashclass.gamestate.GameStateManager;
+
 public class PlayerVillageControllerImpl implements PlayerVillageController {
     private final PlayerVillageModel model;
     private final PlayerVillageView view;
@@ -22,6 +24,16 @@ public class PlayerVillageControllerImpl implements PlayerVillageController {
 
     @Override
     public void openBattleMode() {
+        this.model.getGameStateManager().setStateBattle();
+    }
 
+    @Override
+    public void setGameStateManager(final GameStateManager gameStateManager) {
+        this.model.setGameStateManager(gameStateManager);
+    }
+
+    @Override
+    public void clearScene() {
+        this.view.clearScene();
     }
 }

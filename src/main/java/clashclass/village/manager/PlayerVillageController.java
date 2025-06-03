@@ -1,6 +1,8 @@
 package clashclass.village.manager;
 
-public interface PlayerVillageController {
+import clashclass.gamestate.GameStateController;
+
+public interface PlayerVillageController extends GameStateController {
     void openShop();
     void openBattleMode();
 }

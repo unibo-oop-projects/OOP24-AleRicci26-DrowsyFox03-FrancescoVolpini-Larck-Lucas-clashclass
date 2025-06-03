@@ -10,15 +10,18 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
 public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
+    private final GameEngine gameEngine;
     private final GameObject uiGameObject;
     private final AnchorPane root;
     private PlayerVillageController controller;
 
     public PlayerVillageViewJavaFXImpl(final GameEngine gameEngine, final AnchorPane root) {
+        this.gameEngine = gameEngine;
         this.root = root;
+
         final var factory = new CommonGameObjectFactoryImpl();
         this.uiGameObject = factory.createUIElement();
-        gameEngine.addGameObject(this.uiGameObject);
+        this.gameEngine.addGameObject(this.uiGameObject);
 
         Button battleButton = new Button("Battle");
         root.getChildren().add(battleButton);
@@ -55,6 +58,12 @@ public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
     @Override
     public void update(final PlayerVillageModel model) {
         this.redraw(model);
+    }
+
+    @Override
+    public void clearScene() {
+        this.uiGameObject.destroy();
+        this.root.getChildren().clear();
     }
 
     private void redraw(final PlayerVillageModel model) {
