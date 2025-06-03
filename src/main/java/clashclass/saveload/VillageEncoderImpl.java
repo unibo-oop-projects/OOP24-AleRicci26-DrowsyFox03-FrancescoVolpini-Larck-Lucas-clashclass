@@ -39,7 +39,7 @@ public class VillageEncoderImpl implements VillageEncoder {
                 int x = (int) transform.getPosition().x();
                 int y = (int) transform.getPosition().y();
 
-                builder.append(type.name())
+                builder.append(type.getName())
                         .append(CSV_DELIMITER)
                         .append(progressive)
                         .append(CSV_DELIMITER)

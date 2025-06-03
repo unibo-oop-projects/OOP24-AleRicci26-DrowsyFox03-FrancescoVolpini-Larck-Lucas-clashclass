@@ -4,7 +4,7 @@ import clashclass.commons.HealthComponentImpl;
 import clashclass.commons.Transform2D;
 import clashclass.commons.Vector2D;
 import clashclass.ecs.Component;
-import clashclass.ecs.GraphicComponentImpl;
+import clashclass.view.graphic.components.GraphicComponentImpl;
 
 /**
  * Represents an implementation of ComponentFactory.

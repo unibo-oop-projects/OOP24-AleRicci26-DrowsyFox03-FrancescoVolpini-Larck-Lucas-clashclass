@@ -45,6 +45,7 @@ public class GameSceneImpl implements GameScene {
     @Override
     public final void addGameObject(final GameObject gameObject) {
         this.gameObjects.add(gameObject);
+        gameObject.setScene(this);
 
         if (gameObject instanceof UpdateProvider) {
             this.gameObjectsToUpdate.add((UpdateProvider) gameObject);

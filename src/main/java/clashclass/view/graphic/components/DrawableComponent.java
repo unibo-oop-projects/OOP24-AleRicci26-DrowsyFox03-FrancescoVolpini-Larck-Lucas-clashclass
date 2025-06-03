@@ -1,5 +1,6 @@
-package clashclass.ecs;
+package clashclass.view.graphic.components;
 
+import clashclass.ecs.Component;
 import clashclass.view.graphic.Graphic;
 
 public interface DrawableComponent extends Component {

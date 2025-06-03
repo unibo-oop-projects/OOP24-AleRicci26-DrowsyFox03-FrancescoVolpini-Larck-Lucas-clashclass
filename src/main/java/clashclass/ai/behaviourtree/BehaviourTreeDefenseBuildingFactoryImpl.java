@@ -10,8 +10,7 @@ public class BehaviourTreeDefenseBuildingFactoryImpl implements BehaviourTreeFac
         return new BehaviourTreeImpl(
             new RootNode(
                 new SequenceNode(List.of(
-                    new ChooseNextTargetNode(new ChooseTargetNearestLogicImpl()),
-                    new GoToTargetNode(0.1f),
+                    new ChooseNextTargetTroopNode(new ChooseTargetNearestLogicImpl()),
                     new WaitNode(0.5f),
                     new SequenceNode(List.of(
                         new DamageTargetNode(),

@@ -1,4 +1,4 @@
-package clashclass.ecs;
+package clashclass.view.graphic.components;
 
 import clashclass.view.graphic.Graphic;
 

@@ -1,4 +1,4 @@
-package clashclass.ecs;
+package clashclass.view.graphic.components;
 
 import clashclass.view.graphic.Graphic;
 
@@ -19,6 +19,6 @@ public class GraphicComponentImpl extends GraphicComponent {
 
     @Override
     public void draw(Graphic graphics) {
-        graphics.drawRectangle(this.getGameObject());
+//        graphics.drawRectangle(this.getGameObject());
     }
 }

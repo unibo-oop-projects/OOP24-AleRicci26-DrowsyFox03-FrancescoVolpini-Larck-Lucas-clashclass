@@ -1,25 +1,24 @@
 package clashclass.view.graphic;
 
-import clashclass.ai.pathfinding.PathNodeGrid;
-import clashclass.ai.pathfinding.PathNodeGridImpl;
-import clashclass.ai.pathfinding.PathNodeImpl;
-import clashclass.commons.CellPosition2D;
+import clashclass.commons.ConversionUtility;
+import clashclass.commons.GridTileData2D;
 import clashclass.commons.Vector2D;
-import clashclass.commons.VectorInt2D;
-import clashclass.commons.Village;
+import clashclass.village.Village;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactoryImpl;
 import clashclass.elements.buildings.PlayerBuildingFactoryImpl;
-import clashclass.elements.commons.CommonGameObjectFactoryImpl;
 import clashclass.engine.GameEngine;
 import clashclass.engine.GameEngineImpl;
 import clashclass.resources.Player;
 import clashclass.saveload.PlayerVillageDecoderImpl;
 import clashclass.saveload.VillageDecoder;
+import clashclass.village.manager.PlayerVillageController;
+import clashclass.village.manager.PlayerVillageControllerImpl;
+import clashclass.village.manager.PlayerVillageModelImpl;
+import clashclass.village.manager.PlayerVillageViewJavaFXImpl;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Cell;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -27,13 +26,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.IntStream;
 
 public abstract class VillageSceneJFX extends AbstractBaseScene {
     private final VillageDecoder decoder;
-    protected final Set<GameObject> gameObjects;
     protected final GraphicsContext gc;
+    protected final Village village;
 
     public VillageSceneJFX(Window window, Stage stage, Path csvPath) throws IOException {
         super(window);
@@ -42,7 +39,7 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
         decoder.setComponentFactory(new ComponentFactoryImpl());
 
         String csvData = Files.readString(csvPath);
-        this.gameObjects = decodeVillage(csvData);
+        this.village = decodeVillage(csvData);
 
         Canvas canvas = new Canvas(getWindowWidth(), getWindowHeight());
         this.gc = canvas.getGraphicsContext2D();
@@ -67,17 +64,35 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
             gameEngine.stop();
         });
 
-        final var player = new Player();
-        final var village = new Village();
+        scene.setOnMouseClicked(event -> {
+            double worldX = event.getSceneX();
+            double worldY = event.getSceneY();
 
-        this.gameObjects.forEach(gameObject -> village.placeBuilding(
-                gameObject,
-                gameObject.getComponentOfType(CellPosition2D.class).get().getPosition(),
-                1,
-                1));
+            final var gridPosition = ConversionUtility
+                    .convertWorldToGridPosition(new Vector2D(worldX, worldY));
+
+            System.out.println(gridPosition.x() + " " + gridPosition.y());
+        });
+
+        final var player = new Player();
+        final var village = new Village(player);
+
+        this.village.getBuildings().forEach(gameObject -> {
+            final var gridTileData = gameObject.getComponentOfType(GridTileData2D.class).get();
+            village.placeBuilding(
+                    gameObject,
+                    gridTileData.getPosition(),
+                    gridTileData.getRowSpan(),
+                    gridTileData.getColSpan());
+        });
 
         village.getGroundObjects().forEach(gameEngine::addGameObject);
         village.getGameObjects().forEach(gameEngine::addGameObject);
+
+        final var playerVillageController = new PlayerVillageControllerImpl(
+                new PlayerVillageModelImpl(),
+                new PlayerVillageViewJavaFXImpl(gameEngine)
+        );
 
         gameEngine.start();
 
@@ -91,7 +106,7 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
 
     }
 
-    private Set<GameObject> decodeVillage(String csvData) {
+    private Village decodeVillage(String csvData) {
         return this.decoder.decode(csvData);
     }
 

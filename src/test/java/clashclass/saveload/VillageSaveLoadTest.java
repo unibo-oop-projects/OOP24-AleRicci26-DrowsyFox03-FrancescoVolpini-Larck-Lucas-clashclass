@@ -69,7 +69,7 @@ class VillageSaveLoadTest {
         assertTrue(Files.exists(savePath));
 
         // Load and verify the village
-        Set<GameObject> loadedObjects = saveLoadManager.loadPlayerVillage(villageName);
+        final var loadedObjects = saveLoadManager.loadPlayerVillage(villageName).getBuildings();
         assertEquals(originalObjects.size(), loadedObjects.size());
     }
 
@@ -83,7 +83,7 @@ class VillageSaveLoadTest {
         saveLoadManager.saveVillage(originalObjects, fileName);
 
         // Load as battle village
-        Set<GameObject> loadedObjects = saveLoadManager.loadBattleVillage(fileName);
+        final var loadedObjects = saveLoadManager.loadBattleVillage(fileName).getBuildings();
 
         // Check that we have the same number of objects
         assertEquals(originalObjects.size(), loadedObjects.size());
@@ -106,7 +106,7 @@ class VillageSaveLoadTest {
         Path resourcePath = Path.of("src/main/resources/villages/village01.csv");
         String csv = Files.readString(resourcePath);
 
-        Set<GameObject> objs = playerDecoder.decode(csv);
+        final var objs = playerDecoder.decode(csv).getBuildings();
 
         assertFalse(objs.isEmpty(), "Il villaggio caricato dal file non deve essere vuoto");
 

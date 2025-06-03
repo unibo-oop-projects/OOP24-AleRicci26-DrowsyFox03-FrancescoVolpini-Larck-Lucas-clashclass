@@ -1,5 +1,7 @@
 package clashclass.ecs;
 
+import clashclass.engine.GameScene;
+
 import java.util.Set;
 import java.util.LinkedHashSet;
 import java.util.Optional;
@@ -14,6 +16,7 @@ public class GameObjectImpl implements GameObject {
 
     private final int uniqueId;
     private final Set<Component> components;
+    private GameScene scene;
     private boolean destroyedFlag;
 
     /**
@@ -31,6 +34,11 @@ public class GameObjectImpl implements GameObject {
     @Override
     public final int getUniqueId() {
         return this.uniqueId;
+    }
+
+    @Override
+    public void setScene(final GameScene scene) {
+        this.scene = scene;
     }
 
     /**
@@ -61,6 +69,11 @@ public class GameObjectImpl implements GameObject {
     @Override
     public final Set<Component> getComponents() {
         return Collections.unmodifiableSet(components);
+    }
+
+    @Override
+    public GameScene getScene() {
+        return this.scene;
     }
 
     /**

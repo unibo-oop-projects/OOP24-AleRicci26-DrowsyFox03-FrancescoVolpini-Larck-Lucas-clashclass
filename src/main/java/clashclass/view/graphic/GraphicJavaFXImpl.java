@@ -1,12 +1,14 @@
 package clashclass.view.graphic;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 import clashclass.commons.GameConstants;
+import clashclass.commons.GridTileData2D;
+import clashclass.commons.Rect2D;
 import clashclass.ecs.GameObject;
 import clashclass.commons.Transform2D;
-import clashclass.ecs.GraphicComponent;
+import clashclass.elements.buildings.VillageElementData;
+import clashclass.view.graphic.components.GraphicComponent;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
@@ -37,21 +39,21 @@ public class GraphicJavaFXImpl implements Graphic {
 
     private void storeSprites() {
         this.spritesMap = new HashMap<>();
-        this.spritesMap.put("grass-tile", this.loadImage("grass-tile.png"));
-        this.spritesMap.put("archer-tower", this.loadImage("archer-tower.png"));
-        this.spritesMap.put("barracks", this.loadImage("barracks.png"));
-        this.spritesMap.put("campfire", this.loadImage("campfire.png"));
-        this.spritesMap.put("cannon", this.loadImage("cannon.png"));
-        this.spritesMap.put("elisir-extractor", this.loadImage("elisir-extractor.png"));
-        this.spritesMap.put("elisir-storage", this.loadImage("elisir-storage.png"));
-        this.spritesMap.put("gold-extractor", this.loadImage("gold-extractor.png"));
-        this.spritesMap.put("gold-storage", this.loadImage("gold-storage.png"));
-        this.spritesMap.put("town-hall", this.loadImage("town-hall.png"));
-        this.spritesMap.put("wall", this.loadImage("wall.png"));
+        this.spritesMap.put("grass-tile", this.loadImage("grass-tile"));
+        this.spritesMap.put(VillageElementData.ARCHER_TOWER.getName(), this.loadImage(VillageElementData.ARCHER_TOWER.getName()));
+        this.spritesMap.put(VillageElementData.BARRACKS.getName(), this.loadImage(VillageElementData.BARRACKS.getName()));
+        this.spritesMap.put(VillageElementData.ARMY_CAMP.getName(), this.loadImage(VillageElementData.ARMY_CAMP.getName()));
+        this.spritesMap.put(VillageElementData.CANNON.getName(), this.loadImage(VillageElementData.CANNON.getName()));
+        this.spritesMap.put(VillageElementData.ELIXIR_EXTRACTOR.getName(), this.loadImage(VillageElementData.ELIXIR_EXTRACTOR.getName()));
+        this.spritesMap.put(VillageElementData.ELIXIR_STORAGE.getName(), this.loadImage(VillageElementData.ELIXIR_STORAGE.getName()));
+        this.spritesMap.put(VillageElementData.GOLD_EXTRACTOR.getName(), this.loadImage(VillageElementData.GOLD_EXTRACTOR.getName()));
+        this.spritesMap.put(VillageElementData.GOLD_STORAGE.getName(), this.loadImage(VillageElementData.GOLD_STORAGE.getName()));
+        this.spritesMap.put(VillageElementData.TOWN_HALL.getName(), this.loadImage(VillageElementData.TOWN_HALL.getName()));
+        this.spritesMap.put(VillageElementData.WALL.getName(), this.loadImage(VillageElementData.WALL.getName()));
     }
 
     private Image loadImage(final String path) {
-        return new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("sprites/" + path)));
+        return new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("sprites/" + path + ".png")));
     }
 
     @Override
@@ -65,11 +67,36 @@ public class GraphicJavaFXImpl implements Graphic {
             this.clearRect();
             graphicComponents.stream()
                     .sorted(Comparator
-                            .comparingInt(GraphicComponent::getLayer)
-                            .thenComparingDouble(x -> x.getGameObject()
-                                    .getComponentOfType(Transform2D.class).get().getPosition().y()))
+                            .comparingInt(this::getSortingLayer)
+                            .thenComparingDouble(this::getSortingIsometricCoordinates)
+//                            .thenComparingDouble(this::getSortingIsometricCoordinates)
+                    )
                     .forEach(graphicComponent -> graphicComponent.draw(this));
         });
+    }
+
+    private int getSortingLayer(final GraphicComponent graphicComponent) {
+        return graphicComponent.getLayer();
+    }
+
+    private double getSortingIsometricCoordinates(final GraphicComponent graphicComponent) {
+        final var tileData = graphicComponent.getGameObject()
+                .getComponentOfType(GridTileData2D.class).get();
+        final var bottom = tileData.getPosition();
+
+//        final var top = new VectorInt2D(
+//                bottom.x() - (tileData.getRowSpan() - 1),
+//                bottom.y() - (tileData.getColSpan() - 1)
+//        );
+
+        return bottom.x() + bottom.y();
+    }
+
+    private double getSortingGridSpanWeight(final GraphicComponent graphicComponent) {
+        final var gridTileData = graphicComponent.getGameObject()
+                .getComponentOfType(GridTileData2D.class).get();
+
+        return gridTileData.getRowSpan() + gridTileData.getColSpan();
     }
 
     /**
@@ -91,9 +118,8 @@ public class GraphicJavaFXImpl implements Graphic {
 
             double scaleX = canvas.getWidth() / dpiW;
             double scaleY = canvas.getHeight() / dpiH;
-
-            gc.save();
-            gc.scale(scaleX, scaleY);
+            this.gc.save();
+            this.gc.scale(scaleX, scaleY);
 
             this.gc.drawImage(
                     image,
@@ -101,7 +127,6 @@ public class GraphicJavaFXImpl implements Graphic {
                     position.y() - (image.getHeight() * GameConstants.TILE_SCALE),
                     image.getWidth() * GameConstants.TILE_SCALE,
                     image.getHeight() * GameConstants.TILE_SCALE);
-
             this.gc.restore();
         });
     }
@@ -110,15 +135,23 @@ public class GraphicJavaFXImpl implements Graphic {
      * {@inheritDoc}
      */
     @Override
-    public void drawRectangle(GameObject go) {
+    public void drawRectangle(final GameObject go, final String colorEx, final Rect2D rect) {
         go.getComponentOfType(GraphicComponent.class).ifPresent(graphicComponent -> {
-            computeGameObjectBounds(go, graphicComponent);
-            this.gc.setFill(Color.GREEN);
+//            computeGameObjectBounds(go, graphicComponent);
+
+            double scaleX = canvas.getWidth() / dpiW;
+            double scaleY = canvas.getHeight() / dpiH;
+            this.gc.save();
+            this.gc.scale(scaleX, scaleY);
+
+            final var color = Color.web(colorEx);
+            this.gc.setFill(color);
             this.gc.fillRect(
-                    gameObjectX - width / 2,
-                    gameObjectY - height / 2,
-                    width,
-                    height);
+                    rect.position().x(),
+                    rect.position().y(),
+                    rect.size().x(),
+                    rect.size().y());
+            this.gc.restore();
         });
     }
 

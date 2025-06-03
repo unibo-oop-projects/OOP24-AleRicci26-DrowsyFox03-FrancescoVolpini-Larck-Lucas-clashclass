@@ -1,6 +1,8 @@
 package clashclass.ai.behaviourtree;
 
 import clashclass.ai.logic.ChooseTargetNearestLogicImpl;
+import clashclass.ai.pathfinding.AStarPathfindingImpl;
+import clashclass.ai.pathfinding.EuclideanDistanceHeuristicImpl;
 
 import java.util.List;
 
@@ -10,7 +12,8 @@ public class BehaviourTreeTroopFactoryImpl implements BehaviourTreeFactory {
         return new BehaviourTreeImpl(
             new RootNode(
                 new SequenceNode(List.of(
-                    new ChooseNextTargetNode(new ChooseTargetNearestLogicImpl()),
+                    new ChooseNextTargetBuildingNode(new ChooseTargetNearestLogicImpl()),
+                    new FindPathToTargetNode(new AStarPathfindingImpl(new EuclideanDistanceHeuristicImpl())),
                     new GoToTargetNode(0.1f),
                     new WaitNode(0.5f),
                     new SequenceNode(List.of(

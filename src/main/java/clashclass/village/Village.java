@@ -1,24 +1,33 @@
-package clashclass.commons;
+package clashclass.village;
 
+import clashclass.commons.GameConstants;
+import clashclass.commons.GridTileData2D;
+import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.commons.CommonGameObjectFactoryImpl;
 import clashclass.elements.commons.CommonGameObjectsFactory;
+import clashclass.resources.Player;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Village {
+    private final Player player;
+    private final Set<GameObject> buildings;
     private final GameObject[][] groundGrid;
     private final GameObject[][] objectGrid;
     private final CommonGameObjectsFactory commonGameObjectFactory;
 
-    public Village() {
+    public Village(final Player player) {
+        this.player = player;
         this.groundGrid = new GameObject[GameConstants.VILLAGE_SIZE][GameConstants.VILLAGE_SIZE];
         this.objectGrid = new GameObject[GameConstants.VILLAGE_SIZE][GameConstants.VILLAGE_SIZE];
         this.commonGameObjectFactory = new CommonGameObjectFactoryImpl();
+        this.buildings = new HashSet<>();
 
         this.createGroundTiles();
     }
@@ -31,15 +40,29 @@ public class Village {
                 }));
     }
 
-    public void placeBuilding(GameObject building, VectorInt2D position, int width, int height) {
+    public void placeBuilding(final GameObject building, final VectorInt2D position, int width, int height) {
+        this.buildings.add(building);
         IntStream.range(0, width).forEach(i ->
                 IntStream.range(0, height).forEach(j -> {
-                    this.objectGrid[position.x() + i][position.y() + j] = building;
+                    this.objectGrid[position.x() - i][position.y() - j] = building;
                 }));
     }
 
-    public GameObject getObjectAtPosition(VectorInt2D position) {
-        return objectGrid[position.x()][position.y()];
+    public void placeBuilding(final GameObject building) {
+        final var tileData = building.getComponentOfType(GridTileData2D.class).get();
+        this.placeBuilding(building, tileData.getPosition(), tileData.getRowSpan(), tileData.getColSpan());
+    }
+
+    public GameObject getBuildingAtPosition(VectorInt2D position) {
+        return this.objectGrid[position.x()][position.y()];
+    }
+
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    public Set<GameObject> getBuildings() {
+        return this.buildings.stream().collect(Collectors.toUnmodifiableSet());
     }
 
     public Set<GameObject> getGroundObjects() {

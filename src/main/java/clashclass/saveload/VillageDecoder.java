@@ -1,9 +1,7 @@
 package clashclass.saveload;
 
-import clashclass.ecs.GameObject;
+import clashclass.village.Village;
 import clashclass.elements.ComponentFactory;
-
-import java.util.Set;
 
 /**
  * Interface for decoding CSV String representations back to Village objects.
@@ -20,7 +18,5 @@ public interface VillageDecoder {
      * @param encodedVillage the encoded village string
      * @return a set of game objects
      */
-    Set<GameObject> decode(String encodedVillage);
-
-
+    Village decode(String encodedVillage);
 }
