@@ -7,11 +7,21 @@ public class PlayerVillageControllerImpl implements PlayerVillageController {
     public PlayerVillageControllerImpl(final PlayerVillageModel model, final PlayerVillageView view) {
         this.model = model;
         this.view = view;
+        this.view.setController(this);
         this.updateView();
     }
 
-    private void updateView()
-    {
+    private void updateView() {
         this.view.update(this.model);
+    }
+
+    @Override
+    public void openShop() {
+
+    }
+
+    @Override
+    public void openBattleMode() {
+
     }
 }

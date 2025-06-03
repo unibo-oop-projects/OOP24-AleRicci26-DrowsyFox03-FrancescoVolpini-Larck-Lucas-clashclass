@@ -53,30 +53,6 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
         AnchorPane.setTopAnchor(canvas, 0.0);
         AnchorPane.setLeftAnchor(canvas, 0.0);
 
-        Button battleButton = new Button("Battle");
-        root.getChildren().add(battleButton);
-        AnchorPane.setBottomAnchor(battleButton, 20.0);
-        AnchorPane.setLeftAnchor(battleButton, 20.0);
-        battleButton.prefWidthProperty().bind(root.widthProperty().multiply(0.1));
-        battleButton.prefHeightProperty().bind(root.heightProperty().multiply(0.15));
-
-        battleButton.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double newFontSize = newVal.doubleValue() * 0.2f;
-            battleButton.setStyle("-fx-font-size: " + newFontSize + "px;");
-        });
-
-        Button shopButton = new Button("Shop");
-        root.getChildren().add(shopButton);
-        AnchorPane.setBottomAnchor(shopButton, 20.0);
-        AnchorPane.setRightAnchor(shopButton, 20.0);
-        shopButton.prefWidthProperty().bind(root.widthProperty().multiply(0.1));
-        shopButton.prefHeightProperty().bind(root.heightProperty().multiply(0.15));
-
-        shopButton.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double newFontSize = newVal.doubleValue() * 0.2f;
-            shopButton.setStyle("-fx-font-size: " + newFontSize + "px;");
-        });
-
         Scene scene = new Scene(root, getWindowWidth(), getWindowHeight());
         stage.setScene(scene);
         stage.setTitle(getSceneTitle());
@@ -121,7 +97,7 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
 
         final var playerVillageController = new PlayerVillageControllerImpl(
                 new PlayerVillageModelImpl(),
-                new PlayerVillageViewJavaFXImpl(gameEngine)
+                new PlayerVillageViewJavaFXImpl(gameEngine, root)
         );
 
         gameEngine.start();
