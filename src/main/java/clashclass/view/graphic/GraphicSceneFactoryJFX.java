@@ -31,8 +31,8 @@ public class GraphicSceneFactoryJFX implements GraphicSceneFactory {
             return new PlayerVillageSceneJFX(
                     window,
                     stage,
-                    Paths.get("data_villages/default_village.csv"),
-                    Paths.get("data_villages/default_village.csv"));
+                    Paths.get("Villages-Data/player-village.csv"),
+                    Paths.get("Villages-Data/battle-village.csv"));
         } catch (IOException e) {
             System.err.println("Player village file not found ");
             return null;
