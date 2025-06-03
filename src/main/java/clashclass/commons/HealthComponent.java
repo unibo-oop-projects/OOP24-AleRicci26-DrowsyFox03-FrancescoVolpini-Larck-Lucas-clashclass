@@ -26,4 +26,11 @@ public interface HealthComponent extends Component {
      * @return true if the health has reached zero, false otherwise
      */
     boolean isDead();
+
+    /**
+     * Getter method for current health value
+     *
+     * @return the current value of health
+     */
+    int getHealth();
 }

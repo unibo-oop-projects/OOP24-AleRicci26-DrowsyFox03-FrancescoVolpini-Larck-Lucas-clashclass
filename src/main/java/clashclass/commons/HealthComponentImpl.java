@@ -42,4 +42,13 @@ public class HealthComponentImpl extends AbstractComponent implements HealthComp
     public boolean isDead() {
         return this.currentValue == 0;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getHealth() {
+        return this.currentValue;
+
+    }
 }

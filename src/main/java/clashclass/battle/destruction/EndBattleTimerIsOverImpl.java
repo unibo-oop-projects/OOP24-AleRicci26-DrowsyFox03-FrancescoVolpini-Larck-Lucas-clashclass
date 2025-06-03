@@ -12,7 +12,7 @@ public class EndBattleTimerIsOverImpl extends AbstractComponent implements EndBa
      * initialize the timer flag to not finished
      */
     private final boolean timeFinished;
-    EndBattleTimerIsOverImpl(){
+    public EndBattleTimerIsOverImpl(){
         timeFinished=false;
     }
 
