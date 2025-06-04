@@ -77,4 +77,12 @@ public class PathNodeGridImpl implements PathNodeGrid {
                 .map(PathNode::getPosition)
                 .collect(Collectors.toUnmodifiableSet());
     }
+
+    @Override
+    public void removeAtPosition(VectorInt2D position, int width, int height) {
+        IntStream.range(0, width).forEach(i ->
+                IntStream.range(0, height).forEach(j -> {
+                    this.nodes[position.x() - i][position.y() - j] = new PathNodeImpl(position, 0, Optional.empty());
+                }));
+    }
 }

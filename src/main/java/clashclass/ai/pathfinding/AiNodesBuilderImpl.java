@@ -6,6 +6,7 @@ import clashclass.commons.BuildingTypeComponent;
 import clashclass.commons.GameConstants;
 import clashclass.commons.GridTileData2D;
 import clashclass.commons.Transform2D;
+import clashclass.ecs.GameObject;
 import clashclass.elements.buildings.VillageElementData;
 import clashclass.village.Village;
 
@@ -13,10 +14,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class AiNodesBuilderImpl implements AiNodesBuilder {
+    private PathNodeGrid pathNodeGrid;
+
     @Override
     public PathNodeGrid buildPathNodeList(final Village village) {
-        return new PathNodeGridImpl(GameConstants.VILLAGE_SIZE, village.getBuildings().stream()
-                .filter(x -> !x.isMarkedAsDestroyed())
+        this.pathNodeGrid = new PathNodeGridImpl(GameConstants.VILLAGE_SIZE, village.getBuildings().stream()
                 .map(gameObject -> {
                     final var position = gameObject.getComponentOfType(GridTileData2D.class).get().getPosition();
                     final var buildingType = gameObject.getComponentOfType(BuildingTypeComponent.class).get().getBuildingType();
@@ -26,5 +28,16 @@ public class AiNodesBuilderImpl implements AiNodesBuilder {
                             Optional.of(gameObject));
                 })
                 .collect(Collectors.toSet()));
+
+        return this.pathNodeGrid;
+    }
+
+    @Override
+    public PathNodeGrid buildPathNodeList(final GameObject destroyedBuilding) {
+        if (this.pathNodeGrid != null) {
+            final var gridPosition = destroyedBuilding.getComponentOfType(GridTileData2D.class).get().getPosition();
+            this.pathNodeGrid.removeAtPosition(gridPosition, 1, 1);
+        }
+        return this.pathNodeGrid;
     }
 }

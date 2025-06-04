@@ -15,4 +15,5 @@ public interface BattleManagerController extends GameStateController {
     Set<GameObject> getActiveTroops();
     Village getBattleVillage();
     void updateVillageState(GameObject destroyedBuilding);
+    void updateTroopsState(GameObject destroyedTroop);
 }

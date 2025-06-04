@@ -1,6 +1,7 @@
 package clashclass.battle.troopdeath;
 
 import clashclass.ecs.Component;
+import clashclass.ecs.UpdateProvider;
 
 /**
  * Indicates that an object can be observed for troop death events.
@@ -9,7 +10,7 @@ import clashclass.ecs.Component;
  * which allows TroopDeathObservers to subscribe and get notified
  * when the troop is destroyed.
  */
-public interface TroopDeathObservable extends Component {
+public interface TroopDeathObservable extends Component, UpdateProvider {
     /**
      * Add an observer to the set of Observers.
      *

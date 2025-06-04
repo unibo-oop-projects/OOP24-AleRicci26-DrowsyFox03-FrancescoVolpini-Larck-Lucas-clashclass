@@ -4,6 +4,7 @@ import clashclass.ai.behaviourtree.BehaviourTreeFactory;
 import clashclass.ai.behaviourtree.BehaviourTreeTroopFactoryImpl;
 import clashclass.ai.logic.CalculateDamageLogicFactory;
 import clashclass.ai.logic.CalculateDamageLogicFactoryImpl;
+import clashclass.battle.troopdeath.TroopDeathObservableImpl;
 import clashclass.ecs.GameObject;
 import clashclass.stats.TroopBaseStatsComponent;
 
@@ -28,6 +29,7 @@ public class BattleTroopFactoryImpl extends AbstractTroopFactory {
                 .addComponent(this.getComponentFactory().createHealth(100))
                 .addComponent(this.getComponentFactory().createProgressBar())
                 .addComponent(new TroopBaseStatsComponent(100, 30, 1, 1))
+                .addComponent(new TroopDeathObservableImpl())
                 .addComponent(this.damageLogicFactory.createForBarbarian())
                 .addComponent(this.behaviourTreeFactory.create());
     }
@@ -41,6 +43,7 @@ public class BattleTroopFactoryImpl extends AbstractTroopFactory {
                 .addComponent(this.getComponentFactory().createHealth(70))
                 .addComponent(this.getComponentFactory().createProgressBar())
                 .addComponent(new TroopBaseStatsComponent(70, 25, 2, 2))
+                .addComponent(new TroopDeathObservableImpl())
                 .addComponent(this.damageLogicFactory.createForArcher())
                 .addComponent(this.behaviourTreeFactory.create());
     }

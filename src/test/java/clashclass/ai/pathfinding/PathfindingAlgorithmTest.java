@@ -41,7 +41,7 @@ public class PathfindingAlgorithmTest {
 
         final var nodeGrid = new PathNodeGridImpl(3, nodes);
 
-        final var outputPath = pathfindingAlgorithm.findPath(nodeGrid, startNode, endNode);
+        final var outputPath = pathfindingAlgorithm.findPath(nodeGrid, startNode, endNode).pathNodes();
         final var expectedPath = List.of(startNode, node1, node2, node3, node4, node5, endNode);
 
         assertEquals(expectedPath, outputPath);

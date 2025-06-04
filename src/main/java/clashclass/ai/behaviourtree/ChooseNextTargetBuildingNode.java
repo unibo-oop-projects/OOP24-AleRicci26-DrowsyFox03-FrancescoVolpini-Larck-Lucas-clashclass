@@ -3,7 +3,9 @@ package clashclass.ai.behaviourtree;
 import clashclass.ai.behaviourtree.blackboard.BlackboardProperty;
 import clashclass.ai.behaviourtree.blackboard.wrappers.GameObjectListWrapper;
 import clashclass.ai.logic.ChooseTargetLogic;
+import clashclass.commons.BuildingTypeComponentImpl;
 import clashclass.ecs.GameObject;
+import clashclass.elements.buildings.VillageElementData;
 
 public class ChooseNextTargetBuildingNode extends AbstractBehaviourNode {
     private final ChooseTargetLogic chooseTargetLogic;
@@ -31,7 +33,11 @@ public class ChooseNextTargetBuildingNode extends AbstractBehaviourNode {
     @Override
     public State onUpdate(final float deltaTime) {
         final var actor = this.actorProp.getValue();
-        final var potentialTargets = this.potentialTargetsProp.getValue().list();
+        final var potentialTargets = this.potentialTargetsProp.getValue().list()
+                .stream()
+                .filter(x -> !x.getComponentOfType(BuildingTypeComponentImpl.class).get()
+                        .getBuildingType().equals(VillageElementData.WALL))
+                .toList();
 
         if (potentialTargets.isEmpty()) return State.RUNNING;
 

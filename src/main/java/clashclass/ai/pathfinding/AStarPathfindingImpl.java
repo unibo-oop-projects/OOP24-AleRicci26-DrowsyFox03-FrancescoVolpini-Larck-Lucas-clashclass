@@ -28,7 +28,7 @@ public class AStarPathfindingImpl implements PathfindingAlgorithm {
      * {@inheritDoc}
      */
     @Override
-    public List<PathNode> findPath(final PathNodeGrid pathNodeGrid, final PathNode startPathNode, final PathNode endPathNode) {
+    public PathResult findPath(final PathNodeGrid pathNodeGrid, final PathNode startPathNode, final PathNode endPathNode) {
         final var nodes = pathNodeGrid.getNodes().stream()
                 .map(AStarPathNode::new)
                 .toList();
@@ -73,9 +73,9 @@ public class AStarPathfindingImpl implements PathfindingAlgorithm {
                     path.add(0, currentNode);
                     currentNode = currentNode.getParentNode();
                 }
-                return path.stream()
+                return new PathResult(path.stream()
                         .map(AStarPathNode::getPathNode)
-                        .toList();
+                        .toList(), path.getLast().getCostG());
             }
 
             this.closedSet.add(current);
@@ -108,7 +108,7 @@ public class AStarPathfindingImpl implements PathfindingAlgorithm {
                     });
         }
 
-        return List.of();
+        return new PathResult(List.of(), 0.0f);
     }
 
     private static final class AStarPathNode {

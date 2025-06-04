@@ -19,4 +19,5 @@ public interface BattleManagerModel {
     Set<GameObject> getActiveTroops();
     void setController(BattleManagerController controller);
     void updateVillageState(GameObject destroyedBuilding);
+    void updateTroopsState(GameObject destroyedTroop);
 }

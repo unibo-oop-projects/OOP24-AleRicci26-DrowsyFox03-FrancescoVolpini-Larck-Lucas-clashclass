@@ -15,5 +15,5 @@ public interface PathfindingAlgorithm {
      *
      * @return the ordered list of nodes representing the path to the target
      */
-    List<PathNode> findPath(PathNodeGrid nodeGrid, PathNode start, PathNode end);
+    PathResult findPath(PathNodeGrid nodeGrid, PathNode start, PathNode end);
 }

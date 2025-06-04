@@ -14,7 +14,7 @@ public class BehaviourTreeTroopFactoryImpl implements BehaviourTreeFactory {
                 new SequenceNode(List.of(
                     new ChooseNextTargetBuildingNode(new ChooseTargetNearestLogicImpl()),
                     new FindPathToTargetNode(new AStarPathfindingImpl(new EuclideanDistanceHeuristicImpl())),
-                    new GoToTargetNode(0.1f),
+                    new GoToTargetNode(0.5f),
                     new WaitNode(0.5f),
                     new RepeatNode(
                         new SequenceNode(List.of(

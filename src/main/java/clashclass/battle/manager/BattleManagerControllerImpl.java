@@ -78,4 +78,9 @@ public class BattleManagerControllerImpl implements BattleManagerController {
     public void updateVillageState(final GameObject destroyedBuilding) {
         this.model.updateVillageState(destroyedBuilding);
     }
+
+    @Override
+    public void updateTroopsState(final GameObject destroyedTroop) {
+        this.model.updateTroopsState(destroyedTroop);
+    }
 }

@@ -1,5 +1,6 @@
 package clashclass.ai.pathfinding;
 
+import clashclass.commons.Vector2D;
 import clashclass.commons.VectorInt2D;
 
 import java.util.Set;
@@ -35,4 +36,6 @@ public interface PathNodeGrid {
     Set<PathNode> getNeighborsOfNode(PathNode node);
 
     Set<VectorInt2D> getNeighborsPositionsOfNode(PathNode node);
+
+    void removeAtPosition(VectorInt2D position, int width, int height);
 }

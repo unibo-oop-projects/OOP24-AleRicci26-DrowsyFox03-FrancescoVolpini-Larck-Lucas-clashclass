@@ -9,6 +9,8 @@ import clashclass.ai.pathfinding.PathNodeGrid;
 import clashclass.battle.destruction.BattleTroopsBehaviorManager;
 import clashclass.battle.destruction.BattleTroopsBehaviorManagerImpl;
 import clashclass.battle.destruction.DestructionObservable;
+import clashclass.battle.troopdeath.DefenseBuildingsBattleBehaviorManager;
+import clashclass.battle.troopdeath.TroopDeathObservable;
 import clashclass.commons.BuildingFlagsComponent;
 import clashclass.commons.BuildingTypeComponentImpl;
 import clashclass.commons.Vector2D;
@@ -44,6 +46,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
     private GameStateManager gameStateManager;
     private TROOP_TYPE currentSelectedTroop;
     private BattleTroopsBehaviorManager battleTroopsBehaviorManager;
+    private DefenseBuildingsBattleBehaviorManager defenseBuildingsBattleBehaviorManager;
     private BattleManagerController controller;
 
     public BattleManagerModelImpl(final Path playerVillageCsvPath, final Path battleVillageCsvPath) {
@@ -137,6 +140,9 @@ public class BattleManagerModelImpl implements BattleManagerModel {
 
             this.activeTroops.add(troopGameObject);
 
+            final var deathObservable = troopGameObject.getComponentOfType(TroopDeathObservable.class).get();
+            deathObservable.addObserver(this.defenseBuildingsBattleBehaviorManager);
+
             final var behaviourTree = troopGameObject.getComponentOfType(BehaviourTree.class).get();
             final var blackboard = behaviourTree.getBlackboard();
 
@@ -173,16 +179,16 @@ public class BattleManagerModelImpl implements BattleManagerModel {
     public void setController(final BattleManagerController controller) {
         this.controller = controller;
         this.battleTroopsBehaviorManager = new BattleTroopsBehaviorManagerImpl(this.controller);
+        this.defenseBuildingsBattleBehaviorManager = new DefenseBuildingsBattleBehaviorManager(this.controller);
         this.handleBattleVillageBuildings();
     }
 
     @Override
     public void updateVillageState(final GameObject destroyedBuilding) {
         this.battleVillage.removeBuilding(destroyedBuilding);
-        final var pathNodeGrid = aiNodesBuilder.buildPathNodeList(this.battleVillage);
+        final var pathNodeGrid = aiNodesBuilder.buildPathNodeList(destroyedBuilding);
         final var potentialTargets = new GameObjectListWrapper(this.battleVillage.getGameObjects().stream().toList());
 
-        this.activeTroops.removeIf(GameObject::isMarkedAsDestroyed);
         this.activeTroops.forEach(troopGameObject -> {
             final var behaviourTree = troopGameObject.getComponentOfType(BehaviourTree.class).get();
             final var blackboard = behaviourTree.getBlackboard();
@@ -195,5 +201,26 @@ public class BattleManagerModelImpl implements BattleManagerModel {
                 behaviourTree.restart();
             }
         });
+    }
+
+    @Override
+    public void updateTroopsState(GameObject destroyedTroop) {
+        this.activeTroops.remove(destroyedTroop);
+        final var troops = new GameObjectListWrapper(this.activeTroops.stream().toList());
+
+        this.battleVillage.getGameObjects().stream()
+                .filter(gameObject -> gameObject.getComponentOfType(BuildingFlagsComponent.class).get()
+                        .getFlags().contains(BUILDING_FLAG.DEFENSE))
+                .forEach(defenseBuilding -> {
+                    final var behaviourTree = defenseBuilding.getComponentOfType(BehaviourTree.class).get();
+                    final var blackboard = behaviourTree.getBlackboard();
+
+                    blackboard.getProperty("troops", GameObjectListWrapper.class).setValue(troops);
+
+                    final var currentTarget = blackboard.getProperty("target", GameObject.class).getValue();
+                    if (currentTarget != null && currentTarget.equals(destroyedTroop)) {
+                        behaviourTree.restart();
+                    }
+                });
     }
 }

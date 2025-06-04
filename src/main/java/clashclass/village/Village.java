@@ -83,10 +83,11 @@ public class Village {
     }
 
     public Set<GameObject> getGameObjects() {
-        return Arrays.stream(this.objectGrid)
-                .flatMap(Arrays::stream)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toUnmodifiableSet());
+        return this.buildings;
+//        return Arrays.stream(this.objectGrid)
+//                .flatMap(Arrays::stream)
+//                .filter(Objects::nonNull)
+//                .collect(Collectors.toUnmodifiableSet());
     }
 
 //    public void checkForDestroyedBuildings() {

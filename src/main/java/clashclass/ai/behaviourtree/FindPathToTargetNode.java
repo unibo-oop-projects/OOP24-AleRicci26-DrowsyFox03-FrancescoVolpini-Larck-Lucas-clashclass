@@ -1,12 +1,20 @@
 package clashclass.ai.behaviourtree;
 
 import clashclass.ai.behaviourtree.blackboard.BlackboardProperty;
+import clashclass.ai.behaviourtree.blackboard.wrappers.GameObjectListWrapper;
 import clashclass.ai.behaviourtree.blackboard.wrappers.PathNodeListWrapper;
+import clashclass.ai.logic.ChooseTargetNearestLogicImpl;
+import clashclass.ai.pathfinding.PathNode;
 import clashclass.ai.pathfinding.PathNodeGrid;
 import clashclass.ai.pathfinding.PathfindingAlgorithm;
+import clashclass.commons.BuildingTypeComponentImpl;
 import clashclass.commons.ConversionUtility;
 import clashclass.commons.Transform2D;
 import clashclass.ecs.GameObject;
+import clashclass.elements.buildings.VillageElementData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FindPathToTargetNode extends AbstractBehaviourNode {
     private final PathfindingAlgorithm pathfindingAlgorithm;
@@ -47,12 +55,52 @@ public class FindPathToTargetNode extends AbstractBehaviourNode {
                 target.getComponentOfType(Transform2D.class).get().getPosition()
         );
 
-        final var path = pathfindingAlgorithm.findPath(
+        final var pathResult = pathfindingAlgorithm.findPath(
                 pathNodeGrid,
                 pathNodeGrid.getNode(actorGridPosition.x(), actorGridPosition.y()),
                 pathNodeGrid.getNode(targetGridPosition.x(), targetGridPosition.y()));
 
-        this.pathProp.setValue(new PathNodeListWrapper(path));
+        if (pathResult.cost() > 995.0f) {
+//            final var chooseNextTargetLogic = new ChooseTargetNearestLogicImpl();
+//            final var newTarget = chooseNextTargetLogic.chooseTarget(actor, this.getBlackboard()
+//                    .getProperty("potentialTargets", GameObjectListWrapper.class)
+//                    .getValue()
+//                    .list()
+//                    .stream()
+//                    .filter(x -> x.getComponentOfType(BuildingTypeComponentImpl.class).get()
+//                            .getBuildingType().equals(VillageElementData.WALL))
+//                    .toList());
+//
+//            this.targetProp.setValue(newTarget);
+//
+//            final var newtTargetGridPosition = ConversionUtility.convertWorldToGridPosition(
+//                    target.getComponentOfType(Transform2D.class).get().getPosition()
+//            );
+//
+//            final var newPathResult = pathfindingAlgorithm.findPath(
+//                    pathNodeGrid,
+//                    pathNodeGrid.getNode(actorGridPosition.x(), actorGridPosition.y()),
+//                    pathNodeGrid.getNode(newtTargetGridPosition.x(), newtTargetGridPosition.y()));
+
+            List<PathNode> newPath = new ArrayList<>();
+            GameObject wall = null;
+
+            for (var pathNode : pathResult.pathNodes()) {
+                newPath.add(pathNode);
+                if (pathNode.getRefGameObject().isPresent() && pathNode.getRefGameObject().get()
+                        .getComponentOfType(BuildingTypeComponentImpl.class).get()
+                        .getBuildingType().equals(VillageElementData.WALL)) {
+                    wall = pathNode.getRefGameObject().get();
+                    break;
+                }
+            }
+
+            this.pathProp.setValue(new PathNodeListWrapper(newPath));
+            this.targetProp.setValue(wall);
+        }
+        else {
+            this.pathProp.setValue(new PathNodeListWrapper(pathResult.pathNodes()));
+        }
 
         return State.SUCCESS;
     }

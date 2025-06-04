@@ -28,7 +28,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
     protected GameObject.Builder createAdditionalTownHallComponents(final GameObject.Builder builder) {
         return builder
                 .addComponent(new BuildingTypeComponentImpl(VillageElementData.TOWN_HALL))
-                .addComponent(this.getComponentFactory().createHealth(100))
+                .addComponent(this.getComponentFactory().createHealth(1000))
                 .addComponent(this.getComponentFactory().createProgressBar())
                 .addComponent(new DestructionObservableImpl());
     }
@@ -40,7 +40,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
     protected GameObject.Builder createAdditionalWallComponents(final GameObject.Builder builder) {
         return builder
                 .addComponent(new BuildingTypeComponentImpl(VillageElementData.WALL))
-                .addComponent(this.getComponentFactory().createHealth(100))
+                .addComponent(this.getComponentFactory().createHealth(500))
                 .addComponent(this.getComponentFactory().createProgressBar())
                 .addComponent(new DestructionObservableImpl());
     }
