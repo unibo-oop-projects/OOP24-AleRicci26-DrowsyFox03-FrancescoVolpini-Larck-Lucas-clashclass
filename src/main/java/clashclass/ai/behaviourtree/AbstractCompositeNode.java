@@ -37,6 +37,12 @@ public abstract class AbstractCompositeNode extends AbstractBehaviourNode {
         this.currentChildIndex = 0;
     }
 
+    @Override
+    public void restart() {
+        this.currentChildIndex = 0;
+        this.getChildren().forEach(AbstractBehaviourNode::restart);
+    }
+
     /**
      * Gets the child nodes.
      *

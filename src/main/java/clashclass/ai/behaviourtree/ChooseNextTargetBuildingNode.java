@@ -11,7 +11,6 @@ public class ChooseNextTargetBuildingNode extends AbstractBehaviourNode {
     private BlackboardProperty<GameObject> targetProp;
     private BlackboardProperty<GameObjectListWrapper> potentialTargetsProp;
 
-
     public ChooseNextTargetBuildingNode(final ChooseTargetLogic chooseTargetLogic) {
         this.chooseTargetLogic = chooseTargetLogic;
     }
@@ -33,6 +32,8 @@ public class ChooseNextTargetBuildingNode extends AbstractBehaviourNode {
     public State onUpdate(final float deltaTime) {
         final var actor = this.actorProp.getValue();
         final var potentialTargets = this.potentialTargetsProp.getValue().list();
+
+        if (potentialTargets.isEmpty()) return State.RUNNING;
 
         final var nextTarget = chooseTargetLogic.chooseTarget(actor, potentialTargets);
         this.targetProp.setValue(nextTarget);

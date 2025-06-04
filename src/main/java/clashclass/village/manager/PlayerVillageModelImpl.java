@@ -3,6 +3,7 @@ package clashclass.village.manager;
 import clashclass.elements.ComponentFactoryImpl;
 import clashclass.gamestate.GameStateManager;
 import clashclass.saveload.BattleVillageDecoderImpl;
+import clashclass.saveload.PlayerVillageDecoderImpl;
 import clashclass.village.Village;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class PlayerVillageModelImpl implements PlayerVillageModel {
     private void loadVillage(final Path csvPath)
     {
         try {
-            final var decoder = new BattleVillageDecoderImpl();
+            final var decoder = new PlayerVillageDecoderImpl();
             decoder.setComponentFactory(new ComponentFactoryImpl());
             final var csvData = Files.readString(csvPath);
             this.playerVillage = decoder.decode(csvData);

@@ -1,5 +1,7 @@
 package clashclass.ai.behaviourtree;
 
+import clashclass.ai.behaviourtree.blackboard.Blackboard;
+
 import java.util.List;
 
 /**
@@ -13,6 +15,20 @@ public class SequenceNode extends AbstractCompositeNode {
      */
     public SequenceNode(final List<AbstractBehaviourNode> children) {
         super(children);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setBlackboard(final Blackboard blackboard) {
+        super.setBlackboard(blackboard);
+        this.getChildren().forEach(x -> x.setBlackboard(blackboard));
+    }
+
+    @Override
+    public void onEnter() {
+        this.getChildren().forEach(AbstractBehaviourNode::onEnter);
     }
 
     /**

@@ -25,6 +25,8 @@ public interface BehaviourNode {
      */
     void onExit();
 
+    void restart();
+
     /**
      * Sets the {@link BehaviourTree}'s {@link Blackboard} reference.
      *

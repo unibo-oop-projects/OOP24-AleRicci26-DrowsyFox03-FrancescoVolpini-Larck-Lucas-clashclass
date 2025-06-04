@@ -10,6 +10,7 @@ import clashclass.ecs.AbstractComponent;
 public class BehaviourTreeImpl extends AbstractComponent implements BehaviourTree {
     private final AbstractBehaviourNode rootNode;
     private final Blackboard blackboard;
+    private boolean hasStarted = false;
 
     /**
      * Constructs the behaviour tree.
@@ -27,6 +28,25 @@ public class BehaviourTreeImpl extends AbstractComponent implements BehaviourTre
      */
     @Override
     public void update(final float deltaTime) {
-        this.rootNode.onUpdate(deltaTime);
+        if (this.hasStarted) {
+            this.rootNode.onUpdate(deltaTime);
+        }
+    }
+
+    @Override
+    public Blackboard getBlackboard() {
+        return this.blackboard;
+    }
+
+    @Override
+    public void start() {
+        this.hasStarted = true;
+        this.rootNode.onEnter();
+    }
+
+    @Override
+    public void restart() {
+        this.rootNode.restart();
+        this.rootNode.onEnter();
     }
 }

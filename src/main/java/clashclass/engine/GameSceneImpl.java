@@ -1,9 +1,9 @@
 package clashclass.engine;
 
+import clashclass.ecs.Component;
 import clashclass.ecs.GameObject;
 import clashclass.ecs.UpdateProvider;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -13,14 +13,14 @@ import java.util.function.Consumer;
  */
 public class GameSceneImpl implements GameScene {
     private final Set<GameObject> gameObjects;
-    private final Set<UpdateProvider> gameObjectsToUpdate;
+    private final Set<UpdateProvider> componentsToUpdate;
 
     /**
      * Constructs the game scene.
      */
     public GameSceneImpl() {
         this.gameObjects = new HashSet<>();
-        this.gameObjectsToUpdate = new HashSet<>();
+        this.componentsToUpdate = new HashSet<>();
     }
 
     /**
@@ -36,7 +36,7 @@ public class GameSceneImpl implements GameScene {
      */
     @Override
     public final synchronized void updateGameObjects(final float deltaTime) {
-        this.gameObjectsToUpdate.forEach(gameObject -> gameObject.update(deltaTime));
+        this.componentsToUpdate.forEach(gameObject -> gameObject.update(deltaTime));
     }
 
     @Override
@@ -44,8 +44,9 @@ public class GameSceneImpl implements GameScene {
         this.gameObjects.stream()
                 .filter(GameObject::isMarkedAsDestroyed)
                 .filter(gameObject -> gameObject instanceof UpdateProvider)
-                .forEach(gameObject -> this.gameObjectsToUpdate.remove((UpdateProvider) gameObject));
+                .forEach(gameObject -> this.componentsToUpdate.remove((UpdateProvider) gameObject));
         this.gameObjects.removeIf(GameObject::isMarkedAsDestroyed);
+        this.componentsToUpdate.removeIf(c -> ((Component) c).getGameObject().isMarkedAsDestroyed());
     }
 
     /**
@@ -56,9 +57,9 @@ public class GameSceneImpl implements GameScene {
         this.gameObjects.add(gameObject);
         gameObject.setScene(this);
 
-        if (gameObject instanceof UpdateProvider) {
-            this.gameObjectsToUpdate.add((UpdateProvider) gameObject);
-        }
+        gameObject.getComponents().stream()
+                .filter(c -> c instanceof UpdateProvider)
+                .forEach(c -> this.componentsToUpdate.add((UpdateProvider) c));
     }
 
     @Override

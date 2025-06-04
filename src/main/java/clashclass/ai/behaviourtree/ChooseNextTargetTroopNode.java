@@ -35,6 +35,8 @@ public class ChooseNextTargetTroopNode extends AbstractBehaviourNode {
         final var actor = this.actorProp.getValue();
         final var troops = this.troopsProp.getValue().list();
 
+        if (troops.isEmpty()) return State.RUNNING;
+
         final var stats = actor.getComponentOfType(DefenseBuildingBaseStatsComponent.class)
                 .orElseThrow(() -> new RuntimeException("No DefenseBuildingBaseStatsComponent found"));
 

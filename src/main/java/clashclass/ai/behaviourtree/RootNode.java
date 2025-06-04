@@ -26,11 +26,20 @@ public class RootNode extends AbstractBehaviourNode {
         this.child.setBlackboard(blackboard);
     }
 
+    public void onEnter() {
+        this.child.onEnter();
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public State onUpdate(final float deltaTime) {
         return this.child.onUpdate(deltaTime);
+    }
+
+    @Override
+    public void restart() {
+        this.child.restart();
     }
 }

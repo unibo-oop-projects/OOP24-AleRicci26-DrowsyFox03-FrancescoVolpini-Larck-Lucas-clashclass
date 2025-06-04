@@ -30,9 +30,10 @@ public class BlackboardImpl implements Blackboard {
     @Override
     @SuppressWarnings("unchecked")
     public <T> BlackboardProperty<T> getProperty(final String name, final Class<T> type) {
-        final var property = map.get(name);
+        var property = map.get(name);
         if (property == null || !type.isAssignableFrom(property.getType())) {
-            return null;
+            map.put(name, new BlackboardPropertyImpl<>(null, type));
+            property = map.get(name);
         }
         return (BlackboardProperty<T>) property;
     }

@@ -1,5 +1,6 @@
 package clashclass.battle.manager;
 
+import clashclass.ai.behaviourtree.BehaviourTree;
 import clashclass.commons.Vector2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.troops.TROOP_TYPE;
@@ -21,8 +22,15 @@ public class BattleManagerControllerImpl implements BattleManagerController {
 
         final var battleVillage = this.model.getBattleVillage();
         final var gameEngine = this.model.getGameStateManager().getGameEngine();
-        battleVillage.getGroundObjects().forEach(gameEngine::addGameObject);
-        battleVillage.getGameObjects().forEach(gameEngine::addGameObject);
+
+        battleVillage.getGroundObjects().forEach(x -> {
+            gameEngine.addGameObject(x);
+            x.getComponentOfType(BehaviourTree.class).ifPresent(BehaviourTree::start);
+        });
+        battleVillage.getGameObjects().forEach(x -> {
+            gameEngine.addGameObject(x);
+            x.getComponentOfType(BehaviourTree.class).ifPresent(BehaviourTree::start);
+        });
 
         this.view.setArmyCampTroops(this.model);
     }

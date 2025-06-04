@@ -18,7 +18,7 @@ public class ProgressBarRendererImpl extends BaseGraphicComponent {
         this.percentage = 100.0f;
     }
 
-    void setPercentage(final float percentage) {
+    public void setPercentage(final float percentage) {
         this.percentage = percentage;
     }
 
