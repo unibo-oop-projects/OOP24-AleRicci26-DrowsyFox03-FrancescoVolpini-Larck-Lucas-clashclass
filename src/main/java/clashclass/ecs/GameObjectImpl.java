@@ -2,10 +2,10 @@ package clashclass.ecs;
 
 import clashclass.engine.GameScene;
 
-import java.util.Set;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Optional;
-import java.util.Collections;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 

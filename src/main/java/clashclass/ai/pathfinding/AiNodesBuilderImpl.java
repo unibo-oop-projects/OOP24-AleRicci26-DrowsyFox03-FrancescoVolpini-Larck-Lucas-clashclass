@@ -1,11 +1,8 @@
 package clashclass.ai.pathfinding;
 
-import clashclass.ai.behaviourtree.blackboard.wrappers.PathNodeListWrapper;
-import clashclass.battle.manager.BattleManagerController;
 import clashclass.commons.BuildingTypeComponent;
 import clashclass.commons.GameConstants;
 import clashclass.commons.GridTileData2D;
-import clashclass.commons.Transform2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.buildings.VillageElementData;
 import clashclass.village.Village;

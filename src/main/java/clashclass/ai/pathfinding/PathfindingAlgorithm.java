@@ -1,7 +1,5 @@
 package clashclass.ai.pathfinding;
 
-import java.util.List;
-
 /**
  * Represents an algorithm used to find a valid path to a target.
  */

@@ -5,7 +5,10 @@ import clashclass.commons.Transform2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.buildings.VillageElementData;
 
-import java.util.*;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 public class VillageEncoderImpl implements VillageEncoder {
     private static final String CSV_DELIMITER = ",";

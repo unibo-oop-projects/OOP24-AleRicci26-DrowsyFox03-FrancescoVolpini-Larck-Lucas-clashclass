@@ -1,12 +1,7 @@
 package clashclass.village.manager;
 
-import clashclass.ecs.GameObject;
 import clashclass.elements.commons.CommonGameObjectFactoryImpl;
-import clashclass.engine.GameEngine;
-import clashclass.view.graphic.GraphicJavaFXImpl;
-import clashclass.view.graphic.components.UIRendererImpl;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 

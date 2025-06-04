@@ -1,6 +1,5 @@
 package clashclass.elements.buildings;
 
-import clashclass.commons.BuildingTypeComponent;
 import clashclass.commons.BuildingTypeComponentImpl;
 import clashclass.ecs.GameObject;
 

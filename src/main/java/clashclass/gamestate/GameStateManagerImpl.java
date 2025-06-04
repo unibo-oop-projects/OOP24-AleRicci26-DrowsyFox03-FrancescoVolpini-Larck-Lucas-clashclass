@@ -1,18 +1,11 @@
 package clashclass.gamestate;
 
-import clashclass.commons.GridTileData2D;
 import clashclass.elements.ComponentFactoryImpl;
-import clashclass.elements.buildings.PlayerBuildingFactoryImpl;
 import clashclass.engine.GameEngine;
 import clashclass.engine.GameEngineImpl;
-import clashclass.resources.Player;
 import clashclass.saveload.PlayerVillageDecoderImpl;
 import clashclass.view.graphic.Graphic;
-import clashclass.village.Village;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Supplier;
 

@@ -1,6 +1,5 @@
 package clashclass.ai.pathfinding;
 
-import clashclass.commons.Vector2D;
 import clashclass.commons.VectorInt2D;
 
 import java.util.Set;

@@ -1,13 +1,11 @@
 package clashclass.battle.destruction;
 
-import clashclass.ai.pathfinding.AiNodesBuilder;
 import clashclass.battle.manager.BattleManagerController;
 import clashclass.ecs.AbstractComponent;
 import clashclass.ecs.GameObject;
-import clashclass.village.Village;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implementation of BattleTroopsBehaviorManager.

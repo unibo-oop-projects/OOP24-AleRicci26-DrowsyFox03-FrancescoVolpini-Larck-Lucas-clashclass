@@ -1,7 +1,8 @@
 package clashclass.battle.destruction;
-import clashclass.ecs.GameObject;
-import clashclass.ecs.AbstractComponent;
+
 import clashclass.battle.endbattle.AbstractBattleEvent;
+import clashclass.ecs.AbstractComponent;
+import clashclass.ecs.GameObject;
 
 /**
  * Represent the implementation of EndBattleTimerIsOver

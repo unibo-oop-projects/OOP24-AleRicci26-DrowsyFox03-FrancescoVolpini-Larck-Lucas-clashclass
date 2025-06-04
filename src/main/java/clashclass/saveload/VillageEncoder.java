@@ -1,7 +1,8 @@
 package clashclass.saveload;
 
-import java.util.Set;
 import clashclass.ecs.GameObject;
+
+import java.util.Set;
 
 /**
  * Interface for encoding Village objects to CSV String format.

@@ -1,9 +1,7 @@
 package clashclass.ai.behaviourtree;
 
 import clashclass.ai.behaviourtree.blackboard.BlackboardProperty;
-import clashclass.ai.behaviourtree.blackboard.wrappers.GameObjectListWrapper;
 import clashclass.ai.behaviourtree.blackboard.wrappers.PathNodeListWrapper;
-import clashclass.ai.logic.ChooseTargetNearestLogicImpl;
 import clashclass.ai.pathfinding.PathNode;
 import clashclass.ai.pathfinding.PathNodeGrid;
 import clashclass.ai.pathfinding.PathfindingAlgorithm;

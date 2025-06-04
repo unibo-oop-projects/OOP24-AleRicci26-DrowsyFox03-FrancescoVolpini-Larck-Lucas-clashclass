@@ -1,8 +1,9 @@
 package clashclass.commons;
 
 import clashclass.ecs.AbstractComponent;
-import java.util.concurrent.CopyOnWriteArrayList;
+
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Represents a Transform in a two-dimensional space.

@@ -1,13 +1,13 @@
 package clashclass.saveload;
 
 import clashclass.commons.VectorInt2D;
-import clashclass.elements.troops.TROOP_TYPE;
-import clashclass.village.Village;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactory;
 import clashclass.elements.buildings.VillageElementData;
+import clashclass.elements.troops.TROOP_TYPE;
 import clashclass.resources.Player;
 import clashclass.resources.RESOURCE_TYPE;
+import clashclass.village.Village;
 
 import java.util.Objects;
 

@@ -1,7 +1,7 @@
 package clashclass.saveload;
 
-import clashclass.village.Village;
 import clashclass.elements.ComponentFactory;
+import clashclass.village.Village;
 
 /**
  * Interface for decoding CSV String representations back to Village objects.

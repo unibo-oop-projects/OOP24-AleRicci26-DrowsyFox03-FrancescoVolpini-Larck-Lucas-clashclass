@@ -1,12 +1,10 @@
 package clashclass.battle.manager;
 
-import clashclass.commons.ConversionUtility;
 import clashclass.commons.GameConstants;
 import clashclass.commons.Vector2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;

@@ -1,8 +1,8 @@
 package clashclass.battle.troopdeath;
 
+import clashclass.battle.endbattle.AbstractBattleEvent;
 import clashclass.ecs.AbstractComponent;
 import clashclass.ecs.GameObject;
-import clashclass.battle.endbattle.AbstractBattleEvent;
 
 /**
  * Implementation of EndBattleAllTroopsDead interface

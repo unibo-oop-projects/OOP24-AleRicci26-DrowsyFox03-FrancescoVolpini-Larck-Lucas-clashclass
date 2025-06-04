@@ -2,7 +2,6 @@ package clashclass.village.manager;
 
 import clashclass.elements.ComponentFactoryImpl;
 import clashclass.gamestate.GameStateManager;
-import clashclass.saveload.BattleVillageDecoderImpl;
 import clashclass.saveload.PlayerVillageDecoderImpl;
 import clashclass.village.Village;
 

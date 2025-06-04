@@ -1,7 +1,5 @@
 package clashclass.view.graphic;
 
-import java.util.*;
-
 import clashclass.commons.*;
 import clashclass.ecs.GameObject;
 import clashclass.elements.buildings.VillageElementData;
@@ -9,9 +7,11 @@ import clashclass.elements.troops.TROOP_TYPE;
 import clashclass.view.graphic.components.BaseGraphicComponent;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.image.Image;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+
+import java.util.*;
 
 /**
  * Class that implements Graphic using JavaFX.

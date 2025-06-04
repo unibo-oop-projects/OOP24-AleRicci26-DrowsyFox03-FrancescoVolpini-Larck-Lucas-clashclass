@@ -1,7 +1,6 @@
 package clashclass.ai.behaviourtree;
 
 import clashclass.ai.behaviourtree.blackboard.BlackboardProperty;
-import clashclass.ai.logic.CalculateDamageLogic;
 import clashclass.ai.logic.DamageLogicComponent;
 import clashclass.commons.HealthComponent;
 import clashclass.ecs.GameObject;

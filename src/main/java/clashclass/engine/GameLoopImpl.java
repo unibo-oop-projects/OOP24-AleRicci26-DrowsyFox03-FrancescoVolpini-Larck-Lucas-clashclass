@@ -1,12 +1,9 @@
 package clashclass.engine;
 
-import clashclass.ecs.GameObject;
-import clashclass.view.graphic.components.BaseGraphicComponent;
 import clashclass.view.graphic.Graphic;
+import clashclass.view.graphic.components.BaseGraphicComponent;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**

@@ -3,36 +3,18 @@ package clashclass.view.graphic;
 import clashclass.battle.manager.BattleManagerControllerImpl;
 import clashclass.battle.manager.BattleManagerModelImpl;
 import clashclass.battle.manager.BattleManagerViewJavaFXImpl;
-import clashclass.commons.ConversionUtility;
-import clashclass.commons.GridTileData2D;
-import clashclass.commons.Vector2D;
-import clashclass.gamestate.GameStateManager;
-import clashclass.gamestate.GameStateManagerImpl;
-import clashclass.village.Village;
 import clashclass.ecs.GameObject;
-import clashclass.elements.ComponentFactoryImpl;
-import clashclass.elements.buildings.PlayerBuildingFactoryImpl;
-import clashclass.engine.GameEngine;
-import clashclass.engine.GameEngineImpl;
-import clashclass.resources.Player;
-import clashclass.saveload.PlayerVillageDecoderImpl;
-import clashclass.saveload.VillageDecoder;
-import clashclass.village.manager.PlayerVillageController;
+import clashclass.gamestate.GameStateManagerImpl;
 import clashclass.village.manager.PlayerVillageControllerImpl;
 import clashclass.village.manager.PlayerVillageModelImpl;
 import clashclass.village.manager.PlayerVillageViewJavaFXImpl;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Optional;
 
 public abstract class VillageSceneJFX extends AbstractBaseScene {
     public VillageSceneJFX(Window window, Stage stage, Path playerCsvPath, Path battleCsvPath) throws IOException {

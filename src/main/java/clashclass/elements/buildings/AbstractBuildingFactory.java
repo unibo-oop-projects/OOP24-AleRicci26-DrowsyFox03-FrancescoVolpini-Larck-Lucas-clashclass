@@ -1,14 +1,16 @@
 package clashclass.elements.buildings;
 
-import clashclass.commons.*;
+import clashclass.commons.BuildingFlagsComponent;
+import clashclass.commons.ConversionUtility;
+import clashclass.commons.GridTileData2D;
+import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
 import clashclass.ecs.GameObjectImpl;
-import clashclass.view.graphic.components.ImageRendererImpl;
 import clashclass.elements.ComponentFactory;
 import clashclass.elements.ComponentFactoryImpl;
+import clashclass.view.graphic.components.ImageRendererImpl;
 
 import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.function.Function;
 
 /**

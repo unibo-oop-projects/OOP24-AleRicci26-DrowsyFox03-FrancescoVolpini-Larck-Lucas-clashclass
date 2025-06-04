@@ -1,8 +1,7 @@
 package clashclass.shop;
 
-import clashclass.resources.ResourceManager;
-import clashclass.resources.ResourceManagerImpl;
 import clashclass.resources.RESOURCE_TYPE;
+import clashclass.resources.ResourceManager;
 
 /**
  * Represents the items inside the shop.
