@@ -16,6 +16,7 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
     private final List<ToggleButton> troopToggles = new ArrayList<>();
     private HBox troopTogglesContainer;
     private BattleManagerController controller;
+    private double togglesFontSize;
 
     public BattleManagerViewJavaFXImpl(final AnchorPane root) {
         this.root = root;
@@ -25,11 +26,11 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         root.getChildren().add(endBattleButton);
         AnchorPane.setTopAnchor(endBattleButton, 20.0);
         AnchorPane.setLeftAnchor(endBattleButton, 20.0);
-        endBattleButton.prefWidthProperty().bind(root.widthProperty().multiply(0.1));
+        endBattleButton.prefWidthProperty().bind(root.widthProperty().multiply(0.15));
         endBattleButton.prefHeightProperty().bind(root.heightProperty().multiply(0.15));
 
         endBattleButton.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double newFontSize = newVal.doubleValue() * 0.2f;
+            double newFontSize = newVal.doubleValue() * 0.1;
             endBattleButton.setStyle("-fx-font-size: " + newFontSize + "px;");
         });
         endBattleButton.setOnAction(event -> this.controller.endBattle());
@@ -50,12 +51,30 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         troopTypes.forEach(troopType -> {
             final var toggle = new ToggleButton(troopType.toString().toUpperCase());
             toggle.setToggleGroup(toggleGroup);
+            this.togglesFontSize = toggle.getWidth() * 0.1;
+            toggle.widthProperty().addListener((obs, oldVal, newVal) -> {
+                double newFontSize = newVal.doubleValue() * 0.1;
+                this.togglesFontSize = newFontSize;
+                if (toggle.isSelected()) {
+                    toggle.setStyle("-fx-font-size: " + this.togglesFontSize + "px;-fx-border-width: 3px; -fx-border-color: blue;");
+                } else {
+                    toggle.setStyle("-fx-font-size: " + this.togglesFontSize + "px;");
+                }
+            });
             toggle.setOnAction(event -> {
                 if (toggle.isSelected()) {
                     this.controller.setCurrentSelectedTroop(troopType);
                 }
             });
-            toggle.prefWidthProperty().bind(root.widthProperty().multiply(0.1));
+            toggle.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+                if (isSelected) {
+                    toggle.setStyle("-fx-font-size: " + this.togglesFontSize + "px;-fx-border-width: 3px; -fx-border-color: blue;");
+                } else {
+                    toggle.setStyle("-fx-font-size: " + this.togglesFontSize + "px;");
+
+                }
+            });
+            toggle.prefWidthProperty().bind(root.widthProperty().multiply(0.15));
             toggle.prefHeightProperty().bind(root.heightProperty().multiply(0.15));
             this.troopToggles.add(toggle);
         });
