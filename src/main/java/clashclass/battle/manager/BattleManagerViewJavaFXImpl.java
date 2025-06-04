@@ -1,8 +1,10 @@
 package clashclass.battle.manager;
 
 import clashclass.commons.ConversionUtility;
+import clashclass.commons.GameConstants;
 import clashclass.commons.Vector2D;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
@@ -41,15 +43,14 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         });
         endBattleButton.setOnAction(event -> this.controller.endBattle());
 
+        final var canvas = (Canvas) this.root.lookup("#canvas");
         this.scene.setOnMouseClicked(event -> {
-            double worldX = event.getSceneX();
-            double worldY = event.getSceneY();
+            double scaleX = canvas.getWidth() / GameConstants.SCREEN_WIDTH;
+            double scaleY = canvas.getHeight() / GameConstants.SCREEN_HEIGHT;
+            double worldX = event.getSceneX() / scaleX;
+            double worldY = event.getSceneY() / scaleY;
 
             this.controller.createTroop(new Vector2D(worldX, worldY));
-
-//            final var gridPosition = ConversionUtility
-//                    .convertWorldToGridPosition(new Vector2D(worldX, worldY));
-//            System.out.println(gridPosition.x() + " " + gridPosition.y());
         });
     }
 

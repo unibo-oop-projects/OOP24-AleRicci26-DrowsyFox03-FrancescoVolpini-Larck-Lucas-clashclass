@@ -46,6 +46,7 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
         stage.show();
 
         Canvas canvas = new Canvas(getWindowWidth(), getWindowHeight());
+        canvas.setId("canvas");
         final var gc = canvas.getGraphicsContext2D();
         final var graphics = new GraphicJavaFXImpl(gc, canvas, getWindowWidth(), getWindowHeight());
 
