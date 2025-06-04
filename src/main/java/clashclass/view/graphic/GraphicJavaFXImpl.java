@@ -8,6 +8,7 @@ import clashclass.commons.Rect2D;
 import clashclass.ecs.GameObject;
 import clashclass.commons.Transform2D;
 import clashclass.elements.buildings.VillageElementData;
+import clashclass.elements.troops.TROOP_TYPE;
 import clashclass.view.graphic.components.BaseGraphicComponent;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
@@ -50,6 +51,8 @@ public class GraphicJavaFXImpl implements Graphic {
         this.spritesMap.put(VillageElementData.GOLD_STORAGE.getName(), this.loadImage(VillageElementData.GOLD_STORAGE.getName()));
         this.spritesMap.put(VillageElementData.TOWN_HALL.getName(), this.loadImage(VillageElementData.TOWN_HALL.getName()));
         this.spritesMap.put(VillageElementData.WALL.getName(), this.loadImage(VillageElementData.WALL.getName()));
+        this.spritesMap.put(TROOP_TYPE.BARBARIAN.getName(), this.loadImage(TROOP_TYPE.BARBARIAN.getName()));
+        this.spritesMap.put(TROOP_TYPE.ARCHER.getName(), this.loadImage(TROOP_TYPE.ARCHER.getName()));
     }
 
     private Image loadImage(final String path) {
@@ -84,9 +87,11 @@ public class GraphicJavaFXImpl implements Graphic {
     }
 
     private double getSortingIsometricCoordinates(final BaseGraphicComponent graphicComponent) {
-        final var tileData = graphicComponent.getGameObject()
-                .getComponentOfType(GridTileData2D.class).get();
-        final var bottom = tileData.getPosition();
+//        final var tileData = graphicComponent.getGameObject()
+//                .getComponentOfType(GridTileData2D.class).get();
+//        final var bottom = tileData.getPosition();
+        final var bottom = graphicComponent.getGameObject()
+                .getComponentOfType(Transform2D.class).get().getPosition();
 
 //        final var top = new VectorInt2D(
 //                bottom.x() - (tileData.getRowSpan() - 1),

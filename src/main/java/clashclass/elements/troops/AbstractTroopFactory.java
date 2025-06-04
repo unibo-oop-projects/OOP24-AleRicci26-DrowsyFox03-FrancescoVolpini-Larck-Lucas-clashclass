@@ -5,6 +5,7 @@ import clashclass.ecs.GameObject;
 import clashclass.ecs.GameObjectImpl;
 import clashclass.elements.ComponentFactory;
 import clashclass.elements.ComponentFactoryImpl;
+import clashclass.view.graphic.components.ImageRendererImpl;
 
 import java.util.function.Function;
 
@@ -43,7 +44,9 @@ public abstract class AbstractTroopFactory implements TroopFactory {
     @Override
     public final GameObject createBarbarian(final Vector2D position) {
         return this.createWithFactoryMethod(this::createAdditionalBarbarianComponents,
-            builder -> builder.addComponent(this.componentFactory.createTransform2D(position)));
+            builder -> builder
+                    .addComponent(this.componentFactory.createTransform2D(position))
+                    .addComponent(new ImageRendererImpl(TROOP_TYPE.BARBARIAN.getName(), 1)));
     }
 
     /**
@@ -52,7 +55,9 @@ public abstract class AbstractTroopFactory implements TroopFactory {
     @Override
     public final GameObject createArcher(final Vector2D position) {
         return this.createWithFactoryMethod(this::createAdditionalArcherComponents,
-                builder -> builder.addComponent(this.componentFactory.createTransform2D(position)));
+            builder -> builder
+                    .addComponent(this.componentFactory.createTransform2D(position))
+                    .addComponent(new ImageRendererImpl(TROOP_TYPE.ARCHER.getName(), 1)));
     }
 
     /**

@@ -1,5 +1,6 @@
 package clashclass.battle.manager;
 
+import clashclass.commons.Vector2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.troops.TROOP_TYPE;
 import clashclass.gamestate.GameStateManager;
@@ -42,5 +43,10 @@ public class BattleManagerControllerImpl implements BattleManagerController {
     @Override
     public void setCurrentSelectedTroop(final TROOP_TYPE troop) {
         this.model.setCurrentSelectedTroop(troop);
+    }
+
+    @Override
+    public void createTroop(Vector2D position) {
+        this.model.createTroop(position);
     }
 }

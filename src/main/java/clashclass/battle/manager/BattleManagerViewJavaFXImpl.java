@@ -1,5 +1,8 @@
 package clashclass.battle.manager;
 
+import clashclass.commons.ConversionUtility;
+import clashclass.commons.Vector2D;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
@@ -11,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BattleManagerViewJavaFXImpl implements BattleManagerView {
+    private final Scene scene;
     private final AnchorPane root;
     private final Button endBattleButton;
     private final List<ToggleButton> troopToggles = new ArrayList<>();
@@ -18,7 +22,8 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
     private BattleManagerController controller;
     private double togglesFontSize;
 
-    public BattleManagerViewJavaFXImpl(final AnchorPane root) {
+    public BattleManagerViewJavaFXImpl(final Scene scene, final AnchorPane root) {
+        this.scene = scene;
         this.root = root;
         this.root.setStyle("-fx-background-color: #0A8F32;");
 
@@ -34,6 +39,17 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
             endBattleButton.setStyle("-fx-font-size: " + newFontSize + "px;");
         });
         endBattleButton.setOnAction(event -> this.controller.endBattle());
+
+        this.scene.setOnMouseClicked(event -> {
+            double worldX = event.getSceneX();
+            double worldY = event.getSceneY();
+
+            this.controller.createTroop(new Vector2D(worldX, worldY));
+
+//            final var gridPosition = ConversionUtility
+//                    .convertWorldToGridPosition(new Vector2D(worldX, worldY));
+//            System.out.println(gridPosition.x() + " " + gridPosition.y());
+        });
     }
 
     @Override

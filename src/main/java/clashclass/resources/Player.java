@@ -48,6 +48,13 @@ public class Player {
         }
     }
 
+    public boolean hasArmyCampTroop(final TROOP_TYPE troopType) {
+        if (!this.armyCampTroops.containsKey(troopType)) {
+            return false;
+        }
+        return this.armyCampTroops.get(troopType) > 0;
+    }
+
     public Set<TROOP_TYPE> getArmyCampTroopTypes() {
         return this.armyCampTroops.keySet();
     }

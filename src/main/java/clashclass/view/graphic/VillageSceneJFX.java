@@ -56,16 +56,6 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
         canvas.widthProperty().bind(scene.widthProperty());
         canvas.heightProperty().bind(scene.heightProperty());
 
-        scene.setOnMouseClicked(event -> {
-            double worldX = event.getSceneX();
-            double worldY = event.getSceneY();
-
-            final var gridPosition = ConversionUtility
-                    .convertWorldToGridPosition(new Vector2D(worldX, worldY));
-
-            System.out.println(gridPosition.x() + " " + gridPosition.y());
-        });
-
         final var gameStateManager = new GameStateManagerImpl(
                 graphics,
                 () -> new PlayerVillageControllerImpl(
@@ -73,7 +63,7 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
                         new PlayerVillageViewJavaFXImpl(scene, root, this.getWindowWidth(), this.getWindowHeight())),
                 () -> new BattleManagerControllerImpl(
                         new BattleManagerModelImpl(playerCsvPath, battleCsvPath),
-                        new BattleManagerViewJavaFXImpl(root)
+                        new BattleManagerViewJavaFXImpl(scene, root)
                 )
         );
 
