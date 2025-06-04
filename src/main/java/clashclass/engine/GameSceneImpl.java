@@ -27,7 +27,7 @@ public class GameSceneImpl implements GameScene {
      * {@inheritDoc}
      */
     @Override
-    public final void traverseGameObjects(final Consumer<GameObject> consumer) {
+    public final synchronized void traverseGameObjects(final Consumer<GameObject> consumer) {
         this.gameObjects.forEach(consumer);
     }
 
@@ -35,12 +35,12 @@ public class GameSceneImpl implements GameScene {
      * {@inheritDoc}
      */
     @Override
-    public final void updateGameObjects(final float deltaTime) {
+    public final synchronized void updateGameObjects(final float deltaTime) {
         this.gameObjectsToUpdate.forEach(gameObject -> gameObject.update(deltaTime));
     }
 
     @Override
-    public void checkForDestroyedGameObjects() {
+    public synchronized void checkForDestroyedGameObjects() {
         this.gameObjects.stream()
                 .filter(GameObject::isMarkedAsDestroyed)
                 .filter(gameObject -> gameObject instanceof UpdateProvider)
@@ -52,7 +52,7 @@ public class GameSceneImpl implements GameScene {
      * {@inheritDoc}
      */
     @Override
-    public final void addGameObject(final GameObject gameObject) {
+    public final synchronized void addGameObject(final GameObject gameObject) {
         this.gameObjects.add(gameObject);
         gameObject.setScene(this);
 
@@ -62,7 +62,7 @@ public class GameSceneImpl implements GameScene {
     }
 
     @Override
-    public Set<GameObject> getGameObjects() {
+    public synchronized Set<GameObject> getGameObjects() {
         return this.gameObjects;
     }
 }
