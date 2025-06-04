@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class BattleManagerViewJavaFXImpl implements BattleManagerView {
     private final Scene scene;
@@ -65,12 +66,13 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         final var toggleGroup = new ToggleGroup();
         this.troopToggles.clear();
         troopTypes.forEach(troopType -> {
-            final var toggle = new ToggleButton(troopType.toString().toUpperCase());
+            final var toggle = new ToggleButton(troopType.toString().toUpperCase() + "\n" +
+                    "[" + player.getArmyCampTroopCount(troopType) + "]");
+            toggle.setWrapText(true);
             toggle.setToggleGroup(toggleGroup);
             this.togglesFontSize = toggle.getWidth() * 0.1;
             toggle.widthProperty().addListener((obs, oldVal, newVal) -> {
-                double newFontSize = newVal.doubleValue() * 0.1;
-                this.togglesFontSize = newFontSize;
+                this.togglesFontSize = newVal.doubleValue() * 0.1;
                 if (toggle.isSelected()) {
                     toggle.setStyle("-fx-font-size: " + this.togglesFontSize + "px;-fx-border-width: 3px; -fx-border-color: blue;");
                 } else {
@@ -96,6 +98,7 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         });
 
         if (!this.troopToggles.isEmpty()) {
+            this.controller.setCurrentSelectedTroop(troopTypes.stream().findFirst().get());
             this.troopToggles.getFirst().setSelected(true);
         }
 
@@ -104,6 +107,18 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         root.getChildren().add(troopTogglesContainer);
         AnchorPane.setBottomAnchor(troopTogglesContainer, 20.0);
         AnchorPane.setLeftAnchor(troopTogglesContainer, 20.0);
+    }
+
+    @Override
+    public void updateArmyCampTroopsCount(BattleManagerModel model) {
+        final var player = model.getPlayerVillage().getPlayer();
+        final var troopTypes = player.getArmyCampTroopTypes().stream().toList();
+
+        IntStream.range(0, troopTypes.size()).forEach(i -> {
+            final var troopType = troopTypes.get(i);
+            this.troopToggles.get(i).setText(troopType.toString().toUpperCase() + "\n" +
+                    "[" + player.getArmyCampTroopCount(troopType) + "]");
+        });
     }
 
     @Override

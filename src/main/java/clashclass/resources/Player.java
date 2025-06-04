@@ -38,13 +38,8 @@ public class Player {
 
     public void removeArmyCampTroop(final TROOP_TYPE troopType, int count) {
         if (this.armyCampTroops.containsKey(troopType)) {
-            final var newCount = this.armyCampTroops.get(troopType) - count;
-
-            if (newCount < 0) {
-                this.armyCampTroops.remove(troopType);
-            } else {
-                this.armyCampTroops.put(troopType, newCount);
-            }
+            final var newCount = Math.max(this.armyCampTroops.get(troopType) - count, 0);
+            this.armyCampTroops.put(troopType, newCount);
         }
     }
 
@@ -57,5 +52,12 @@ public class Player {
 
     public Set<TROOP_TYPE> getArmyCampTroopTypes() {
         return this.armyCampTroops.keySet();
+    }
+
+    public int getArmyCampTroopCount(final TROOP_TYPE troopType) {
+        if (!this.armyCampTroops.containsKey(troopType)) {
+            return 0;
+        }
+        return this.armyCampTroops.get(troopType);
     }
 }

@@ -43,10 +43,12 @@ public class BattleManagerControllerImpl implements BattleManagerController {
     @Override
     public void setCurrentSelectedTroop(final TROOP_TYPE troop) {
         this.model.setCurrentSelectedTroop(troop);
+        this.view.updateArmyCampTroopsCount(this.model);
     }
 
     @Override
-    public void createTroop(Vector2D position) {
+    public void createTroop(final Vector2D position) {
         this.model.createTroop(position);
+        this.view.updateArmyCampTroopsCount(this.model);
     }
 }
