@@ -36,6 +36,7 @@ public class ChooseNextTargetBuildingNode extends AbstractBehaviourNode {
         if (potentialTargets.isEmpty()) return State.RUNNING;
 
         final var nextTarget = chooseTargetLogic.chooseTarget(actor, potentialTargets);
+        if (nextTarget.isMarkedAsDestroyed()) return State.RUNNING;
         this.targetProp.setValue(nextTarget);
 
         return State.SUCCESS;

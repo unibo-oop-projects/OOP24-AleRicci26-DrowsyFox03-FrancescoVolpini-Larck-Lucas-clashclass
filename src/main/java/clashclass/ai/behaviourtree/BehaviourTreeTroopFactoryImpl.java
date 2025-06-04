@@ -16,10 +16,12 @@ public class BehaviourTreeTroopFactoryImpl implements BehaviourTreeFactory {
                     new FindPathToTargetNode(new AStarPathfindingImpl(new EuclideanDistanceHeuristicImpl())),
                     new GoToTargetNode(0.1f),
                     new WaitNode(0.5f),
-                    new SequenceNode(List.of(
-                        new DamageTargetNode(),
-                        new WaitNode(0.5f)
-                    ))
+                    new RepeatNode(
+                        new SequenceNode(List.of(
+                            new DamageTargetNode(),
+                            new WaitNode(0.5f)
+                        ))
+                    )
                 ))
             )
         );

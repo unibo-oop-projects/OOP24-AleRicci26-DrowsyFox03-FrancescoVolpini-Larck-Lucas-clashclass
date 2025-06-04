@@ -44,7 +44,7 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         endBattleButton.setOnAction(event -> this.controller.endBattle());
 
         final var canvas = (Canvas) this.root.lookup("#canvas");
-        this.scene.setOnMouseClicked(event -> {
+        this.scene.setOnMousePressed(event -> {
             double scaleX = canvas.getWidth() / GameConstants.SCREEN_WIDTH;
             double scaleY = canvas.getHeight() / GameConstants.SCREEN_HEIGHT;
             double worldX = event.getSceneX() / scaleX;

@@ -53,6 +53,17 @@ public class Village {
         this.placeBuilding(building, tileData.getPosition(), tileData.getRowSpan(), tileData.getColSpan());
     }
 
+    public void removeBuilding(final GameObject building) {
+        final var tileData = building.getComponentOfType(GridTileData2D.class).get();
+        final var position = tileData.getPosition();
+
+        this.buildings.remove(building);
+        IntStream.range(0, tileData.getRowSpan()).forEach(i ->
+                IntStream.range(0, tileData.getColSpan()).forEach(j -> {
+                    this.objectGrid[position.x() - i][position.y() - j] = null;
+                }));
+    }
+
     public GameObject getBuildingAtPosition(VectorInt2D position) {
         return this.objectGrid[position.x()][position.y()];
     }
@@ -77,4 +88,14 @@ public class Village {
                 .filter(Objects::nonNull)
                 .collect(Collectors.toUnmodifiableSet());
     }
+
+//    public void checkForDestroyedBuildings() {
+//        IntStream.range(0, GameConstants.VILLAGE_SIZE).forEach(i ->
+//                IntStream.range(0, GameConstants.VILLAGE_SIZE).forEach(j -> {
+//                    if (this.objectGrid[i][j] != null && this.objectGrid[i][j].isMarkedAsDestroyed()){
+//                        this.objectGrid[i][j] = null;
+//                    }
+//                }));
+//        this.buildings.removeIf(GameObject::isMarkedAsDestroyed);
+//    }
 }

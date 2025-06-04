@@ -28,6 +28,7 @@ public class SequenceNode extends AbstractCompositeNode {
 
     @Override
     public void onEnter() {
+        super.onEnter();
         this.getChildren().forEach(AbstractBehaviourNode::onEnter);
     }
 
@@ -36,7 +37,7 @@ public class SequenceNode extends AbstractCompositeNode {
      */
     @Override
     public State onUpdate(final float deltaTime) {
-        if (this.getCurrentChildIndex() == this.getChildren().size()) {
+        if (this.getCurrentChildIndex() >= this.getChildren().size()) {
             return State.SUCCESS;
         }
 
@@ -50,6 +51,9 @@ public class SequenceNode extends AbstractCompositeNode {
         if (childState == State.SUCCESS) {
             this.getChildren().get(this.getCurrentChildIndex()).onExit();
             this.incrementCurrentChildIndex();
+            if (this.getCurrentChildIndex() >= this.getChildren().size()) {
+                return State.SUCCESS;
+            }
             this.getChildren().get(this.getCurrentChildIndex()).onEnter();
         }
         return State.RUNNING;

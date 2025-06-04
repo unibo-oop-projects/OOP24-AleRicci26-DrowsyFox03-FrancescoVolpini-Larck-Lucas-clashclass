@@ -1,8 +1,8 @@
 package clashclass.ai.behaviourtree;
 
 import clashclass.ai.behaviourtree.blackboard.BlackboardProperty;
+import clashclass.ai.behaviourtree.blackboard.wrappers.PathNodeListWrapper;
 import clashclass.ai.pathfinding.PathNode;
-import clashclass.ai.pathfinding.PathNodeGrid;
 import clashclass.commons.ConversionUtility;
 import clashclass.commons.Transform2D;
 import clashclass.ecs.GameObject;
@@ -14,7 +14,7 @@ import java.util.Queue;
 public class GoToTargetNode extends AbstractBehaviourNode {
     private final float distanceToTargetTolerance;
     private BlackboardProperty<GameObject> actorProp;
-    private BlackboardProperty<PathNodeGrid> pathNodeGridProp;
+    private BlackboardProperty<PathNodeListWrapper> pathProp;
 
     private final Queue<PathNode> remainingPathNodes;
     private Optional<PathNode> currentTarget;
@@ -28,10 +28,13 @@ public class GoToTargetNode extends AbstractBehaviourNode {
     @Override
     public void onEnter() {
         this.actorProp = this.getBlackboard().getProperty("actor", GameObject.class);
-        this.pathNodeGridProp = this.getBlackboard().getProperty("pathNodeGrid", PathNodeGrid.class);
-        this.remainingPathNodes.clear();
-        this.remainingPathNodes.addAll(this.pathNodeGridProp.getValue().getNodes());
+        this.pathProp = this.getBlackboard().getProperty("path", PathNodeListWrapper.class);
         this.currentTarget = Optional.empty();
+        this.remainingPathNodes.clear();
+
+        if (this.pathProp != null && this.pathProp.getValue() != null) {
+            this.remainingPathNodes.addAll(this.pathProp.getValue().list());
+        }
     }
 
     @Override
@@ -58,9 +61,14 @@ public class GoToTargetNode extends AbstractBehaviourNode {
         }
 
         final var actorTransform = actor.getComponentOfType(Transform2D.class).get();
-        final var speed = 1.0; // TODO: get della speed corrente (può variare eventualmente ad ogni frame)
+        final var speed = 15; // TODO: get della speed corrente (può variare eventualmente ad ogni frame)
 
-        final var newPosition = targetPosition.Subtract(actorPosition).Multiply(speed * deltaTime);
+        final var movement = targetPosition
+                .subtract(actorPosition)
+                .normalized()
+                .multiply(speed * deltaTime);
+        final var newPosition = actorPosition.add(movement);
+
         actorTransform.setPosition(newPosition);
 
         return State.RUNNING;

@@ -12,10 +12,12 @@ public class BehaviourTreeDefenseBuildingFactoryImpl implements BehaviourTreeFac
                 new SequenceNode(List.of(
                     new ChooseNextTargetTroopNode(new ChooseTargetNearestLogicImpl()),
                     new WaitNode(0.5f),
-                    new SequenceNode(List.of(
-                        new DamageTargetNode(),
-                        new WaitNode(0.5f)
-                    ))
+                    new RepeatNode(
+                        new SequenceNode(List.of(
+                            new DamageTargetNode(),
+                            new WaitNode(0.5f)
+                        ))
+                    )
                 ))
             )
         );

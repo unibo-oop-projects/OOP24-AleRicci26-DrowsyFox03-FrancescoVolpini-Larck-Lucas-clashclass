@@ -5,6 +5,9 @@ import clashclass.commons.Vector2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.troops.TROOP_TYPE;
 import clashclass.gamestate.GameStateManager;
+import clashclass.village.Village;
+
+import java.util.Set;
 
 public class BattleManagerControllerImpl implements BattleManagerController {
     private final BattleManagerModel model;
@@ -13,6 +16,7 @@ public class BattleManagerControllerImpl implements BattleManagerController {
     public BattleManagerControllerImpl(final BattleManagerModel model, final BattleManagerView view) {
         this.model = model;
         this.view = view;
+        this.model.setController(this);
         this.view.setController(this);
     }
 
@@ -58,5 +62,20 @@ public class BattleManagerControllerImpl implements BattleManagerController {
     public void createTroop(final Vector2D position) {
         this.model.createTroop(position);
         this.view.updateArmyCampTroopsCount(this.model);
+    }
+
+    @Override
+    public Set<GameObject> getActiveTroops() {
+        return this.model.getActiveTroops();
+    }
+
+    @Override
+    public Village getBattleVillage() {
+        return this.model.getBattleVillage();
+    }
+
+    @Override
+    public void updateVillageState(final GameObject destroyedBuilding) {
+        this.model.updateVillageState(destroyedBuilding);
     }
 }

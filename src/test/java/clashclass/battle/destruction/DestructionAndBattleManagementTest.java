@@ -16,7 +16,7 @@ public class DestructionAndBattleManagementTest {
 
     @BeforeEach
     public void setUpBattleTroopsBehaviorManager() {
-        manager = new BattleTroopsBehaviorManagerImpl();
+//        manager = new BattleTroopsBehaviorManagerImpl();
         troop = new GameObjectImpl();
         destroyedBuilding = new GameObjectImpl();
     }

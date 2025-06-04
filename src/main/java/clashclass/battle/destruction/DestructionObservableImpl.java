@@ -29,6 +29,7 @@ public class DestructionObservableImpl extends AbstractComponent implements Dest
                 .orElseThrow(() -> new RuntimeException("Health component not found"));
 
         if (healthComponent.isDead()) {
+            this.getGameObject().destroy();
             this.observers.forEach(x -> x.notifyDestruction(this.getGameObject()));
         }
     }

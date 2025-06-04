@@ -3,6 +3,7 @@ package clashclass.ai.behaviourtree;
 import clashclass.ai.behaviourtree.blackboard.BlackboardProperty;
 import clashclass.ai.behaviourtree.blackboard.wrappers.GameObjectListWrapper;
 import clashclass.ai.logic.ChooseTargetLogic;
+import clashclass.commons.GameConstants;
 import clashclass.commons.Transform2D;
 import clashclass.ecs.GameObject;
 import clashclass.stats.DefenseBuildingBaseStatsComponent;
@@ -41,10 +42,12 @@ public class ChooseNextTargetTroopNode extends AbstractBehaviourNode {
                 .orElseThrow(() -> new RuntimeException("No DefenseBuildingBaseStatsComponent found"));
 
         final var nextTarget = chooseTargetLogic.chooseTarget(actor, troops);
+        if (nextTarget.isMarkedAsDestroyed()) return State.RUNNING;
         final var actorPosition = actor.getComponentOfType(Transform2D.class).get().getPosition();
         final var targetPosition = nextTarget.getComponentOfType(Transform2D.class).get().getPosition();
 
-        if (actorPosition.distance(targetPosition) > stats.getAttackRange()) {
+        final var attackRange = stats.getAttackRange() * GameConstants.TILE_PIXEL_SIZE * GameConstants.TILE_SCALE;
+        if (actorPosition.distance(targetPosition) > attackRange) {
             return State.RUNNING;
         }
 

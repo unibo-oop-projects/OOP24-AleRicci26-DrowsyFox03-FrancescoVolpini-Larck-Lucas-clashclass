@@ -26,8 +26,8 @@ public class HealthComponentImpl extends AbstractComponent implements HealthComp
     @Override
     public void decrease(final int amount) {
         this.currentValue = Math.max(currentValue - amount, 0);
-        this.getGameObject().getComponentOfType(ProgressBarRendererImpl.class).ifPresent(x ->
-                x.setPercentage((float) this.currentValue / this.maxValue));
+        this.getGameObject().getComponentOfType(ProgressBarRendererImpl.class)
+                .ifPresent(x -> x.setPercentage((float) this.currentValue / this.maxValue));
     }
 
     /**

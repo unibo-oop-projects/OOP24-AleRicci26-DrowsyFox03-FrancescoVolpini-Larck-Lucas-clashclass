@@ -21,16 +21,21 @@ public record Vector2D(double x, double y) {
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 
-    public Vector2D Add(final Vector2D other) {
+    public Vector2D add(final Vector2D other) {
         return new Vector2D(this.x + other.x, this.y + other.y);
     }
 
-    public Vector2D Subtract(final Vector2D other) {
+    public Vector2D subtract(final Vector2D other) {
         return new Vector2D(this.x - other.x, this.y - other.y);
     }
 
-    public Vector2D Multiply(final double scalar) {
+    public Vector2D multiply(final double scalar) {
         return new Vector2D(this.x * scalar, this.y * scalar);
+    }
+
+    public Vector2D normalized() {
+        final var magnitude = Math.sqrt(this.x * this.x + this.y * this.y);
+        return new Vector2D(this.x / magnitude, this.y / magnitude);
     }
 
     /**

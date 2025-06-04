@@ -1,7 +1,11 @@
 package clashclass.battle.destruction;
 
+import clashclass.ai.pathfinding.AiNodesBuilder;
+import clashclass.battle.manager.BattleManagerController;
 import clashclass.ecs.AbstractComponent;
 import clashclass.ecs.GameObject;
+import clashclass.village.Village;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -11,15 +15,16 @@ import java.util.ArrayList;
  * It calls AiNodesBuilder to update the behavior of troops.
  */
 public class BattleTroopsBehaviorManagerImpl extends AbstractComponent implements BattleTroopsBehaviorManager {
-
+    private final BattleManagerController battleManagerController;
     private final List<GameObject> troops;
 
     /**
      * Constructor for BattleTroopsBehaviorManagerImpl.
      * Initializes the list of troops.
      */
-    public BattleTroopsBehaviorManagerImpl() {
+    public BattleTroopsBehaviorManagerImpl(final BattleManagerController battleManagerController) {
         this.troops = new ArrayList<>();
+        this.battleManagerController = battleManagerController;
     }
 
     /**
@@ -36,11 +41,10 @@ public class BattleTroopsBehaviorManagerImpl extends AbstractComponent implement
      */
     @Override
     public void updateTroopsBehavior(final GameObject destroyedBuilding) {
-        //chiama AiNodesBuilder
-        // AiNodesBuilder.buildNodes(troops);
+        this.battleManagerController.updateVillageState(destroyedBuilding);
 
         // For now, just log that the behavior is being updated
-        System.out.println("Updating troops behavior after destruction event");
+//        System.out.println("Updating troops behavior after destruction event");
     }
 
     /**
