@@ -2,11 +2,8 @@ package clashclass.view.graphic;
 
 import java.util.*;
 
-import clashclass.commons.GameConstants;
-import clashclass.commons.GridTileData2D;
-import clashclass.commons.Rect2D;
+import clashclass.commons.*;
 import clashclass.ecs.GameObject;
-import clashclass.commons.Transform2D;
 import clashclass.elements.buildings.VillageElementData;
 import clashclass.elements.troops.TROOP_TYPE;
 import clashclass.view.graphic.components.BaseGraphicComponent;
@@ -87,11 +84,9 @@ public class GraphicJavaFXImpl implements Graphic {
     }
 
     private double getSortingIsometricCoordinates(final BaseGraphicComponent graphicComponent) {
-//        final var tileData = graphicComponent.getGameObject()
-//                .getComponentOfType(GridTileData2D.class).get();
-//        final var bottom = tileData.getPosition();
-        final var bottom = graphicComponent.getGameObject()
-                .getComponentOfType(Transform2D.class).get().getPosition();
+        final var tileData = graphicComponent.getGameObject()
+                .getComponentOfType(Transform2D.class).get();
+        final var bottom = ConversionUtility.convertWorldToGridPosition(tileData.getPosition());
 
 //        final var top = new VectorInt2D(
 //                bottom.x() - (tileData.getRowSpan() - 1),

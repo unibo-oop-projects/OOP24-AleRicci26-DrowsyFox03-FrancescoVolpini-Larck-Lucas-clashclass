@@ -66,10 +66,7 @@ public class GameLoopImpl implements GameLoop {
     }
 
     private void drawGameObjects() {
-        Set<GameObject> gameObjectsCopy;
-        synchronized (this.currentScene.getGameObjects()) {
-            gameObjectsCopy = new HashSet<>(this.currentScene.getGameObjects());
-        }
+        final var gameObjectsCopy = this.currentScene.getGameObjectsCopy();
         this.graphics.ifPresent(graphic -> graphic
                 .render(gameObjectsCopy.stream()
                         .flatMap(x -> x.getComponentsOfType(BaseGraphicComponent.class).stream())

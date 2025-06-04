@@ -42,6 +42,10 @@ public class BattleManagerModelImpl implements BattleManagerModel {
     @Override
     public void setGameStateManager(final GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
+        this.currentSelectedTroop = this.playerVillage.getPlayer()
+                .getArmyCampTroopTypes().stream()
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Expected at least one troop type."));
     }
 
     private Village loadVillage(final Path csvPath)

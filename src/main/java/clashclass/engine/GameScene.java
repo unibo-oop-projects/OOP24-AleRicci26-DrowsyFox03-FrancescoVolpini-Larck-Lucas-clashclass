@@ -33,4 +33,6 @@ public interface GameScene {
     void addGameObject(GameObject gameObject);
 
     Set<GameObject> getGameObjects();
+
+    Set<GameObject> getGameObjectsCopy();
 }

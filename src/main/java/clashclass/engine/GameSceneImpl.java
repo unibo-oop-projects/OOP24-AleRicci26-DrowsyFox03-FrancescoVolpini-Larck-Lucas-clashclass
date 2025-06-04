@@ -65,4 +65,9 @@ public class GameSceneImpl implements GameScene {
     public synchronized Set<GameObject> getGameObjects() {
         return this.gameObjects;
     }
+
+    @Override
+    public synchronized Set<GameObject> getGameObjectsCopy() {
+        return new HashSet<>(this.getGameObjects());
+    }
 }
