@@ -35,6 +35,8 @@ public interface GameObject {
      */
     <T extends Component> Optional<T> getComponentOfType(Class<T> componentType);
 
+    <T extends Component> Set<T> getComponentsOfType(Class<T> componentType);
+
     /**
      * Gets all the components.
      *

@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * Represents an implementation of GameObject.
@@ -61,6 +62,14 @@ public class GameObjectImpl implements GameObject {
                 .findFirst();
     }
 
+    @Override
+    public <T extends Component> Set<T> getComponentsOfType(Class<T> componentType) {
+        return this.components.stream()
+                .filter(componentType::isInstance)
+                .map(componentType::cast)
+                .collect(Collectors.toUnmodifiableSet());
+    }
+
     /**
      * Gets an immutable representation of all the components.
      *
@@ -68,7 +77,7 @@ public class GameObjectImpl implements GameObject {
      */
     @Override
     public final Set<Component> getComponents() {
-        return Collections.unmodifiableSet(components);
+        return Collections.unmodifiableSet(this.components);
     }
 
     @Override

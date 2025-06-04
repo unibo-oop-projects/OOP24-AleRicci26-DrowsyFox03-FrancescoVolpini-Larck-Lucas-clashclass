@@ -4,7 +4,7 @@ import clashclass.view.graphic.Graphic;
 
 import java.util.function.Consumer;
 
-public class UIRendererImpl extends GraphicComponent {
+public class UIRendererImpl extends BaseGraphicComponent {
     private Consumer<Graphic> drawFunction = x -> {};
 
     public UIRendererImpl(double width, double height, int layer) {

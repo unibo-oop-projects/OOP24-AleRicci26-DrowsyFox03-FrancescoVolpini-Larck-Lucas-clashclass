@@ -5,7 +5,7 @@ import clashclass.view.graphic.Graphic;
 /**
  * Concrete implementation of GraphicComponent for rendering GameObjects.
  */
-public class GraphicComponentImpl extends GraphicComponent {
+public class GraphicComponentImpl extends BaseGraphicComponent {
     
     /**
      * Creates a GraphicComponent with specified dimensions.

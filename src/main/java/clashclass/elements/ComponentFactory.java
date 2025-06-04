@@ -34,4 +34,6 @@ public interface ComponentFactory {
      * @return the created component
      */
     Component createGraphic(double width, double height);
+
+    Component createProgressBar();
 }

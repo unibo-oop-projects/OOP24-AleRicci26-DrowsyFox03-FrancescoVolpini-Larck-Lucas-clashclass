@@ -1,7 +1,7 @@
 package clashclass.engine;
 
 import clashclass.ecs.GameObject;
-import clashclass.view.graphic.components.GraphicComponent;
+import clashclass.view.graphic.components.BaseGraphicComponent;
 import clashclass.view.graphic.Graphic;
 
 import java.util.HashSet;
@@ -72,8 +72,7 @@ public class GameLoopImpl implements GameLoop {
         }
         this.graphics.ifPresent(graphic -> graphic
                 .render(gameObjectsCopy.stream()
-                        .filter(x -> x.getComponentOfType(GraphicComponent.class).isPresent())
-                        .map(x -> x.getComponentOfType(GraphicComponent.class).get())
+                        .flatMap(x -> x.getComponentsOfType(BaseGraphicComponent.class).stream())
                         .collect(Collectors.toUnmodifiableSet())));
     }
 

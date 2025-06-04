@@ -1,7 +1,7 @@
 package clashclass.view.graphic;
 import clashclass.commons.Rect2D;
 import clashclass.ecs.GameObject;
-import clashclass.view.graphic.components.GraphicComponent;
+import clashclass.view.graphic.components.BaseGraphicComponent;
 
 import java.util.Set;
 
@@ -12,7 +12,7 @@ public interface Graphic {
 
     void clearRect();
 
-    void render(Set<GraphicComponent> graphicComponents);
+    void render(Set<BaseGraphicComponent> graphicComponents);
 
     /**
      * Method to draw a sprite.

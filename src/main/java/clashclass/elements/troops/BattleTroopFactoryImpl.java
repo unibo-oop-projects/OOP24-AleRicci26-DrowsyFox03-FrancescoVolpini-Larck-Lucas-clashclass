@@ -26,6 +26,7 @@ public class BattleTroopFactoryImpl extends AbstractTroopFactory {
     protected GameObject.Builder createAdditionalBarbarianComponents(final GameObject.Builder builder) {
         return builder
                 .addComponent(this.getComponentFactory().createHealth(100))
+                .addComponent(this.getComponentFactory().createProgressBar())
                 .addComponent(new TroopBaseStatsComponent(100, 30, 1, 1))
                 .addComponent(this.damageLogicFactory.createForBarbarian())
                 .addComponent(this.behaviourTreeFactory.create());
@@ -38,6 +39,7 @@ public class BattleTroopFactoryImpl extends AbstractTroopFactory {
     protected GameObject.Builder createAdditionalArcherComponents(final GameObject.Builder builder) {
         return builder
                 .addComponent(this.getComponentFactory().createHealth(70))
+                .addComponent(this.getComponentFactory().createProgressBar())
                 .addComponent(new TroopBaseStatsComponent(70, 25, 2, 2))
                 .addComponent(this.damageLogicFactory.createForArcher())
                 .addComponent(this.behaviourTreeFactory.create());

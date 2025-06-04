@@ -88,8 +88,6 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         root.getChildren().add(troopTogglesContainer);
         AnchorPane.setBottomAnchor(troopTogglesContainer, 20.0);
         AnchorPane.setLeftAnchor(troopTogglesContainer, 20.0);
-//        troopTogglesContainer.prefWidthProperty().bind(root.widthProperty().multiply(0.1));
-//        troopTogglesContainer.prefHeightProperty().bind(root.heightProperty().multiply(0.15));
     }
 
     @Override

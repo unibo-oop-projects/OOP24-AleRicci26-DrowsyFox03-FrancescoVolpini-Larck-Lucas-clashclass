@@ -5,6 +5,7 @@ import clashclass.commons.Transform2D;
 import clashclass.commons.Vector2D;
 import clashclass.ecs.Component;
 import clashclass.view.graphic.components.GraphicComponentImpl;
+import clashclass.view.graphic.components.ProgressBarRendererImpl;
 
 /**
  * Represents an implementation of ComponentFactory.
@@ -32,5 +33,10 @@ public class ComponentFactoryImpl implements ComponentFactory {
     @Override
     public Component createGraphic(final double width, final double height) {
         return new GraphicComponentImpl(width, height);
+    }
+
+    @Override
+    public Component createProgressBar() {
+        return new ProgressBarRendererImpl(1, 1, 2, 50, 10, 10);
     }
 }

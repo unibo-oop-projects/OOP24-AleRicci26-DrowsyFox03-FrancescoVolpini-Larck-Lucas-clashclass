@@ -2,7 +2,7 @@ package clashclass.view.graphic.components;
 
 import clashclass.view.graphic.Graphic;
 
-public class ImageRendererImpl extends GraphicComponent {
+public class ImageRendererImpl extends BaseGraphicComponent {
     private final String spriteName;
 
     public ImageRendererImpl(final String spriteName, final int layer) {

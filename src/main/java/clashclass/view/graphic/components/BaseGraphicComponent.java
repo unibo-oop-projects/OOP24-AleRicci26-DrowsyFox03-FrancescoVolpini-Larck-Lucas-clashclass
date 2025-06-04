@@ -5,7 +5,7 @@ import clashclass.ecs.AbstractComponent;
 /**
  * Abstract class that represents the GraphicComponent of a GameObject.
  */
-public abstract class GraphicComponent extends AbstractComponent implements DrawableComponent {
+public abstract class BaseGraphicComponent extends AbstractComponent implements DrawableComponent {
     private final double width;
     private final double height;
     private final int layer;
@@ -15,7 +15,7 @@ public abstract class GraphicComponent extends AbstractComponent implements Draw
      * @param width of the GraphicComponent
      * @param height of the GraphicComponent
      */
-    protected GraphicComponent(final double width, final double height, final int layer) {
+    protected BaseGraphicComponent(final double width, final double height, final int layer) {
         this.width = width;
         this.height = height;
         this.layer = layer;

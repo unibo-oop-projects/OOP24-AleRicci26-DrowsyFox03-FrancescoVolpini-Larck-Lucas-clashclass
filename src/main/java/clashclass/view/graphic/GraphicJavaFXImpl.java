@@ -8,7 +8,7 @@ import clashclass.commons.Rect2D;
 import clashclass.ecs.GameObject;
 import clashclass.commons.Transform2D;
 import clashclass.elements.buildings.VillageElementData;
-import clashclass.view.graphic.components.GraphicComponent;
+import clashclass.view.graphic.components.BaseGraphicComponent;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
@@ -61,29 +61,29 @@ public class GraphicJavaFXImpl implements Graphic {
         this.gc.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
     }
 
-    private void drawGameObjects(final Set<GraphicComponent> graphicComponents) {
+    private void drawGameObjects(final Set<BaseGraphicComponent> graphicComponents) {
         graphicComponents.stream()
                 .sorted(Comparator
-                                .comparingInt(this::getSortingLayer)
-                                .thenComparingDouble(this::getSortingIsometricCoordinates)
-//                            .thenComparingDouble(this::getSortingIsometricCoordinates)
+                        .comparingInt(this::getSortingLayer)
+                        .thenComparingDouble(this::getSortingIsometricCoordinates)
+//                      .thenComparingDouble(this::getSortingIsometricCoordinates)
                 )
                 .forEach(graphicComponent -> graphicComponent.draw(this));
     }
 
     @Override
-    public void render(final Set<GraphicComponent> graphicComponents) {
+    public void render(final Set<BaseGraphicComponent> graphicComponents) {
         Platform.runLater(() -> {
             this.clearRect();
             this.drawGameObjects(graphicComponents);
         });
     }
 
-    private int getSortingLayer(final GraphicComponent graphicComponent) {
+    private int getSortingLayer(final BaseGraphicComponent graphicComponent) {
         return graphicComponent.getLayer();
     }
 
-    private double getSortingIsometricCoordinates(final GraphicComponent graphicComponent) {
+    private double getSortingIsometricCoordinates(final BaseGraphicComponent graphicComponent) {
         final var tileData = graphicComponent.getGameObject()
                 .getComponentOfType(GridTileData2D.class).get();
         final var bottom = tileData.getPosition();
@@ -96,7 +96,7 @@ public class GraphicJavaFXImpl implements Graphic {
         return bottom.x() + bottom.y();
     }
 
-    private double getSortingGridSpanWeight(final GraphicComponent graphicComponent) {
+    private double getSortingGridSpanWeight(final BaseGraphicComponent graphicComponent) {
         final var gridTileData = graphicComponent.getGameObject()
                 .getComponentOfType(GridTileData2D.class).get();
 
@@ -108,7 +108,7 @@ public class GraphicJavaFXImpl implements Graphic {
      */
     @Override
     public void drawSprites(GameObject go, String spriteName) {
-        go.getComponentOfType(GraphicComponent.class).ifPresent(component -> {
+        go.getComponentOfType(BaseGraphicComponent.class).ifPresent(component -> {
 //            computeGameObjectBounds(go, component);
 //            this.gc.drawImage(
 //                spritesMap.get(spriteName),
@@ -140,7 +140,7 @@ public class GraphicJavaFXImpl implements Graphic {
      */
     @Override
     public void drawRectangle(final GameObject go, final String colorEx, final Rect2D rect) {
-        go.getComponentOfType(GraphicComponent.class).ifPresent(graphicComponent -> {
+        go.getComponentOfType(BaseGraphicComponent.class).ifPresent(graphicComponent -> {
 //            computeGameObjectBounds(go, graphicComponent);
 
             double scaleX = canvas.getWidth() / dpiW;
@@ -151,15 +151,15 @@ public class GraphicJavaFXImpl implements Graphic {
             final var color = Color.web(colorEx);
             this.gc.setFill(color);
             this.gc.fillRect(
-                    rect.position().x(),
-                    rect.position().y(),
-                    rect.size().x(),
-                    rect.size().y());
+                    rect.x(),
+                    rect.y(),
+                    rect.width(),
+                    rect.height());
             this.gc.restore();
         });
     }
 
-    private void computeGameObjectBounds(GameObject go, GraphicComponent graphicComponent) {
+    private void computeGameObjectBounds(GameObject go, BaseGraphicComponent graphicComponent) {
         go.getComponentOfType(Transform2D.class).ifPresent(t2DComponent -> {
             gameObjectX = t2DComponent.getPosition().x();// * this.dpiW;
             gameObjectY = t2DComponent.getPosition().y();// * this.dpiH;
