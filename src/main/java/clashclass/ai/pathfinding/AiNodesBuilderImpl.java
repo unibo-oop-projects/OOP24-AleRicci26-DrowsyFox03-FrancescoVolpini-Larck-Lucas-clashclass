@@ -10,9 +10,15 @@ import clashclass.village.Village;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a {@link AiNodesBuilder} implementation.
+ */
 public class AiNodesBuilderImpl implements AiNodesBuilder {
     private PathNodeGrid pathNodeGrid;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PathNodeGrid buildPathNodeList(final Village village) {
         this.pathNodeGrid = new PathNodeGridImpl(GameConstants.VILLAGE_SIZE, village.getBuildings().stream()
@@ -29,6 +35,9 @@ public class AiNodesBuilderImpl implements AiNodesBuilder {
         return this.pathNodeGrid;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PathNodeGrid buildPathNodeList(final GameObject destroyedBuilding) {
         if (this.pathNodeGrid != null) {

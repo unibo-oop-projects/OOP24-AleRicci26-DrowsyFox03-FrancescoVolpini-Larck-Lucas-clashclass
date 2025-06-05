@@ -63,6 +63,10 @@ public class Village {
                 }));
     }
 
+    public boolean isCellBusy(final VectorInt2D position) {
+        return this.objectGrid[position.x()][position.y()] != null;
+    }
+
     public GameObject getBuildingAtPosition(VectorInt2D position) {
         return this.objectGrid[position.x()][position.y()];
     }

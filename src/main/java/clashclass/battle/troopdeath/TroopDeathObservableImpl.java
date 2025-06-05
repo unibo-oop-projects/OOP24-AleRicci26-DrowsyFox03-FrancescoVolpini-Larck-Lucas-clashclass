@@ -6,19 +6,31 @@ import clashclass.ecs.AbstractComponent;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Represents a {@link TroopDeathObservable} implementation.
+ */
 public class TroopDeathObservableImpl extends AbstractComponent implements TroopDeathObservable {
     private final Set<TroopDeathObserver> observers = new HashSet<TroopDeathObserver>();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addObserver(TroopDeathObserver observer) {
         this.observers.add(observer);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeObserver(TroopDeathObserver observer) {
         this.observers.remove(observer);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(float deltaTime) {
         final var healthComponent = this.getGameObject().getComponentOfType(HealthComponent.class)

@@ -1,6 +1,18 @@
 package clashclass.commons;
 
+/**
+ * Represents a static class for coordinates conversion utilities.
+ */
 public class ConversionUtility {
+    /**
+     * Converts from grid to world position in isometric view.
+     *
+     * @param gridPosition the grid position
+     * @param rowSpan the width
+     * @param colSpan the height
+     *
+     * @return the position in world space
+     */
     public static Vector2D convertGridToWorldPosition(final VectorInt2D gridPosition, final int rowSpan, final int colSpan) {
         final var centerGridPosition = gridPosition;
         final double step = GameConstants.TILE_PIXEL_SIZE * (GameConstants.TILE_SCALE / 2.0);
@@ -12,6 +24,13 @@ public class ConversionUtility {
         );
     }
 
+    /**
+     * Converts from world to grid position in isometric view.
+     *
+     * @param worldPosition the world position
+     *
+     * @return the position in grid space
+     */
     public static VectorInt2D convertWorldToGridPosition(final Vector2D worldPosition) {
         final double step = GameConstants.TILE_PIXEL_SIZE * (GameConstants.TILE_SCALE / 2.0);
         final double screenOffsetX = GameConstants.SCREEN_WIDTH / 2.0;

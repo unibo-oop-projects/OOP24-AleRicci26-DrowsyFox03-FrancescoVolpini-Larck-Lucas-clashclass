@@ -34,7 +34,21 @@ public interface PathNodeGrid {
      */
     Set<PathNode> getNeighborsOfNode(PathNode node);
 
+    /**
+     * Returns a Set of neighbors nodes' positions.
+     *
+     * @param node the node
+     *
+     * @return the neighbors nodes' positions
+     */
     Set<VectorInt2D> getNeighborsPositionsOfNode(PathNode node);
 
+    /**
+     * Removes a node at a given position.
+     *
+     * @param position the given position
+     * @param width the width
+     * @param height the height
+     */
     void removeAtPosition(VectorInt2D position, int width, int height);
 }

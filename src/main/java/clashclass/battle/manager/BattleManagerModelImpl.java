@@ -12,6 +12,8 @@ import clashclass.battle.destruction.DestructionObservable;
 import clashclass.battle.troopdeath.DefenseBuildingsBattleBehaviorManager;
 import clashclass.battle.troopdeath.TroopDeathObservable;
 import clashclass.commons.BuildingFlagsComponent;
+import clashclass.commons.ConversionUtility;
+import clashclass.commons.GameConstants;
 import clashclass.commons.Vector2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactoryImpl;
@@ -33,6 +35,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
 
+/**
+ * Represents a {@link BattleManagerModel} implementation.
+ */
 public class BattleManagerModelImpl implements BattleManagerModel {
     private final Village playerVillage;
     private final Village battleVillage;
@@ -46,6 +51,12 @@ public class BattleManagerModelImpl implements BattleManagerModel {
     private DefenseBuildingsBattleBehaviorManager defenseBuildingsBattleBehaviorManager;
     private BattleManagerController controller;
 
+    /**
+     * Constructs the model.
+     *
+     * @param playerVillageCsvPath the player village csv file path
+     * @param battleVillageCsvPath the battle village csv file path
+     */
     public BattleManagerModelImpl(final Path playerVillageCsvPath, final Path battleVillageCsvPath) {
         this.playerVillage = this.loadVillage(playerVillageCsvPath, new PlayerVillageDecoderImpl());
         this.battleVillage = this.loadVillage(battleVillageCsvPath, new BattleVillageDecoderImpl());
@@ -60,6 +71,9 @@ public class BattleManagerModelImpl implements BattleManagerModel {
         this.handleBattleVillageDefenseBuildings();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setGameStateManager(final GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
@@ -101,33 +115,61 @@ public class BattleManagerModelImpl implements BattleManagerModel {
                 });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setCurrentSelectedTroop(final TROOP_TYPE troopType) {
         this.currentSelectedTroop = troopType;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameStateManager getGameStateManager() {
         return this.gameStateManager;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Village getPlayerVillage() {
         return this.playerVillage;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Village getBattleVillage() {
         return this.battleVillage;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TROOP_TYPE getCurrentSelectedTroop() {
         return this.currentSelectedTroop;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void createTroop(final Vector2D position) {
+        final var gridCoordinates = ConversionUtility.convertWorldToGridPosition(position);
+        if (gridCoordinates.x() < 0 || gridCoordinates.y() < 0 ||
+            gridCoordinates.x() >= GameConstants.VILLAGE_SIZE || gridCoordinates.y() >= GameConstants.VILLAGE_SIZE) {
+            return;
+        }
+
+        if (this.battleVillage.isCellBusy(gridCoordinates)) {
+            return;
+        }
+
         final var player = this.playerVillage.getPlayer();
         if (player.hasArmyCampTroop(this.currentSelectedTroop)) {
             player.removeArmyCampTroop(this.currentSelectedTroop, 1);
@@ -167,11 +209,17 @@ public class BattleManagerModelImpl implements BattleManagerModel {
                 });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<GameObject> getActiveTroops() {
         return this.activeTroops;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setController(final BattleManagerController controller) {
         this.controller = controller;
@@ -180,6 +228,9 @@ public class BattleManagerModelImpl implements BattleManagerModel {
         this.handleBattleVillageBuildings();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateVillageState(final GameObject destroyedBuilding) {
         this.battleVillage.removeBuilding(destroyedBuilding);
@@ -200,6 +251,9 @@ public class BattleManagerModelImpl implements BattleManagerModel {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateTroopsState(GameObject destroyedTroop) {
         this.activeTroops.remove(destroyedTroop);

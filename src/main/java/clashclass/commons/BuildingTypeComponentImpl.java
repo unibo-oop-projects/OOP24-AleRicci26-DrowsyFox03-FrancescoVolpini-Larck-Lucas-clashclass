@@ -3,6 +3,9 @@ package clashclass.commons;
 import clashclass.ecs.AbstractComponent;
 import clashclass.elements.buildings.VillageElementData;
 
+/**
+ * Represents a {@link BuildingTypeComponent} implementation.
+ */
 public class BuildingTypeComponentImpl extends AbstractComponent implements BuildingTypeComponent {
     private final VillageElementData buildingType;
 

@@ -32,6 +32,9 @@ public abstract class AbstractBehaviourNode implements BehaviourNode {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void restart() {
 
     }

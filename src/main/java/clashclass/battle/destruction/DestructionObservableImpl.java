@@ -6,23 +6,38 @@ import clashclass.ecs.AbstractComponent;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Represents a {@link DestructionObservable} implementation.
+ */
 public class DestructionObservableImpl extends AbstractComponent implements DestructionObservable {
-    private Set<DestructionObserver> observers;
+    private final Set<DestructionObserver> observers;
 
+    /**
+     * Constructs the observable.
+     */
     public DestructionObservableImpl() {
         observers = new HashSet<DestructionObserver>();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addObserver(DestructionObserver observer) {
         this.observers.add(observer);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeObserver(DestructionObserver observer) {
         this.observers.remove(observer);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(float deltaTime) {
         final var healthComponent = this.getGameObject().getComponentOfType(HealthComponent.class)

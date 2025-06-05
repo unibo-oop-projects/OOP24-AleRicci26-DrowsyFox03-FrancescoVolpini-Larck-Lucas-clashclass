@@ -11,6 +11,9 @@ import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Queue;
 
+/**
+ * Represents a node used to move towards the current target.
+ */
 public class GoToTargetNode extends AbstractBehaviourNode {
     private final float distanceToTargetTolerance;
     private BlackboardProperty<GameObject> actorProp;
@@ -19,12 +22,20 @@ public class GoToTargetNode extends AbstractBehaviourNode {
     private final Queue<PathNode> remainingPathNodes;
     private Optional<PathNode> currentTarget;
 
+    /**
+     * Constructs the node.
+     *
+     * @param distanceToTargetTolerance the tolerance for reaching every step of the path
+     */
     public GoToTargetNode(final float distanceToTargetTolerance) {
         this.distanceToTargetTolerance = distanceToTargetTolerance;
         this.remainingPathNodes = new LinkedList<>();
         this.currentTarget = Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onEnter() {
         this.actorProp = this.getBlackboard().getProperty("actor", GameObject.class);
@@ -37,6 +48,9 @@ public class GoToTargetNode extends AbstractBehaviourNode {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public State onUpdate(final float deltaTime) {
         if (remainingPathNodes.isEmpty()) {

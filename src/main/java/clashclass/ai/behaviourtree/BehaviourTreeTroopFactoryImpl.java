@@ -6,7 +6,13 @@ import clashclass.ai.pathfinding.EuclideanDistanceHeuristicImpl;
 
 import java.util.List;
 
+/**
+ * Represents a {@link BehaviourTreeFactory} implementation for troops.
+ */
 public class BehaviourTreeTroopFactoryImpl implements BehaviourTreeFactory {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public BehaviourTree create() {
         return new BehaviourTreeImpl(

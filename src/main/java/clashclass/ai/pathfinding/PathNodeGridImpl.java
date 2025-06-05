@@ -74,6 +74,9 @@ public class PathNodeGridImpl implements PathNodeGrid {
                 .collect(Collectors.toUnmodifiableSet());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<VectorInt2D> getNeighborsPositionsOfNode(PathNode node) {
         return this.getNeighborsOfNode(node).stream()
@@ -81,6 +84,9 @@ public class PathNodeGridImpl implements PathNodeGrid {
                 .collect(Collectors.toUnmodifiableSet());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeAtPosition(VectorInt2D position, int width, int height) {
         IntStream.range(0, width).forEach(i ->

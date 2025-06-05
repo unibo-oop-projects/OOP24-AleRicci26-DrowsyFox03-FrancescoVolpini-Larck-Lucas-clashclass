@@ -37,6 +37,9 @@ public abstract class AbstractCompositeNode extends AbstractBehaviourNode {
         this.currentChildIndex = 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void restart() {
         this.currentChildIndex = 0;

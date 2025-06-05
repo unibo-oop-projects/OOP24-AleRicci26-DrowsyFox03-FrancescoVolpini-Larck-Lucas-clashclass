@@ -66,6 +66,9 @@ public class PathNodeImpl implements PathNode {
         return this.refGameObject;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "(" + this.position.x() + "," + this.position.y() + ")";

@@ -25,6 +25,9 @@ public interface BehaviourNode {
      */
     void onExit();
 
+    /**
+     * Restarts the behaviour tree.
+     */
     void restart();
 
     /**

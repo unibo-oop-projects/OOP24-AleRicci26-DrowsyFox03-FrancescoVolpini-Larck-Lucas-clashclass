@@ -8,13 +8,22 @@ public class ProgressBarRendererImpl extends BaseGraphicComponent {
     private final int barWidth;
     private final int yOffset;
     private final int barHeight;
+    private final String colorEx;
     private float percentage;
 
-    public ProgressBarRendererImpl(double width, double height, int layer, int barWidth, int barHeight, int yOffset) {
+    public ProgressBarRendererImpl(
+            double width,
+            double height,
+            int layer,
+            int barWidth,
+            int barHeight,
+            int yOffset,
+            final String colorEx) {
         super(1, 1, layer);
         this.barWidth = barWidth;
         this.barHeight = barHeight;
         this.yOffset = yOffset;
+        this.colorEx = colorEx;
         this.percentage = 100.0f;
     }
 
@@ -41,6 +50,6 @@ public class ProgressBarRendererImpl extends BaseGraphicComponent {
         );
 
         graphics.drawRectangle(this.getGameObject(), "#FFFFFF", backgroundRect);
-        graphics.drawRectangle(this.getGameObject(), "#FF0000", foregroundRect);
+        graphics.drawRectangle(this.getGameObject(), this.colorEx, foregroundRect);
     }
 }

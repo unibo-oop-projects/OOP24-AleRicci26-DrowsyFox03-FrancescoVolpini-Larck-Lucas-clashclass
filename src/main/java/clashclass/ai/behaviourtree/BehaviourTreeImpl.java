@@ -33,17 +33,26 @@ public class BehaviourTreeImpl extends AbstractComponent implements BehaviourTre
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Blackboard getBlackboard() {
         return this.blackboard;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         this.hasStarted = true;
         this.rootNode.onEnter();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void restart() {
         this.rootNode.restart();

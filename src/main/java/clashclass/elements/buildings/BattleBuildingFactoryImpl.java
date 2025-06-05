@@ -15,6 +15,7 @@ import clashclass.stats.DefenseBuildingBaseStatsComponent;
 public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
     private final BehaviourTreeFactory behaviourTreeFactory;
     private final CalculateDamageLogicFactory damageLogicFactory;
+    private final String progressBarColorEx = "#FF0000";
 
     public BattleBuildingFactoryImpl() {
         this.behaviourTreeFactory = new BehaviourTreeDefenseBuildingFactoryImpl();
@@ -29,7 +30,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
         return builder
                 .addComponent(new BuildingTypeComponentImpl(VillageElementData.TOWN_HALL))
                 .addComponent(this.getComponentFactory().createHealth(1000))
-                .addComponent(this.getComponentFactory().createProgressBar())
+                .addComponent(this.getComponentFactory().createProgressBar(this.progressBarColorEx))
                 .addComponent(new DestructionObservableImpl());
     }
 
@@ -41,7 +42,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
         return builder
                 .addComponent(new BuildingTypeComponentImpl(VillageElementData.WALL))
                 .addComponent(this.getComponentFactory().createHealth(500))
-                .addComponent(this.getComponentFactory().createProgressBar())
+                .addComponent(this.getComponentFactory().createProgressBar(this.progressBarColorEx))
                 .addComponent(new DestructionObservableImpl());
     }
 
@@ -53,7 +54,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
         return builder
                 .addComponent(new BuildingTypeComponentImpl(VillageElementData.CANNON))
                 .addComponent(this.getComponentFactory().createHealth(100))
-                .addComponent(this.getComponentFactory().createProgressBar())
+                .addComponent(this.getComponentFactory().createProgressBar(this.progressBarColorEx))
                 .addComponent(new DestructionObservableImpl())
                 .addComponent(new DefenseBuildingBaseStatsComponent(100, 20, 1, 5))
                 .addComponent(this.damageLogicFactory.createForCannon())
@@ -68,10 +69,10 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
         return builder
                 .addComponent(new BuildingTypeComponentImpl(VillageElementData.ARCHER_TOWER))
                 .addComponent(this.getComponentFactory().createHealth(80))
-                .addComponent(this.getComponentFactory().createProgressBar())
+                .addComponent(this.getComponentFactory().createProgressBar(this.progressBarColorEx))
                 .addComponent(new DestructionObservableImpl())
                 .addComponent(new DefenseBuildingBaseStatsComponent(80, 15, 2, 9))
-                .addComponent(this.damageLogicFactory.createForCannon())
+                .addComponent(this.damageLogicFactory.createForArcherTower())
                 .addComponent(this.behaviourTreeFactory.create());
     }
 
@@ -83,7 +84,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
         return builder
                 .addComponent(new BuildingTypeComponentImpl(VillageElementData.GOLD_STORAGE))
                 .addComponent(this.getComponentFactory().createHealth(100))
-                .addComponent(this.getComponentFactory().createProgressBar())
+                .addComponent(this.getComponentFactory().createProgressBar(this.progressBarColorEx))
                 .addComponent(new DestructionObservableImpl());
     }
 
@@ -95,7 +96,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
         return builder
                 .addComponent(new BuildingTypeComponentImpl(VillageElementData.ELIXIR_STORAGE))
                 .addComponent(this.getComponentFactory().createHealth(100))
-                .addComponent(this.getComponentFactory().createProgressBar())
+                .addComponent(this.getComponentFactory().createProgressBar(this.progressBarColorEx))
                 .addComponent(new DestructionObservableImpl());
     }
 
@@ -107,7 +108,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
         return builder
                 .addComponent(new BuildingTypeComponentImpl(VillageElementData.GOLD_EXTRACTOR))
                 .addComponent(this.getComponentFactory().createHealth(100))
-                .addComponent(this.getComponentFactory().createProgressBar())
+                .addComponent(this.getComponentFactory().createProgressBar(this.progressBarColorEx))
                 .addComponent(new DestructionObservableImpl());
     }
 
@@ -119,7 +120,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
         return builder
                 .addComponent(new BuildingTypeComponentImpl(VillageElementData.ELIXIR_EXTRACTOR))
                 .addComponent(this.getComponentFactory().createHealth(100))
-                .addComponent(this.getComponentFactory().createProgressBar())
+                .addComponent(this.getComponentFactory().createProgressBar(this.progressBarColorEx))
                 .addComponent(new DestructionObservableImpl());
     }
 
@@ -131,7 +132,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
         return builder
                 .addComponent(new BuildingTypeComponentImpl(VillageElementData.ARMY_CAMP))
                 .addComponent(this.getComponentFactory().createHealth(100))
-                .addComponent(this.getComponentFactory().createProgressBar())
+                .addComponent(this.getComponentFactory().createProgressBar(this.progressBarColorEx))
                 .addComponent(new DestructionObservableImpl());
     }
 
@@ -143,7 +144,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
         return builder
                 .addComponent(new BuildingTypeComponentImpl(VillageElementData.BARRACKS))
                 .addComponent(this.getComponentFactory().createHealth(100))
-                .addComponent(this.getComponentFactory().createProgressBar())
+                .addComponent(this.getComponentFactory().createProgressBar(this.progressBarColorEx))
                 .addComponent(new DestructionObservableImpl());
     }
 }

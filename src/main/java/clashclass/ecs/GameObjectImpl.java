@@ -37,6 +37,9 @@ public class GameObjectImpl implements GameObject {
         return this.uniqueId;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setScene(final GameScene scene) {
         this.scene = scene;

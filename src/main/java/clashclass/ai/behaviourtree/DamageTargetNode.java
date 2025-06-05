@@ -5,6 +5,9 @@ import clashclass.ai.logic.DamageLogicComponent;
 import clashclass.commons.HealthComponent;
 import clashclass.ecs.GameObject;
 
+/**
+ * Represents a node used to inflict damage to the current target.
+ */
 public class DamageTargetNode extends AbstractBehaviourNode {
     private BlackboardProperty<GameObject> actorProp;
     private BlackboardProperty<GameObject> targetProp;

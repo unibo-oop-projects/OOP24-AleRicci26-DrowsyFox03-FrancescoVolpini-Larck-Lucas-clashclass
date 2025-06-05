@@ -26,6 +26,9 @@ public class RootNode extends AbstractBehaviourNode {
         this.child.setBlackboard(blackboard);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void onEnter() {
         this.child.onEnter();
     }
@@ -38,6 +41,9 @@ public class RootNode extends AbstractBehaviourNode {
         return this.child.onUpdate(deltaTime);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void restart() {
         this.child.restart();

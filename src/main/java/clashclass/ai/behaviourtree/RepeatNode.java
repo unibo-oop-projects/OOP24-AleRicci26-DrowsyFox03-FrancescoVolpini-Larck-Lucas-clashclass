@@ -2,6 +2,9 @@ package clashclass.ai.behaviourtree;
 
 import clashclass.ai.behaviourtree.blackboard.Blackboard;
 
+/**
+ * Represents a node which repeats endlessly the children nodes' execution.
+ */
 public class RepeatNode extends AbstractBehaviourNode {
     private final AbstractBehaviourNode child;
 
@@ -23,6 +26,9 @@ public class RepeatNode extends AbstractBehaviourNode {
         this.child.setBlackboard(blackboard);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void onEnter() {
         this.child.onEnter();
     }
@@ -40,6 +46,9 @@ public class RepeatNode extends AbstractBehaviourNode {
         return State.RUNNING;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void restart() {
         this.child.restart();

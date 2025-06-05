@@ -8,12 +8,20 @@ import clashclass.commons.Transform2D;
 import clashclass.ecs.GameObject;
 import clashclass.stats.DefenseBuildingBaseStatsComponent;
 
+/**
+ * Represents a node used to choose the next troop to attack.
+ */
 public class ChooseNextTargetTroopNode extends AbstractBehaviourNode {
     private final ChooseTargetLogic chooseTargetLogic;
     private BlackboardProperty<GameObjectListWrapper> troopsProp;
     private BlackboardProperty<GameObject> actorProp;
     private BlackboardProperty<GameObject> targetProp;
 
+    /**
+     * Constructs the node.
+     *
+     * @param chooseTargetLogic the logic used to choose the target
+     */
     public ChooseNextTargetTroopNode(final ChooseTargetLogic chooseTargetLogic) {
         this.chooseTargetLogic = chooseTargetLogic;
     }

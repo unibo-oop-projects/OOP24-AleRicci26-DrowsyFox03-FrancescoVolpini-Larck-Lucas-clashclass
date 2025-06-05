@@ -26,6 +26,9 @@ public class SequenceNode extends AbstractCompositeNode {
         this.getChildren().forEach(x -> x.setBlackboard(blackboard));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onEnter() {
         super.onEnter();

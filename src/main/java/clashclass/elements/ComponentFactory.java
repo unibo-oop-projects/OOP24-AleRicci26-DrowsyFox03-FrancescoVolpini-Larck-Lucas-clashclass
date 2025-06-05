@@ -35,5 +35,5 @@ public interface ComponentFactory {
      */
     Component createGraphic(double width, double height);
 
-    Component createProgressBar();
+    Component createProgressBar(final String colorEx);
 }

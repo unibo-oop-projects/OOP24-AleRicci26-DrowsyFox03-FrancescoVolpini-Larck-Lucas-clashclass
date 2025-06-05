@@ -21,18 +21,44 @@ public record Vector2D(double x, double y) {
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 
+    /**
+     * Adds two vectors.
+     *
+     * @param other the other vector
+     *
+     * @return the resulting vector
+     */
     public Vector2D add(final Vector2D other) {
         return new Vector2D(this.x + other.x, this.y + other.y);
     }
 
+    /**
+     * Subtracts two vectors.
+     *
+     * @param other the other vector
+     *
+     * @return the resulting vector
+     */
     public Vector2D subtract(final Vector2D other) {
         return new Vector2D(this.x - other.x, this.y - other.y);
     }
 
+    /**
+     * Multiplies a vectors with a scalar.
+     *
+     * @param scalar the scalar
+     *
+     * @return the resulting vector
+     */
     public Vector2D multiply(final double scalar) {
         return new Vector2D(this.x * scalar, this.y * scalar);
     }
 
+    /**
+     * Normalizes the vector.
+     *
+     * @return the normalized vector
+     */
     public Vector2D normalized() {
         final var magnitude = Math.sqrt(this.x * this.x + this.y * this.y);
         return new Vector2D(this.x / magnitude, this.y / magnitude);

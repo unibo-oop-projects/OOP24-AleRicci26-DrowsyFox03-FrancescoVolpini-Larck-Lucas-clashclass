@@ -14,6 +14,9 @@ import clashclass.elements.buildings.VillageElementData;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a node used to find a valid path to the current target.
+ */
 public class FindPathToTargetNode extends AbstractBehaviourNode {
     private final PathfindingAlgorithm pathfindingAlgorithm;
     private BlackboardProperty<GameObject> actorProp;
@@ -21,6 +24,11 @@ public class FindPathToTargetNode extends AbstractBehaviourNode {
     private BlackboardProperty<GameObject> targetProp;
     private BlackboardProperty<PathNodeListWrapper> pathProp;
 
+    /**
+     * Constructs the node.
+     *
+     * @param pathfindingAlgorithm the algorithm used for pathfinding
+     */
     public FindPathToTargetNode(final PathfindingAlgorithm pathfindingAlgorithm) {
         this.pathfindingAlgorithm = pathfindingAlgorithm;
     }
@@ -59,27 +67,6 @@ public class FindPathToTargetNode extends AbstractBehaviourNode {
                 pathNodeGrid.getNode(targetGridPosition.x(), targetGridPosition.y()));
 
         if (pathResult.cost() > 995.0f) {
-//            final var chooseNextTargetLogic = new ChooseTargetNearestLogicImpl();
-//            final var newTarget = chooseNextTargetLogic.chooseTarget(actor, this.getBlackboard()
-//                    .getProperty("potentialTargets", GameObjectListWrapper.class)
-//                    .getValue()
-//                    .list()
-//                    .stream()
-//                    .filter(x -> x.getComponentOfType(BuildingTypeComponentImpl.class).get()
-//                            .getBuildingType().equals(VillageElementData.WALL))
-//                    .toList());
-//
-//            this.targetProp.setValue(newTarget);
-//
-//            final var newtTargetGridPosition = ConversionUtility.convertWorldToGridPosition(
-//                    target.getComponentOfType(Transform2D.class).get().getPosition()
-//            );
-//
-//            final var newPathResult = pathfindingAlgorithm.findPath(
-//                    pathNodeGrid,
-//                    pathNodeGrid.getNode(actorGridPosition.x(), actorGridPosition.y()),
-//                    pathNodeGrid.getNode(newtTargetGridPosition.x(), newtTargetGridPosition.y()));
-
             List<PathNode> newPath = new ArrayList<>();
             GameObject wall = null;
 

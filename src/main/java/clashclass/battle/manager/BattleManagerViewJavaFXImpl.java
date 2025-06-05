@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
+/**
+ * Represents a {@link BattleManagerView} JavaFX implementation.
+ */
 public class BattleManagerViewJavaFXImpl implements BattleManagerView {
     private final Scene scene;
     private final AnchorPane root;
@@ -23,6 +26,12 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
     private BattleManagerController controller;
     private double togglesFontSize;
 
+    /**
+     * Constructs the view.
+     *
+     * @param scene the scene reference
+     * @param root the root reference
+     */
     public BattleManagerViewJavaFXImpl(final Scene scene, final AnchorPane root) {
         this.scene = scene;
         this.root = root;
@@ -52,11 +61,17 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setController(final BattleManagerController controller) {
         this.controller = controller;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setArmyCampTroops(final BattleManagerModel model) {
         final var player = model.getBattleVillage().getPlayer();
@@ -108,6 +123,9 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         AnchorPane.setLeftAnchor(troopTogglesContainer, 20.0);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateArmyCampTroopsCount(BattleManagerModel model) {
         final var player = model.getPlayerVillage().getPlayer();
@@ -120,6 +138,9 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clearScene() {
         this.root.getChildren().remove(this.endBattleButton);

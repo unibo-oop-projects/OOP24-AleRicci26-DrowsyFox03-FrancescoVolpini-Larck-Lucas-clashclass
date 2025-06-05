@@ -36,7 +36,7 @@ public class ComponentFactoryImpl implements ComponentFactory {
     }
 
     @Override
-    public Component createProgressBar() {
-        return new ProgressBarRendererImpl(1, 1, 2, 20, 5, 10);
+    public Component createProgressBar(final String colorEx) {
+        return new ProgressBarRendererImpl(1, 1, 2, 20, 5, 10, colorEx);
     }
 }

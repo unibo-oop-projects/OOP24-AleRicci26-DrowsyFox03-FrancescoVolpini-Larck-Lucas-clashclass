@@ -7,12 +7,20 @@ import clashclass.commons.BuildingTypeComponentImpl;
 import clashclass.ecs.GameObject;
 import clashclass.elements.buildings.VillageElementData;
 
+/**
+ * Represents a node used to choose the next building to attack.
+ */
 public class ChooseNextTargetBuildingNode extends AbstractBehaviourNode {
     private final ChooseTargetLogic chooseTargetLogic;
     private BlackboardProperty<GameObject> actorProp;
     private BlackboardProperty<GameObject> targetProp;
     private BlackboardProperty<GameObjectListWrapper> potentialTargetsProp;
 
+    /**
+     * Constructs the node.
+     *
+     * @param chooseTargetLogic the logic to choose the target
+     */
     public ChooseNextTargetBuildingNode(final ChooseTargetLogic chooseTargetLogic) {
         this.chooseTargetLogic = chooseTargetLogic;
     }

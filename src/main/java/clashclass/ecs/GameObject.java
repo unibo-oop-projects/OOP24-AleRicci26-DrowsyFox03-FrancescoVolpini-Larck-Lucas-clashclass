@@ -44,6 +44,11 @@ public interface GameObject {
      */
     Set<Component> getComponents();
 
+    /**
+     * Gets the scene this GameObject is attached to.
+     *
+     * @return the scene this GameObject is attached to
+     */
     GameScene getScene();
 
     /**
