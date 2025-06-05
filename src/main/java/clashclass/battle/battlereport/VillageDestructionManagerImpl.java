@@ -1,7 +1,9 @@
 package clashclass.battle.battlereport;
 
+import clashclass.commons.BuildingTypeComponent;
 import clashclass.ecs.AbstractComponent;
 import clashclass.ecs.GameObject;
+import clashclass.elements.buildings.VillageElementData;
 
 /**
  * Manager for tracking village destruction during battle.
@@ -27,6 +29,11 @@ public class VillageDestructionManagerImpl extends AbstractComponent implements 
      */
     @Override
     public void notifyDestruction(final GameObject destroyedBuilding) {
+        if (destroyedBuilding.getComponentOfType(BuildingTypeComponent.class).get()
+                .getBuildingType().equals(VillageElementData.WALL)) {
+            return;
+        }
+
         // Increase the destruction percentage in the battle report
         battleReportController.increaseDestructionPercentage(destroyedBuilding);
 

@@ -1,10 +1,14 @@
 package clashclass.battle.manager;
 
+import clashclass.battle.battlereport.BattleReportView;
+import clashclass.battle.battlereport.BattleReportViewImpl;
 import clashclass.commons.GameConstants;
 import clashclass.commons.Vector2D;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
@@ -18,9 +22,10 @@ import java.util.stream.IntStream;
  * Represents a {@link BattleManagerView} JavaFX implementation.
  */
 public class BattleManagerViewJavaFXImpl implements BattleManagerView {
-    private final Scene scene;
-    private final AnchorPane root;
-    private final Button endBattleButton;
+    private Scene scene;
+    private AnchorPane root;
+    private Button endBattleButton;
+    private Label battleTimeLabel;
     private final List<ToggleButton> troopToggles = new ArrayList<>();
     private HBox troopTogglesContainer;
     private BattleManagerController controller;
@@ -48,16 +53,31 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
             double newFontSize = newVal.doubleValue() * 0.1;
             endBattleButton.setStyle("-fx-font-size: " + newFontSize + "px;");
         });
-        endBattleButton.setOnAction(event -> this.controller.endBattle());
+        endBattleButton.setOnAction(event -> {
+            this.controller.endBattle();
+        });
 
         final var canvas = (Canvas) this.root.lookup("#canvas");
-        this.scene.setOnMousePressed(event -> {
+        canvas.setOnMousePressed(event -> {
+            if (event.isConsumed()) return;
+
             double scaleX = canvas.getWidth() / GameConstants.SCREEN_WIDTH;
             double scaleY = canvas.getHeight() / GameConstants.SCREEN_HEIGHT;
             double worldX = event.getSceneX() / scaleX;
             double worldY = event.getSceneY() / scaleY;
 
             this.controller.createTroop(new Vector2D(worldX, worldY));
+        });
+
+        this.battleTimeLabel = new Label("");
+        root.getChildren().add(battleTimeLabel);
+        AnchorPane.setTopAnchor(battleTimeLabel, 20.0);
+        AnchorPane.setRightAnchor(battleTimeLabel, 20.0);
+        battleTimeLabel.prefWidthProperty().bind(root.widthProperty().multiply(0.15));
+        battleTimeLabel.prefHeightProperty().bind(root.heightProperty().multiply(0.15));
+        battleTimeLabel.widthProperty().addListener((obs, oldVal, newVal) -> {
+            double newFontSize = newVal.doubleValue() * 0.1;
+            battleTimeLabel.setStyle("-fx-font-size: " + newFontSize + "px;");
         });
     }
 
@@ -94,16 +114,17 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
                 }
             });
             toggle.setOnAction(event -> {
+                if (event.isConsumed()) return;
                 if (toggle.isSelected()) {
                     this.controller.setCurrentSelectedTroop(troopType);
                 }
+                event.consume();
             });
             toggle.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
                 if (isSelected) {
                     toggle.setStyle("-fx-font-size: " + this.togglesFontSize + "px;-fx-border-width: 3px; -fx-border-color: blue;");
                 } else {
                     toggle.setStyle("-fx-font-size: " + this.togglesFontSize + "px;");
-
                 }
             });
             toggle.prefWidthProperty().bind(root.widthProperty().multiply(0.15));
@@ -127,7 +148,7 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
      * {@inheritDoc}
      */
     @Override
-    public void updateArmyCampTroopsCount(BattleManagerModel model) {
+    public void updateArmyCampTroopsCount(final BattleManagerModel model) {
         final var player = model.getPlayerVillage().getPlayer();
         final var troopTypes = player.getArmyCampTroopTypes().stream().toList();
 
@@ -145,5 +166,18 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
     public void clearScene() {
         this.root.getChildren().remove(this.endBattleButton);
         this.root.getChildren().remove(this.troopTogglesContainer);
+        this.root.getChildren().remove(this.battleTimeLabel);
+    }
+
+    @Override
+    public void endBattle(final BattleManagerModel model) {
+        Platform.runLater(() -> {
+            model.getGameStateManager().setStatePlayerVillage();
+        });
+    }
+
+    @Override
+    public BattleReportView buildBattleReportView() {
+        return new BattleReportViewImpl();
     }
 }

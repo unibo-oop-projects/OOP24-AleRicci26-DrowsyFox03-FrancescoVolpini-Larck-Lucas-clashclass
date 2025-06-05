@@ -6,18 +6,19 @@ import clashclass.ai.behaviourtree.blackboard.wrappers.GameObjectListWrapper;
 import clashclass.ai.pathfinding.AiNodesBuilder;
 import clashclass.ai.pathfinding.AiNodesBuilderImpl;
 import clashclass.ai.pathfinding.PathNodeGrid;
-import clashclass.battle.destruction.BattleTroopsBehaviorManager;
-import clashclass.battle.destruction.BattleTroopsBehaviorManagerImpl;
-import clashclass.battle.destruction.DestructionObservable;
+import clashclass.battle.battlereport.*;
+import clashclass.battle.destruction.*;
+import clashclass.battle.timer.TimerGameImpl;
+import clashclass.battle.timer.TimerImpl;
 import clashclass.battle.troopdeath.DefenseBuildingsBattleBehaviorManager;
+import clashclass.battle.troopdeath.EndBattleAllTroopsDead;
+import clashclass.battle.troopdeath.EndBattleAllTroopsDeadGameImpl;
 import clashclass.battle.troopdeath.TroopDeathObservable;
-import clashclass.commons.BuildingFlagsComponent;
-import clashclass.commons.ConversionUtility;
-import clashclass.commons.GameConstants;
-import clashclass.commons.Vector2D;
+import clashclass.commons.*;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactoryImpl;
 import clashclass.elements.buildings.BUILDING_FLAG;
+import clashclass.elements.buildings.VillageElementData;
 import clashclass.elements.troops.BattleTroopFactoryImpl;
 import clashclass.elements.troops.TROOP_TYPE;
 import clashclass.elements.troops.TroopFactory;
@@ -33,6 +34,7 @@ import java.nio.file.Path;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Timer;
 import java.util.function.Function;
 
 /**
@@ -47,9 +49,17 @@ public class BattleManagerModelImpl implements BattleManagerModel {
     private final AiNodesBuilder aiNodesBuilder;
     private GameStateManager gameStateManager;
     private TROOP_TYPE currentSelectedTroop;
-    private BattleTroopsBehaviorManager battleTroopsBehaviorManager;
     private DefenseBuildingsBattleBehaviorManager defenseBuildingsBattleBehaviorManager;
+    private BattleTroopsBehaviorManager battleTroopsBehaviorManager;
+    private VillageDestructionManager villageDestructionManager;
+    private EndBattleAllVillageDestroyed endBattleAllVillageDestroyedObserver;
+    private EndBattleTimerIsOver endBattleTimerIsOverObserver;
+    private EndBattleAllTroopsDead endBattleAllTroopsDeadObserver;
     private BattleManagerController controller;
+    private BattleReportController battleReportController;
+    private final clashclass.battle.timer.Timer battleTimer;
+    private boolean battleStarted;
+    private final double battleDurationSeconds = 60.0;
 
     /**
      * Constructs the model.
@@ -67,6 +77,8 @@ public class BattleManagerModelImpl implements BattleManagerModel {
         this.troopCreatorsMap = new EnumMap<>(TROOP_TYPE.class);
         this.troopCreatorsMap.put(TROOP_TYPE.BARBARIAN, this.troopFactory::createBarbarian);
         this.troopCreatorsMap.put(TROOP_TYPE.ARCHER, this.troopFactory::createArcher);
+
+        this.battleTimer = new TimerGameImpl();
 
         this.handleBattleVillageDefenseBuildings();
     }
@@ -111,7 +123,10 @@ public class BattleManagerModelImpl implements BattleManagerModel {
                 .filter(x -> x.getComponentOfType(DestructionObservable.class).isPresent())
                 .map(x -> x.getComponentOfType(DestructionObservable.class).get())
                 .forEach(destructionObservable -> {
+                    destructionObservable.addObserver(this.villageDestructionManager);
                     destructionObservable.addObserver(this.battleTroopsBehaviorManager);
+                    destructionObservable.addObserver(this.endBattleAllVillageDestroyedObserver);
+                    destructionObservable.addObserver(this.endBattleTimerIsOverObserver);
                 });
     }
 
@@ -161,12 +176,8 @@ public class BattleManagerModelImpl implements BattleManagerModel {
     @Override
     public void createTroop(final Vector2D position) {
         final var gridCoordinates = ConversionUtility.convertWorldToGridPosition(position);
-        if (gridCoordinates.x() < 0 || gridCoordinates.y() < 0 ||
-            gridCoordinates.x() >= GameConstants.VILLAGE_SIZE || gridCoordinates.y() >= GameConstants.VILLAGE_SIZE) {
-            return;
-        }
-
-        if (this.battleVillage.isCellBusy(gridCoordinates)) {
+        if (this.battleVillage.isCellOutsideOfGrid(gridCoordinates) ||
+                this.battleVillage.isCellBusy(gridCoordinates)) {
             return;
         }
 
@@ -181,6 +192,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
 
             final var deathObservable = troopGameObject.getComponentOfType(TroopDeathObservable.class).get();
             deathObservable.addObserver(this.defenseBuildingsBattleBehaviorManager);
+            deathObservable.addObserver(this.endBattleAllTroopsDeadObserver);
 
             final var behaviourTree = troopGameObject.getComponentOfType(BehaviourTree.class).get();
             final var blackboard = behaviourTree.getBlackboard();
@@ -207,6 +219,11 @@ public class BattleManagerModelImpl implements BattleManagerModel {
                     blackboard.getProperty("troops", GameObjectListWrapper.class)
                             .setValue(new GameObjectListWrapper(this.activeTroops.stream().toList()));
                 });
+
+        if (!this.battleStarted) {
+            this.battleStarted = true;
+            this.battleTimer.start();
+        }
     }
 
     /**
@@ -225,6 +242,10 @@ public class BattleManagerModelImpl implements BattleManagerModel {
         this.controller = controller;
         this.battleTroopsBehaviorManager = new BattleTroopsBehaviorManagerImpl(this.controller);
         this.defenseBuildingsBattleBehaviorManager = new DefenseBuildingsBattleBehaviorManager(this.controller);
+        this.villageDestructionManager = new VillageDestructionManagerImpl(this.battleReportController);
+        this.endBattleAllVillageDestroyedObserver = new EndBattleAllVillageDestroyedImpl(this.controller, this.battleReportController);
+        this.endBattleTimerIsOverObserver = new EndBattleTimerIsOverImpl(this.controller);
+        this.endBattleAllTroopsDeadObserver = new EndBattleAllTroopsDeadGameImpl(this.controller);
         this.handleBattleVillageBuildings();
     }
 
@@ -273,5 +294,46 @@ public class BattleManagerModelImpl implements BattleManagerModel {
                         behaviourTree.restart();
                     }
                 });
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void clearScene() {
+        this.battleVillage.getGroundObjects().forEach(GameObject::destroy);
+        this.battleVillage.getGameObjects().forEach(GameObject::destroy);
+        this.activeTroops.forEach(GameObject::destroy);
+    }
+
+    @Override
+    public void buildBattleReport(final BattleReportView view) {
+        final var nonWallBuildingsCount = (int) this.battleVillage.getBuildings().stream()
+                .filter(x -> !x.getComponentOfType(BuildingTypeComponent.class).get()
+                        .getBuildingType().equals(VillageElementData.WALL))
+                .count();
+
+        this.battleReportController = new BattleReportControllerImpl(
+                new BattleReportModelImpl(nonWallBuildingsCount),
+                view
+        );
+    }
+
+    @Override
+    public boolean isBattleStarted() {
+        return this.battleStarted;
+    }
+
+    @Override
+    public boolean isBattleTimeFinished() {
+        return this.battleTimer.getElapsedTime() >= this.battleDurationSeconds;
+    }
+
+    @Override
+    public boolean areAllTroopsDead() {
+        return this.activeTroops.isEmpty() &&
+                this.playerVillage.getPlayer().getArmyCampTroopTypes().stream()
+                        .map(type -> this.playerVillage.getPlayer().getArmyCampTroopCount(type))
+                        .allMatch(count -> count == 0);
     }
 }

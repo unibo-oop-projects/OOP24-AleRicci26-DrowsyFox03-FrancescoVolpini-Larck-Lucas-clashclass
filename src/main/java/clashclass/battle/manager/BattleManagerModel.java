@@ -1,5 +1,7 @@
 package clashclass.battle.manager;
 
+import clashclass.battle.battlereport.BattleReportModel;
+import clashclass.battle.battlereport.BattleReportView;
 import clashclass.commons.Vector2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.troops.TROOP_TYPE;
@@ -85,4 +87,17 @@ public interface BattleManagerModel {
      * @param destroyedTroop the troop that has been destroyed
      */
     void updateTroopsState(GameObject destroyedTroop);
+
+    /**
+     * Clears the scene.
+     */
+    void clearScene();
+
+    void buildBattleReport(BattleReportView view);
+
+    boolean isBattleStarted();
+
+    boolean isBattleTimeFinished();
+
+    boolean areAllTroopsDead();
 }

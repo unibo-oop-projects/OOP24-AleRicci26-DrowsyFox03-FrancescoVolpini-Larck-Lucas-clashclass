@@ -56,4 +56,8 @@ public interface BattleManagerController extends GameStateController {
      * @param destroyedTroop the troop that has been destroyed
      */
     void updateTroopsState(GameObject destroyedTroop);
+
+    boolean isBattleTimeFinished();
+
+    boolean areAllTroopsDead();
 }

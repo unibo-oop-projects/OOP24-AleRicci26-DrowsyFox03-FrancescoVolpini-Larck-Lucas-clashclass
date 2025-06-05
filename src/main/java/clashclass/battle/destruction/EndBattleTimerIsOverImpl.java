@@ -1,20 +1,22 @@
 package clashclass.battle.destruction;
 
+import clashclass.battle.battlereport.BattleReportController;
 import clashclass.battle.endbattle.AbstractBattleEvent;
+import clashclass.battle.manager.BattleManagerController;
 import clashclass.ecs.AbstractComponent;
 import clashclass.ecs.GameObject;
 
 /**
  * Represent the implementation of EndBattleTimerIsOver
  */
-public class EndBattleTimerIsOverImpl extends AbstractComponent implements EndBattleTimerIsOver{
+public class EndBattleTimerIsOverImpl extends AbstractComponent implements EndBattleTimerIsOver {
+    private final BattleManagerController battleManagerController;
 
     /**
      * initialize the timer flag to not finished
      */
-    private final boolean timeFinished;
-    public EndBattleTimerIsOverImpl(){
-        timeFinished=false;
+    public EndBattleTimerIsOverImpl(final BattleManagerController battleManagerController) {
+        this.battleManagerController = battleManagerController;
     }
 
     /**
@@ -22,7 +24,7 @@ public class EndBattleTimerIsOverImpl extends AbstractComponent implements EndBa
      */
     @Override
     public boolean isFinished() {
-        return timeFinished;
+        return this.battleManagerController.isBattleTimeFinished();
     }
 
     /**
@@ -30,9 +32,9 @@ public class EndBattleTimerIsOverImpl extends AbstractComponent implements EndBa
      */
     @Override
     public void notifyDestruction(GameObject obj) {
-        if(isFinished()){
+        if(this.isFinished()) {
             // Use AbstractBattleEvent to end the battle
-            new AbstractBattleEvent() {
+            new AbstractBattleEvent(this.battleManagerController) {
                 @Override
                 public void endBattle() {
                     EndBattle(obj);

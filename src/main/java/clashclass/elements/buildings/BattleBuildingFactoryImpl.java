@@ -56,7 +56,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
                 .addComponent(this.getComponentFactory().createHealth(100))
                 .addComponent(this.getComponentFactory().createProgressBar(this.progressBarColorEx))
                 .addComponent(new DestructionObservableImpl())
-                .addComponent(new DefenseBuildingBaseStatsComponent(100, 20, 1, 5))
+                .addComponent(new DefenseBuildingBaseStatsComponent(100, 20, 1, 3))
                 .addComponent(this.damageLogicFactory.createForCannon())
                 .addComponent(this.behaviourTreeFactory.create());
     }
@@ -71,7 +71,7 @@ public class BattleBuildingFactoryImpl extends AbstractBuildingFactory {
                 .addComponent(this.getComponentFactory().createHealth(80))
                 .addComponent(this.getComponentFactory().createProgressBar(this.progressBarColorEx))
                 .addComponent(new DestructionObservableImpl())
-                .addComponent(new DefenseBuildingBaseStatsComponent(80, 15, 2, 9))
+                .addComponent(new DefenseBuildingBaseStatsComponent(80, 15, 2, 6))
                 .addComponent(this.damageLogicFactory.createForArcherTower())
                 .addComponent(this.behaviourTreeFactory.create());
     }

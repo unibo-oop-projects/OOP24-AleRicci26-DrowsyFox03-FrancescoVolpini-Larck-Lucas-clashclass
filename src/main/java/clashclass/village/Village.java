@@ -67,6 +67,11 @@ public class Village {
         return this.objectGrid[position.x()][position.y()] != null;
     }
 
+    public boolean isCellOutsideOfGrid(final VectorInt2D position) {
+        return position.x() < 0 || position.y() < 0 ||
+                position.x() >= GameConstants.VILLAGE_SIZE || position.y() >= GameConstants.VILLAGE_SIZE;
+    }
+
     public GameObject getBuildingAtPosition(VectorInt2D position) {
         return this.objectGrid[position.x()][position.y()];
     }

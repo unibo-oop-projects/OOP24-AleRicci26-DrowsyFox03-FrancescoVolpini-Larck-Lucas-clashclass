@@ -24,8 +24,10 @@ public class BattleManagerControllerImpl implements BattleManagerController {
      */
     public BattleManagerControllerImpl(final BattleManagerModel model, final BattleManagerView view) {
         this.model = model;
-        this.view = view;
+        this.model.buildBattleReport(view.buildBattleReportView());
         this.model.setController(this);
+
+        this.view = view;
         this.view.setController(this);
     }
 
@@ -56,9 +58,7 @@ public class BattleManagerControllerImpl implements BattleManagerController {
      */
     @Override
     public void clearScene() {
-        final var battleVillage = this.model.getBattleVillage();
-        battleVillage.getGroundObjects().forEach(GameObject::destroy);
-        battleVillage.getGameObjects().forEach(GameObject::destroy);
+        this.model.clearScene();
         this.view.clearScene();
     }
 
@@ -67,7 +67,7 @@ public class BattleManagerControllerImpl implements BattleManagerController {
      */
     @Override
     public void endBattle() {
-        this.model.getGameStateManager().setStatePlayerVillage();
+        this.view.endBattle(this.model);
     }
 
     /**
@@ -118,5 +118,15 @@ public class BattleManagerControllerImpl implements BattleManagerController {
     @Override
     public void updateTroopsState(final GameObject destroyedTroop) {
         this.model.updateTroopsState(destroyedTroop);
+    }
+
+    @Override
+    public boolean isBattleTimeFinished() {
+        return this.model.isBattleTimeFinished();
+    }
+
+    @Override
+    public boolean areAllTroopsDead() {
+        return this.model.areAllTroopsDead();
     }
 }

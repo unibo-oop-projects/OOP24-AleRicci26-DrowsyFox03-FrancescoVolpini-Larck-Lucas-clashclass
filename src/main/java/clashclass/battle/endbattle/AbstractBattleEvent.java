@@ -1,5 +1,6 @@
 package clashclass.battle.endbattle;
 
+import clashclass.battle.manager.BattleManagerController;
 import clashclass.ecs.GameObject;
 
 import java.util.Optional;
@@ -10,7 +11,12 @@ import java.util.Optional;
  * and should be extended by concrete battle event classes.
  */
 public abstract class AbstractBattleEvent implements BattleEvent {
-    
+    private final BattleManagerController battleManagerController;
+
+    public AbstractBattleEvent(final BattleManagerController battleManagerController) {
+        this.battleManagerController = battleManagerController;
+    }
+
     /**
      * Protected method to end the battle.
      * This method is called by concrete implementations to perform
@@ -26,6 +32,9 @@ public abstract class AbstractBattleEvent implements BattleEvent {
         
         // Additional battle ending logic can be added here
         // such as updating game state, showing results, etc.
+        if (this.battleManagerController != null) {
+            this.battleManagerController.endBattle();
+        }
     }
     
     /**

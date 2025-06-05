@@ -28,4 +28,6 @@ public interface BattleReportController {
      * @param count The total number of troops used
      */
     void setTroopCount(int count);
+
+    double getDestructionPercentage();
 }

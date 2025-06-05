@@ -51,7 +51,7 @@ public class EndBattleAllTroopsDeadImpl extends AbstractComponent implements End
 
         if (isAllTroopsDead()) {
             allTroopsDead = true;
-            new AbstractBattleEvent() {
+            new AbstractBattleEvent(null) {
                 @Override
                 public void endBattle() {
                     EndBattle(troop);

@@ -1,6 +1,7 @@
 package clashclass.village.manager;
 
 import clashclass.elements.commons.CommonGameObjectFactoryImpl;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -19,7 +20,6 @@ public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
         final var factory = new CommonGameObjectFactoryImpl();
 
         this.root = root;
-
         this.root.setStyle("-fx-background-color: #0A8F32;");
 
         this.battleButton = new Button("Battle");
@@ -61,8 +61,10 @@ public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
 
     @Override
     public void clearScene() {
-        this.root.getChildren().remove(this.battleButton);
-        this.root.getChildren().remove(this.shopButton);
+        Platform.runLater(() -> {
+            this.root.getChildren().remove(this.battleButton);
+            this.root.getChildren().remove(this.shopButton);
+        });
     }
 
     private void redraw(final PlayerVillageModel model) {
