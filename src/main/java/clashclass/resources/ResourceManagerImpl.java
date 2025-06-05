@@ -22,7 +22,7 @@ public class ResourceManagerImpl implements ResourceManager {
      */
     @Override
     public void increase(double value) {
-        this.currentValue = Math.min(MAX_VALUE, this.currentValue - value);
+        this.currentValue = Math.min(MAX_VALUE, this.currentValue + value);
     }
 
     /**
