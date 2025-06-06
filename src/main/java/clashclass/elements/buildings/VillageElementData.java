@@ -29,7 +29,7 @@ public enum VillageElementData {
      * @param rowSpan the number of horizontal tiles of the element
      * @param colSpan the number of vertical tiles of the element
      */
-    VillageElementData(String name, int rowSpan, int colSpan) {
+    VillageElementData(final String name, final int rowSpan, final int colSpan) {
         this.name = name;
         this.rowSpan = rowSpan;
         this.colSpan = colSpan;
@@ -42,7 +42,7 @@ public enum VillageElementData {
      *
      * @return the enum value
      */
-    public static Optional<VillageElementData> getValueFromName(String id) {
+    public static Optional<VillageElementData> getValueFromName(final String id) {
         return Arrays.stream(values())
                 .filter(x -> x.name.equalsIgnoreCase(id))
                 .findFirst();

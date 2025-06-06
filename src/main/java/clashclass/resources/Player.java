@@ -1,6 +1,6 @@
 package clashclass.resources;
 
-import clashclass.elements.troops.TROOP_TYPE;
+import clashclass.elements.troops.TroopType;
 
 import java.util.EnumMap;
 import java.util.Set;
@@ -10,25 +10,39 @@ import java.util.Set;
  */
 public class Player {
     private static final int GENERIC_VALUE = 10;
-    private final EnumMap<RESOURCE_TYPE, ResourceManager>
-            playerResources = new EnumMap<>(RESOURCE_TYPE.class);
-    private final EnumMap<TROOP_TYPE, Integer> armyCampTroops = new EnumMap<>(TROOP_TYPE.class);
+    private final EnumMap<ResourceType, ResourceManager>
+            playerResources = new EnumMap<>(ResourceType.class);
+    private final EnumMap<TroopType, Integer> armyCampTroops = new EnumMap<>(TroopType.class);
 
+    /**
+     * Constructs the player.
+     */
     public Player() {
-        ResourceManager goldManager = new ResourceManagerImpl(GENERIC_VALUE);
-        ResourceManager elixirManager = new ResourceManagerImpl(GENERIC_VALUE);
-        ResourceManager gemsManager = new ResourceManagerImpl(GENERIC_VALUE);
+        final ResourceManager goldManager = new ResourceManagerImpl(GENERIC_VALUE);
+        final ResourceManager elixirManager = new ResourceManagerImpl(GENERIC_VALUE);
+        final ResourceManager gemsManager = new ResourceManagerImpl(GENERIC_VALUE);
 
-        playerResources.put(RESOURCE_TYPE.GOLD, goldManager);
-        playerResources.put(RESOURCE_TYPE.ELIXIR, elixirManager);
-        playerResources.put(RESOURCE_TYPE.GEMS, gemsManager);
+        playerResources.put(ResourceType.GOLD, goldManager);
+        playerResources.put(ResourceType.ELIXIR, elixirManager);
+        playerResources.put(ResourceType.GEMS, gemsManager);
     }
 
-    public EnumMap<RESOURCE_TYPE, ResourceManager> getPlayerResources() {
+    /**
+     * Gets the player resources map.
+     *
+     * @return the player resources map
+     */
+    public EnumMap<ResourceType, ResourceManager> getPlayerResources() {
         return playerResources;
     }
 
-    public void addArmyCampTroop(final TROOP_TYPE troopType, int count) {
+    /**
+     * Adds a certain amount of troops to the player army camp.
+     *
+     * @param troopType the type of the troops
+     * @param count the number of the troops
+     */
+    public void addArmyCampTroop(final TroopType troopType, final int count) {
         if (this.armyCampTroops.containsKey(troopType)) {
             this.armyCampTroops.put(troopType, this.armyCampTroops.get(troopType) + count);
             return;
@@ -36,25 +50,50 @@ public class Player {
         this.armyCampTroops.put(troopType, count);
     }
 
-    public void removeArmyCampTroop(final TROOP_TYPE troopType, int count) {
+    /**
+     * Removes a certain amount of troops from the player army camp.
+     *
+     * @param troopType the type of the troops
+     * @param count the number of the troops
+     */
+    public void removeArmyCampTroop(final TroopType troopType, final int count) {
         if (this.armyCampTroops.containsKey(troopType)) {
             final var newCount = Math.max(this.armyCampTroops.get(troopType) - count, 0);
             this.armyCampTroops.put(troopType, newCount);
         }
     }
 
-    public boolean hasArmyCampTroop(final TROOP_TYPE troopType) {
+    /**
+     * Checks if the army camp has a certain type of troop.
+     *
+     * @param troopType the type of the troop.
+     *
+     * @return true if the army camp has that type of troop
+     */
+    public boolean hasArmyCampTroop(final TroopType troopType) {
         if (!this.armyCampTroops.containsKey(troopType)) {
             return false;
         }
         return this.armyCampTroops.get(troopType) > 0;
     }
 
-    public Set<TROOP_TYPE> getArmyCampTroopTypes() {
+    /**
+     * Gets all the troop types in the army camp.
+     *
+     * @return a set of all the troop types in the army camp
+     */
+    public Set<TroopType> getArmyCampTroopTypes() {
         return this.armyCampTroops.keySet();
     }
 
-    public int getArmyCampTroopCount(final TROOP_TYPE troopType) {
+    /**
+     * Gets the amount of troops of a given type in the army camp.
+     *
+     * @param troopType the troop type
+     *
+     * @return the amount of troops of a given type in the army camp
+     */
+    public int getArmyCampTroopCount(final TroopType troopType) {
         if (!this.armyCampTroops.containsKey(troopType)) {
             return 0;
         }

@@ -23,6 +23,9 @@ public interface GameScene {
      */
     void updateGameObjects(float deltaTime);
 
+    /**
+     * Checks for game object marked as destroyed, and destroys them (if any).
+     */
     void checkForDestroyedGameObjects();
 
     /**
@@ -32,7 +35,17 @@ public interface GameScene {
      */
     void addGameObject(GameObject gameObject);
 
+    /**
+     * Gets all the game objects in the scene.
+     *
+     * @return the set of game objects
+     */
     Set<GameObject> getGameObjects();
 
+    /**
+     * Gets a copy of all the game objects in the scene.
+     *
+     * @return the copy of the set of game objects
+     */
     Set<GameObject> getGameObjectsCopy();
 }

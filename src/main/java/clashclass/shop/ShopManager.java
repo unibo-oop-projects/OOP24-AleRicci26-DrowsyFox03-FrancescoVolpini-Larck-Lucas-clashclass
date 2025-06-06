@@ -1,6 +1,6 @@
 package clashclass.shop;
 
-import clashclass.resources.RESOURCE_TYPE;
+import clashclass.resources.ResourceType;
 
 import java.util.List;
 
@@ -33,15 +33,19 @@ public interface ShopManager {
      */
     void buyItem(ShopItem shopItem);
 
-
     /**
-     * Given the RESOURCE_TYPE returns all the items associated with that resource
+     * Given the RESOURCE_TYPE returns all the items associated with that resource.
      *
      * @param type of the resource
      *
      * @return a list of ShopItem
      */
-    List<ShopItem> findItemsByResourceType(RESOURCE_TYPE type);
+    List<ShopItem> findItemsByResourceType(ResourceType type);
 
+    /**
+     * Gets the stop items.
+     *
+     * @return the set of shop items
+     */
     List<ShopItem> getShopItems();
 }

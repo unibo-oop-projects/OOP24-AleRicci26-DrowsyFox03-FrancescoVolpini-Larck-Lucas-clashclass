@@ -2,7 +2,7 @@ package clashclass.shop;
 
 import clashclass.elements.buildings.VillageElementData;
 import clashclass.resources.Player;
-import clashclass.resources.RESOURCE_TYPE;
+import clashclass.resources.ResourceType;
 import clashclass.resources.ResourceManager;
 
 /**
@@ -11,18 +11,20 @@ import clashclass.resources.ResourceManager;
 public class ShopItemImpl implements ShopItem {
     private final VillageElementData building;
     private final double price;
-    private final RESOURCE_TYPE type;
+    private final ResourceType type;
     private final Player player;
 
     /**
      * Construct ShopItemImpl.
      *
+     * @param building the building
      * @param type the type of resource needed
      * @param price the price of the ShopItem
+     * @param player the player reference
      */
     public ShopItemImpl(
             final VillageElementData building,
-            final RESOURCE_TYPE type,
+            final ResourceType type,
             final double price,
             final Player player) {
         this.building = building;
@@ -51,10 +53,13 @@ public class ShopItemImpl implements ShopItem {
      * {@inheritDoc}
      */
     @Override
-    public RESOURCE_TYPE getResourceType() {
+    public ResourceType getResourceType() {
         return this.type;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public VillageElementData getBuilding() {
         return this.building;

@@ -7,12 +7,17 @@ import clashclass.engine.GameEngine;
  * Abstract class containing all the basic methods and variables for a BaseScene.
  */
 public abstract class AbstractBaseScene implements BaseScene {
-    private final Window window;
     private static final double WINDOW_WIDTH = GameConstants.SCREEN_WIDTH;
     private static final double WINDOW_HEIGHT = GameConstants.SCREEN_HEIGHT;
+    private final Window window;
     private Graphic graphics;
     private GameEngine gameEngine;
 
+    /**
+     * Constructs the scene.
+     *
+     * @param window the window reference
+     */
     protected AbstractBaseScene(final Window window) {
         this.window = window;
     }
@@ -38,10 +43,20 @@ public abstract class AbstractBaseScene implements BaseScene {
         return WINDOW_HEIGHT;
     }
 
+    /**
+     * Gets the graphics.
+     *
+     * @return the graphics
+     */
     protected Graphic getGraphics() {
         return graphics;
     }
 
+    /**
+     * Sets the graphics.
+     *
+     * @param graphics the graphics
+     */
     protected void setGraphics(final Graphic graphics) {
         this.graphics = graphics;
     }

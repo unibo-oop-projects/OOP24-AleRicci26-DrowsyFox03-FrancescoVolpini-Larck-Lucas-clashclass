@@ -4,7 +4,6 @@ package clashclass.view.graphic;
  * Abstract class for all windows in the application.
  */
 public abstract class AbstractWindow implements Window {
-
     /**
      * {@inheritDoc}
      */
@@ -24,6 +23,7 @@ public abstract class AbstractWindow implements Window {
 
     /**
      * Provides the graphic scene factory for creating scenes.
+     *
      * @return the GraphicSceneFactory
      */
     protected abstract GraphicSceneFactory getGraphicSceneFactory();

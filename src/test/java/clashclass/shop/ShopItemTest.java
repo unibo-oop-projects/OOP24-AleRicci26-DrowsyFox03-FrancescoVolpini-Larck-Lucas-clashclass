@@ -1,6 +1,6 @@
 package clashclass.shop;
 
-import clashclass.resources.RESOURCE_TYPE;
+import clashclass.resources.ResourceType;
 import clashclass.resources.Player;
 import clashclass.resources.ResourceManagerImpl;
 
@@ -19,16 +19,16 @@ public class ShopItemTest {
     @BeforeEach
     void setUp() {
         mockResourceManager = new ResourceManagerImpl(100);
-        EnumMap<RESOURCE_TYPE, ResourceManagerImpl> resources = new EnumMap<>(RESOURCE_TYPE.class);
-        resources.put(RESOURCE_TYPE.GOLD, mockResourceManager);
+        EnumMap<ResourceType, ResourceManagerImpl> resources = new EnumMap<>(ResourceType.class);
+        resources.put(ResourceType.GOLD, mockResourceManager);
 
         mockPlayer = new Player() {
             @Override
-            public EnumMap<RESOURCE_TYPE, ResourceManagerImpl> getPlayerResources() {
+            public EnumMap<ResourceType, ResourceManagerImpl> getPlayerResources() {
                 return resources;
             }
         };
-        item = new ShopItemImpl(RESOURCE_TYPE.GOLD, 50.0, mockPlayer);
+        item = new ShopItemImpl(ResourceType.GOLD, 50.0, mockPlayer);
     }
 
     @Test
@@ -43,6 +43,6 @@ public class ShopItemTest {
 
     @Test
     void TestGetResourceType () {
-        assertEquals(RESOURCE_TYPE.GOLD, item.getResourceType());
+        assertEquals(ResourceType.GOLD, item.getResourceType());
     }
 }

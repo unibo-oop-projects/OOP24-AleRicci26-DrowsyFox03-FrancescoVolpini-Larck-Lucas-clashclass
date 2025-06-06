@@ -50,9 +50,20 @@ public interface BattleReportView {
      */
     void displayTroopCount(int troopCount);
 
+    /**
+     * Shows the menu.
+     */
     void show();
 
+    /**
+     * Clears the scene.
+     */
     void clearScene();
 
+    /**
+     * Sets the battle report controller reference.
+     *
+     * @param controller the battle report controller
+     */
     void setController(BattleReportController controller);
 }

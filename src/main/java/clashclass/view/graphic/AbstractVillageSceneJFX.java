@@ -3,7 +3,7 @@ package clashclass.view.graphic;
 import clashclass.battle.manager.BattleManagerControllerImpl;
 import clashclass.battle.manager.BattleManagerModelImpl;
 import clashclass.battle.manager.BattleManagerViewJavaFXImpl;
-import clashclass.ecs.GameObject;
+import clashclass.gamestate.GameStateManager;
 import clashclass.gamestate.GameStateManagerImpl;
 import clashclass.village.manager.PlayerVillageControllerImpl;
 import clashclass.village.manager.PlayerVillageModelImpl;
@@ -12,22 +12,40 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.nio.file.Path;
 
-public abstract class VillageSceneJFX extends AbstractBaseScene {
-    public VillageSceneJFX(Window window, Stage stage, Path playerCsvPath, Path battleCsvPath) throws IOException {
+/**
+ * Represents a {@link AbstractBaseScene} extension used for game initialization.
+ */
+public abstract class AbstractVillageSceneJFX extends AbstractBaseScene {
+    private final GameStateManager gameStateManager;
+
+    /**
+     * Constructs the scene.
+     *
+     * @param window the window
+     * @param stage the stage
+     * @param playerCsvPath the player village file path
+     * @param battleCsvPath the battle village fila path
+     *
+     * @throws IOException IO file exception
+     */
+    public AbstractVillageSceneJFX(
+            final Window window,
+            final Stage stage,
+            final Path playerCsvPath,
+            final Path battleCsvPath) throws IOException {
         super(window);
 
-        AnchorPane root = new AnchorPane();
+        final AnchorPane root = new AnchorPane();
 
-        Scene scene = new Scene(root, getWindowWidth(), getWindowHeight());
+        final Scene scene = new Scene(root, getWindowWidth(), getWindowHeight());
         stage.setScene(scene);
         stage.setTitle(getSceneTitle());
         stage.show();
 
-        Canvas canvas = new Canvas(getWindowWidth(), getWindowHeight());
+        final Canvas canvas = new Canvas(getWindowWidth(), getWindowHeight());
         canvas.setId("canvas");
         final var gc = canvas.getGraphicsContext2D();
         final var graphics = new GraphicJavaFXImpl(gc, canvas, getWindowWidth(), getWindowHeight());
@@ -39,7 +57,7 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
         canvas.widthProperty().bind(scene.widthProperty());
         canvas.heightProperty().bind(scene.heightProperty());
 
-        final var gameStateManager = new GameStateManagerImpl(
+        this.gameStateManager = new GameStateManagerImpl(
                 graphics,
                 () -> new PlayerVillageControllerImpl(
                         new PlayerVillageModelImpl(playerCsvPath),
@@ -53,22 +71,20 @@ public abstract class VillageSceneJFX extends AbstractBaseScene {
         stage.setOnCloseRequest(event -> {
             gameStateManager.stopEngine();
         });
-
-        gameStateManager.startEngine();
-
-        initializeScene();
     }
+
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void initializeScene() {
-
+        this.gameStateManager.startEngine();
     }
 
-    // Da implementare per mappare correttamente i tipi in sprite
-    protected abstract String mapTypeToSprite(GameObject go);
-
-    // Titolo finestra specifico
+    /**
+     * Gets the scene title.
+     *
+     * @return the scene title
+     */
     protected abstract String getSceneTitle();
 }

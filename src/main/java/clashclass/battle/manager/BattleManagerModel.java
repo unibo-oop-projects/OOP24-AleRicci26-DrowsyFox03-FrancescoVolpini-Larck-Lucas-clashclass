@@ -1,10 +1,9 @@
 package clashclass.battle.manager;
 
-import clashclass.battle.battlereport.BattleReportModel;
 import clashclass.battle.battlereport.BattleReportView;
 import clashclass.commons.Vector2D;
 import clashclass.ecs.GameObject;
-import clashclass.elements.troops.TROOP_TYPE;
+import clashclass.elements.troops.TroopType;
 import clashclass.gamestate.GameStateManager;
 import clashclass.village.Village;
 
@@ -15,7 +14,8 @@ import java.util.Set;
  */
 public interface BattleManagerModel {
     /**
-     * Sets the game state manager
+     * Sets the game state manager.
+     *
      * @param gameStateManager the game state manager
      */
     void setGameStateManager(GameStateManager gameStateManager);
@@ -25,7 +25,7 @@ public interface BattleManagerModel {
      *
      * @param troopType the current selected troop
      */
-    void setCurrentSelectedTroop(TROOP_TYPE troopType);
+    void setCurrentSelectedTroop(TroopType troopType);
 
     /**
      * Gets the game state manager.
@@ -53,10 +53,12 @@ public interface BattleManagerModel {
      *
      * @return the current selected troop
      */
-    TROOP_TYPE getCurrentSelectedTroop();
+    TroopType getCurrentSelectedTroop();
 
     /**
      * Creates a new troop in the battle village.
+     *
+     * @param position the position of the troop
      */
     void createTroop(Vector2D position);
 
@@ -93,13 +95,36 @@ public interface BattleManagerModel {
      */
     void clearScene();
 
+    /**
+     * Builds the battle report.
+     *
+     * @param view the battle report view
+     */
     void buildBattleReport(BattleReportView view);
 
+    /**
+     * Checks if the battle has already started.
+     *
+     * @return true if the battle has already started
+     */
     boolean isBattleStarted();
 
+    /**
+     * Checks if the battle time is finished.
+     *
+     * @return true if the battle time is finished
+     */
     boolean isBattleTimeFinished();
 
+    /**
+     * Checks if all the troops are dead.
+     *
+     * @return true if all the troops are dead
+     */
     boolean areAllTroopsDead();
 
+    /**
+     * Shows the battle report.
+     */
     void showBattleReport();
 }

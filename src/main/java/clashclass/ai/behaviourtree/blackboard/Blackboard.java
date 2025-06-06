@@ -16,6 +16,8 @@ public interface Blackboard {
      * Gets a property in the blackboard.
      *
      * @param name the name of the property
+     * @param type the class type of the property
+     * @param <T> the type of the property
      *
      * @return the value of the property
      */

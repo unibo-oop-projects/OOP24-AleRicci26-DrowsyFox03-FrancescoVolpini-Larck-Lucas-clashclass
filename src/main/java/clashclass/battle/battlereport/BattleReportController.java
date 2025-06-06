@@ -9,10 +9,11 @@ import clashclass.resources.ResourceManager;
  * Manages the battle report data including destruction percentage and stolen resources.
  */
 public interface BattleReportController {
-
     /**
      * Increases the destruction percentage of the village.
      * This is called when a building is destroyed.
+     *
+     * @param destroyedBuilding the destroyed building
      */
     void increaseDestructionPercentage(GameObject destroyedBuilding);
 
@@ -30,13 +31,32 @@ public interface BattleReportController {
      */
     void setTroopCount(int count);
 
+    /**
+     * Gets the village destruction percentage.
+     *
+     * @return the destruction percentage
+     */
     double getDestructionPercentage();
 
+    /**
+     * Shows the menu.
+     */
     void show();
 
+    /**
+     * Clears the scene.
+     */
     void clearScene();
 
-    void setGameStateManager(final GameStateManager gameStateManager);
+    /**
+     * Sets the game state manager.
+     *
+     * @param gameStateManager the game state manager
+     */
+    void setGameStateManager(GameStateManager gameStateManager);
 
+    /**
+     * Goes back to the player village.
+     */
     void goBackToVillage();
 }

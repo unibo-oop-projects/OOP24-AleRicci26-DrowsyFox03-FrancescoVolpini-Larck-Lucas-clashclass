@@ -68,8 +68,8 @@ public class PathNodeGridImpl implements PathNodeGrid {
         return kernel.stream()
                 .filter(i -> x + i >= 0 && x + i < size)
                 .flatMap(i -> kernel.stream()
-                        .filter(j -> y + j >= 0 && y + j < size &&
-                                !(i == 0 && j == 0) && (i == 0 || j == 0))
+                        .filter(j -> y + j >= 0 && y + j < size
+                            && !(i == 0 && j == 0) && (i == 0 || j == 0))
                         .map(j -> this.nodes[x + i][y + j]))
                 .collect(Collectors.toUnmodifiableSet());
     }
@@ -78,7 +78,7 @@ public class PathNodeGridImpl implements PathNodeGrid {
      * {@inheritDoc}
      */
     @Override
-    public Set<VectorInt2D> getNeighborsPositionsOfNode(PathNode node) {
+    public Set<VectorInt2D> getNeighborsPositionsOfNode(final PathNode node) {
         return this.getNeighborsOfNode(node).stream()
                 .map(PathNode::getPosition)
                 .collect(Collectors.toUnmodifiableSet());
@@ -88,7 +88,7 @@ public class PathNodeGridImpl implements PathNodeGrid {
      * {@inheritDoc}
      */
     @Override
-    public void removeAtPosition(VectorInt2D position, int width, int height) {
+    public void removeAtPosition(final VectorInt2D position, final int width, final int height) {
         IntStream.range(0, width).forEach(i ->
                 IntStream.range(0, height).forEach(j -> {
                     this.nodes[position.x() - i][position.y() - j] = new PathNodeImpl(position, 0, Optional.empty());

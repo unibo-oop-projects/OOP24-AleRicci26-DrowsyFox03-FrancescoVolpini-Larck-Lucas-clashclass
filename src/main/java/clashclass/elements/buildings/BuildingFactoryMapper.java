@@ -10,7 +10,9 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * Maps building types to their factory methods
+ * Maps building types to their factory methods.
+ *
+ * @param <F> the building factory type
  */
 public class BuildingFactoryMapper<F extends BuildingFactory> {
     private final Map<VillageElementData, Function<VectorInt2D, GameObject>> buildingIdToFactory;
@@ -42,13 +44,13 @@ public class BuildingFactoryMapper<F extends BuildingFactory> {
     }
 
     /**
-     * Get factory method for creating a specific building type
+     * Get factory method for creating a specific building type.
      *
      * @param buildingType The type of building to create
+     *
      * @return Function that creates the building at a given position
      */
-    public Function<VectorInt2D, GameObject> getFactoryFor(VillageElementData buildingType) {
-        Function<VectorInt2D, GameObject> factory = buildingIdToFactory.get(buildingType);
+    public Function<VectorInt2D, GameObject> getFactoryFor(final VillageElementData buildingType) {
         return Optional.ofNullable(buildingIdToFactory.get(buildingType))
                 .orElseThrow(() -> new IllegalArgumentException(
                         "No factory for " + buildingType));
@@ -59,5 +61,7 @@ public class BuildingFactoryMapper<F extends BuildingFactory> {
      *
      * @return the factory
      */
-    public F getFactory() {return factory;}
+    public F getFactory() {
+        return factory;
+    }
 }

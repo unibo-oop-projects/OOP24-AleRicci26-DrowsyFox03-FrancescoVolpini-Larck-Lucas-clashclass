@@ -6,49 +6,61 @@ import clashclass.ai.behaviourtree.blackboard.wrappers.GameObjectListWrapper;
 import clashclass.ai.pathfinding.AiNodesBuilder;
 import clashclass.ai.pathfinding.AiNodesBuilderImpl;
 import clashclass.ai.pathfinding.PathNodeGrid;
-import clashclass.battle.battlereport.*;
-import clashclass.battle.destruction.*;
+import clashclass.battle.battlereport.BattleReportController;
+import clashclass.battle.battlereport.BattleReportControllerImpl;
+import clashclass.battle.battlereport.BattleReportModelImpl;
+import clashclass.battle.battlereport.BattleReportView;
+import clashclass.battle.battlereport.VillageDestructionManager;
+import clashclass.battle.battlereport.VillageDestructionManagerImpl;
+import clashclass.battle.destruction.BattleTroopsBehaviorManager;
+import clashclass.battle.destruction.BattleTroopsBehaviorManagerImpl;
+import clashclass.battle.destruction.EndBattleAllVillageDestroyedImpl;
+import clashclass.battle.destruction.DestructionObservable;
+import clashclass.battle.destruction.EndBattleAllVillageDestroyed;
+import clashclass.battle.destruction.EndBattleTimerIsOver;
+import clashclass.battle.destruction.EndBattleTimerIsOverImpl;
 import clashclass.battle.timer.TimerGameImpl;
-import clashclass.battle.timer.TimerImpl;
 import clashclass.battle.troopdeath.DefenseBuildingsBattleBehaviorManager;
 import clashclass.battle.troopdeath.EndBattleAllTroopsDead;
 import clashclass.battle.troopdeath.EndBattleAllTroopsDeadGameImpl;
 import clashclass.battle.troopdeath.TroopDeathObservable;
-import clashclass.commons.*;
+import clashclass.commons.BuildingFlagsComponent;
+import clashclass.commons.BuildingTypeComponent;
+import clashclass.commons.ConversionUtility;
+import clashclass.commons.Vector2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactoryImpl;
-import clashclass.elements.buildings.BUILDING_FLAG;
+import clashclass.elements.buildings.BuildingFlag;
 import clashclass.elements.buildings.VillageElementData;
 import clashclass.elements.troops.BattleTroopFactoryImpl;
-import clashclass.elements.troops.TROOP_TYPE;
+import clashclass.elements.troops.TroopType;
 import clashclass.elements.troops.TroopFactory;
 import clashclass.gamestate.GameStateManager;
 import clashclass.saveload.BattleVillageDecoderImpl;
 import clashclass.saveload.PlayerVillageDecoderImpl;
 import clashclass.saveload.VillageDecoder;
 import clashclass.village.Village;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Timer;
 import java.util.function.Function;
 
 /**
  * Represents a {@link BattleManagerModel} implementation.
  */
 public class BattleManagerModelImpl implements BattleManagerModel {
+    private static final String TROOPS_PROP = "troops";
     private final Village playerVillage;
     private final Village battleVillage;
     private final TroopFactory troopFactory;
-    private final EnumMap<TROOP_TYPE, Function<Vector2D, GameObject>> troopCreatorsMap;
+    private final EnumMap<TroopType, Function<Vector2D, GameObject>> troopCreatorsMap;
     private final Set<GameObject> activeTroops;
     private final AiNodesBuilder aiNodesBuilder;
     private GameStateManager gameStateManager;
-    private TROOP_TYPE currentSelectedTroop;
+    private TroopType currentSelectedTroop;
     private DefenseBuildingsBattleBehaviorManager defenseBuildingsBattleBehaviorManager;
     private BattleTroopsBehaviorManager battleTroopsBehaviorManager;
     private VillageDestructionManager villageDestructionManager;
@@ -74,9 +86,9 @@ public class BattleManagerModelImpl implements BattleManagerModel {
         this.activeTroops = new HashSet<>();
         this.aiNodesBuilder = new AiNodesBuilderImpl();
 
-        this.troopCreatorsMap = new EnumMap<>(TROOP_TYPE.class);
-        this.troopCreatorsMap.put(TROOP_TYPE.BARBARIAN, this.troopFactory::createBarbarian);
-        this.troopCreatorsMap.put(TROOP_TYPE.ARCHER, this.troopFactory::createArcher);
+        this.troopCreatorsMap = new EnumMap<>(TroopType.class);
+        this.troopCreatorsMap.put(TroopType.BARBARIAN, this.troopFactory::createBarbarian);
+        this.troopCreatorsMap.put(TroopType.ARCHER, this.troopFactory::createArcher);
 
         this.battleTimer = new TimerGameImpl();
 
@@ -92,13 +104,12 @@ public class BattleManagerModelImpl implements BattleManagerModel {
         this.battleReportController.setGameStateManager(gameStateManager);
     }
 
-    private Village loadVillage(final Path csvPath, final VillageDecoder decoder)
-    {
+    private Village loadVillage(final Path csvPath, final VillageDecoder decoder) {
         try {
             decoder.setComponentFactory(new ComponentFactoryImpl());
             final var csvData = Files.readString(csvPath);
             return decoder.decode(csvData);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             System.err.println("Could not read village data");
         }
         return null;
@@ -108,13 +119,13 @@ public class BattleManagerModelImpl implements BattleManagerModel {
         this.battleVillage.getGameObjects().stream()
                 .filter(x -> x.getComponentOfType(BuildingFlagsComponent.class).isPresent())
                 .filter(x -> x.getComponentOfType(BuildingFlagsComponent.class).get()
-                        .getFlags().contains(BUILDING_FLAG.DEFENSE))
+                        .getFlags().contains(BuildingFlag.DEFENSE))
                 .forEach(defenseBuilding -> {
                     final var behaviourTree = defenseBuilding.getComponentOfType(BehaviourTree.class).get();
                     final var blackboard = behaviourTree.getBlackboard();
 
                     blackboard.setProperty("actor", new BlackboardPropertyImpl<>(defenseBuilding, GameObject.class));
-                    blackboard.setProperty("troops", new BlackboardPropertyImpl<>(new GameObjectListWrapper(
+                    blackboard.setProperty(TROOPS_PROP, new BlackboardPropertyImpl<>(new GameObjectListWrapper(
                             this.activeTroops.stream().toList()), GameObjectListWrapper.class));
                 });
     }
@@ -135,7 +146,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
-    public void setCurrentSelectedTroop(final TROOP_TYPE troopType) {
+    public void setCurrentSelectedTroop(final TroopType troopType) {
         this.currentSelectedTroop = troopType;
     }
 
@@ -167,7 +178,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
-    public TROOP_TYPE getCurrentSelectedTroop() {
+    public TroopType getCurrentSelectedTroop() {
         return this.currentSelectedTroop;
     }
 
@@ -177,8 +188,8 @@ public class BattleManagerModelImpl implements BattleManagerModel {
     @Override
     public void createTroop(final Vector2D position) {
         final var gridCoordinates = ConversionUtility.convertWorldToGridPosition(position);
-        if (this.battleVillage.isCellOutsideOfGrid(gridCoordinates) ||
-                this.battleVillage.isCellBusy(gridCoordinates)) {
+        if (this.battleVillage.isCellOutsideOfGrid(gridCoordinates)
+         || this.battleVillage.isCellBusy(gridCoordinates)) {
             return;
         }
 
@@ -212,12 +223,12 @@ public class BattleManagerModelImpl implements BattleManagerModel {
         this.battleVillage.getGameObjects().stream()
                 .filter(x -> x.getComponentOfType(BuildingFlagsComponent.class).isPresent())
                 .filter(x -> x.getComponentOfType(BuildingFlagsComponent.class).get()
-                        .getFlags().contains(BUILDING_FLAG.DEFENSE))
+                        .getFlags().contains(BuildingFlag.DEFENSE))
                 .forEach(defenseBuilding -> {
                     final var behaviourTree = defenseBuilding.getComponentOfType(BehaviourTree.class).get();
                     final var blackboard = behaviourTree.getBlackboard();
 
-                    blackboard.getProperty("troops", GameObjectListWrapper.class)
+                    blackboard.getProperty(TROOPS_PROP, GameObjectListWrapper.class)
                             .setValue(new GameObjectListWrapper(this.activeTroops.stream().toList()));
                 });
 
@@ -241,12 +252,18 @@ public class BattleManagerModelImpl implements BattleManagerModel {
     @Override
     public void setController(final BattleManagerController controller) {
         this.controller = controller;
-        this.battleTroopsBehaviorManager = new BattleTroopsBehaviorManagerImpl(this.controller);
-        this.defenseBuildingsBattleBehaviorManager = new DefenseBuildingsBattleBehaviorManager(this.controller);
-        this.villageDestructionManager = new VillageDestructionManagerImpl(this.battleReportController);
-        this.endBattleAllVillageDestroyedObserver = new EndBattleAllVillageDestroyedImpl(this.controller, this.battleReportController);
-        this.endBattleTimerIsOverObserver = new EndBattleTimerIsOverImpl(this.controller);
-        this.endBattleAllTroopsDeadObserver = new EndBattleAllTroopsDeadGameImpl(this.controller);
+        this.battleTroopsBehaviorManager = new BattleTroopsBehaviorManagerImpl(
+                this.controller);
+        this.defenseBuildingsBattleBehaviorManager = new DefenseBuildingsBattleBehaviorManager(
+                this.controller);
+        this.villageDestructionManager = new VillageDestructionManagerImpl(
+                this.battleReportController);
+        this.endBattleAllVillageDestroyedObserver = new EndBattleAllVillageDestroyedImpl(
+                this.controller, this.battleReportController);
+        this.endBattleTimerIsOverObserver = new EndBattleTimerIsOverImpl(
+                this.controller);
+        this.endBattleAllTroopsDeadObserver = new EndBattleAllTroopsDeadGameImpl(
+                this.controller);
         this.handleBattleVillageBuildings();
     }
 
@@ -257,17 +274,21 @@ public class BattleManagerModelImpl implements BattleManagerModel {
     public void updateVillageState(final GameObject destroyedBuilding) {
         this.battleVillage.removeBuilding(destroyedBuilding);
         final var pathNodeGrid = aiNodesBuilder.buildPathNodeList(destroyedBuilding);
-        final var potentialTargets = new GameObjectListWrapper(this.battleVillage.getGameObjects().stream().toList());
+        final var potentialTargets = new GameObjectListWrapper(
+                this.battleVillage.getGameObjects().stream().toList());
 
         this.activeTroops.forEach(troopGameObject -> {
             final var behaviourTree = troopGameObject.getComponentOfType(BehaviourTree.class).get();
             final var blackboard = behaviourTree.getBlackboard();
 
-            blackboard.getProperty("potentialTargets", GameObjectListWrapper.class).setValue(potentialTargets);
+            blackboard.getProperty("potentialTargets", GameObjectListWrapper.class)
+                    .setValue(potentialTargets);
 
-            final var currentTarget = blackboard.getProperty("target", GameObject.class).getValue();
+            final var currentTarget = blackboard.getProperty("target", GameObject.class)
+                    .getValue();
             if (currentTarget != null && currentTarget.equals(destroyedBuilding)) {
-                blackboard.getProperty("pathNodeGrid", PathNodeGrid.class).setValue(pathNodeGrid);
+                blackboard.getProperty("pathNodeGrid", PathNodeGrid.class)
+                        .setValue(pathNodeGrid);
                 behaviourTree.restart();
             }
         });
@@ -277,18 +298,21 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
-    public void updateTroopsState(GameObject destroyedTroop) {
+    public void updateTroopsState(final GameObject destroyedTroop) {
         this.activeTroops.remove(destroyedTroop);
         final var troops = new GameObjectListWrapper(this.activeTroops.stream().toList());
 
         this.battleVillage.getGameObjects().stream()
-                .filter(gameObject -> gameObject.getComponentOfType(BuildingFlagsComponent.class).get()
-                        .getFlags().contains(BUILDING_FLAG.DEFENSE))
+                .filter(gameObject -> gameObject
+                        .getComponentOfType(BuildingFlagsComponent.class).get()
+                        .getFlags().contains(BuildingFlag.DEFENSE))
                 .forEach(defenseBuilding -> {
-                    final var behaviourTree = defenseBuilding.getComponentOfType(BehaviourTree.class).get();
+                    final var behaviourTree = defenseBuilding
+                            .getComponentOfType(BehaviourTree.class).get();
                     final var blackboard = behaviourTree.getBlackboard();
 
-                    blackboard.getProperty("troops", GameObjectListWrapper.class).setValue(troops);
+                    blackboard.getProperty(TROOPS_PROP, GameObjectListWrapper.class)
+                            .setValue(troops);
 
                     final var currentTarget = blackboard.getProperty("target", GameObject.class).getValue();
                     if (currentTarget != null && currentTarget.equals(destroyedTroop)) {
@@ -308,6 +332,9 @@ public class BattleManagerModelImpl implements BattleManagerModel {
         this.battleReportController.clearScene();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void buildBattleReport(final BattleReportView view) {
         final var nonWallBuildingsCount = (int) this.battleVillage.getBuildings().stream()
@@ -321,31 +348,44 @@ public class BattleManagerModelImpl implements BattleManagerModel {
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isBattleStarted() {
         return this.battleStarted;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isBattleTimeFinished() {
         return this.battleTimer.getElapsedTime() >= this.battleDurationSeconds;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean areAllTroopsDead() {
-        return this.activeTroops.isEmpty() &&
-                this.playerVillage.getPlayer().getArmyCampTroopTypes().stream()
-                        .map(type -> this.playerVillage.getPlayer().getArmyCampTroopCount(type))
+        return this.activeTroops.isEmpty()
+            && this.playerVillage.getPlayer().getArmyCampTroopTypes().stream()
+                        .map(type -> this.playerVillage.getPlayer()
+                                .getArmyCampTroopCount(type))
                         .allMatch(count -> count == 0);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void showBattleReport() {
         this.activeTroops.forEach(troop ->
                 troop.getComponentOfType(BehaviourTree.class).get().stop());
         this.battleVillage.getBuildings().stream()
                 .filter(x -> x.getComponentOfType(BuildingFlagsComponent.class).get()
-                        .getFlags().contains(BUILDING_FLAG.DEFENSE))
+                        .getFlags().contains(BuildingFlag.DEFENSE))
                 .forEach(defenseBuilding -> defenseBuilding
                         .getComponentOfType(BehaviourTree.class).get().stop());
 

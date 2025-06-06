@@ -4,7 +4,7 @@ import clashclass.ecs.GameObject;
 import clashclass.village.Village;
 
 /**
- * Represents an object which can build the grid data for troops' pathfinding
+ * Represents an object which can build the grid data for troops' pathfinding.
  */
 public interface AiNodesBuilder {
     /**

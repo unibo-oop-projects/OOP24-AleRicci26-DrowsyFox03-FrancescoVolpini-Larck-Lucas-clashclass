@@ -11,6 +11,9 @@ import clashclass.view.graphic.components.ProgressBarRendererImpl;
  * Represents an implementation of ComponentFactory.
  */
 public class ComponentFactoryImpl implements ComponentFactory {
+    private static final int PROGRESS_BAR_WIDTH = 20;
+    private static final int PROGRESS_BAR_HEIGHT = 5;
+
     /**
      * {@inheritDoc}
      */
@@ -26,7 +29,7 @@ public class ComponentFactoryImpl implements ComponentFactory {
     public Component createHealth(final int maxValue) {
         return new HealthComponentImpl(maxValue);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -35,8 +38,18 @@ public class ComponentFactoryImpl implements ComponentFactory {
         return new GraphicComponentImpl(width, height);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Component createProgressBar(final String colorEx) {
-        return new ProgressBarRendererImpl(1, 1, 2, 20, 5, 10, colorEx);
+        return new ProgressBarRendererImpl(
+                1,
+                1,
+                2,
+                PROGRESS_BAR_WIDTH,
+                PROGRESS_BAR_HEIGHT,
+                10,
+                colorEx);
     }
 }

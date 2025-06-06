@@ -1,19 +1,38 @@
 package clashclass.village.manager;
 
+import clashclass.commons.GameConstants;
+import clashclass.commons.Vector2D;
 import clashclass.elements.commons.CommonGameObjectFactoryImpl;
 import clashclass.shop.ShopMenuJavaFXImpl;
 import clashclass.shop.ShopMenuView;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * Represents a {@link PlayerVillageView} implementation.
+ */
 public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
+    private static final double BUTTONS_ANCHOR_OFFSET = 20.0;
+    private static final double BUTTONS_WIDTH_MULTIPLIER = 0.1;
+    private static final double BUTTONS_HEIGHT_MULTIPLIER = 0.15;
+    private static final double FONT_SIZE_MULTIPLIER = 0.2;
+    private static final String PIXEL_PROP = "px;";
     private final AnchorPane root;
     private final Button battleButton;
     private final Button shopButton;
     private PlayerVillageController controller;
 
+    /**
+     * Constructs the view.
+     *
+     * @param scene the scene
+     * @param root the UI root node
+     * @param widowWidth the window width
+     * @param windowHeight thw window height
+     */
     public PlayerVillageViewJavaFXImpl(
             final Scene scene,
             final AnchorPane root,
@@ -26,41 +45,53 @@ public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
 
         this.battleButton = new Button("Battle");
         root.getChildren().add(battleButton);
-        AnchorPane.setBottomAnchor(battleButton, 20.0);
-        AnchorPane.setLeftAnchor(battleButton, 20.0);
-        battleButton.prefWidthProperty().bind(root.widthProperty().multiply(0.1));
-        battleButton.prefHeightProperty().bind(root.heightProperty().multiply(0.15));
+        AnchorPane.setBottomAnchor(battleButton, BUTTONS_ANCHOR_OFFSET);
+        AnchorPane.setLeftAnchor(battleButton, BUTTONS_ANCHOR_OFFSET);
+        battleButton.prefWidthProperty().bind(root.widthProperty().multiply(BUTTONS_WIDTH_MULTIPLIER));
+        battleButton.prefHeightProperty().bind(root.heightProperty().multiply(BUTTONS_HEIGHT_MULTIPLIER));
 
         battleButton.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double newFontSize = newVal.doubleValue() * 0.2f;
-            battleButton.setStyle("-fx-font-size: " + newFontSize + "px;");
+            final double newFontSize = newVal.doubleValue() * FONT_SIZE_MULTIPLIER;
+            battleButton.setStyle("-fx-font-size: " + newFontSize + PIXEL_PROP);
         });
         battleButton.setOnAction(event -> this.controller.openBattleMode());
 
         this.shopButton = new Button("Shop");
         root.getChildren().add(shopButton);
-        AnchorPane.setBottomAnchor(shopButton, 20.0);
-        AnchorPane.setRightAnchor(shopButton, 20.0);
-        shopButton.prefWidthProperty().bind(root.widthProperty().multiply(0.1));
-        shopButton.prefHeightProperty().bind(root.heightProperty().multiply(0.15));
+        AnchorPane.setBottomAnchor(shopButton, BUTTONS_ANCHOR_OFFSET);
+        AnchorPane.setRightAnchor(shopButton, BUTTONS_ANCHOR_OFFSET);
+        shopButton.prefWidthProperty().bind(root.widthProperty().multiply(BUTTONS_WIDTH_MULTIPLIER));
+        shopButton.prefHeightProperty().bind(root.heightProperty().multiply(BUTTONS_HEIGHT_MULTIPLIER));
 
         shopButton.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double newFontSize = newVal.doubleValue() * 0.2;
-            shopButton.setStyle("-fx-font-size: " + newFontSize + "px;");
+            final double newFontSize = newVal.doubleValue() * FONT_SIZE_MULTIPLIER;
+            shopButton.setStyle("-fx-font-size: " + newFontSize + PIXEL_PROP);
         });
         shopButton.setOnAction(event -> this.controller.openShop());
+
+        final var canvas = (Canvas) this.root.lookup("#canvas");
+        canvas.setOnMousePressed(event -> { });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setController(final PlayerVillageController controller) {
         this.controller = controller;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(final PlayerVillageModel model) {
         this.redraw(model);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clearScene() {
         Platform.runLater(() -> {
@@ -69,6 +100,9 @@ public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ShopMenuView getShopMenuView() {
         return new ShopMenuJavaFXImpl(this.root);

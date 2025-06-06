@@ -12,21 +12,21 @@ public abstract class AbstractCompositeNode extends AbstractBehaviourNode {
     private int currentChildIndex;
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setBlackboard(final Blackboard blackboard) {
-        super.setBlackboard(blackboard);
-        this.children.forEach(child -> child.setBlackboard(blackboard));
-    }
-
-    /**
      * Constructs the composite node.
      *
      * @param children the list of child nodes
      */
     public AbstractCompositeNode(final List<AbstractBehaviourNode> children) {
         this.children = children;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setBlackboard(final Blackboard blackboard) {
+        super.setBlackboard(blackboard);
+        this.children.forEach(child -> child.setBlackboard(blackboard));
     }
 
     /**

@@ -9,7 +9,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Represents a {@link BattleReportView} JavaFX implementation.
+ */
 public class BattleReportViewJavaFXImpl implements BattleReportView {
+    private static final double BUTTON_WIDTH_MULTIPLIER = 0.15;
+    private static final double FONT_SIZE_MULTIPLIER = 0.1;
     private final AnchorPane root;
     private final StackPane menuContainer;
     private final Label starsLabel;
@@ -18,10 +23,15 @@ public class BattleReportViewJavaFXImpl implements BattleReportView {
     private final Label battleResultLabel;
     private BattleReportController controller;
 
+    /**
+     * Constructs the view.
+     *
+     * @param root the root UI node
+     */
     public BattleReportViewJavaFXImpl(final AnchorPane root) {
         this.root = root;
 
-        Label titleLabel = new Label("BATTLE REPORT");
+        final Label titleLabel = new Label("BATTLE REPORT");
         this.starsLabel = new Label("");
         this.destructionPercentageLabel = new Label("");
         this.troopCountLabel = new Label("");
@@ -33,15 +43,15 @@ public class BattleReportViewJavaFXImpl implements BattleReportView {
         this.setLabelAutoResize(this.troopCountLabel);
         this.setLabelAutoResize(this.battleResultLabel);
 
-        Button button = new Button("Go Back To Village");
-        button.prefWidthProperty().bind(root.widthProperty().multiply(0.15));
+        final Button button = new Button("Go Back To Village");
+        button.prefWidthProperty().bind(root.widthProperty().multiply(BUTTON_WIDTH_MULTIPLIER));
         button.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double newFontSize = newVal.doubleValue() * 0.1;
+            final double newFontSize = newVal.doubleValue() * FONT_SIZE_MULTIPLIER;
             button.setStyle("-fx-font-size: " + newFontSize + "px;");
         });
         button.setOnAction(event -> this.controller.goBackToVillage());
 
-        VBox menuBox = new VBox(20);
+        final VBox menuBox = new VBox(20);
         menuBox.setAlignment(Pos.CENTER);
         menuBox.setStyle("-fx-background-color: #FFFFFFBB; -fx-padding: 20px; -fx-border-color: black;");
 
@@ -64,13 +74,16 @@ public class BattleReportViewJavaFXImpl implements BattleReportView {
     }
 
     private void setLabelAutoResize(final Label label) {
-        label.prefWidthProperty().bind(root.widthProperty().multiply(0.15));
+        label.prefWidthProperty().bind(root.widthProperty().multiply(BUTTON_WIDTH_MULTIPLIER));
         label.widthProperty().addListener((obs, oldVal, newVal) -> {
-            final double newFontSize = newVal.doubleValue() * 0.1;
+            final double newFontSize = newVal.doubleValue() * FONT_SIZE_MULTIPLIER;
             label.setStyle("-fx-font-size: " + newFontSize + "px;");
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(final BattleReportModel model) {
         this.displayStars(model.getStars());
@@ -79,41 +92,65 @@ public class BattleReportViewJavaFXImpl implements BattleReportView {
         this.displayBattleResult(model.isVictory());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void displayDestructionPercentage(final double percentage) {
         Platform.runLater(() -> this.destructionPercentageLabel.setText("Destruction: " + (int) percentage + "%"));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void displayStars(final int stars) {
-        Platform.runLater(() ->this.starsLabel.setText("Stars: " + stars + " / 3"));
+        Platform.runLater(() -> this.starsLabel.setText("Stars: " + stars + " / 3"));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void displayStolenResources(final ResourceManager resources) {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void displayBattleResult(final boolean isVictory) {
-        Platform.runLater(() ->this.battleResultLabel.setText(isVictory ? "VICTORY!" : "DEFEAT!"));
+        Platform.runLater(() -> this.battleResultLabel.setText(isVictory ? "VICTORY!" : "DEFEAT!"));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void displayTroopCount(int troopCount) {
-        Platform.runLater(() ->this.troopCountLabel.setText("Used Troops: " + troopCount));
+    public void displayTroopCount(final int troopCount) {
+        Platform.runLater(() -> this.troopCountLabel.setText("Used Troops: " + troopCount));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void show() {
         this.menuContainer.setVisible(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clearScene() {
         this.root.getChildren().remove(this.menuContainer);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setController(final BattleReportController controller) {
         this.controller = controller;

@@ -7,7 +7,7 @@ import clashclass.ecs.GameObject;
 /**
  * Represents a {@link TroopDeathObserver} implementation for updating the defense buildings' AI.
  */
-public class DefenseBuildingsBattleBehaviorManager extends AbstractComponent implements TroopDeathObserver{
+public class DefenseBuildingsBattleBehaviorManager extends AbstractComponent implements TroopDeathObserver {
     private final BattleManagerController battleManagerController;
 
     /**
@@ -15,7 +15,7 @@ public class DefenseBuildingsBattleBehaviorManager extends AbstractComponent imp
      *
      * @param battleManagerController the battle manager controller
      */
-    public DefenseBuildingsBattleBehaviorManager(BattleManagerController battleManagerController) {
+    public DefenseBuildingsBattleBehaviorManager(final BattleManagerController battleManagerController) {
         this.battleManagerController = battleManagerController;
     }
 
@@ -23,7 +23,7 @@ public class DefenseBuildingsBattleBehaviorManager extends AbstractComponent imp
      * {@inheritDoc}
      */
     @Override
-    public void notifyDeath(GameObject destroyedTroop) {
+    public void notifyDeath(final GameObject destroyedTroop) {
         this.battleManagerController.updateTroopsState(destroyedTroop);
     }
 }

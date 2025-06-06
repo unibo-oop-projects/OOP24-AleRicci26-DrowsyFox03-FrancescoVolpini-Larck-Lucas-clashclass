@@ -1,8 +1,14 @@
 package clashclass.ai.pathfinding;
 
 import clashclass.commons.Vector2D;
-
-import java.util.*;
+import java.util.Queue;
+import java.util.Set;
+import java.util.PriorityQueue;
+import java.util.HashSet;
+import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents an implementation of A*, a well-know pathfinding algorithm.
@@ -67,7 +73,7 @@ public class AStarPathfindingImpl implements PathfindingAlgorithm {
             final var current = this.openSet.poll();
 
             if (current.equals(end)) {
-                var path = new ArrayList<AStarPathNode>();
+                final var path = new ArrayList<AStarPathNode>();
                 var currentNode = current;
                 while (currentNode != null) {
                     path.add(0, currentNode);
@@ -84,8 +90,8 @@ public class AStarPathfindingImpl implements PathfindingAlgorithm {
                     .forEach(neighborPosition -> {
                         final var neighbor = nodes.stream()
                                 .filter(node ->
-                                        (int)node.getPosition().x() == neighborPosition.x() &&
-                                        (int)node.getPosition().y() == neighborPosition.y())
+                                        (int) node.getPosition().x() == neighborPosition.x()
+                                     && (int) node.getPosition().y() == neighborPosition.y())
                                 .findFirst()
                                 .get();
 
@@ -93,13 +99,15 @@ public class AStarPathfindingImpl implements PathfindingAlgorithm {
                             return;
                         }
 
-                        final var newDistance = this.distanceHeuristic.calculateDistance(current.getPosition(), neighbor.getPosition());
+                        final var newDistance = this.distanceHeuristic
+                                .calculateDistance(current.getPosition(), neighbor.getPosition());
                         final var newCostG = current.getCostG() + neighbor.getCost() + newDistance;
 
                         if (!this.openSet.contains(neighbor) || newCostG < neighbor.getCostG()) {
                             neighbor.setParentNode(current);
                             neighbor.setCostG(newCostG);
-                            neighbor.setCostH(this.distanceHeuristic.calculateDistance(neighbor.getPosition(), end.getPosition()));
+                            neighbor.setCostH(this.distanceHeuristic
+                                    .calculateDistance(neighbor.getPosition(), end.getPosition()));
                             neighbor.setCostF(neighbor.getCostG() + neighbor.getCostH());
 
                             this.openSet.remove(neighbor);
@@ -118,7 +126,7 @@ public class AStarPathfindingImpl implements PathfindingAlgorithm {
         private float costH;
         private float costF;
 
-        public AStarPathNode(final PathNode pathNode) {
+        AStarPathNode(final PathNode pathNode) {
             this.pathNode = pathNode;
             this.costG = Float.POSITIVE_INFINITY;
             this.costH = Float.POSITIVE_INFINITY;
@@ -127,11 +135,13 @@ public class AStarPathfindingImpl implements PathfindingAlgorithm {
         }
 
         @Override
-        public boolean equals(Object obj) {
-            if (this == obj) return true;
-            AStarPathNode other = (AStarPathNode)obj;
-            return this.getPathNode().getPosition().x() == other.getPathNode().getPosition().x() &&
-                    this.getPathNode().getPosition().y() == other.getPathNode().getPosition().y();
+        public boolean equals(final Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            final AStarPathNode other = (AStarPathNode) obj;
+            return this.getPathNode().getPosition().x() == other.getPathNode().getPosition().x()
+                && this.getPathNode().getPosition().y() == other.getPathNode().getPosition().y();
         }
 
         @Override

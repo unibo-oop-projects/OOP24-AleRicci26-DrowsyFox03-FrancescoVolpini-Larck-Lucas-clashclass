@@ -5,7 +5,6 @@ package clashclass.battle.endbattle;
  * This interface defines the contract for classes that handle battle ending events.
  */
 public interface BattleEvent {
-    
     /**
      * Ends the current battle.
      * This method should be implemented by concrete classes to define

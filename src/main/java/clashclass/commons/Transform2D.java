@@ -120,7 +120,7 @@ public class Transform2D extends AbstractComponent implements PositionChangeObse
      */
     @Override
     public void notifyPositionChange(final Vector2D oldPosition, final Vector2D newPosition) {
-        for (PositionChangeObserver observer : positionObservers) {
+        for (final PositionChangeObserver observer : positionObservers) {
             observer.onPositionChanged(getGameObject(), oldPosition, newPosition);
         }
     }

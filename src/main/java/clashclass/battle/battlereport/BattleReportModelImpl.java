@@ -12,7 +12,8 @@ import clashclass.resources.ResourceManagerImpl;
  * Stores and manages the battle report data.
  */
 public class BattleReportModelImpl implements BattleReportModel {
-
+    private static final int RESOURCES_MAX_VALUE = 1_000_000;
+    private static final double HALF_VILLAGE_PERCENTAGE = 50.0;
     private double destructionPercentage;
     private ResourceManager stolenResources;
     private boolean townHallDestroyed;
@@ -28,7 +29,7 @@ public class BattleReportModelImpl implements BattleReportModel {
      */
     public BattleReportModelImpl(final int totalBuildings) {
         this.destructionPercentage = 0.0;
-        this.stolenResources = new ResourceManagerImpl(1000000);
+        this.stolenResources = new ResourceManagerImpl(RESOURCES_MAX_VALUE);
         this.townHallDestroyed = false;
         this.totalBuildings = totalBuildings;
         this.destroyedBuildings = 0;
@@ -81,7 +82,7 @@ public class BattleReportModelImpl implements BattleReportModel {
         int stars = 0;
 
         // 1 star for 50% destruction
-        if (destructionPercentage >= 50.0) {
+        if (destructionPercentage >= HALF_VILLAGE_PERCENTAGE) {
             stars++;
         }
 
@@ -119,7 +120,7 @@ public class BattleReportModelImpl implements BattleReportModel {
      */
     @Override
     public void addStolenResources(final ResourceManager resources) {
-//        this.stolenResources.addResources(resources);
+        // this.stolenResources.addResources(resources);
     }
 
     /**
@@ -162,11 +163,17 @@ public class BattleReportModelImpl implements BattleReportModel {
         return getStars() > 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setGameStateManager(final GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameStateManager getGameStateManager() {
         return this.gameStateManager;

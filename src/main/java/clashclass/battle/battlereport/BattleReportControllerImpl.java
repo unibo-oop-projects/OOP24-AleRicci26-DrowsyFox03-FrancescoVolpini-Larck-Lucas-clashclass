@@ -9,7 +9,6 @@ import clashclass.resources.ResourceManager;
  * Coordinates between the model and view components of the battle report.
  */
 public class BattleReportControllerImpl implements BattleReportController {
-
     private final BattleReportModel model;
     private final BattleReportView view;
 
@@ -74,21 +73,33 @@ public class BattleReportControllerImpl implements BattleReportController {
         return model.getDestructionPercentage();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void show() {
         this.view.show();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clearScene() {
         this.view.clearScene();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setGameStateManager(final GameStateManager gameStateManager) {
         this.model.setGameStateManager(gameStateManager);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void goBackToVillage() {
         this.model.getGameStateManager().setStatePlayerVillage();

@@ -8,4 +8,4 @@ package clashclass.commons;
  * @param width the width
  * @param height the height
  */
-public record Rect2D(int x, int y, int width, int height) {}
+public record Rect2D(int x, int y, int width, int height) { }

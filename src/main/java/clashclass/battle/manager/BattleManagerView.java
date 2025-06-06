@@ -1,7 +1,6 @@
 package clashclass.battle.manager;
 
 import clashclass.battle.battlereport.BattleReportView;
-import clashclass.engine.GameEngine;
 
 /**
  * Represents the View-part of the battle manager.
@@ -41,7 +40,7 @@ public interface BattleManagerView {
     void endBattle(BattleManagerModel model);
 
     /**
-     * Gets the view implementation of {@link BattleReportView}
+     * Gets the view implementation of {@link BattleReportView}.
      *
      * @return the instance of {@link BattleReportView}
      */

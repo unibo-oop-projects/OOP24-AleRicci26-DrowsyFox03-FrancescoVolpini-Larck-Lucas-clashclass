@@ -24,7 +24,7 @@ public interface ComponentFactory {
      * @return the created component
      */
     Component createHealth(int maxValue);
-    
+
     /**
      * Creates a GraphicComponent with specified dimensions.
      *
@@ -35,5 +35,12 @@ public interface ComponentFactory {
      */
     Component createGraphic(double width, double height);
 
-    Component createProgressBar(final String colorEx);
+    /**
+     * Creates a ProgressBar component.
+     *
+     * @param colorEx the color of the progress bar
+     *
+     * @return the created component
+     */
+    Component createProgressBar(String colorEx);
 }

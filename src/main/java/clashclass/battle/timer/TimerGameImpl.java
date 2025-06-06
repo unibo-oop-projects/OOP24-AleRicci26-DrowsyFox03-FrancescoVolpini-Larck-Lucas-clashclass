@@ -1,24 +1,39 @@
 package clashclass.battle.timer;
 
+/**
+ * Represents a simple {@link Timer} implementation.
+ */
 public class TimerGameImpl implements Timer {
     private long startTime;
     private long endTime;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         this.startTime = System.currentTimeMillis();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void stop() {
         this.endTime = System.currentTimeMillis() - startTime;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onFinished() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public long getElapsedTime() {
         return (System.currentTimeMillis() - startTime) / 1000;

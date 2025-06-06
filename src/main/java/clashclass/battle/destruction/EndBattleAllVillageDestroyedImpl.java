@@ -2,13 +2,12 @@ package clashclass.battle.destruction;
 
 import clashclass.battle.battlereport.BattleReportController;
 import clashclass.battle.endbattle.AbstractBattleEvent;
-import clashclass.battle.endbattle.BattleEvent;
 import clashclass.battle.manager.BattleManagerController;
 import clashclass.ecs.AbstractComponent;
 import clashclass.ecs.GameObject;
 
 /**
- * Implementation of EndBattleAllVillageDestroyed interface
+ * Implementation of EndBattleAllVillageDestroyed interface.
  */
 public class EndBattleAllVillageDestroyedImpl extends AbstractComponent implements EndBattleAllVillageDestroyed {
     private final BattleManagerController battleManagerController;
@@ -16,18 +15,21 @@ public class EndBattleAllVillageDestroyedImpl extends AbstractComponent implemen
     private boolean isFullyDestroyed;
 
     /**
-     * Initialize the flag of the village to not destroyed
+     * Initialize the flag of the village to not destroyed.
+     *
+     * @param battleManagerController the battle manager controller
+     * @param battleReportController the battle report controller
      */
     public EndBattleAllVillageDestroyedImpl(
             final BattleManagerController battleManagerController,
             final BattleReportController battleReportController) {
         this.battleManagerController = battleManagerController;
         this.battleReportController = battleReportController;
-        this.isFullyDestroyed=false;
+        this.isFullyDestroyed = false;
     }
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     public boolean isFullyDestroyed() {
@@ -38,12 +40,12 @@ public class EndBattleAllVillageDestroyedImpl extends AbstractComponent implemen
      * {@inheritDoc}
      */
     @Override
-    public void notifyDestruction(GameObject obj) {
-        if(isFullyDestroyed()){
+    public void notifyDestruction(final GameObject obj) {
+        if (isFullyDestroyed()) {
             new AbstractBattleEvent(this.battleManagerController) {
                 @Override
                 public void endBattle() {
-                    EndBattle(obj);
+                    endBattleInternal(obj);
                 }
             }.endBattle();
         }

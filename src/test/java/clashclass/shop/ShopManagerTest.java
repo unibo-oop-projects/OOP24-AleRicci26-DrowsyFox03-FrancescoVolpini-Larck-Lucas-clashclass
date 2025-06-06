@@ -1,6 +1,6 @@
 package clashclass.shop;
 
-import clashclass.resources.RESOURCE_TYPE;
+import clashclass.resources.ResourceType;
 import clashclass.resources.Player;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,8 +22,8 @@ public class ShopManagerTest {
     @BeforeEach
     void setUp() {
         this.player = new Player();
-        this.affordableItem = new ShopItemImpl(RESOURCE_TYPE.GOLD, AFFORDABLE_PRICE, player);  // can afford
-        this.expensiveItem = new ShopItemImpl(RESOURCE_TYPE.GOLD, EXPENSIVE_PRICE, player);  // cannot afford
+        this.affordableItem = new ShopItemImpl(ResourceType.GOLD, AFFORDABLE_PRICE, player);  // can afford
+        this.expensiveItem = new ShopItemImpl(ResourceType.GOLD, EXPENSIVE_PRICE, player);  // cannot afford
         this.shopManager = new ShopManagerImpl(List.of(affordableItem, expensiveItem));
     }
 
@@ -50,8 +50,8 @@ public class ShopManagerTest {
 
     @Test
     void testFindItemsByResourceType() {
-        List<ShopItem> items = shopManager.findItemsByResourceType(RESOURCE_TYPE.GOLD);
+        List<ShopItem> items = shopManager.findItemsByResourceType(ResourceType.GOLD);
         assertEquals(2, items.size());
-        assertTrue(items.stream().allMatch(item -> item.getResourceType() == RESOURCE_TYPE.GOLD));
+        assertTrue(items.stream().allMatch(item -> item.getResourceType() == ResourceType.GOLD));
     }
 }

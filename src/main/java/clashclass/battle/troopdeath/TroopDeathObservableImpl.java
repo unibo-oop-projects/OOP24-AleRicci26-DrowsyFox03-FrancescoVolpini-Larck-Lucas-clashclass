@@ -16,7 +16,7 @@ public class TroopDeathObservableImpl extends AbstractComponent implements Troop
      * {@inheritDoc}
      */
     @Override
-    public void addObserver(TroopDeathObserver observer) {
+    public void addObserver(final TroopDeathObserver observer) {
         this.observers.add(observer);
     }
 
@@ -24,7 +24,7 @@ public class TroopDeathObservableImpl extends AbstractComponent implements Troop
      * {@inheritDoc}
      */
     @Override
-    public void removeObserver(TroopDeathObserver observer) {
+    public void removeObserver(final TroopDeathObserver observer) {
         this.observers.remove(observer);
     }
 
@@ -32,7 +32,7 @@ public class TroopDeathObservableImpl extends AbstractComponent implements Troop
      * {@inheritDoc}
      */
     @Override
-    public void update(float deltaTime) {
+    public void update(final float deltaTime) {
         final var healthComponent = this.getGameObject().getComponentOfType(HealthComponent.class)
                 .orElseThrow(() -> new RuntimeException("Health component not found"));
 

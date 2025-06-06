@@ -3,7 +3,7 @@ package clashclass.commons;
 /**
  * Represents a static class for game constants.
  */
-public class GameConstants {
+public final class GameConstants {
     /**
      * The number of cells in the village (nxn).
      */
@@ -28,4 +28,6 @@ public class GameConstants {
      * The screen height.
      */
     public static final int SCREEN_HEIGHT = 400;
+
+    private GameConstants() { }
 }

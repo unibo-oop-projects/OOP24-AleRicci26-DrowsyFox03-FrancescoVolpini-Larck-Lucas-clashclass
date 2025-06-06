@@ -65,8 +65,11 @@ public class GameObjectImpl implements GameObject {
                 .findFirst();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public <T extends Component> Set<T> getComponentsOfType(Class<T> componentType) {
+    public <T extends Component> Set<T> getComponentsOfType(final Class<T> componentType) {
         return this.components.stream()
                 .filter(componentType::isInstance)
                 .map(componentType::cast)
@@ -83,6 +86,9 @@ public class GameObjectImpl implements GameObject {
         return Collections.unmodifiableSet(this.components);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameScene getScene() {
         return this.scene;

@@ -9,6 +9,7 @@ public abstract class AbstractComponent implements Component {
     /**
      * {@inheritDoc}
      */
+    @Override
     public final GameObject getGameObject() {
         return this.gameObject;
     }

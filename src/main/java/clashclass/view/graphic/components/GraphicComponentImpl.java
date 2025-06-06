@@ -5,11 +5,10 @@ import clashclass.view.graphic.Graphic;
 /**
  * Concrete implementation of GraphicComponent for rendering GameObjects.
  */
-public class GraphicComponentImpl extends BaseGraphicComponent {
-    
+public class GraphicComponentImpl extends AbstractGraphicComponent {
     /**
      * Creates a GraphicComponent with specified dimensions.
-     * 
+     *
      * @param width the width of the component
      * @param height the height of the component
      */
@@ -17,8 +16,11 @@ public class GraphicComponentImpl extends BaseGraphicComponent {
         super(width, height, 0);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void draw(Graphic graphics) {
-//        graphics.drawRectangle(this.getGameObject());
+    public void draw(final Graphic graphics) {
+        // graphics.drawRectangle(this.getGameObject());
     }
 }

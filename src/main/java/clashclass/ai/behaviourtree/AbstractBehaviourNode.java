@@ -35,6 +35,7 @@ public abstract class AbstractBehaviourNode implements BehaviourNode {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void restart() {
 
     }
@@ -48,7 +49,7 @@ public abstract class AbstractBehaviourNode implements BehaviourNode {
     }
 
     /**
-     * Gets the {@link BehaviourTree}'s {@link Blackboard} reference
+     * Gets the {@link BehaviourTree}'s {@link Blackboard} reference.
      *
      * @return the {@link BehaviourTree}'s {@link Blackboard} reference
      */

@@ -29,6 +29,7 @@ public class RepeatNode extends AbstractBehaviourNode {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void onEnter() {
         this.child.onEnter();
     }

@@ -1,7 +1,6 @@
 package clashclass.saveload;
 
 import clashclass.ecs.GameObject;
-
 import java.util.Set;
 
 /**
@@ -15,7 +14,12 @@ public interface VillageEncoder {
      * @return the encoded CSV String representation
      */
     String encode(Set<GameObject> gameObjects);
-    String getHeader();
 
+    /**
+     * Gets the header of the file.
+     *
+     * @return the header of the file
+     */
+    String getHeader();
 }
 

@@ -17,6 +17,7 @@ public class BuildingTypeComponentImpl extends AbstractComponent implements Buil
     public BuildingTypeComponentImpl(final VillageElementData buildingType) {
         this.buildingType = buildingType;
     }
+
     /**
      * @inheritDoc
      */

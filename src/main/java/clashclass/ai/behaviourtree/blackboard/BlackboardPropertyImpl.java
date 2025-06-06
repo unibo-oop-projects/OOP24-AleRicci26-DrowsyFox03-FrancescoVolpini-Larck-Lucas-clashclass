@@ -32,7 +32,7 @@ public class BlackboardPropertyImpl<T> implements BlackboardProperty<T> {
      * {@inheritDoc}
      */
     @Override
-    public void setValue(T value) {
+    public void setValue(final T value) {
        this.value = value;
     }
 

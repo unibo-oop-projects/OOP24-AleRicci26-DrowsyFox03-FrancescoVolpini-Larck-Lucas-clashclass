@@ -8,4 +8,4 @@ import java.util.List;
  * @param pathNodes the list of path nodes
  * @param cost the total cost of the path
  */
-public record PathResult(List<PathNode> pathNodes, float cost) {}
+public record PathResult(List<PathNode> pathNodes, float cost) { }

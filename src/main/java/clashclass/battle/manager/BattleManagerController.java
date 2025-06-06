@@ -2,7 +2,7 @@ package clashclass.battle.manager;
 
 import clashclass.commons.Vector2D;
 import clashclass.ecs.GameObject;
-import clashclass.elements.troops.TROOP_TYPE;
+import clashclass.elements.troops.TroopType;
 import clashclass.gamestate.GameStateController;
 import clashclass.village.Village;
 
@@ -22,10 +22,12 @@ public interface BattleManagerController extends GameStateController {
      *
      * @param troop the current selected troop
      */
-    void setCurrentSelectedTroop(TROOP_TYPE troop);
+    void setCurrentSelectedTroop(TroopType troop);
 
     /**
      * Creates a new troop in the battle village.
+     *
+     * @param position the position of the troop
      */
     void createTroop(Vector2D position);
 
@@ -57,7 +59,17 @@ public interface BattleManagerController extends GameStateController {
      */
     void updateTroopsState(GameObject destroyedTroop);
 
+    /**
+     * Checks if the battle time is finished.
+     *
+     * @return true if the battle time is finished
+     */
     boolean isBattleTimeFinished();
 
+    /**
+     * Checks if all the troops are dead.
+     *
+     * @return true if all the troops are dead
+     */
     boolean areAllTroopsDead();
 }

@@ -25,5 +25,8 @@ public interface BehaviourTree extends Component, UpdateProvider {
      */
     void restart();
 
+    /**
+     * Stops the Behaviour Tree.
+     */
     void stop();
 }

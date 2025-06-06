@@ -44,13 +44,17 @@ public class ChooseNextTargetTroopNode extends AbstractBehaviourNode {
         final var actor = this.actorProp.getValue();
         final var troops = this.troopsProp.getValue().list();
 
-        if (troops.isEmpty()) return State.RUNNING;
+        if (troops.isEmpty()) {
+            return State.RUNNING;
+        }
 
         final var stats = actor.getComponentOfType(DefenseBuildingBaseStatsComponent.class)
                 .orElseThrow(() -> new RuntimeException("No DefenseBuildingBaseStatsComponent found"));
 
         final var nextTarget = chooseTargetLogic.chooseTarget(actor, troops);
-        if (nextTarget.isMarkedAsDestroyed()) return State.RUNNING;
+        if (nextTarget.isMarkedAsDestroyed()) {
+            return State.RUNNING;
+        }
         final var actorPosition = actor.getComponentOfType(Transform2D.class).get().getPosition();
         final var targetPosition = nextTarget.getComponentOfType(Transform2D.class).get().getPosition();
 

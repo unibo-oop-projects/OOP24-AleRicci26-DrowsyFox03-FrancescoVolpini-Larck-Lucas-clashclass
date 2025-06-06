@@ -15,6 +15,7 @@ import java.util.Queue;
  * Represents a node used to move towards the current target.
  */
 public class GoToTargetNode extends AbstractBehaviourNode {
+    private static final float SPEED = 15.0f;
     private final float distanceToTargetTolerance;
     private BlackboardProperty<GameObject> actorProp;
     private BlackboardProperty<PathNodeListWrapper> pathProp;
@@ -61,7 +62,7 @@ public class GoToTargetNode extends AbstractBehaviourNode {
         final var actorPosition = actor.getComponentOfType(Transform2D.class).get().getPosition();
 
         if (this.currentTarget.isEmpty()) {
-            this.currentTarget = Optional.of(this.remainingPathNodes.poll());
+            this.currentTarget = Optional.ofNullable(this.remainingPathNodes.poll());
         }
 
         final var targetPosition = ConversionUtility.convertGridToWorldPosition(
@@ -75,7 +76,7 @@ public class GoToTargetNode extends AbstractBehaviourNode {
         }
 
         final var actorTransform = actor.getComponentOfType(Transform2D.class).get();
-        final var speed = 15; // TODO: get della speed corrente (può variare eventualmente ad ogni frame)
+        final var speed = SPEED;
 
         final var movement = targetPosition
                 .subtract(actorPosition)

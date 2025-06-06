@@ -11,6 +11,7 @@ public interface Window {
 
     /**
      * Method to create a menu scene for this window.
+     *
      * @return a menu window as a BaseScene
      */
     BaseScene createMenuScene();

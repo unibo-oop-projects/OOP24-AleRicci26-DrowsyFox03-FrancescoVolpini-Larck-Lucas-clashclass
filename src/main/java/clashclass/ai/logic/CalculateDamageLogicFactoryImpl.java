@@ -9,37 +9,10 @@ import clashclass.stats.TroopBaseStatsComponent;
  */
 public class CalculateDamageLogicFactoryImpl implements CalculateDamageLogicFactory {
     /**
-     * Represents a default damage logic for troops.
-     */
-    private static final class DefaultTroopsDamageLogic implements CalculateDamageLogic {
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public int calculateDamage(GameObject actor, GameObject target) {
-            return actor.getComponentOfType(TroopBaseStatsComponent.class).get().getDamage();
-        }
-    }
-
-    /**
-     * Represents a default damage logic for defenses.
-     */
-    private static final class DefaultDefensesDamageLogic implements CalculateDamageLogic {
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public int calculateDamage(GameObject actor, GameObject target) {
-            return actor.getComponentOfType(DefenseBuildingBaseStatsComponent.class).get().getDamage();
-        }
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
     public DamageLogicComponent createForBarbarian() {
-
         return new DamageLogicComponent(new DefaultTroopsDamageLogic());
     }
 
@@ -65,5 +38,31 @@ public class CalculateDamageLogicFactoryImpl implements CalculateDamageLogicFact
     @Override
     public DamageLogicComponent createForArcherTower() {
         return new DamageLogicComponent(new DefaultDefensesDamageLogic());
+    }
+
+    /**
+     * Represents a default damage logic for troops.
+     */
+    private static final class DefaultTroopsDamageLogic implements CalculateDamageLogic {
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public int calculateDamage(final GameObject actor, final GameObject target) {
+            return actor.getComponentOfType(TroopBaseStatsComponent.class).get().getDamage();
+        }
+    }
+
+    /**
+     * Represents a default damage logic for defenses.
+     */
+    private static final class DefaultDefensesDamageLogic implements CalculateDamageLogic {
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public int calculateDamage(final GameObject actor, final GameObject target) {
+            return actor.getComponentOfType(DefenseBuildingBaseStatsComponent.class).get().getDamage();
+        }
     }
 }

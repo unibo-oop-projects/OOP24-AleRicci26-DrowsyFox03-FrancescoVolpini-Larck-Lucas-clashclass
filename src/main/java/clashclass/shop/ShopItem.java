@@ -1,8 +1,7 @@
 package clashclass.shop;
 
-import clashclass.elements.buildings.BUILDING_FLAG;
 import clashclass.elements.buildings.VillageElementData;
-import clashclass.resources.RESOURCE_TYPE;
+import clashclass.resources.ResourceType;
 import clashclass.resources.ResourceManager;
 
 /**
@@ -21,14 +20,19 @@ public interface ShopItem {
      *
      * @return the item's price as a double
      */
-    double getPrice ();
+    double getPrice();
 
     /**
-     * Return the resource type associated with the item
+     * Return the resource type associated with the item.
      *
      * @return the resource type
      */
-    RESOURCE_TYPE getResourceType();
+    ResourceType getResourceType();
 
+    /**
+     * Gets the building.
+     *
+     * @return the building
+     */
     VillageElementData getBuilding();
 }

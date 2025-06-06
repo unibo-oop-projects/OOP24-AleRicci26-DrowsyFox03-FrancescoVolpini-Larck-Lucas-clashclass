@@ -5,7 +5,6 @@ import clashclass.ecs.UpdateProvider;
 
 /**
  * Indicates that an object can be observed for troop death events.
- *
  * Each troop in the game has its own TroopDeathObservable instance,
  * which allows TroopDeathObservers to subscribe and get notified
  * when the troop is destroyed.

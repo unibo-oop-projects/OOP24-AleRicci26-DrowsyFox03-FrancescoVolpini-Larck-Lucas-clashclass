@@ -29,6 +29,7 @@ public class RootNode extends AbstractBehaviourNode {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void onEnter() {
         this.child.onEnter();
     }

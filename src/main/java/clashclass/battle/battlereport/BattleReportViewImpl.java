@@ -7,7 +7,6 @@ import clashclass.resources.ResourceManager;
  * Handles displaying the battle report to the user in a Clash of Clans style.
  */
 public class BattleReportViewImpl implements BattleReportView {
-
     // Constants for star display
     private static final String STAR_FILLED = "★";
     private static final String STAR_EMPTY = "☆";
@@ -41,7 +40,7 @@ public class BattleReportViewImpl implements BattleReportView {
      */
     @Override
     public void displayStars(final int stars) {
-        StringBuilder starDisplay = new StringBuilder();
+        final StringBuilder starDisplay = new StringBuilder();
 
         // Add filled stars
         for (int i = 0; i < stars; i++) {
@@ -63,8 +62,8 @@ public class BattleReportViewImpl implements BattleReportView {
     @Override
     public void displayStolenResources(final ResourceManager resources) {
         System.out.println("Resources stolen:");
-//        System.out.println("  Gold: " + resources.getGold());
-//        System.out.println("  Elixir: " + resources.getElixir());
+        // System.out.println("  Gold: " + resources.getGold());
+        // System.out.println("  Elixir: " + resources.getElixir());
     }
 
     /**
@@ -100,7 +99,7 @@ public class BattleReportViewImpl implements BattleReportView {
     }
 
     @Override
-    public void setController(BattleReportController controller) {
+    public void setController(final BattleReportController controller) {
 
     }
 
@@ -113,7 +112,7 @@ public class BattleReportViewImpl implements BattleReportView {
         System.out.println("=== BATTLE REPORT ===");
 
         // Display stars
-        StringBuilder starDisplay = new StringBuilder();
+        final StringBuilder starDisplay = new StringBuilder();
         for (int i = 0; i < model.getStars(); i++) {
             starDisplay.append(STAR_FILLED);
         }
@@ -128,8 +127,8 @@ public class BattleReportViewImpl implements BattleReportView {
         // Display resources
         ResourceManager resources = model.getStolenResources();
         System.out.println("Resources stolen:");
-//        System.out.println("  Gold: " + resources.getGold());
-//        System.out.println("  Elixir: " + resources.getElixir());
+        // System.out.println("  Gold: " + resources.getGold());
+        // System.out.println("  Elixir: " + resources.getElixir());
 
         // Display troop count
         System.out.println("Troops used: " + model.getTroopCount());

@@ -16,6 +16,9 @@ public class BattleTroopFactoryImpl extends AbstractTroopFactory {
     private final CalculateDamageLogicFactory damageLogicFactory;
     private final String progressBarColorEx = "#C906B3";
 
+    /**
+     * Constructs the factory.
+     */
     public BattleTroopFactoryImpl() {
         this.behaviourTreeFactory = new BehaviourTreeTroopFactoryImpl();
         this.damageLogicFactory = new CalculateDamageLogicFactoryImpl();

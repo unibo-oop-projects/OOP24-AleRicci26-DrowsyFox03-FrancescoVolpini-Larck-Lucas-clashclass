@@ -46,7 +46,7 @@ public abstract class AbstractTroopFactory implements TroopFactory {
         return this.createWithFactoryMethod(this::createAdditionalBarbarianComponents,
             builder -> builder
                     .addComponent(this.componentFactory.createTransform2D(position))
-                    .addComponent(new ImageRendererImpl(TROOP_TYPE.BARBARIAN.getName(), 1)));
+                    .addComponent(new ImageRendererImpl(TroopType.BARBARIAN.getName(), 1)));
     }
 
     /**
@@ -57,7 +57,7 @@ public abstract class AbstractTroopFactory implements TroopFactory {
         return this.createWithFactoryMethod(this::createAdditionalArcherComponents,
             builder -> builder
                     .addComponent(this.componentFactory.createTransform2D(position))
-                    .addComponent(new ImageRendererImpl(TROOP_TYPE.ARCHER.getName(), 1)));
+                    .addComponent(new ImageRendererImpl(TroopType.ARCHER.getName(), 1)));
     }
 
     /**

@@ -3,7 +3,7 @@ package clashclass.battle.timer;
 import java.util.Optional;
 
 /**
- * Represent the Timer Implementation
+ * Represent the Timer Implementation.
  */
 public class TimerImpl implements Timer {
 
@@ -13,6 +13,9 @@ public class TimerImpl implements Timer {
     private Thread timerThread;
     private long startTime;
 
+    /**
+     * Constructs the timer.
+     */
     public TimerImpl() {
         this.isRunning = false;
     }
@@ -44,7 +47,7 @@ public class TimerImpl implements Timer {
             timerThread.interrupt();
             try {
                 timerThread.join(); // Wait for the timer thread to finish execution
-            } catch (InterruptedException e) {
+            } catch (final InterruptedException e) {
                 Thread.currentThread().interrupt(); // Propagate the interrupt status
             }
         }
@@ -77,14 +80,14 @@ public class TimerImpl implements Timer {
     private void runTimer() {
         try {
             while (isRunning) {
-                long elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000;
+                final long elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000;
                 if (elapsedSeconds >= TIME_LIMIT) {
                     onFinished();
                     break;
                 }
                 Thread.sleep(TIME_UNIT);
             }
-        } catch (InterruptedException e) {
+        } catch (final InterruptedException e) {
             if (isRunning) {
                 Thread.currentThread().interrupt(); // Re-interrupt if necessary
             }

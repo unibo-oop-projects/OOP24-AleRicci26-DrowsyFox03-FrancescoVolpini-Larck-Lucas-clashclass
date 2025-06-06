@@ -19,6 +19,8 @@ public class BattleTroopsBehaviorManagerImpl extends AbstractComponent implement
     /**
      * Constructor for BattleTroopsBehaviorManagerImpl.
      * Initializes the list of troops.
+     *
+     * @param battleManagerController the battle manager controller
      */
     public BattleTroopsBehaviorManagerImpl(final BattleManagerController battleManagerController) {
         this.troops = new ArrayList<>();
@@ -42,7 +44,7 @@ public class BattleTroopsBehaviorManagerImpl extends AbstractComponent implement
         this.battleManagerController.updateVillageState(destroyedBuilding);
 
         // For now, just log that the behavior is being updated
-//        System.out.println("Updating troops behavior after destruction event");
+        // System.out.println("Updating troops behavior after destruction event");
     }
 
     /**
@@ -50,7 +52,7 @@ public class BattleTroopsBehaviorManagerImpl extends AbstractComponent implement
      *
      * @param troop the troop to add
      */
-    public void addTroop(GameObject troop) {
+    public void addTroop(final GameObject troop) {
         if (troop != null && !troops.contains(troop)) {
             troops.add(troop);
         }
@@ -61,7 +63,7 @@ public class BattleTroopsBehaviorManagerImpl extends AbstractComponent implement
      *
      * @param troop the troop to remove
      */
-    public void removeTroop(GameObject troop) {
+    public void removeTroop(final GameObject troop) {
         troops.remove(troop);
     }
 }

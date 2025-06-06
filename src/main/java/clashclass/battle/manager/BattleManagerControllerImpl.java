@@ -3,7 +3,7 @@ package clashclass.battle.manager;
 import clashclass.ai.behaviourtree.BehaviourTree;
 import clashclass.commons.Vector2D;
 import clashclass.ecs.GameObject;
-import clashclass.elements.troops.TROOP_TYPE;
+import clashclass.elements.troops.TroopType;
 import clashclass.gamestate.GameStateManager;
 import clashclass.village.Village;
 
@@ -74,7 +74,7 @@ public class BattleManagerControllerImpl implements BattleManagerController {
      * {@inheritDoc}
      */
     @Override
-    public void setCurrentSelectedTroop(final TROOP_TYPE troop) {
+    public void setCurrentSelectedTroop(final TroopType troop) {
         this.model.setCurrentSelectedTroop(troop);
         this.view.updateArmyCampTroopsCount(this.model);
     }
@@ -120,11 +120,17 @@ public class BattleManagerControllerImpl implements BattleManagerController {
         this.model.updateTroopsState(destroyedTroop);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isBattleTimeFinished() {
         return this.model.isBattleTimeFinished();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean areAllTroopsDead() {
         return this.model.areAllTroopsDead();

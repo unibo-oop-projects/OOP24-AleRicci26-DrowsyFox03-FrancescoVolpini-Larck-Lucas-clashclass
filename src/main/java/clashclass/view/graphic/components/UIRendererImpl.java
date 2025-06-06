@@ -4,17 +4,35 @@ import clashclass.view.graphic.Graphic;
 
 import java.util.function.Consumer;
 
-public class UIRendererImpl extends BaseGraphicComponent {
-    private Consumer<Graphic> drawFunction = x -> {};
+/**
+ * Represents a general-purpose UI renderer.
+ */
+public class UIRendererImpl extends AbstractGraphicComponent {
+    private Consumer<Graphic> drawFunction = x -> { };
 
-    public UIRendererImpl(double width, double height, int layer) {
+    /**
+     * Constructs the component.
+     *
+     * @param width the width
+     * @param height the height
+     * @param layer the layer
+     */
+    public UIRendererImpl(final double width, final double height, final int layer) {
         super(1, 1, 2 + layer);
     }
 
+    /**
+     * Sets the draw function delegate.
+     *
+     * @param drawFunction the draw function delegate
+     */
     public void setDrawFunction(final Consumer<Graphic> drawFunction) {
         this.drawFunction = drawFunction;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void draw(final Graphic graphics) {
         this.drawFunction.accept(graphics);

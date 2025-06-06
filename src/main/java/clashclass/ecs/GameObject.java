@@ -16,6 +16,11 @@ public interface GameObject {
      */
     int getUniqueId();
 
+    /**
+     * Sets the scene reference that holds this game object.
+     *
+     * @param scene the scene reference
+     */
     void setScene(GameScene scene);
 
     /**
@@ -35,6 +40,14 @@ public interface GameObject {
      */
     <T extends Component> Optional<T> getComponentOfType(Class<T> componentType);
 
+    /**
+     * Gets all the components of a specific type.
+     *
+     * @param componentType type of the components to get, can be either a class or an interface
+     * @param <T> the type of the components to get
+     *
+     * @return the set of components
+     */
     <T extends Component> Set<T> getComponentsOfType(Class<T> componentType);
 
     /**

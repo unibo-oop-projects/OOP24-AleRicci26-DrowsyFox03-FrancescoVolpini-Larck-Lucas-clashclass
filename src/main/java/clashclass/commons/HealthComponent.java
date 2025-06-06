@@ -28,7 +28,7 @@ public interface HealthComponent extends Component {
     boolean isDead();
 
     /**
-     * Getter method for current health value
+     * Getter method for current health value.
      *
      * @return the current value of health
      */

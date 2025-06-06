@@ -18,6 +18,7 @@ import java.util.List;
  * Represents a node used to find a valid path to the current target.
  */
 public class FindPathToTargetNode extends AbstractBehaviourNode {
+    private static final float VALID_PATH_COST_LIMIT = 995.0f;
     private final PathfindingAlgorithm pathfindingAlgorithm;
     private BlackboardProperty<GameObject> actorProp;
     private BlackboardProperty<PathNodeGrid> pathNodeGridProp;
@@ -66,11 +67,11 @@ public class FindPathToTargetNode extends AbstractBehaviourNode {
                 pathNodeGrid.getNode(actorGridPosition.x(), actorGridPosition.y()),
                 pathNodeGrid.getNode(targetGridPosition.x(), targetGridPosition.y()));
 
-        if (pathResult.cost() > 995.0f) {
-            List<PathNode> newPath = new ArrayList<>();
+        if (pathResult.cost() > VALID_PATH_COST_LIMIT) {
+            final List<PathNode> newPath = new ArrayList<>();
             GameObject wall = null;
 
-            for (var pathNode : pathResult.pathNodes()) {
+            for (final var pathNode : pathResult.pathNodes()) {
                 newPath.add(pathNode);
                 if (pathNode.getRefGameObject().isPresent() && pathNode.getRefGameObject().get()
                         .getComponentOfType(BuildingTypeComponentImpl.class).get()
@@ -82,8 +83,7 @@ public class FindPathToTargetNode extends AbstractBehaviourNode {
 
             this.pathProp.setValue(new PathNodeListWrapper(newPath));
             this.targetProp.setValue(wall);
-        }
-        else {
+        } else {
             this.pathProp.setValue(new PathNodeListWrapper(pathResult.pathNodes()));
         }
 

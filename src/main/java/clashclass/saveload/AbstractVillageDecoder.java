@@ -4,9 +4,9 @@ import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactory;
 import clashclass.elements.buildings.VillageElementData;
-import clashclass.elements.troops.TROOP_TYPE;
+import clashclass.elements.troops.TroopType;
 import clashclass.resources.Player;
-import clashclass.resources.RESOURCE_TYPE;
+import clashclass.resources.ResourceType;
 import clashclass.village.Village;
 
 import java.util.Objects;
@@ -61,7 +61,7 @@ public abstract class AbstractVillageDecoder implements VillageDecoder {
                 }
 
                 try {
-                    final RESOURCE_TYPE type = RESOURCE_TYPE.valueOf(parts[0].trim());
+                    final ResourceType type = ResourceType.valueOf(parts[0].trim());
                     final int current = Integer.parseInt(parts[1].trim());
                     // final int max = Integer.parseInt(parts[2].trim());
 
@@ -93,7 +93,7 @@ public abstract class AbstractVillageDecoder implements VillageDecoder {
                     continue;
                 }
 
-                final TROOP_TYPE type = TROOP_TYPE
+                final TroopType type = TroopType
                         .getValueFromName(parts[0])
                         .orElseThrow(() -> new IllegalArgumentException("Invalid type: " + parts[0]));
 

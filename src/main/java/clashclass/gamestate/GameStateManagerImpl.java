@@ -9,12 +9,22 @@ import clashclass.view.graphic.Graphic;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+/**
+ * Represents a {@link GameStateManager} implementation.
+ */
 public class GameStateManagerImpl implements GameStateManager {
     private final Supplier<GameStateController> playerVillageStateCreator;
     private final Supplier<GameStateController> battleStateCreator;
     private final GameEngine gameEngine;
     private GameStateController currentGameStateController;
 
+    /**
+     * Constructs the game state manager.
+     *
+     * @param graphic the graphics
+     * @param playerVillageStateCreator the player village state creator
+     * @param battleStateCreator the battle state creator
+     */
     public GameStateManagerImpl(
             final Graphic graphic,
             final Supplier<GameStateController> playerVillageStateCreator,
@@ -29,6 +39,9 @@ public class GameStateManagerImpl implements GameStateManager {
         this.setStatePlayerVillage();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setStatePlayerVillage() {
         this.clearCurrentState();
@@ -36,6 +49,9 @@ public class GameStateManagerImpl implements GameStateManager {
         this.currentGameStateController.setGameStateManager(this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setStateBattle() {
         this.clearCurrentState();
@@ -43,16 +59,25 @@ public class GameStateManagerImpl implements GameStateManager {
         this.currentGameStateController.setGameStateManager(this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameEngine getGameEngine() {
         return this.gameEngine;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void startEngine() {
         this.gameEngine.start();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void stopEngine() {
         this.gameEngine.stop();

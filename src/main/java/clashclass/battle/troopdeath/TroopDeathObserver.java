@@ -8,7 +8,7 @@ import clashclass.ecs.GameObject;
  */
 public interface TroopDeathObserver extends Component {
     /**
-     * Notify the death of a troop GameObject
+     * Notify the death of a troop GameObject.
      *
      * @param troop the troop that has died
      */

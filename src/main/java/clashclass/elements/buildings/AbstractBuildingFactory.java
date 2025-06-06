@@ -53,7 +53,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility
                                 .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
                         .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
-                        .addComponent(new BuildingFlagsComponent(EnumSet.of(BUILDING_FLAG.TOWN_HALL)))
+                        .addComponent(new BuildingFlagsComponent(EnumSet.of(BuildingFlag.TOWN_HALL)))
                         .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
@@ -68,7 +68,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility
                                 .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
                         .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
-                        .addComponent(new BuildingFlagsComponent(EnumSet.noneOf(BUILDING_FLAG.class)))
+                        .addComponent(new BuildingFlagsComponent(EnumSet.noneOf(BuildingFlag.class)))
                         .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
@@ -83,7 +83,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility
                                 .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
                         .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
-                        .addComponent(new BuildingFlagsComponent(EnumSet.of(BUILDING_FLAG.DEFENSE)))
+                        .addComponent(new BuildingFlagsComponent(EnumSet.of(BuildingFlag.DEFENSE)))
                         .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
@@ -98,7 +98,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility
                                 .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
                         .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
-                        .addComponent(new BuildingFlagsComponent(EnumSet.of(BUILDING_FLAG.DEFENSE)))
+                        .addComponent(new BuildingFlagsComponent(EnumSet.of(BuildingFlag.DEFENSE)))
                         .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
@@ -113,7 +113,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility
                                 .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
                         .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
-                        .addComponent(new BuildingFlagsComponent(EnumSet.noneOf(BUILDING_FLAG.class)))
+                        .addComponent(new BuildingFlagsComponent(EnumSet.noneOf(BuildingFlag.class)))
                         .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
@@ -128,7 +128,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility
                                 .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
                         .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
-                        .addComponent(new BuildingFlagsComponent(EnumSet.noneOf(BUILDING_FLAG.class)))
+                        .addComponent(new BuildingFlagsComponent(EnumSet.noneOf(BuildingFlag.class)))
                         .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
@@ -143,7 +143,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility
                                 .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
                         .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
-                        .addComponent(new BuildingFlagsComponent(EnumSet.noneOf(BUILDING_FLAG.class)))
+                        .addComponent(new BuildingFlagsComponent(EnumSet.noneOf(BuildingFlag.class)))
                         .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
@@ -158,7 +158,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility
                                 .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
                         .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
-                        .addComponent(new BuildingFlagsComponent(EnumSet.noneOf(BUILDING_FLAG.class)))
+                        .addComponent(new BuildingFlagsComponent(EnumSet.noneOf(BuildingFlag.class)))
                         .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
@@ -173,7 +173,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility
                                 .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
                         .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
-                        .addComponent(new BuildingFlagsComponent(EnumSet.noneOf(BUILDING_FLAG.class)))
+                        .addComponent(new BuildingFlagsComponent(EnumSet.noneOf(BuildingFlag.class)))
                         .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 
@@ -188,7 +188,7 @@ public abstract class AbstractBuildingFactory implements BuildingFactory {
                         .addComponent(this.componentFactory.createTransform2D(ConversionUtility
                                 .convertGridToWorldPosition(position, buildingData.getRowSpan(), buildingData.getColSpan())))
                         .addComponent(new GridTileData2D(position, buildingData.getRowSpan(), buildingData.getColSpan()))
-                        .addComponent(new BuildingFlagsComponent(EnumSet.noneOf(BUILDING_FLAG.class)))
+                        .addComponent(new BuildingFlagsComponent(EnumSet.noneOf(BuildingFlag.class)))
                         .addComponent(new ImageRendererImpl(buildingData.getName(), 1)));
     }
 

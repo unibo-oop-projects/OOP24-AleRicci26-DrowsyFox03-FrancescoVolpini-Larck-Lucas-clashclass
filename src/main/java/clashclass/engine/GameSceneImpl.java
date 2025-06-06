@@ -39,6 +39,9 @@ public class GameSceneImpl implements GameScene {
         this.componentsToUpdate.forEach(gameObject -> gameObject.update(deltaTime));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void checkForDestroyedGameObjects() {
         this.gameObjects.stream()
@@ -62,11 +65,17 @@ public class GameSceneImpl implements GameScene {
                 .forEach(c -> this.componentsToUpdate.add((UpdateProvider) c));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized Set<GameObject> getGameObjects() {
         return this.gameObjects;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized Set<GameObject> getGameObjectsCopy() {
         return new HashSet<>(this.getGameObjects());

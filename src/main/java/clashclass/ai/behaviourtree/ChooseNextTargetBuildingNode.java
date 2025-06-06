@@ -47,10 +47,14 @@ public class ChooseNextTargetBuildingNode extends AbstractBehaviourNode {
                         .getBuildingType().equals(VillageElementData.WALL))
                 .toList();
 
-        if (potentialTargets.isEmpty()) return State.RUNNING;
+        if (potentialTargets.isEmpty()) {
+            return State.RUNNING;
+        }
 
         final var nextTarget = chooseTargetLogic.chooseTarget(actor, potentialTargets);
-        if (nextTarget.isMarkedAsDestroyed()) return State.RUNNING;
+        if (nextTarget.isMarkedAsDestroyed()) {
+            return State.RUNNING;
+        }
         this.targetProp.setValue(nextTarget);
 
         return State.SUCCESS;

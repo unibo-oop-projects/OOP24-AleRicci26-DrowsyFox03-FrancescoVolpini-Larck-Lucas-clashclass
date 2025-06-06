@@ -23,7 +23,7 @@ public class DestructionObservableImpl extends AbstractComponent implements Dest
      * {@inheritDoc}
      */
     @Override
-    public void addObserver(DestructionObserver observer) {
+    public void addObserver(final DestructionObserver observer) {
         this.observers.add(observer);
     }
 
@@ -31,7 +31,7 @@ public class DestructionObservableImpl extends AbstractComponent implements Dest
      * {@inheritDoc}
      */
     @Override
-    public void removeObserver(DestructionObserver observer) {
+    public void removeObserver(final DestructionObserver observer) {
         this.observers.remove(observer);
     }
 
@@ -39,7 +39,7 @@ public class DestructionObservableImpl extends AbstractComponent implements Dest
      * {@inheritDoc}
      */
     @Override
-    public void update(float deltaTime) {
+    public void update(final float deltaTime) {
         final var healthComponent = this.getGameObject().getComponentOfType(HealthComponent.class)
                 .orElseThrow(() -> new RuntimeException("Health component not found"));
 

@@ -9,7 +9,6 @@ import clashclass.resources.ResourceManager;
  * Defines the data structure and operations for battle reports.
  */
 public interface BattleReportModel {
-
     /**
      * Get the current destruction percentage of the village.
      *
@@ -27,6 +26,8 @@ public interface BattleReportModel {
     /**
      * Increase the destruction percentage by a calculated amount.
      * This is called when a building is destroyed.
+     *
+     * @param destroyedBuilding the destroyed building
      */
     void increaseDestructionPercentage(GameObject destroyedBuilding);
 
@@ -98,7 +99,17 @@ public interface BattleReportModel {
      */
     boolean isVictory();
 
+    /**
+     * Sets the game state manager.
+     *
+     * @param gameStateManager the game state manager
+     */
     void setGameStateManager(GameStateManager gameStateManager);
 
+    /**
+     * Gets the game state manager.
+     *
+     * @return the game state manager
+     */
     GameStateManager getGameStateManager();
 }

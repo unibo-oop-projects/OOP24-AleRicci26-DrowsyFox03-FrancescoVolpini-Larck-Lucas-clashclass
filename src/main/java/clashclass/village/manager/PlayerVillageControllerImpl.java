@@ -1,13 +1,23 @@
 package clashclass.village.manager;
 
-import clashclass.ecs.GameObject;
 import clashclass.gamestate.GameStateManager;
 
+/**
+ * Represents a {@link PlayerVillageController} implementation.
+ */
 public class PlayerVillageControllerImpl implements PlayerVillageController {
     private final PlayerVillageModel model;
     private final PlayerVillageView view;
 
-    public PlayerVillageControllerImpl(final PlayerVillageModel model, final PlayerVillageView view) {
+    /**
+     * Constructs the player village controller.
+     *
+     * @param model the player village model
+     * @param view the player village view
+     */
+    public PlayerVillageControllerImpl(
+            final PlayerVillageModel model,
+            final PlayerVillageView view) {
         this.model = model;
         this.view = view;
 
@@ -21,16 +31,25 @@ public class PlayerVillageControllerImpl implements PlayerVillageController {
         this.view.update(this.model);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void openShop() {
         this.model.openShop();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void openBattleMode() {
         this.model.getGameStateManager().setStateBattle();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setGameStateManager(final GameStateManager gameStateManager) {
         this.model.setGameStateManager(gameStateManager);
@@ -42,6 +61,9 @@ public class PlayerVillageControllerImpl implements PlayerVillageController {
         this.updateView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clearScene() {
         this.model.clearScene();

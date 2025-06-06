@@ -8,7 +8,7 @@ import clashclass.ecs.GameObject;
  */
 public interface DestructionObserver extends Component {
     /**
-     * Notify the destruction of a GameObject
+     * Notify the destruction of a GameObject.
      *
      * @param obj the object that has been destroyed
      */

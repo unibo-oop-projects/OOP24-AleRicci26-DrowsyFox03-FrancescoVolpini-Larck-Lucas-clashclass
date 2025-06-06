@@ -6,10 +6,9 @@ import clashclass.ecs.GameObject;
  * Observer interface for position change notifications.
  */
 public interface PositionChangeObserver {
-    
     /**
      * Called when a GameObject's position changes.
-     * 
+     *
      * @param gameObject the GameObject that moved
      * @param oldPosition the previous position
      * @param newPosition the new position

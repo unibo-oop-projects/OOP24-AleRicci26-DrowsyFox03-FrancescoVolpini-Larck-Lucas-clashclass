@@ -1,6 +1,6 @@
 package clashclass.shop;
 
-import clashclass.resources.RESOURCE_TYPE;
+import clashclass.resources.ResourceType;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +16,7 @@ public class ShopManagerImpl implements ShopManager {
      *
      * @param shopItems list of items inside the shop
      */
-    public ShopManagerImpl(List<ShopItem> shopItems) {
+    public ShopManagerImpl(final List<ShopItem> shopItems) {
         this.shopItems = shopItems;
     }
 
@@ -24,7 +24,7 @@ public class ShopManagerImpl implements ShopManager {
      * {@inheritDoc}
      */
     @Override
-    public double getBalance(ShopItem shopItem) {
+    public double getBalance(final ShopItem shopItem) {
         return shopItem.getResourceManager().getCurrentValue();
     }
 
@@ -32,7 +32,7 @@ public class ShopManagerImpl implements ShopManager {
      * {@inheritDoc}
      */
     @Override
-    public boolean canAfford(ShopItem shopItem) {
+    public boolean canAfford(final ShopItem shopItem) {
         return shopItem.getPrice() <= this.getBalance(shopItem);
     }
 
@@ -40,7 +40,7 @@ public class ShopManagerImpl implements ShopManager {
      * {@inheritDoc}
      */
     @Override
-    public void buyItem(ShopItem shopItem) {
+    public void buyItem(final ShopItem shopItem) {
         if (this.canAfford(shopItem)) {
             shopItem.getResourceManager().decrease(shopItem.getPrice());
         }
@@ -50,12 +50,15 @@ public class ShopManagerImpl implements ShopManager {
      * {@inheritDoc}
      */
     @Override
-    public List<ShopItem> findItemsByResourceType(RESOURCE_TYPE type) {
+    public List<ShopItem> findItemsByResourceType(final ResourceType type) {
         return shopItems.stream()
                 .filter(item -> item.getResourceType() == type)
                 .collect(Collectors.toList());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ShopItem> getShopItems() {
         return this.shopItems;
