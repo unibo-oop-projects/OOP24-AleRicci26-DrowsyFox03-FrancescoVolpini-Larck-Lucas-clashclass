@@ -11,17 +11,34 @@ import clashclass.village.Village;
 
 import java.util.Objects;
 
+/**
+ * Represents an Abstract implementation of {@link VillageDecoder}.
+ */
 public abstract class AbstractVillageDecoder implements VillageDecoder {
+        private ComponentFactory componentFactory;
 
-        protected ComponentFactory componentFactory;
-
+        /**
+         * {@inheritDoc}
+         */
         @Override
-        public void setComponentFactory(ComponentFactory componentFactory) {
+        public void setComponentFactory(final ComponentFactory componentFactory) {
             this.componentFactory = componentFactory;
         }
 
+        /**
+         * Gets the component factory.
+         *
+         * @return the component factory
+         */
+        protected ComponentFactory getComponentFactory() {
+            return componentFactory;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
         @Override
-        public Village decode(String encodedVillage) {
+        public Village decode(final String encodedVillage) {
             Objects.requireNonNull(componentFactory, "ComponentFactory must be set before decoding");
 
             final Player player = new Player();
@@ -31,19 +48,25 @@ public abstract class AbstractVillageDecoder implements VillageDecoder {
 
             for (String line : lines) {
                 line = line.strip();
-                if (line.isEmpty() || line.startsWith("ResourceType")) continue;
-                if (line.startsWith("TroopType")) break;
+                if (line.isEmpty() || line.startsWith("ResourceType")) {
+                    continue;
+                }
+                if (line.startsWith("TroopType")) {
+                    break;
+                }
 
-                String[] parts = line.split(",", -1);
-                if (parts.length < 3) continue;
+                final String[] parts = line.split(",", -1);
+                if (parts.length < 3) {
+                    continue;
+                }
 
                 try {
-                    RESOURCE_TYPE type = RESOURCE_TYPE.valueOf(parts[0].trim());
-                    int current = Integer.parseInt(parts[1].trim());
-                    int max = Integer.parseInt(parts[2].trim());
+                    final RESOURCE_TYPE type = RESOURCE_TYPE.valueOf(parts[0].trim());
+                    final int current = Integer.parseInt(parts[1].trim());
+                    // final int max = Integer.parseInt(parts[2].trim());
 
                     player.getPlayerResources().get(type).increase(current);
-                } catch (IllegalArgumentException e) {
+                } catch (final IllegalArgumentException e) {
                     throw new IllegalArgumentException("Invalid resource type or values: " + line, e);
                 }
             }
@@ -53,22 +76,28 @@ public abstract class AbstractVillageDecoder implements VillageDecoder {
             for (String line : lines) {
                 line = line.strip();
                 if (!troopsSectionStarted) {
-                    if (!line.startsWith("TroopType")) continue;
+                    if (!line.startsWith("TroopType")) {
+                        continue;
+                    }
 
                     troopsSectionStarted = true;
                     continue;
                 }
 
-                if (line.startsWith("TYPE")) break;
+                if (line.startsWith("TYPE")) {
+                    break;
+                }
 
-                String[] parts = line.split(",", -1);
-                if (parts.length < 2) continue;
+                final String[] parts = line.split(",", -1);
+                if (parts.length < 2) {
+                    continue;
+                }
 
-                TROOP_TYPE type = TROOP_TYPE
+                final TROOP_TYPE type = TROOP_TYPE
                         .getValueFromName(parts[0])
                         .orElseThrow(() -> new IllegalArgumentException("Invalid type: " + parts[0]));
 
-                int count = Integer.parseInt(parts[1].trim());
+                final int count = Integer.parseInt(parts[1].trim());
                 player.addArmyCampTroop(type, count);
             }
 
@@ -77,21 +106,25 @@ public abstract class AbstractVillageDecoder implements VillageDecoder {
             for (String line : lines) {
                 line = line.strip();
                 if (!buildingsSectionStarted) {
-                    if (!line.startsWith("TYPE")) continue;
+                    if (!line.startsWith("TYPE")) {
+                        continue;
+                    }
 
                     buildingsSectionStarted = true;
                     continue;
                 }
 
-                String[] parts = line.split(",", -1);
-                if (parts.length < 4) continue;
+                final String[] parts = line.split(",", -1);
+                if (parts.length < 4) {
+                    continue;
+                }
 
-                VillageElementData type = VillageElementData
+                final VillageElementData type = VillageElementData
                         .getValueFromName(parts[0])
                         .orElseThrow(() -> new IllegalArgumentException("Invalid type: " + parts[0]));
 
-                int x = Integer.parseInt(parts[2].trim());
-                int y = Integer.parseInt(parts[3].trim());
+                final int x = Integer.parseInt(parts[2].trim());
+                final int y = Integer.parseInt(parts[3].trim());
 
                 final GameObject go = createGameObject(type, new VectorInt2D(x, y));
                 village.placeBuilding(go);
@@ -99,5 +132,13 @@ public abstract class AbstractVillageDecoder implements VillageDecoder {
             return village;
         }
 
+        /**
+         * Creates a game object representation of a building.
+         *
+         * @param type the type of the building
+         * @param position the position of the building
+         *
+         * @return the game object
+         */
         protected abstract GameObject createGameObject(VillageElementData type, VectorInt2D position);
-    }
+}

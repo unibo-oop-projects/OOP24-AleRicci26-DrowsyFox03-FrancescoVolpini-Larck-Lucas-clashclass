@@ -33,7 +33,17 @@ public interface BattleManagerView {
      */
     void clearScene();
 
+    /**
+     * Ends the battle.
+     *
+     * @param model the battle manager model
+     */
     void endBattle(BattleManagerModel model);
 
+    /**
+     * Gets the view implementation of {@link BattleReportView}
+     *
+     * @return the instance of {@link BattleReportView}
+     */
     BattleReportView buildBattleReportView();
 }
