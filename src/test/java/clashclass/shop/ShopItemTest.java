@@ -1,5 +1,7 @@
 package clashclass.shop;
 
+import clashclass.elements.buildings.VillageElementData;
+import clashclass.resources.ResourceManager;
 import clashclass.resources.ResourceType;
 import clashclass.resources.Player;
 import clashclass.resources.ResourceManagerImpl;
@@ -13,22 +15,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ShopItemTest {
 
     private Player mockPlayer;
-    private ResourceManagerImpl mockResourceManager;
-    private ShopItemImpl item;
+    private ResourceManager mockResourceManager;
+    private ShopItem item;
 
     @BeforeEach
     void setUp() {
-        mockResourceManager = new ResourceManagerImpl(100);
-        EnumMap<ResourceType, ResourceManagerImpl> resources = new EnumMap<>(ResourceType.class);
+        EnumMap<ResourceType, ResourceManager> resources = new EnumMap<>(ResourceType.class);
         resources.put(ResourceType.GOLD, mockResourceManager);
 
-        mockPlayer = new Player() {
-            @Override
-            public EnumMap<ResourceType, ResourceManagerImpl> getPlayerResources() {
-                return resources;
-            }
-        };
-        item = new ShopItemImpl(ResourceType.GOLD, 50.0, mockPlayer);
+        mockPlayer = new Player() { };
+        mockResourceManager = mockPlayer.getPlayerResources().get(ResourceType.GOLD);
+        item = new ShopItemImpl(VillageElementData.WALL, ResourceType.GOLD, 50.0, mockPlayer);
     }
 
     @Test

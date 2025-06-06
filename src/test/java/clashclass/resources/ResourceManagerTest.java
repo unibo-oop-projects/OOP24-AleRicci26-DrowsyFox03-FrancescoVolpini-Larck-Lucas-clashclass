@@ -1,6 +1,5 @@
-package java.clashclass.resources;
+package clashclass.resources;
 
-import clashclass.resources.ResourceManagerImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ResourceManagerTest {
     private static final int GENERIC_VALUE = 10;
     private ResourceManagerImpl resource;
+
      @BeforeEach
     public void setUp() {
          resource = new ResourceManagerImpl(GENERIC_VALUE);

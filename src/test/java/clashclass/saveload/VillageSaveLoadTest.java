@@ -1,6 +1,5 @@
 package clashclass.saveload;
 
-import clashclass.commons.Vector2D;
 import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactoryImpl;
@@ -103,7 +102,7 @@ class VillageSaveLoadTest {
 
     @Test
     void loadVillageFromResources() throws IOException {
-        Path resourcePath = Path.of("src/main/resources/villages/village01.csv");
+        Path resourcePath = Path.of("src/main/resources/Villages-Data/player-village.csv");
         String csv = Files.readString(resourcePath);
 
         final var objs = playerDecoder.decode(csv).getBuildings();

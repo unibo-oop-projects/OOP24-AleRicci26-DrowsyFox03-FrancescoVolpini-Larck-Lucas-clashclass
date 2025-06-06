@@ -1,7 +1,11 @@
 package clashclass.battle.battlereport;
 
+import clashclass.commons.VectorInt2D;
 import clashclass.ecs.GameObject;
 import clashclass.ecs.GameObjectImpl;
+import clashclass.elements.buildings.BattleBuildingFactoryImpl;
+import clashclass.elements.buildings.BuildingFactory;
+import clashclass.elements.buildings.PlayerBuildingFactoryImpl;
 import clashclass.resources.ResourceManager;
 import clashclass.resources.ResourceManagerImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +18,7 @@ public class BattleReportTest {
     private BattleReportModelImpl model;
     private BattleReportControllerImpl controller;
     private VillageDestructionManagerImpl destructionManager;
+    private BuildingFactory buildingFactory;
 
     @BeforeEach
     public void setUp() {
@@ -22,12 +27,13 @@ public class BattleReportTest {
         BattleReportViewImpl view = new BattleReportViewImpl();
         controller = new BattleReportControllerImpl(model, view);
         destructionManager = new VillageDestructionManagerImpl(controller);
+        buildingFactory = new BattleBuildingFactoryImpl();
     }
 
     @Test
     public void testIncreaseDestructionPercentage() {
         // Create a mock GameObject (real implementation not provided, so a dummy is used)
-        GameObject destroyedBuilding = new GameObjectImpl(); // Example object; simulate a building
+        GameObject destroyedBuilding = this.buildingFactory.createCannon(new VectorInt2D(0, 0));
 
         // Notify destruction
         destructionManager.notifyDestruction(destroyedBuilding);
@@ -85,7 +91,7 @@ public class BattleReportTest {
     @Test
     public void testGetDestructionPercentage() {
         // Simulate some destruction
-        GameObject destroyedBuilding = new GameObjectImpl(); // Dummy object
+        GameObject destroyedBuilding = this.buildingFactory.createCannon(new VectorInt2D(0, 0));
         destructionManager.notifyDestruction(destroyedBuilding);
 
         // Get the destruction percentage via the controller
@@ -98,9 +104,9 @@ public class BattleReportTest {
     @Test
     public void testGetStars() {
         // Destroy buildings to earn stars (simulate rules like 50% destruction earns 1 star)
-        GameObject building1 = new GameObjectImpl();
-        GameObject building2 = new GameObjectImpl();
-        GameObject building3 = new GameObjectImpl();
+        GameObject building1 = this.buildingFactory.createCannon(new VectorInt2D(0, 0));
+        GameObject building2 = this.buildingFactory.createCannon(new VectorInt2D(1, 0));
+        GameObject building3 = this.buildingFactory.createCannon(new VectorInt2D(0, 1));
 
         destructionManager.notifyDestruction(building1);
         destructionManager.notifyDestruction(building2);
@@ -115,9 +121,9 @@ public class BattleReportTest {
     @Test
     public void testIsVictory() {
         // Destroy buildings to earn a star (simulate rules like 50% destruction earns 1 star)
-        GameObject building1 = new GameObjectImpl();
-        GameObject building2 = new GameObjectImpl();
-        GameObject building3 = new GameObjectImpl();
+        GameObject building1 = this.buildingFactory.createCannon(new VectorInt2D(0, 0));
+        GameObject building2 = this.buildingFactory.createCannon(new VectorInt2D(1, 0));
+        GameObject building3 = this.buildingFactory.createCannon(new VectorInt2D(0, 1));
 
         destructionManager.notifyDestruction(building1);
         destructionManager.notifyDestruction(building2);
@@ -131,7 +137,7 @@ public class BattleReportTest {
     @Test
     public void testVillageDestructionManagerCoordinatesWithController() {
         // Create a destroyed building object
-        GameObject destroyedBuilding = new GameObjectImpl();
+        GameObject destroyedBuilding = this.buildingFactory.createCannon(new VectorInt2D(0, 0));
 
         // Notify destruction
         destructionManager.notifyDestruction(destroyedBuilding);

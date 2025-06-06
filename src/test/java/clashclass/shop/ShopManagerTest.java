@@ -1,5 +1,6 @@
 package clashclass.shop;
 
+import clashclass.elements.buildings.VillageElementData;
 import clashclass.resources.ResourceType;
 import clashclass.resources.Player;
 
@@ -22,8 +23,8 @@ public class ShopManagerTest {
     @BeforeEach
     void setUp() {
         this.player = new Player();
-        this.affordableItem = new ShopItemImpl(ResourceType.GOLD, AFFORDABLE_PRICE, player);  // can afford
-        this.expensiveItem = new ShopItemImpl(ResourceType.GOLD, EXPENSIVE_PRICE, player);  // cannot afford
+        this.affordableItem = new ShopItemImpl(VillageElementData.WALL, ResourceType.GOLD, AFFORDABLE_PRICE, player);  // can afford
+        this.expensiveItem = new ShopItemImpl(VillageElementData.CANNON, ResourceType.GOLD, EXPENSIVE_PRICE, player);  // cannot afford
         this.shopManager = new ShopManagerImpl(List.of(affordableItem, expensiveItem));
     }
 
