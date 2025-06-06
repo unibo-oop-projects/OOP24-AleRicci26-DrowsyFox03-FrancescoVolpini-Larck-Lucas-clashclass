@@ -16,7 +16,12 @@ public class BuildingFactoryMapper<F extends BuildingFactory> {
     private final Map<VillageElementData, Function<VectorInt2D, GameObject>> buildingIdToFactory;
     private final F factory;
 
-    public BuildingFactoryMapper(F factory) {
+    /**
+     * Constructs the building factory mapper.
+     *
+     * @param factory the factory
+     */
+    public BuildingFactoryMapper(final F factory) {
         this.factory = Objects.requireNonNull(factory);
         this.buildingIdToFactory = new EnumMap<>(VillageElementData.class);
         initializeMap();
@@ -49,6 +54,10 @@ public class BuildingFactoryMapper<F extends BuildingFactory> {
                         "No factory for " + buildingType));
         }
 
+    /**
+     * Gets the factory.
+     *
+     * @return the factory
+     */
     public F getFactory() {return factory;}
-
 }

@@ -22,26 +22,55 @@ public enum VillageElementData {
     private final int rowSpan;
     private final int colSpan;
 
+    /**
+     * Constructs the village element data.
+     *
+     * @param name the name of the element
+     * @param rowSpan the number of horizontal tiles of the element
+     * @param colSpan the number of vertical tiles of the element
+     */
     VillageElementData(String name, int rowSpan, int colSpan) {
         this.name = name;
         this.rowSpan = rowSpan;
         this.colSpan = colSpan;
     }
 
+    /**
+     * Gets the enum value from name.
+     *
+     * @param id the name
+     *
+     * @return the enum value
+     */
     public static Optional<VillageElementData> getValueFromName(String id) {
         return Arrays.stream(values())
                 .filter(x -> x.name.equalsIgnoreCase(id))
                 .findFirst();
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Gets the row span.
+     *
+     * @return the row span
+     */
     public int getRowSpan() {
         return this.rowSpan;
     }
 
+    /**
+     * Gets the col span.
+     *
+     * @return the col span
+     */
     public int getColSpan() {
         return this.colSpan;
     }
