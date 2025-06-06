@@ -36,8 +36,12 @@ public interface ShopManager {
 
     /**
      * Given the RESOURCE_TYPE returns all the items associated with that resource
+     *
      * @param type of the resource
+     *
      * @return a list of ShopItem
      */
     List<ShopItem> findItemsByResourceType(RESOURCE_TYPE type);
+
+    List<ShopItem> getShopItems();
 }

@@ -1,5 +1,6 @@
 package clashclass.shop;
 
+import clashclass.elements.buildings.VillageElementData;
 import clashclass.resources.Player;
 import clashclass.resources.RESOURCE_TYPE;
 import clashclass.resources.ResourceManager;
@@ -8,6 +9,7 @@ import clashclass.resources.ResourceManager;
  * Represents a ShopItem implementation.
  */
 public class ShopItemImpl implements ShopItem {
+    private final VillageElementData building;
     private final double price;
     private final RESOURCE_TYPE type;
     private final Player player;
@@ -18,7 +20,12 @@ public class ShopItemImpl implements ShopItem {
      * @param type the type of resource needed
      * @param price the price of the ShopItem
      */
-    public ShopItemImpl(RESOURCE_TYPE type, double price, Player player) {
+    public ShopItemImpl(
+            final VillageElementData building,
+            final RESOURCE_TYPE type,
+            final double price,
+            final Player player) {
+        this.building = building;
         this.type = type;
         this.price = price;
         this.player = player;
@@ -46,5 +53,10 @@ public class ShopItemImpl implements ShopItem {
     @Override
     public RESOURCE_TYPE getResourceType() {
         return this.type;
+    }
+
+    @Override
+    public VillageElementData getBuilding() {
+        return this.building;
     }
 }

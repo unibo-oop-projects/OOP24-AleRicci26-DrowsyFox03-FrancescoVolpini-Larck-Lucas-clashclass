@@ -1,0 +1,82 @@
+package clashclass.shop;
+
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.text.TextAlignment;
+
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+public class ShopMenuJavaFXImpl implements ShopMenuView {
+    private final AnchorPane root;
+    private final GridPane grid;
+    private ShopMenuController controller;
+
+    public ShopMenuJavaFXImpl(final AnchorPane root) {
+        this.root = root;
+
+        this.grid = new GridPane();
+        grid.setHgap(30);
+        grid.setVgap(30);
+
+        AnchorPane.setTopAnchor(grid, 0.0);
+        AnchorPane.setBottomAnchor(grid, 0.0);
+        AnchorPane.setLeftAnchor(grid, 0.0);
+        AnchorPane.setRightAnchor(grid, 0.0);
+
+        IntStream.iterate(0, i -> i + 1)
+                .limit(4)
+                .forEach(i -> grid.getColumnConstraints().add(new ColumnConstraints()));
+        IntStream.iterate(0, i -> i + 1)
+                .limit(2)
+                .forEach(i -> grid.getRowConstraints().add(new RowConstraints()));
+
+        root.getChildren().add(grid);
+        this.hide();
+    }
+
+    @Override
+    public void setController(final ShopMenuController controller) {
+        this.controller = controller;
+
+        final var items = controller.getShopManager().getShopItems();
+
+        IntStream.iterate(0, i -> i + 1)
+                .limit(Math.min(items.size(), 8))
+                .forEach(i -> {
+                    ShopItem item = items.get(i);
+                    Button button = new Button(
+                            item.getBuilding().getName() + "\n" +
+                                    item.getResourceType() + "\n" +
+                                    item.getPrice()
+                    );
+                    button.setWrapText(true);
+                    button.setTextAlignment(TextAlignment.CENTER);
+                    button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+                    int row = i / 4;
+                    int col = i % 4;
+                    grid.add(button, col, row);
+
+                    button.setOnAction(e -> controller.tryToBuyItem(item));
+                });
+    }
+
+    @Override
+    public void show() {
+        grid.setVisible(true);
+    }
+
+    @Override
+    public void hide() {
+        grid.setVisible(false);
+    }
+
+    @Override
+    public void clearScene() {
+        this.root.getChildren().remove(this.grid);
+    }
+}

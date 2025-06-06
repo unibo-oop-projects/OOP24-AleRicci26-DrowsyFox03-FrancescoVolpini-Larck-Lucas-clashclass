@@ -1,6 +1,8 @@
 package clashclass.village.manager;
 
 import clashclass.elements.commons.CommonGameObjectFactoryImpl;
+import clashclass.shop.ShopMenuJavaFXImpl;
+import clashclass.shop.ShopMenuView;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -65,6 +67,11 @@ public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
             this.root.getChildren().remove(this.battleButton);
             this.root.getChildren().remove(this.shopButton);
         });
+    }
+
+    @Override
+    public ShopMenuView getShopMenuView() {
+        return new ShopMenuJavaFXImpl(this.root);
     }
 
     private void redraw(final PlayerVillageModel model) {

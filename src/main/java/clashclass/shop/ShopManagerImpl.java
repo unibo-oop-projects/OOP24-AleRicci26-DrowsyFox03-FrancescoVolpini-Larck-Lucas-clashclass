@@ -55,4 +55,9 @@ public class ShopManagerImpl implements ShopManager {
                 .filter(item -> item.getResourceType() == type)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<ShopItem> getShopItems() {
+        return this.shopItems;
+    }
 }

@@ -10,6 +10,8 @@ public class PlayerVillageControllerImpl implements PlayerVillageController {
     public PlayerVillageControllerImpl(final PlayerVillageModel model, final PlayerVillageView view) {
         this.model = model;
         this.view = view;
+
+        this.model.buildShop(this.view.getShopMenuView());
         this.view.setController(this);
 
         this.updateView();
@@ -21,7 +23,7 @@ public class PlayerVillageControllerImpl implements PlayerVillageController {
 
     @Override
     public void openShop() {
-
+        this.model.openShop();
     }
 
     @Override
@@ -42,8 +44,7 @@ public class PlayerVillageControllerImpl implements PlayerVillageController {
 
     @Override
     public void clearScene() {
-        this.model.getPlayerVillage().getGroundObjects().forEach(GameObject::destroy);
-        this.model.getPlayerVillage().getGameObjects().forEach(GameObject::destroy);
+        this.model.clearScene();
         this.view.clearScene();
     }
 }

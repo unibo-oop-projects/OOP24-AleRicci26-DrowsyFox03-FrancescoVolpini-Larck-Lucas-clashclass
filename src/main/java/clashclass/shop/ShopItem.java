@@ -1,5 +1,7 @@
 package clashclass.shop;
 
+import clashclass.elements.buildings.BUILDING_FLAG;
+import clashclass.elements.buildings.VillageElementData;
 import clashclass.resources.RESOURCE_TYPE;
 import clashclass.resources.ResourceManager;
 
@@ -27,4 +29,6 @@ public interface ShopItem {
      * @return the resource type
      */
     RESOURCE_TYPE getResourceType();
+
+    VillageElementData getBuilding();
 }
