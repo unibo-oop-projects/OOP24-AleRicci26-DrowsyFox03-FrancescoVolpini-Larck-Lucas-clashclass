@@ -100,4 +100,6 @@ public interface BattleManagerModel {
     boolean isBattleTimeFinished();
 
     boolean areAllTroopsDead();
+
+    void showBattleReport();
 }

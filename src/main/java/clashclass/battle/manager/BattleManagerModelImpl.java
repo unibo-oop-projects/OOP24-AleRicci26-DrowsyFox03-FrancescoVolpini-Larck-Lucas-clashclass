@@ -89,6 +89,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
     @Override
     public void setGameStateManager(final GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
+        this.battleReportController.setGameStateManager(gameStateManager);
     }
 
     private Village loadVillage(final Path csvPath, final VillageDecoder decoder)
@@ -304,6 +305,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
         this.battleVillage.getGroundObjects().forEach(GameObject::destroy);
         this.battleVillage.getGameObjects().forEach(GameObject::destroy);
         this.activeTroops.forEach(GameObject::destroy);
+        this.battleReportController.clearScene();
     }
 
     @Override
@@ -335,5 +337,18 @@ public class BattleManagerModelImpl implements BattleManagerModel {
                 this.playerVillage.getPlayer().getArmyCampTroopTypes().stream()
                         .map(type -> this.playerVillage.getPlayer().getArmyCampTroopCount(type))
                         .allMatch(count -> count == 0);
+    }
+
+    @Override
+    public void showBattleReport() {
+        this.activeTroops.forEach(troop ->
+                troop.getComponentOfType(BehaviourTree.class).get().stop());
+        this.battleVillage.getBuildings().stream()
+                .filter(x -> x.getComponentOfType(BuildingFlagsComponent.class).get()
+                        .getFlags().contains(BUILDING_FLAG.DEFENSE))
+                .forEach(defenseBuilding -> defenseBuilding
+                        .getComponentOfType(BehaviourTree.class).get().stop());
+
+        this.battleReportController.show();
     }
 }

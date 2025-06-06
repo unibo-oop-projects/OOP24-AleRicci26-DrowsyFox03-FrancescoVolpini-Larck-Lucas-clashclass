@@ -89,6 +89,21 @@ public class BattleReportViewImpl implements BattleReportView {
         System.out.println("Troops used: " + troopCount);
     }
 
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void clearScene() {
+
+    }
+
+    @Override
+    public void setController(BattleReportController controller) {
+
+    }
+
     /**
      * Displays a complete battle report summary.
      *

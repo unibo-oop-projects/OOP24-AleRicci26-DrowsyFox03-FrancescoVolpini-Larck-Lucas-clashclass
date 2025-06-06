@@ -1,6 +1,7 @@
 package clashclass.battle.battlereport;
 
 import clashclass.ecs.GameObject;
+import clashclass.gamestate.GameStateManager;
 import clashclass.resources.ResourceManager;
 
 /**
@@ -30,4 +31,12 @@ public interface BattleReportController {
     void setTroopCount(int count);
 
     double getDestructionPercentage();
+
+    void show();
+
+    void clearScene();
+
+    void setGameStateManager(final GameStateManager gameStateManager);
+
+    void goBackToVillage();
 }

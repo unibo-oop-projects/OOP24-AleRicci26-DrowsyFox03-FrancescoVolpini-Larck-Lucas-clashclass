@@ -49,4 +49,10 @@ public interface BattleReportView {
      * @param troopCount The number of troops used
      */
     void displayTroopCount(int troopCount);
+
+    void show();
+
+    void clearScene();
+
+    void setController(BattleReportController controller);
 }

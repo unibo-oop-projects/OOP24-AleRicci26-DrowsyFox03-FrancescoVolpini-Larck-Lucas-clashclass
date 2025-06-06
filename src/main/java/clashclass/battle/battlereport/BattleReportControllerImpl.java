@@ -1,6 +1,7 @@
 package clashclass.battle.battlereport;
 
 import clashclass.ecs.GameObject;
+import clashclass.gamestate.GameStateManager;
 import clashclass.resources.ResourceManager;
 
 /**
@@ -21,6 +22,7 @@ public class BattleReportControllerImpl implements BattleReportController {
     public BattleReportControllerImpl(final BattleReportModel model, final BattleReportView view) {
         this.model = model;
         this.view = view;
+        this.view.setController(this);
 
         // Initialize the view with the current model data
         updateView();
@@ -70,6 +72,26 @@ public class BattleReportControllerImpl implements BattleReportController {
      */
     public double getDestructionPercentage() {
         return model.getDestructionPercentage();
+    }
+
+    @Override
+    public void show() {
+        this.view.show();
+    }
+
+    @Override
+    public void clearScene() {
+        this.view.clearScene();
+    }
+
+    @Override
+    public void setGameStateManager(final GameStateManager gameStateManager) {
+        this.model.setGameStateManager(gameStateManager);
+    }
+
+    @Override
+    public void goBackToVillage() {
+        this.model.getGameStateManager().setStatePlayerVillage();
     }
 
     /**

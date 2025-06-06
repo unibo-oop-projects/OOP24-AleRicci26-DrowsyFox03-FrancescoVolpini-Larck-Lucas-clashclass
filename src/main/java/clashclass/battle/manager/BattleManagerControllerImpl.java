@@ -35,7 +35,7 @@ public class BattleManagerControllerImpl implements BattleManagerController {
      * {@inheritDoc}
      */
     @Override
-    public void setGameStateManager(GameStateManager gameStateManager) {
+    public void setGameStateManager(final GameStateManager gameStateManager) {
         this.model.setGameStateManager(gameStateManager);
 
         final var battleVillage = this.model.getBattleVillage();

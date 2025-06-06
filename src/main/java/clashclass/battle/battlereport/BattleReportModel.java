@@ -1,6 +1,7 @@
 package clashclass.battle.battlereport;
 
 import clashclass.ecs.GameObject;
+import clashclass.gamestate.GameStateManager;
 import clashclass.resources.ResourceManager;
 
 /**
@@ -96,4 +97,8 @@ public interface BattleReportModel {
      * @return true if the battle was a victory, false otherwise
      */
     boolean isVictory();
+
+    void setGameStateManager(GameStateManager gameStateManager);
+
+    GameStateManager getGameStateManager();
 }

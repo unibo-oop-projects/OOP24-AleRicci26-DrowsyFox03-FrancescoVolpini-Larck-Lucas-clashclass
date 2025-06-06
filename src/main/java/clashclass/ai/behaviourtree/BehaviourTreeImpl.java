@@ -58,4 +58,9 @@ public class BehaviourTreeImpl extends AbstractComponent implements BehaviourTre
         this.rootNode.restart();
         this.rootNode.onEnter();
     }
+
+    @Override
+    public void stop() {
+        this.hasStarted = false;
+    }
 }

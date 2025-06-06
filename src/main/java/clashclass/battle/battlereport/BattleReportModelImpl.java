@@ -3,6 +3,7 @@ package clashclass.battle.battlereport;
 import clashclass.commons.BuildingTypeComponent;
 import clashclass.ecs.GameObject;
 import clashclass.elements.buildings.VillageElementData;
+import clashclass.gamestate.GameStateManager;
 import clashclass.resources.ResourceManager;
 import clashclass.resources.ResourceManagerImpl;
 
@@ -18,6 +19,7 @@ public class BattleReportModelImpl implements BattleReportModel {
     private int totalBuildings;
     private int destroyedBuildings;
     private int troopCount;
+    private GameStateManager gameStateManager;
 
     /**
      * Constructor initializing the battle report with default values.
@@ -158,5 +160,15 @@ public class BattleReportModelImpl implements BattleReportModel {
     @Override
     public boolean isVictory() {
         return getStars() > 0;
+    }
+
+    @Override
+    public void setGameStateManager(final GameStateManager gameStateManager) {
+        this.gameStateManager = gameStateManager;
+    }
+
+    @Override
+    public GameStateManager getGameStateManager() {
+        return this.gameStateManager;
     }
 }

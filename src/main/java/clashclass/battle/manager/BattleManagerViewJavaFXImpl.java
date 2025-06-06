@@ -2,6 +2,7 @@ package clashclass.battle.manager;
 
 import clashclass.battle.battlereport.BattleReportView;
 import clashclass.battle.battlereport.BattleReportViewImpl;
+import clashclass.battle.battlereport.BattleReportViewJavaFXImpl;
 import clashclass.commons.GameConstants;
 import clashclass.commons.Vector2D;
 import javafx.application.Platform;
@@ -16,6 +17,7 @@ import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 /**
@@ -40,6 +42,7 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
     public BattleManagerViewJavaFXImpl(final Scene scene, final AnchorPane root) {
         this.scene = scene;
         this.root = root;
+
         this.root.setStyle("-fx-background-color: #0A8F32;");
 
         this.endBattleButton = new Button("End Battle");
@@ -139,7 +142,7 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
 
         this.troopTogglesContainer = new HBox(10);
         this.troopToggles.forEach(toggle -> this.troopTogglesContainer.getChildren().add(toggle));
-        root.getChildren().add(troopTogglesContainer);
+        root.getChildren().add(1, troopTogglesContainer);
         AnchorPane.setBottomAnchor(troopTogglesContainer, 20.0);
         AnchorPane.setLeftAnchor(troopTogglesContainer, 20.0);
     }
@@ -171,13 +174,11 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
 
     @Override
     public void endBattle(final BattleManagerModel model) {
-        Platform.runLater(() -> {
-            model.getGameStateManager().setStatePlayerVillage();
-        });
+        Platform.runLater(model::showBattleReport);
     }
 
     @Override
     public BattleReportView buildBattleReportView() {
-        return new BattleReportViewImpl();
+        return new BattleReportViewJavaFXImpl(this.root);
     }
 }
