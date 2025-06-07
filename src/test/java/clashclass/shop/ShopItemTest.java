@@ -4,7 +4,6 @@ import clashclass.elements.buildings.VillageElementData;
 import clashclass.resources.ResourceManager;
 import clashclass.resources.ResourceType;
 import clashclass.resources.Player;
-import clashclass.resources.ResourceManagerImpl;
 
 import java.util.EnumMap;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ShopItemTest {
+class ShopItemTest {
 
     private Player mockPlayer;
     private ResourceManager mockResourceManager;

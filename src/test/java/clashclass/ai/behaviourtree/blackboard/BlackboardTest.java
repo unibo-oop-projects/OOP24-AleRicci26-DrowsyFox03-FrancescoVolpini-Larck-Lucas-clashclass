@@ -9,10 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class BlackboardTest {
-
+class BlackboardTest {
+    private static final String PROP_1 = "Prop1";
+    private static final String PROP_2 = "Prop2";
+    private static final String PROP_3 = "Prop3";
+    
     @Test
-    void TestBlackboardProperties() {
+    void testBlackboardProperties() {
         final var blackboard = new BlackboardImpl();
         final var troopFactory = new BattleTroopFactoryImpl();
 
@@ -20,16 +23,16 @@ public class BlackboardTest {
         final var property2 = new BlackboardPropertyImpl<>("Test", String.class);
         final var property3 = new BlackboardPropertyImpl<>(troopFactory.createBarbarian(Vector2D.zero()), GameObject.class);
 
-        assertFalse(blackboard.hasProperty("Prop1"));
+        assertFalse(blackboard.hasProperty(PROP_1));
 
-        blackboard.setProperty("Prop1", property1);
+        blackboard.setProperty(PROP_1, property1);
 
-        assertTrue(blackboard.hasProperty("Prop1"));
+        assertTrue(blackboard.hasProperty(PROP_1));
 
-        blackboard.setProperty("Prop2", property2);
-        blackboard.setProperty("Prop3", property3);
+        blackboard.setProperty(PROP_2, property2);
+        blackboard.setProperty(PROP_3, property3);
 
-        assertEquals(1, blackboard.getProperty("Prop1", Integer.class).getValue());
-        assertEquals("Test", blackboard.getProperty("Prop2", String.class).getValue());
+        assertEquals(1, blackboard.getProperty(PROP_1, Integer.class).getValue());
+        assertEquals("Test", blackboard.getProperty(PROP_2, String.class).getValue());
     }
 }

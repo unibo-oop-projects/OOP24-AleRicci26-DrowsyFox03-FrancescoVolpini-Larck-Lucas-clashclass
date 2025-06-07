@@ -71,8 +71,8 @@ public class Player {
      * @return true if the army camp has that type of troop
      */
     public boolean hasArmyCampTroop(final TroopType troopType) {
-        return !this.armyCampTroops.containsKey(troopType)
-             && this.armyCampTroops.get(troopType) > 0;
+        return this.armyCampTroops.containsKey(troopType)
+            && this.armyCampTroops.get(troopType) > 0;
     }
 
     /**

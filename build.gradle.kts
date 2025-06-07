@@ -56,6 +56,34 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+tasks.withType<Checkstyle> {
+    if (name.contains("Test")) {
+        enabled = false
+    }
+}
+
+tasks.withType<Pmd> {
+    if (name.contains("Test")) {
+        enabled = false
+    }
+}
+
+tasks.withType<com.github.spotbugs.snom.SpotBugsTask> {
+    reports {
+        create("html") {
+            required.set(true)
+            outputLocation.set(layout.buildDirectory.file("reports/spotbugs/${name}.html"))
+        }
+        create("xml") {
+            required.set(false)
+        }
+    }
+}
+
+spotbugs {
+    ignoreFailures.set(true)
+}
+
 val main: String by project
 
 application {

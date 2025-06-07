@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-public class ShopManagerTest {
+class ShopManagerTest {
     private Player player;
     private ShopManagerImpl shopManager;
     private ShopItemImpl affordableItem;

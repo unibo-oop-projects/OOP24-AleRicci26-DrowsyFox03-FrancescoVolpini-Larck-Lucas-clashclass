@@ -26,6 +26,7 @@ public abstract class AbstractVillageSceneJFX extends AbstractBaseScene {
      *
      * @param window the window
      * @param stage the stage
+     * @param sceneTitle the title of the scene
      * @param playerCsvPath the player village file path
      * @param battleCsvPath the battle village fila path
      *

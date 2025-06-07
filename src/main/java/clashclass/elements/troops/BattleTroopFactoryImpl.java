@@ -30,9 +30,13 @@ public class BattleTroopFactoryImpl extends AbstractTroopFactory {
     @Override
     protected GameObject.Builder createAdditionalBarbarianComponents(final GameObject.Builder builder) {
         return builder
-                .addComponent(this.getComponentFactory().createHealth(100))
+                .addComponent(this.getComponentFactory().createHealth(TroopHealthStat.BARBARIAN.getHealth()))
                 .addComponent(this.getComponentFactory().createProgressBar(PROGRESS_BAR_COLOR_EX))
-                .addComponent(new TroopBaseStatsComponent(100, 30, 1, 1))
+                .addComponent(new TroopBaseStatsComponent(
+                        TroopHealthStat.BARBARIAN.getHealth(),
+                        TroopBaseStats.BARBARIAN.getDamage(),
+                        TroopBaseStats.BARBARIAN.getAttackSpeed(),
+                        TroopBaseStats.BARBARIAN.getMovementSpeed()))
                 .addComponent(new TroopDeathObservableImpl())
                 .addComponent(this.damageLogicFactory.createForBarbarian())
                 .addComponent(this.behaviourTreeFactory.create());
@@ -44,9 +48,13 @@ public class BattleTroopFactoryImpl extends AbstractTroopFactory {
     @Override
     protected GameObject.Builder createAdditionalArcherComponents(final GameObject.Builder builder) {
         return builder
-                .addComponent(this.getComponentFactory().createHealth(70))
+                .addComponent(this.getComponentFactory().createHealth(TroopHealthStat.ARCHER.getHealth()))
                 .addComponent(this.getComponentFactory().createProgressBar(PROGRESS_BAR_COLOR_EX))
-                .addComponent(new TroopBaseStatsComponent(70, 25, 2, 2))
+                .addComponent(new TroopBaseStatsComponent(
+                        TroopHealthStat.ARCHER.getHealth(),
+                        TroopBaseStats.ARCHER.getDamage(),
+                        TroopBaseStats.ARCHER.getAttackSpeed(),
+                        TroopBaseStats.ARCHER.getMovementSpeed()))
                 .addComponent(new TroopDeathObservableImpl())
                 .addComponent(this.damageLogicFactory.createForArcher())
                 .addComponent(this.behaviourTreeFactory.create());

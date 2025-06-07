@@ -7,7 +7,7 @@ import clashclass.view.graphic.Graphic;
  */
 public class GraphicComponentImpl extends AbstractGraphicComponent {
     /**
-     * Creates a GraphicComponent with specified dimensions.*
+     * Creates a GraphicComponent with specified dimensions.
      */
     public GraphicComponentImpl() {
         super(0);

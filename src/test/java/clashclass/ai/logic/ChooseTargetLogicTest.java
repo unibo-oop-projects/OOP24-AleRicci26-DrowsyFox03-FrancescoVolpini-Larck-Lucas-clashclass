@@ -4,20 +4,17 @@ import clashclass.commons.ConversionUtility;
 import clashclass.commons.Transform2D;
 import clashclass.commons.Vector2D;
 import clashclass.commons.VectorInt2D;
-import clashclass.ecs.GameObjectImpl;
 import clashclass.elements.buildings.BattleBuildingFactoryImpl;
 import clashclass.elements.troops.BattleTroopFactoryImpl;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ChooseTargetLogicTest {
+class ChooseTargetLogicTest {
 
     @Test
-    void TestChooseNearestTarget() {
+    void testChooseNearestTarget() {
         final var chooseTargetLogic = new ChooseTargetNearestLogicImpl();
         final var buildingsFactory = new BattleBuildingFactoryImpl();
         final var troopFactory = new BattleTroopFactoryImpl();
