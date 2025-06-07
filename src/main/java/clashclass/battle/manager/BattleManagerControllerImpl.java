@@ -135,4 +135,12 @@ public class BattleManagerControllerImpl implements BattleManagerController {
     public boolean areAllTroopsDead() {
         return this.model.areAllTroopsDead();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long getBattleRemainingTime() {
+        return this.model.getBattleRemainingTime();
+    }
 }

@@ -4,6 +4,11 @@ import clashclass.battle.battlereport.BattleReportView;
 import clashclass.battle.battlereport.BattleReportViewJavaFXImpl;
 import clashclass.commons.GameConstants;
 import clashclass.commons.Vector2D;
+import clashclass.ecs.GameObject;
+import clashclass.elements.commons.CommonGameObjectFactoryImpl;
+import clashclass.engine.GameEngine;
+import clashclass.view.graphic.Graphic;
+import clashclass.view.graphic.components.UIRendererImpl;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -12,6 +17,9 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -33,13 +41,14 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
     private HBox troopTogglesContainer;
     private BattleManagerController controller;
     private double togglesFontSize;
+    private final GameObject uiObject;
 
     /**
      * Constructs the view.
      *
      * @param root the root reference
      */
-    public BattleManagerViewJavaFXImpl(final AnchorPane root) {
+    public BattleManagerViewJavaFXImpl(final AnchorPane root, final GameEngine gameEngine) {
         this.root = root;
         this.root.setStyle("-fx-background-color: #0A8F32;");
 
@@ -73,15 +82,23 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         });
 
         this.battleTimeLabel = new Label("");
+        this.battleTimeLabel.setTextFill(Color.WHITE);
+        this.battleTimeLabel.setTextAlignment(TextAlignment.RIGHT);
         root.getChildren().add(battleTimeLabel);
         AnchorPane.setTopAnchor(battleTimeLabel, ANCHOR_OFFSET);
-        AnchorPane.setRightAnchor(battleTimeLabel, ANCHOR_OFFSET);
+        AnchorPane.setRightAnchor(battleTimeLabel, 0.0);
         battleTimeLabel.prefWidthProperty().bind(root.widthProperty().multiply(SIZE_MULTIPLIER));
         battleTimeLabel.prefHeightProperty().bind(root.heightProperty().multiply(SIZE_MULTIPLIER));
         battleTimeLabel.widthProperty().addListener((obs, oldVal, newVal) -> {
             final double newFontSize = newVal.doubleValue() * FONT_SIZE_MULTIPLIER;
             battleTimeLabel.setStyle(FONT_SIZE_PROP + newFontSize + PIXEL_PROP);
         });
+
+        final var factory = new CommonGameObjectFactoryImpl();
+        this.uiObject = factory.createUIElement();
+        this.uiObject.getComponentOfType(UIRendererImpl.class).get()
+                .setDrawFunction(this::drawUI);
+        gameEngine.addGameObject(uiObject);
     }
 
     /**
@@ -174,6 +191,7 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         this.root.getChildren().remove(this.endBattleButton);
         this.root.getChildren().remove(this.troopTogglesContainer);
         this.root.getChildren().remove(this.battleTimeLabel);
+        this.uiObject.destroy();
     }
 
     /**
@@ -190,5 +208,18 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
     @Override
     public BattleReportView buildBattleReportView() {
         return new BattleReportViewJavaFXImpl(this.root);
+    }
+
+    private void drawUI(final Graphic graphic) {
+        Platform.runLater(() -> {
+            if (this.controller != null) {
+                final var remainingTime = this.controller.getBattleRemainingTime();
+                this.battleTimeLabel.setText("Time: " + String.valueOf(remainingTime));
+
+                if (this.controller.isBattleTimeFinished()) {
+                    this.controller.endBattle();
+                }
+            }
+        });
     }
 }

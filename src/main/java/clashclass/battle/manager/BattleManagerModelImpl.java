@@ -54,7 +54,7 @@ import java.util.stream.Collectors;
  */
 public class BattleManagerModelImpl implements BattleManagerModel {
     private static final String TROOPS_PROP = "troops";
-    private static final double BATTLE_DURATION_SECONDS = 120.0;
+    private static final double BATTLE_DURATION_SECONDS = 10.0;
     private final Village playerVillage;
     private final Village battleVillage;
     private final Map<TroopType, Function<Vector2D, GameObject>> troopCreatorsMap;
@@ -385,7 +385,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      */
     @Override
     public boolean isBattleTimeFinished() {
-        return this.battleTimer.getElapsedTime() >= this.BATTLE_DURATION_SECONDS;
+        return this.battleTimer.getElapsedTime() >= BATTLE_DURATION_SECONDS;
     }
 
     /**
@@ -427,5 +427,13 @@ public class BattleManagerModelImpl implements BattleManagerModel {
             return;
         }
         this.battleReportController.show();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long getBattleRemainingTime() {
+        return (long) Math.max(0, BATTLE_DURATION_SECONDS - this.battleTimer.getElapsedTime());
     }
 }

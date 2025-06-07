@@ -72,4 +72,11 @@ public interface BattleManagerController extends GameStateController {
      * @return true if all the troops are dead
      */
     boolean areAllTroopsDead();
+
+    /**
+     * Gets the battle remaining time.
+     *
+     * @return the battle remaining time
+     */
+    long getBattleRemainingTime();
 }

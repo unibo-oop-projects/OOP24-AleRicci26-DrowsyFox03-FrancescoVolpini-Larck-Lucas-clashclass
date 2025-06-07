@@ -3,6 +3,8 @@ package clashclass.view.graphic;
 import clashclass.battle.manager.BattleManagerControllerImpl;
 import clashclass.battle.manager.BattleManagerModelImpl;
 import clashclass.battle.manager.BattleManagerViewJavaFXImpl;
+import clashclass.engine.GameEngine;
+import clashclass.engine.GameEngineImpl;
 import clashclass.gamestate.GameStateManager;
 import clashclass.gamestate.GameStateManagerImpl;
 import clashclass.village.manager.PlayerVillageControllerImpl;
@@ -14,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 
 /**
  * Represents a {@link AbstractBaseScene} extension used for game initialization.
@@ -56,14 +59,15 @@ public abstract class AbstractVillageSceneJFX extends AbstractBaseScene {
         canvas.widthProperty().bind(scene.widthProperty());
         canvas.heightProperty().bind(scene.heightProperty());
 
+        final GameEngine gameEngine = new GameEngineImpl(Optional.of(graphics));
         this.gameStateManager = new GameStateManagerImpl(
-                graphics,
+                gameEngine,
                 () -> new PlayerVillageControllerImpl(
                         new PlayerVillageModelImpl(playerCsvPath),
                         new PlayerVillageViewJavaFXImpl(root)),
                 () -> new BattleManagerControllerImpl(
                         new BattleManagerModelImpl(playerCsvPath, battleCsvPath),
-                        new BattleManagerViewJavaFXImpl(root)
+                        new BattleManagerViewJavaFXImpl(root, gameEngine)
                 )
         );
 

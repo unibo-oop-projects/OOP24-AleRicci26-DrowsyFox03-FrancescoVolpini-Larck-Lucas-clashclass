@@ -36,6 +36,9 @@ public class TimerGameImpl implements Timer {
      */
     @Override
     public long getElapsedTime() {
+        if (this.startTime == 0) {
+            return 0;
+        }
         return (System.currentTimeMillis() - startTime) / 1000;
     }
 

@@ -127,4 +127,11 @@ public interface BattleManagerModel {
      * Shows the battle report.
      */
     void showBattleReport();
+
+    /**
+     * Gets the battle remaining time.
+     *
+     * @return the battle remaining time
+     */
+    long getBattleRemainingTime();
 }

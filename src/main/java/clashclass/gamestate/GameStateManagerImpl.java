@@ -21,21 +21,21 @@ public class GameStateManagerImpl implements GameStateManager {
     /**
      * Constructs the game state manager.
      *
-     * @param graphic the graphics
+     * @param gameEngine the game engine
      * @param playerVillageStateCreator the player village state creator
      * @param battleStateCreator the battle state creator
      */
     public GameStateManagerImpl(
-            final Graphic graphic,
+            final GameEngine gameEngine,
             final Supplier<GameStateController> playerVillageStateCreator,
             final Supplier<GameStateController> battleStateCreator) {
+        this.gameEngine = gameEngine;
         this.playerVillageStateCreator = playerVillageStateCreator;
         this.battleStateCreator = battleStateCreator;
 
         final var decoder = new PlayerVillageDecoderImpl();
         decoder.setComponentFactory(new ComponentFactoryImpl());
 
-        this.gameEngine = new GameEngineImpl(Optional.of(graphic));
     }
 
     /**
