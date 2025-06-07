@@ -17,7 +17,7 @@ import java.nio.file.Path;
  * Represents a {@link PlayerVillageModel} implementation.
  */
 public class PlayerVillageModelImpl implements PlayerVillageModel {
-    private Village playerVillage;
+    private final Village playerVillage;
     private GameStateManager gameStateManager;
     private ShopMenuController shopMenuController;
 
@@ -27,7 +27,7 @@ public class PlayerVillageModelImpl implements PlayerVillageModel {
      * @param playerVillageCsvPath the player village file path
      */
     public PlayerVillageModelImpl(final Path playerVillageCsvPath) {
-        this.loadVillage(playerVillageCsvPath);
+        this.playerVillage = this.loadVillage(playerVillageCsvPath);
     }
 
     /**
@@ -38,14 +38,15 @@ public class PlayerVillageModelImpl implements PlayerVillageModel {
         this.gameStateManager = gameStateManager;
     }
 
-    private void loadVillage(final Path csvPath) {
+    private Village loadVillage(final Path csvPath) {
         try {
             final var decoder = new PlayerVillageDecoderImpl();
             decoder.setComponentFactory(new ComponentFactoryImpl());
             final var csvData = Files.readString(csvPath);
-            this.playerVillage = decoder.decode(csvData);
+            return decoder.decode(csvData);
         } catch (final IOException e) {
-            System.err.println("Could not read village data");
+            // throw new IOException("Could not read village data", e);
+            return null;
         }
     }
 
@@ -84,6 +85,7 @@ public class PlayerVillageModelImpl implements PlayerVillageModel {
                 new ShopMenuModelImpl(this.playerVillage.getPlayer()),
                 view
         );
+        this.shopMenuController.hide();
     }
 
     /**

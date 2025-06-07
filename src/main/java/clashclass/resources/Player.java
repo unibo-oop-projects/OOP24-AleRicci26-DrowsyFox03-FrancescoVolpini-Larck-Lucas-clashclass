@@ -1,8 +1,8 @@
 package clashclass.resources;
 
 import clashclass.elements.troops.TroopType;
-
 import java.util.EnumMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -10,9 +10,9 @@ import java.util.Set;
  */
 public class Player {
     private static final int GENERIC_VALUE = 10;
-    private final EnumMap<ResourceType, ResourceManager>
+    private final Map<ResourceType, ResourceManager>
             playerResources = new EnumMap<>(ResourceType.class);
-    private final EnumMap<TroopType, Integer> armyCampTroops = new EnumMap<>(TroopType.class);
+    private final Map<TroopType, Integer> armyCampTroops = new EnumMap<>(TroopType.class);
 
     /**
      * Constructs the player.
@@ -32,7 +32,7 @@ public class Player {
      *
      * @return the player resources map
      */
-    public EnumMap<ResourceType, ResourceManager> getPlayerResources() {
+    public Map<ResourceType, ResourceManager> getPlayerResources() {
         return playerResources;
     }
 
@@ -71,10 +71,8 @@ public class Player {
      * @return true if the army camp has that type of troop
      */
     public boolean hasArmyCampTroop(final TroopType troopType) {
-        if (!this.armyCampTroops.containsKey(troopType)) {
-            return false;
-        }
-        return this.armyCampTroops.get(troopType) > 0;
+        return !this.armyCampTroops.containsKey(troopType)
+             && this.armyCampTroops.get(troopType) > 0;
     }
 
     /**

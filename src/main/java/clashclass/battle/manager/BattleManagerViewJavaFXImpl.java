@@ -5,7 +5,6 @@ import clashclass.battle.battlereport.BattleReportViewJavaFXImpl;
 import clashclass.commons.GameConstants;
 import clashclass.commons.Vector2D;
 import javafx.application.Platform;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.IntStream;
 
 /**
@@ -37,12 +37,10 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
     /**
      * Constructs the view.
      *
-     * @param scene the scene reference
      * @param root the root reference
      */
-    public BattleManagerViewJavaFXImpl(final Scene scene, final AnchorPane root) {
+    public BattleManagerViewJavaFXImpl(final AnchorPane root) {
         this.root = root;
-
         this.root.setStyle("-fx-background-color: #0A8F32;");
 
         this.endBattleButton = new Button("End Battle");
@@ -105,8 +103,8 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         final var toggleGroup = new ToggleGroup();
         this.troopToggles.clear();
         troopTypes.forEach(troopType -> {
-            final var toggle = new ToggleButton(troopType.toString().toUpperCase() + "\n"
-                    + "[" + player.getArmyCampTroopCount(troopType) + "]");
+            final var toggle = new ToggleButton(troopType.toString().toUpperCase(Locale.getDefault())
+                    + "\n" + "[" + player.getArmyCampTroopCount(troopType) + "]");
             toggle.setWrapText(true);
             toggle.setToggleGroup(toggleGroup);
             this.togglesFontSize = toggle.getWidth() * FONT_SIZE_MULTIPLIER;
@@ -163,8 +161,8 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
 
         IntStream.range(0, troopTypes.size()).forEach(i -> {
             final var troopType = troopTypes.get(i);
-            this.troopToggles.get(i).setText(troopType.toString().toUpperCase() + "\n"
-                    + "[" + player.getArmyCampTroopCount(troopType) + "]");
+            this.troopToggles.get(i).setText(troopType.toString().toUpperCase(Locale.getDefault())
+                    + "\n" + "[" + player.getArmyCampTroopCount(troopType) + "]");
         });
     }
 

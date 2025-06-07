@@ -28,12 +28,9 @@ public interface ComponentFactory {
     /**
      * Creates a GraphicComponent with specified dimensions.
      *
-     * @param width the width of the graphic component
-     * @param height the height of the graphic component
-     *
      * @return the created component
      */
-    Component createGraphic(double width, double height);
+    Component createGraphic();
 
     /**
      * Creates a ProgressBar component.

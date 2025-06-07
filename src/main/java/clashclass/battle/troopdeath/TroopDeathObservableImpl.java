@@ -10,7 +10,7 @@ import java.util.Set;
  * Represents a {@link TroopDeathObservable} implementation.
  */
 public class TroopDeathObservableImpl extends AbstractComponent implements TroopDeathObservable {
-    private final Set<TroopDeathObserver> observers = new HashSet<TroopDeathObserver>();
+    private final Set<TroopDeathObserver> observers = new HashSet<>();
 
     /**
      * {@inheritDoc}

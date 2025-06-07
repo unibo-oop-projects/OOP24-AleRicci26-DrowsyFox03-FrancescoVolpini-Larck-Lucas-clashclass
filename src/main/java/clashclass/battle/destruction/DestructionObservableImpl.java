@@ -16,7 +16,7 @@ public class DestructionObservableImpl extends AbstractComponent implements Dest
      * Constructs the observable.
      */
     public DestructionObservableImpl() {
-        observers = new HashSet<DestructionObserver>();
+        observers = new HashSet<>();
     }
 
     /**

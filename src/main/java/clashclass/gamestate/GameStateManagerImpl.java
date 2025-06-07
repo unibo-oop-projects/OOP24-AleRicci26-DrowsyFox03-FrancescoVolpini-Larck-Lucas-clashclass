@@ -36,7 +36,6 @@ public class GameStateManagerImpl implements GameStateManager {
         decoder.setComponentFactory(new ComponentFactoryImpl());
 
         this.gameEngine = new GameEngineImpl(Optional.of(graphic));
-        this.setStatePlayerVillage();
     }
 
     /**

@@ -1,12 +1,8 @@
 package clashclass.village.manager;
 
-import clashclass.commons.GameConstants;
-import clashclass.commons.Vector2D;
-import clashclass.elements.commons.CommonGameObjectFactoryImpl;
 import clashclass.shop.ShopMenuJavaFXImpl;
 import clashclass.shop.ShopMenuView;
 import javafx.application.Platform;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -28,18 +24,9 @@ public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
     /**
      * Constructs the view.
      *
-     * @param scene the scene
      * @param root the UI root node
-     * @param widowWidth the window width
-     * @param windowHeight thw window height
      */
-    public PlayerVillageViewJavaFXImpl(
-            final Scene scene,
-            final AnchorPane root,
-            final double widowWidth,
-            final double windowHeight) {
-        final var factory = new CommonGameObjectFactoryImpl();
-
+    public PlayerVillageViewJavaFXImpl(final AnchorPane root) {
         this.root = root;
         this.root.setStyle("-fx-background-color: #0A8F32;");
 
@@ -86,7 +73,7 @@ public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
      */
     @Override
     public void update(final PlayerVillageModel model) {
-        this.redraw(model);
+        //this.redraw(model);
     }
 
     /**
@@ -108,14 +95,14 @@ public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
         return new ShopMenuJavaFXImpl(this.root);
     }
 
-    private void redraw(final PlayerVillageModel model) {
-//        uiGameObject.getComponentOfType(UIRendererImpl.class).ifPresent(uiRenderer -> {
-//            uiRenderer.setDrawFunction(graphics -> {
-////                graphics.drawRectangle(this.uiGameObject, "#FF0000", new Rect2D(
-////                        new VectorInt2D(20, 100),
-////                        new VectorInt2D(300, 50)));
-//                // TODO ...
-//            });
-//        });
-    }
+    // private void redraw(final PlayerVillageModel model) {
+    // uiGameObject.getComponentOfType(UIRendererImpl.class).ifPresent(uiRenderer -> {
+    // uiRenderer.setDrawFunction(graphics -> {
+    // graphics.drawRectangle(this.uiGameObject, "#FF0000", new Rect2D(
+    // new VectorInt2D(20, 100),
+    // new VectorInt2D(300, 50)));
+    // TODO ...
+    //});
+    //});
+    //}
 }

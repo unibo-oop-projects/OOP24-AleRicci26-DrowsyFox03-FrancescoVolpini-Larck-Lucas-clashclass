@@ -23,16 +23,6 @@ public class PlayerVillageSceneJFX extends AbstractVillageSceneJFX {
             final Stage stage,
             final Path playerCsvPath,
             final Path battleCsvPath) throws IOException {
-        super(window, stage, playerCsvPath, battleCsvPath);
-    }
-
-    /**
-     * Gets the scene title.
-     *
-     * @return the scene title
-     */
-    @Override
-    protected String getSceneTitle() {
-        return "Clash Of Class";
+        super(window, stage, "Clash Of Class", playerCsvPath, battleCsvPath);
     }
 }

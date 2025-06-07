@@ -18,8 +18,6 @@ public class ProgressBarRendererImpl extends AbstractGraphicComponent {
     /**
      * Constructs the progress bar.
      *
-     * @param width the width
-     * @param height the height
      * @param layer the layer
      * @param barWidth the width of the progress bar
      * @param barHeight the height of the progress bar
@@ -27,14 +25,12 @@ public class ProgressBarRendererImpl extends AbstractGraphicComponent {
      * @param colorEx the color of the progress bar
      */
     public ProgressBarRendererImpl(
-            final double width,
-            final double height,
             final int layer,
             final int barWidth,
             final int barHeight,
             final int yOffset,
             final String colorEx) {
-        super(1, 1, layer);
+        super(layer);
         this.barWidth = barWidth;
         this.barHeight = barHeight;
         this.yOffset = yOffset;

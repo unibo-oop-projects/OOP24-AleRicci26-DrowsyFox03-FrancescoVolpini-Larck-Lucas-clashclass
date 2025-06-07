@@ -3,6 +3,7 @@ package clashclass.ecs;
 /**
  * Represents an object which internal state should be updated once per frame.
  */
+@FunctionalInterface
 public interface UpdateProvider {
 
     /**

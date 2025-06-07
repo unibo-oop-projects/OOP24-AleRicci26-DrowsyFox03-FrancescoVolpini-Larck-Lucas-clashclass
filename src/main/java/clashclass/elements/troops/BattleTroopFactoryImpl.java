@@ -12,9 +12,9 @@ import clashclass.stats.TroopBaseStatsComponent;
  * Represents an implementation of TroopFactory used for battle.
  */
 public class BattleTroopFactoryImpl extends AbstractTroopFactory {
+    private static final String PROGRESS_BAR_COLOR_EX = "#C906B3";
     private final BehaviourTreeFactory behaviourTreeFactory;
     private final CalculateDamageLogicFactory damageLogicFactory;
-    private final String progressBarColorEx = "#C906B3";
 
     /**
      * Constructs the factory.
@@ -31,7 +31,7 @@ public class BattleTroopFactoryImpl extends AbstractTroopFactory {
     protected GameObject.Builder createAdditionalBarbarianComponents(final GameObject.Builder builder) {
         return builder
                 .addComponent(this.getComponentFactory().createHealth(100))
-                .addComponent(this.getComponentFactory().createProgressBar(this.progressBarColorEx))
+                .addComponent(this.getComponentFactory().createProgressBar(PROGRESS_BAR_COLOR_EX))
                 .addComponent(new TroopBaseStatsComponent(100, 30, 1, 1))
                 .addComponent(new TroopDeathObservableImpl())
                 .addComponent(this.damageLogicFactory.createForBarbarian())
@@ -45,7 +45,7 @@ public class BattleTroopFactoryImpl extends AbstractTroopFactory {
     protected GameObject.Builder createAdditionalArcherComponents(final GameObject.Builder builder) {
         return builder
                 .addComponent(this.getComponentFactory().createHealth(70))
-                .addComponent(this.getComponentFactory().createProgressBar(this.progressBarColorEx))
+                .addComponent(this.getComponentFactory().createProgressBar(PROGRESS_BAR_COLOR_EX))
                 .addComponent(new TroopBaseStatsComponent(70, 25, 2, 2))
                 .addComponent(new TroopDeathObservableImpl())
                 .addComponent(this.damageLogicFactory.createForArcher())

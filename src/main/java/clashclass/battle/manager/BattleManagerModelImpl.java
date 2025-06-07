@@ -45,6 +45,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.EnumMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
@@ -53,10 +54,10 @@ import java.util.function.Function;
  */
 public class BattleManagerModelImpl implements BattleManagerModel {
     private static final String TROOPS_PROP = "troops";
+    private static final double BATTLE_DURATION_SECONDS = 120.0;
     private final Village playerVillage;
     private final Village battleVillage;
-    private final TroopFactory troopFactory;
-    private final EnumMap<TroopType, Function<Vector2D, GameObject>> troopCreatorsMap;
+    private final Map<TroopType, Function<Vector2D, GameObject>> troopCreatorsMap;
     private final Set<GameObject> activeTroops;
     private final AiNodesBuilder aiNodesBuilder;
     private GameStateManager gameStateManager;
@@ -67,11 +68,9 @@ public class BattleManagerModelImpl implements BattleManagerModel {
     private EndBattleAllVillageDestroyed endBattleAllVillageDestroyedObserver;
     private EndBattleTimerIsOver endBattleTimerIsOverObserver;
     private EndBattleAllTroopsDead endBattleAllTroopsDeadObserver;
-    private BattleManagerController controller;
     private BattleReportController battleReportController;
     private final clashclass.battle.timer.Timer battleTimer;
     private boolean battleStarted;
-    private final double battleDurationSeconds = 60.0;
 
     /**
      * Constructs the model.
@@ -82,13 +81,14 @@ public class BattleManagerModelImpl implements BattleManagerModel {
     public BattleManagerModelImpl(final Path playerVillageCsvPath, final Path battleVillageCsvPath) {
         this.playerVillage = this.loadVillage(playerVillageCsvPath, new PlayerVillageDecoderImpl());
         this.battleVillage = this.loadVillage(battleVillageCsvPath, new BattleVillageDecoderImpl());
-        this.troopFactory = new BattleTroopFactoryImpl();
+
         this.activeTroops = new HashSet<>();
         this.aiNodesBuilder = new AiNodesBuilderImpl();
 
+        final TroopFactory troopFactory = new BattleTroopFactoryImpl();
         this.troopCreatorsMap = new EnumMap<>(TroopType.class);
-        this.troopCreatorsMap.put(TroopType.BARBARIAN, this.troopFactory::createBarbarian);
-        this.troopCreatorsMap.put(TroopType.ARCHER, this.troopFactory::createArcher);
+        this.troopCreatorsMap.put(TroopType.BARBARIAN, troopFactory::createBarbarian);
+        this.troopCreatorsMap.put(TroopType.ARCHER, troopFactory::createArcher);
 
         this.battleTimer = new TimerGameImpl();
 
@@ -110,9 +110,9 @@ public class BattleManagerModelImpl implements BattleManagerModel {
             final var csvData = Files.readString(csvPath);
             return decoder.decode(csvData);
         } catch (final IOException e) {
-            System.err.println("Could not read village data");
+            //throw new IOException("Could not read village data", e);
+            return null;
         }
-        return null;
     }
 
     private void handleBattleVillageDefenseBuildings() {
@@ -251,19 +251,18 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      */
     @Override
     public void setController(final BattleManagerController controller) {
-        this.controller = controller;
         this.battleTroopsBehaviorManager = new BattleTroopsBehaviorManagerImpl(
-                this.controller);
+                controller);
         this.defenseBuildingsBattleBehaviorManager = new DefenseBuildingsBattleBehaviorManager(
-                this.controller);
+                controller);
         this.villageDestructionManager = new VillageDestructionManagerImpl(
                 this.battleReportController);
         this.endBattleAllVillageDestroyedObserver = new EndBattleAllVillageDestroyedImpl(
-                this.controller, this.battleReportController);
+                controller, this.battleReportController);
         this.endBattleTimerIsOverObserver = new EndBattleTimerIsOverImpl(
-                this.controller);
+                controller);
         this.endBattleAllTroopsDeadObserver = new EndBattleAllTroopsDeadGameImpl(
-                this.controller);
+                controller);
         this.handleBattleVillageBuildings();
     }
 
@@ -361,7 +360,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      */
     @Override
     public boolean isBattleTimeFinished() {
-        return this.battleTimer.getElapsedTime() >= this.battleDurationSeconds;
+        return this.battleTimer.getElapsedTime() >= this.BATTLE_DURATION_SECONDS;
     }
 
     /**

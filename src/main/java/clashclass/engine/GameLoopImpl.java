@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 public class GameLoopImpl implements GameLoop {
     private static final int ONE_MILLION = 1_000_000;
     private static final int ONE_BILLION = 1_000_000_000;
-    private final float fps;
     private final float secondsBetweenTwoFrames;
     private long lastTime;
     private float deltaTime;
@@ -28,7 +27,6 @@ public class GameLoopImpl implements GameLoop {
      */
     public GameLoopImpl(final Optional<Graphic> graphic, final float fps) {
         this.graphics = graphic;
-        this.fps = fps;
         this.secondsBetweenTwoFrames = 1.0f / fps;
         this.lastTime = 0;
         this.deltaTime = 0.0f;

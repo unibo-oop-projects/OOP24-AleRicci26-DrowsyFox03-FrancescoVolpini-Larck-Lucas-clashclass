@@ -12,7 +12,6 @@ import clashclass.ecs.GameObject;
 public class EndBattleAllVillageDestroyedImpl extends AbstractComponent implements EndBattleAllVillageDestroyed {
     private final BattleManagerController battleManagerController;
     private final BattleReportController battleReportController;
-    private boolean isFullyDestroyed;
 
     /**
      * Initialize the flag of the village to not destroyed.
@@ -25,7 +24,6 @@ public class EndBattleAllVillageDestroyedImpl extends AbstractComponent implemen
             final BattleReportController battleReportController) {
         this.battleManagerController = battleManagerController;
         this.battleReportController = battleReportController;
-        this.isFullyDestroyed = false;
     }
 
     /**

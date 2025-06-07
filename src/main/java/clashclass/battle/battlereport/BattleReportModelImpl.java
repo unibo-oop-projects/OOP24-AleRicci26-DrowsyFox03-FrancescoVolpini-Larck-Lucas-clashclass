@@ -17,7 +17,7 @@ public class BattleReportModelImpl implements BattleReportModel {
     private double destructionPercentage;
     private ResourceManager stolenResources;
     private boolean townHallDestroyed;
-    private int totalBuildings;
+    private final int totalBuildings;
     private int destroyedBuildings;
     private int troopCount;
     private GameStateManager gameStateManager;

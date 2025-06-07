@@ -15,7 +15,6 @@ public class ShopMenuJavaFXImpl implements ShopMenuView {
     private static final double GRID_CELL_GAP = 30.0;
     private final AnchorPane root;
     private final GridPane grid;
-    private ShopMenuController controller;
 
     /**
      * Constructs the view.
@@ -42,7 +41,6 @@ public class ShopMenuJavaFXImpl implements ShopMenuView {
                 .forEach(i -> grid.getRowConstraints().add(new RowConstraints()));
 
         root.getChildren().add(grid);
-        this.hide();
     }
 
     /**
@@ -50,8 +48,6 @@ public class ShopMenuJavaFXImpl implements ShopMenuView {
      */
     @Override
     public void setController(final ShopMenuController controller) {
-        this.controller = controller;
-
         final var items = controller.getShopManager().getShopItems();
 
         IntStream.iterate(0, i -> i + 1)

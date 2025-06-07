@@ -8,6 +8,7 @@ import java.util.List;
  * Represents an algorithm used by the troops in battle,
  * for choosing the next building (target) to attack.
  */
+@FunctionalInterface
 public interface ChooseTargetLogic {
     /**
      * Chooses the next target to attack.

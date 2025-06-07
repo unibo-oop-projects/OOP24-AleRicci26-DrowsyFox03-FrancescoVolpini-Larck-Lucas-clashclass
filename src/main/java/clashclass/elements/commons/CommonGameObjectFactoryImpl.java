@@ -42,7 +42,7 @@ public class CommonGameObjectFactoryImpl implements CommonGameObjectsFactory {
     @Override
     public GameObject createUIElement() {
         return new GameObjectImpl.BuilderImpl()
-                .addComponent(new UIRendererImpl(1, 1, 2))
+                .addComponent(new UIRendererImpl(2))
                 .build();
     }
 }

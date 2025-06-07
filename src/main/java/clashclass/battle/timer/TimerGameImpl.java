@@ -38,4 +38,13 @@ public class TimerGameImpl implements Timer {
     public long getElapsedTime() {
         return (System.currentTimeMillis() - startTime) / 1000;
     }
+
+    /**
+     * Gets the end time.
+     *
+     * @return the end time
+     */
+    public long getEndTime() {
+        return this.endTime;
+    }
 }

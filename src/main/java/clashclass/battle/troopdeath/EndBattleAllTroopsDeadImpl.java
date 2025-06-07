@@ -9,7 +9,6 @@ import clashclass.ecs.GameObject;
  * Ends the battle when all troops are dead.
  */
 public class EndBattleAllTroopsDeadImpl extends AbstractComponent implements EndBattleAllTroopsDead {
-    private boolean allTroopsDead;
     private int troopCount;
     private int deadTroopCount;
 
@@ -18,7 +17,6 @@ public class EndBattleAllTroopsDeadImpl extends AbstractComponent implements End
      * and set the initial troop count to 0.
      */
     public EndBattleAllTroopsDeadImpl() {
-        this.allTroopsDead = false;
         this.troopCount = 0;
         this.deadTroopCount = 0;
     }
@@ -28,6 +26,7 @@ public class EndBattleAllTroopsDeadImpl extends AbstractComponent implements End
      *
      * @return true if all troops are dead, false otherwise
      */
+    @Override
     public boolean isAllTroopsDead() {
         return troopCount > 0 && troopCount == deadTroopCount;
     }
@@ -37,6 +36,7 @@ public class EndBattleAllTroopsDeadImpl extends AbstractComponent implements End
      *
      * @param count the number of troops
      */
+    @Override
     public void setTroopCount(final int count) {
         this.troopCount = count;
     }
@@ -49,7 +49,6 @@ public class EndBattleAllTroopsDeadImpl extends AbstractComponent implements End
         deadTroopCount++;
 
         if (isAllTroopsDead()) {
-            allTroopsDead = true;
             new AbstractBattleEvent(null) {
                 @Override
                 public void endBattle() {

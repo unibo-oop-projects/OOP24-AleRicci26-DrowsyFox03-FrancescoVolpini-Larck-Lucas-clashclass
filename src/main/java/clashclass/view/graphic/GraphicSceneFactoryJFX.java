@@ -39,7 +39,7 @@ public class GraphicSceneFactoryJFX implements GraphicSceneFactory {
                     Paths.get("Villages-Data/player-village.csv"),
                     Paths.get("Villages-Data/battle-village.csv"));
         } catch (final IOException e) {
-            System.err.println("Player village file not found ");
+            // throw new IOException("Player village file not found", e);
             return null;
         }
     }

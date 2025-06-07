@@ -13,12 +13,10 @@ public class UIRendererImpl extends AbstractGraphicComponent {
     /**
      * Constructs the component.
      *
-     * @param width the width
-     * @param height the height
      * @param layer the layer
      */
-    public UIRendererImpl(final double width, final double height, final int layer) {
-        super(1, 1, 2 + layer);
+    public UIRendererImpl(final int layer) {
+        super(layer + 2);
     }
 
     /**

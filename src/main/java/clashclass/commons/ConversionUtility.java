@@ -19,7 +19,7 @@ public final class ConversionUtility {
         final var centerGridPosition = gridPosition;
         final double step = GameConstants.TILE_PIXEL_SIZE * (GameConstants.TILE_SCALE / 2.0);
         final double screenOffsetX = GameConstants.SCREEN_WIDTH / 2.0;
-        final double screenOffsetY = -((double) GameConstants.SCREEN_HEIGHT * 0.7) * (GameConstants.TILE_SCALE / 2.0);
+        final double screenOffsetY = -(GameConstants.SCREEN_HEIGHT * 0.7) * (GameConstants.TILE_SCALE / 2.0);
         return new Vector2D(
                 (centerGridPosition.x() - centerGridPosition.y()) * step + screenOffsetX,
                 (centerGridPosition.x() + centerGridPosition.y()) * step + screenOffsetY
@@ -36,7 +36,7 @@ public final class ConversionUtility {
     public static VectorInt2D convertWorldToGridPosition(final Vector2D worldPosition) {
         final double step = GameConstants.TILE_PIXEL_SIZE * (GameConstants.TILE_SCALE / 2.0);
         final double screenOffsetX = GameConstants.SCREEN_WIDTH / 2.0;
-        final double screenOffsetY = -((double) GameConstants.SCREEN_HEIGHT * 0.7) * (GameConstants.TILE_SCALE / 2.0);
+        final double screenOffsetY = -(GameConstants.SCREEN_HEIGHT * 0.7) * (GameConstants.TILE_SCALE / 2.0);
 
         final double isoX = (worldPosition.x() - screenOffsetX) / step;
         final double isoY = (worldPosition.y() - screenOffsetY) / step;

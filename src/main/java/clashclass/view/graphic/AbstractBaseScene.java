@@ -1,7 +1,6 @@
 package clashclass.view.graphic;
 
 import clashclass.commons.GameConstants;
-import clashclass.engine.GameEngine;
 
 /**
  * Abstract class containing all the basic methods and variables for a BaseScene.
@@ -11,7 +10,6 @@ public abstract class AbstractBaseScene implements BaseScene {
     private static final double WINDOW_HEIGHT = GameConstants.SCREEN_HEIGHT;
     private final Window window;
     private Graphic graphics;
-    private GameEngine gameEngine;
 
     /**
      * Constructs the scene.

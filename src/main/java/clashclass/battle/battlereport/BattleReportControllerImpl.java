@@ -69,6 +69,7 @@ public class BattleReportControllerImpl implements BattleReportController {
      *
      * @return The current destruction percentage
      */
+    @Override
     public double getDestructionPercentage() {
         return model.getDestructionPercentage();
     }

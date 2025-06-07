@@ -6,6 +6,7 @@ import java.nio.file.Path;
 /**
  * Interface for writing data to files.
  */
+@FunctionalInterface
 public interface FileWriter {
     /**
      * Writes the provided data to a file.

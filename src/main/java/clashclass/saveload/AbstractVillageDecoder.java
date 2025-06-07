@@ -46,8 +46,8 @@ public abstract class AbstractVillageDecoder implements VillageDecoder {
 
             final var lines = encodedVillage.split("\\R");
 
-            for (String line : lines) {
-                line = line.strip();
+            for (final String lineRaw : lines) {
+                final String line = lineRaw.strip();
                 if (line.isEmpty() || line.startsWith("ResourceType")) {
                     continue;
                 }
@@ -73,8 +73,8 @@ public abstract class AbstractVillageDecoder implements VillageDecoder {
 
             boolean troopsSectionStarted = false;
 
-            for (String line : lines) {
-                line = line.strip();
+            for (final String lineRaw : lines) {
+                final String line = lineRaw.strip();
                 if (!troopsSectionStarted) {
                     if (!line.startsWith("TroopType")) {
                         continue;
@@ -103,8 +103,8 @@ public abstract class AbstractVillageDecoder implements VillageDecoder {
 
             boolean buildingsSectionStarted = false;
 
-            for (String line : lines) {
-                line = line.strip();
+            for (final String lineRaw : lines) {
+                final String line = lineRaw.strip();
                 if (!buildingsSectionStarted) {
                     if (!line.startsWith("TYPE")) {
                         continue;

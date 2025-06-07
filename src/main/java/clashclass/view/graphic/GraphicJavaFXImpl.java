@@ -27,8 +27,6 @@ public class GraphicJavaFXImpl implements Graphic {
     private Map<String, Image> spritesMap;
     private final double dpiW;
     private final double dpiH;
-    private double width;
-    private double height;
     private final Canvas canvas;
 
     /**
@@ -139,8 +137,8 @@ public class GraphicJavaFXImpl implements Graphic {
 
             this.gc.drawImage(
                     image,
-                    position.x() - (image.getWidth() * GameConstants.TILE_SCALE) / 2,
-                    position.y() - (image.getHeight() * GameConstants.TILE_SCALE),
+                    position.x() - image.getWidth() * GameConstants.TILE_SCALE / 2,
+                    position.y() - image.getHeight() * GameConstants.TILE_SCALE,
                     image.getWidth() * GameConstants.TILE_SCALE,
                     image.getHeight() * GameConstants.TILE_SCALE);
             this.gc.restore();

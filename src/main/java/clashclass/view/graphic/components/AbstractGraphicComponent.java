@@ -6,35 +6,15 @@ import clashclass.ecs.AbstractComponent;
  * Abstract class that represents the GraphicComponent of a GameObject.
  */
 public abstract class AbstractGraphicComponent extends AbstractComponent implements DrawableComponent {
-    private final double width;
-    private final double height;
     private final int layer;
 
     /**
      * Protected Builder for GraphicComponent.
      *
-     * @param width of the GraphicComponent
-     * @param height of the GraphicComponent
      * @param layer of the GraphicComponent
      */
-    protected AbstractGraphicComponent(final double width, final double height, final int layer) {
-        this.width = width;
-        this.height = height;
+    protected AbstractGraphicComponent(final int layer) {
         this.layer = layer;
-    }
-
-    /**
-     * @return the width of the GraphicComponent
-     */
-    public double getWidth() {
-        return width;
-    }
-
-    /**
-     * @return the height of the GraphicComponent
-     */
-    public double getHeight() {
-        return height;
     }
 
     /**

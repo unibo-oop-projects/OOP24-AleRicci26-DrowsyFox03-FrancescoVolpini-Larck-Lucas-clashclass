@@ -15,7 +15,7 @@ public class ImageRendererImpl extends AbstractGraphicComponent {
      * @param layer the layer
      */
     public ImageRendererImpl(final String spriteName, final int layer) {
-        super(1, 1, layer);
+        super(layer);
         this.spriteName = spriteName;
     }
 

@@ -5,6 +5,7 @@ import clashclass.commons.Vector2D;
 /**
  * Represents a heuristic to calculate the distance between two vectors.
  */
+@FunctionalInterface
 public interface DistanceHeuristic {
     /**
      * Calculates the distance between two vectors.

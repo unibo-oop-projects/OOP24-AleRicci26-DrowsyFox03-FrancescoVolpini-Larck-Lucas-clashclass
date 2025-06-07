@@ -18,7 +18,6 @@ public class GoToTargetNode extends AbstractBehaviourNode {
     private static final float SPEED = 15.0f;
     private final float distanceToTargetTolerance;
     private BlackboardProperty<GameObject> actorProp;
-    private BlackboardProperty<PathNodeListWrapper> pathProp;
 
     private final Queue<PathNode> remainingPathNodes;
     private Optional<PathNode> currentTarget;
@@ -40,12 +39,12 @@ public class GoToTargetNode extends AbstractBehaviourNode {
     @Override
     public void onEnter() {
         this.actorProp = this.getBlackboard().getProperty("actor", GameObject.class);
-        this.pathProp = this.getBlackboard().getProperty("path", PathNodeListWrapper.class);
+        final var pathProp = this.getBlackboard().getProperty("path", PathNodeListWrapper.class);
         this.currentTarget = Optional.empty();
         this.remainingPathNodes.clear();
 
-        if (this.pathProp != null && this.pathProp.getValue() != null) {
-            this.remainingPathNodes.addAll(this.pathProp.getValue().list());
+        if (pathProp != null && pathProp.getValue() != null) {
+            this.remainingPathNodes.addAll(pathProp.getValue().list());
         }
     }
 

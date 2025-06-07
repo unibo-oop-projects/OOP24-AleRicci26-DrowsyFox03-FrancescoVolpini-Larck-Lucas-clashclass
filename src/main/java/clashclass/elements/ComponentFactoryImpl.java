@@ -34,8 +34,8 @@ public class ComponentFactoryImpl implements ComponentFactory {
      * {@inheritDoc}
      */
     @Override
-    public Component createGraphic(final double width, final double height) {
-        return new GraphicComponentImpl(width, height);
+    public Component createGraphic() {
+        return new GraphicComponentImpl();
     }
 
     /**
@@ -44,8 +44,6 @@ public class ComponentFactoryImpl implements ComponentFactory {
     @Override
     public Component createProgressBar(final String colorEx) {
         return new ProgressBarRendererImpl(
-                1,
-                1,
                 2,
                 PROGRESS_BAR_WIDTH,
                 PROGRESS_BAR_HEIGHT,
