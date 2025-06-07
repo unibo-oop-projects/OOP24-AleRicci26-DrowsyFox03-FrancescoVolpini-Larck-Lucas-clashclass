@@ -1,14 +1,15 @@
 package clashclass.saveload;
 
 import clashclass.commons.BuildingTypeComponent;
-import clashclass.commons.Transform2D;
+import clashclass.commons.GridTileData2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.buildings.VillageElementData;
+import clashclass.village.Village;
 
 import java.util.EnumMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * Represents a {@link VillageEncoder} implementation.
@@ -29,27 +30,48 @@ public class VillageEncoderImpl implements VillageEncoder {
      * {@inheritDoc}
      */
     @Override
-    public String encode(final Set<GameObject> gameObjects) {
-        final StringBuilder builder = new StringBuilder(getHeader());
+    public String encode(final Village village) {
+        final StringBuilder builder = new StringBuilder();
+
+        // Resources
+        builder.append("ResourceType,CurrentValue,MaxValue").append(NEW_LINE);
+        village.getPlayer().getPlayerResources().forEach((type, resource) -> builder
+                .append(type.name().toUpperCase(Locale.getDefault()))
+                .append(CSV_DELIMITER)
+                .append((int) resource.getCurrentValue())
+                .append(CSV_DELIMITER)
+                .append((int) resource.getCurrentValue())
+                .append(NEW_LINE)
+        );
+        builder.append(NEW_LINE);
+
+        // Army-camp troops
+        builder.append("TroopType,Count").append(NEW_LINE);
+        village.getPlayer().getArmyCampTroopTypes().forEach(troopType -> {
+            final var count = village.getPlayer().getArmyCampTroopCount(troopType);
+            builder
+                    .append(troopType.getName().toUpperCase(Locale.getDefault()))
+                    .append(CSV_DELIMITER)
+                    .append(count)
+                    .append(NEW_LINE);
+                }
+        );
+        builder.append(NEW_LINE);
+
+        // Buildings
+        builder.append(getHeader());
 
         final Map<VillageElementData, Integer> counters = new EnumMap<>(VillageElementData.class);
 
-        for (final GameObject gameObject : gameObjects) {
-            // Determine the type of this GameObject
-            final Optional<VillageElementData> typeOpt = determineType(gameObject);
-
-            if (typeOpt.isPresent()) {
-                final VillageElementData type = typeOpt.get();
-
+        for (final GameObject gameObject : village.getGameObjects()) {
+            determineType(gameObject).ifPresent(type -> {
                 final int progressive = counters.merge(type, 1, (prev, inc) -> prev + 1);
-                // Get the transform for position info
-                final Transform2D transform = gameObject.getComponentOfType(Transform2D.class)
-                        .orElseThrow(() -> new IllegalStateException("GameObject must have Transform2D"));
+                final var gridPosition = gameObject.getComponentOfType(GridTileData2D.class).get()
+                        .getPosition();
+                final int x = gridPosition.x();
+                final int y = gridPosition.y();
 
-                final int x = (int) transform.getPosition().x();
-                final int y = (int) transform.getPosition().y();
-
-                builder.append(type.getName())
+                builder.append(type.getName().toUpperCase(Locale.getDefault()))
                         .append(CSV_DELIMITER)
                         .append(progressive)
                         .append(CSV_DELIMITER)
@@ -57,9 +79,9 @@ public class VillageEncoderImpl implements VillageEncoder {
                         .append(CSV_DELIMITER)
                         .append(y)
                         .append(NEW_LINE);
-            }
-
+            });
         }
+
         return builder.toString();
     }
 

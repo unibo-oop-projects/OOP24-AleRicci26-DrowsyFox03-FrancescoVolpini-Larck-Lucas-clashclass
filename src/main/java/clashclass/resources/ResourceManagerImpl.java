@@ -14,7 +14,7 @@ public class ResourceManagerImpl implements ResourceManager {
      */
     public ResourceManagerImpl(final int maxValue) {
         this.maxValue = maxValue;
-        this.currentValue = maxValue;
+        this.currentValue = 0.0;
     }
 
     /**
@@ -39,5 +39,13 @@ public class ResourceManagerImpl implements ResourceManager {
     @Override
     public double getCurrentValue() {
         return this.currentValue;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public double getMaxValue() {
+        return this.maxValue;
     }
 }

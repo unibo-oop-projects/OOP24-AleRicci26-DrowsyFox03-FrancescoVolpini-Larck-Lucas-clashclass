@@ -29,15 +29,13 @@ public abstract class AbstractVillageSceneJFX extends AbstractBaseScene {
      * @param sceneTitle the title of the scene
      * @param playerCsvPath the player village file path
      * @param battleCsvPath the battle village fila path
-     *
-     * @throws IOException IO file exception
      */
     public AbstractVillageSceneJFX(
             final Window window,
             final Stage stage,
             final String sceneTitle,
             final Path playerCsvPath,
-            final Path battleCsvPath) throws IOException {
+            final Path battleCsvPath) {
         super(window);
         final AnchorPane root = new AnchorPane();
 

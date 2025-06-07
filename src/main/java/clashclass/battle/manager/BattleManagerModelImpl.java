@@ -36,18 +36,18 @@ import clashclass.elements.troops.BattleTroopFactoryImpl;
 import clashclass.elements.troops.TroopType;
 import clashclass.elements.troops.TroopFactory;
 import clashclass.gamestate.GameStateManager;
-import clashclass.saveload.BattleVillageDecoderImpl;
-import clashclass.saveload.PlayerVillageDecoderImpl;
-import clashclass.saveload.VillageDecoder;
+import clashclass.saveload.*;
 import clashclass.village.Village;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.EnumMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Represents a {@link BattleManagerModel} implementation.
@@ -79,8 +79,12 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * @param battleVillageCsvPath the battle village csv file path
      */
     public BattleManagerModelImpl(final Path playerVillageCsvPath, final Path battleVillageCsvPath) {
-        this.playerVillage = this.loadVillage(playerVillageCsvPath, new PlayerVillageDecoderImpl());
-        this.battleVillage = this.loadVillage(battleVillageCsvPath, new BattleVillageDecoderImpl());
+        this.playerVillage = this.loadVillageFromSaveDataOrElseFromResources(
+                playerVillageCsvPath,
+                new PlayerVillageDecoderImpl());
+        this.battleVillage = this.loadVillageFromResources(
+                battleVillageCsvPath,
+                new BattleVillageDecoderImpl());
 
         this.activeTroops = new HashSet<>();
         this.aiNodesBuilder = new AiNodesBuilderImpl();
@@ -104,15 +108,36 @@ public class BattleManagerModelImpl implements BattleManagerModel {
         this.battleReportController.setGameStateManager(gameStateManager);
     }
 
-    private Village loadVillage(final Path csvPath, final VillageDecoder decoder) {
-        try {
-            decoder.setComponentFactory(new ComponentFactoryImpl());
-            final var csvData = Files.readString(csvPath);
-            return decoder.decode(csvData);
-        } catch (final IOException e) {
-            //throw new IOException("Could not read village data", e);
-            return null;
+    private Village loadVillageFromResources(
+            final Path csvPath,
+            final VillageDecoder decoder) {
+        decoder.setComponentFactory(new ComponentFactoryImpl());
+        return decoder.decode(this.readCsvFileFromResources(csvPath));
+    }
+
+    private Village loadVillageFromSaveDataOrElseFromResources(
+            final Path csvPath,
+            final VillageDecoder decoder) {
+        decoder.setComponentFactory(new ComponentFactoryImpl());
+        if (Files.exists(csvPath)) {
+            return decoder.decode(this.readCsvFile(csvPath));
         }
+        return decoder.decode(this.readCsvFileFromResources(csvPath));
+    }
+
+    private String readCsvFile(final Path csvPath) {
+        try {
+            return Files.readString(csvPath);
+        } catch (final IOException e) {
+            return "";
+        }
+    }
+
+    private String readCsvFileFromResources(final Path csvPath) {
+        final var fileStream = Objects.requireNonNull(ClassLoader
+                .getSystemResourceAsStream(csvPath.toString().replace("\\", "/")));
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream));
+        return reader.lines().collect(Collectors.joining("\n"));
     }
 
     private void handleBattleVillageDefenseBuildings() {
@@ -388,6 +413,19 @@ public class BattleManagerModelImpl implements BattleManagerModel {
                 .forEach(defenseBuilding -> defenseBuilding
                         .getComponentOfType(BehaviourTree.class).get().stop());
 
+        final var saveLoadManager = new VillageSaveLoadManager(
+                new VillageEncoderImpl(),
+                new PlayerVillageDecoderImpl(),
+                new BattleVillageDecoderImpl(),
+                new SimpleFileWriterImpl(),
+                Paths.get("Villages-Data")
+        );
+        try {
+            saveLoadManager.saveVillage(this.playerVillage, "player-village");
+        } catch (final IOException e) {
+            this.battleReportController.show();
+            return;
+        }
         this.battleReportController.show();
     }
 }

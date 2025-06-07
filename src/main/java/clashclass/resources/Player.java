@@ -9,7 +9,7 @@ import java.util.Set;
  * Class that provide the player with different resources.
  */
 public class Player {
-    private static final int GENERIC_VALUE = 10;
+    private static final int GENERIC_VALUE = 1_000_000;
     private final Map<ResourceType, ResourceManager>
             playerResources = new EnumMap<>(ResourceType.class);
     private final Map<TroopType, Integer> armyCampTroops = new EnumMap<>(TroopType.class);

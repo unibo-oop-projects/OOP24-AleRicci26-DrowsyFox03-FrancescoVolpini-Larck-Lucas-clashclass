@@ -9,9 +9,14 @@ import clashclass.shop.ShopMenuControllerImpl;
 import clashclass.shop.ShopMenuModelImpl;
 import clashclass.shop.ShopMenuView;
 import clashclass.village.Village;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Represents a {@link PlayerVillageModel} implementation.
@@ -39,15 +44,24 @@ public class PlayerVillageModelImpl implements PlayerVillageModel {
     }
 
     private Village loadVillage(final Path csvPath) {
-        try {
-            final var decoder = new PlayerVillageDecoderImpl();
-            decoder.setComponentFactory(new ComponentFactoryImpl());
-            final var csvData = Files.readString(csvPath);
-            return decoder.decode(csvData);
-        } catch (final IOException e) {
-            // throw new IOException("Could not read village data", e);
-            return null;
+        final var decoder = new PlayerVillageDecoderImpl();
+        decoder.setComponentFactory(new ComponentFactoryImpl());
+        final var csvData = this.readCsvFile(csvPath);
+        return decoder.decode(csvData);
+    }
+
+    private String readCsvFile(final Path csvPath) {
+        if (Files.exists(csvPath)) {
+            try {
+                return Files.readString(csvPath);
+            } catch (final IOException e) {
+                return "";
+            }
         }
+        final var fileStream = Objects.requireNonNull(ClassLoader
+                .getSystemResourceAsStream(csvPath.toString().replace("\\", "/")));
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream));
+        return reader.lines().collect(Collectors.joining("\n"));
     }
 
     /**

@@ -1,11 +1,9 @@
 package clashclass.saveload;
 
-import clashclass.ecs.GameObject;
 import clashclass.village.Village;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Set;
 
 /**
  * Main manager class for handling village save/load operations.
@@ -44,14 +42,15 @@ public class VillageSaveLoadManager {
     /**
      * Saves a collection of GameObjects to file.
      *
-     * @param gameObjects The GameObjects to save
+     * @param village The village to save
      *
      * @param fileName The name of the save file
      *
      * @throws IOException If saving fails
      */
-    public void saveVillage(final Set<GameObject> gameObjects, final String fileName) throws IOException {
-        final String encoded = encoder.encode(gameObjects);
+    public void saveVillage(final Village village, final String fileName) throws IOException {
+        final String encoded = encoder.encode(village);
+        Files.createDirectories(savesDirectory);
         final Path filePath = savesDirectory.resolve(fileName + CSV_EXTENSION);
         fileWriter.writeToFile(encoded, filePath);
     }

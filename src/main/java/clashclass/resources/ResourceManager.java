@@ -24,4 +24,11 @@ public interface ResourceManager {
      * @return the resource value as a double
      */
     double getCurrentValue();
+
+    /**
+     * Returns the max value of the resource.
+     *
+     * @return the max value of the resource
+     */
+    double getMaxValue();
 }
