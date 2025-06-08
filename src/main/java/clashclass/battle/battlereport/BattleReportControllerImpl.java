@@ -3,6 +3,7 @@ package clashclass.battle.battlereport;
 import clashclass.ecs.GameObject;
 import clashclass.gamestate.GameStateManager;
 import clashclass.resources.ResourceManager;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Implementation of the BattleReportController interface.
@@ -18,6 +19,7 @@ public class BattleReportControllerImpl implements BattleReportController {
      * @param model The BattleReportModel to update
      * @param view The BattleReportView to update
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public BattleReportControllerImpl(final BattleReportModel model, final BattleReportView view) {
         this.model = model;
         this.view = view;

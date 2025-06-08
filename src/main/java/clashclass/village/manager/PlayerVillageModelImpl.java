@@ -9,10 +9,12 @@ import clashclass.shop.ShopMenuControllerImpl;
 import clashclass.shop.ShopMenuModelImpl;
 import clashclass.shop.ShopMenuView;
 import clashclass.village.Village;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -39,6 +41,7 @@ public class PlayerVillageModelImpl implements PlayerVillageModel {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public void setGameStateManager(final GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
     }
@@ -60,7 +63,7 @@ public class PlayerVillageModelImpl implements PlayerVillageModel {
         }
         final var fileStream = Objects.requireNonNull(ClassLoader
                 .getSystemResourceAsStream(csvPath.toString().replace("\\", "/")));
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream));
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream, StandardCharsets.UTF_8));
         return reader.lines().collect(Collectors.joining("\n"));
     }
 
@@ -68,6 +71,7 @@ public class PlayerVillageModelImpl implements PlayerVillageModel {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
     public GameStateManager getGameStateManager() {
         return this.gameStateManager;
     }
@@ -76,6 +80,7 @@ public class PlayerVillageModelImpl implements PlayerVillageModel {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
     public Village getPlayerVillage() {
         return this.playerVillage;
     }

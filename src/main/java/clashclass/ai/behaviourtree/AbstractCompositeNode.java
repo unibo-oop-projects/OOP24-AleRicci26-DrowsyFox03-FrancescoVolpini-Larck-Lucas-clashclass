@@ -1,6 +1,7 @@
 package clashclass.ai.behaviourtree;
 
 import clashclass.ai.behaviourtree.blackboard.Blackboard;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public abstract class AbstractCompositeNode extends AbstractBehaviourNode {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public void setBlackboard(final Blackboard blackboard) {
         super.setBlackboard(blackboard);
         this.children.forEach(child -> child.setBlackboard(blackboard));

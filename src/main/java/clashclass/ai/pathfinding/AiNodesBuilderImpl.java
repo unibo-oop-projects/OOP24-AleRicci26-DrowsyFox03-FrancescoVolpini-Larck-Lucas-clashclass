@@ -6,6 +6,7 @@ import clashclass.commons.GridTileData2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.buildings.VillageElementData;
 import clashclass.village.Village;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ public class AiNodesBuilderImpl implements AiNodesBuilder {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
     public PathNodeGrid buildPathNodeList(final Village village) {
         this.pathNodeGrid = new PathNodeGridImpl(GameConstants.VILLAGE_SIZE, village.getBuildings().stream()
                 .map(gameObject -> {

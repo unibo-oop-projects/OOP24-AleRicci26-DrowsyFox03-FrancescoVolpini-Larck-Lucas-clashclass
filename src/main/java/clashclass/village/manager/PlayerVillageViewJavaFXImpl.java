@@ -2,6 +2,7 @@ package clashclass.village.manager;
 
 import clashclass.shop.ShopMenuJavaFXImpl;
 import clashclass.shop.ShopMenuView;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -26,6 +27,7 @@ public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
      *
      * @param root the UI root node
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public PlayerVillageViewJavaFXImpl(final AnchorPane root) {
         this.root = root;
         this.root.setStyle("-fx-background-color: #0A8F32;");

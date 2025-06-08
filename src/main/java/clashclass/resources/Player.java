@@ -1,6 +1,8 @@
 package clashclass.resources;
 
 import clashclass.elements.troops.TroopType;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Set;
@@ -32,6 +34,7 @@ public class Player {
      *
      * @return the player resources map
      */
+    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
     public Map<ResourceType, ResourceManager> getPlayerResources() {
         return playerResources;
     }

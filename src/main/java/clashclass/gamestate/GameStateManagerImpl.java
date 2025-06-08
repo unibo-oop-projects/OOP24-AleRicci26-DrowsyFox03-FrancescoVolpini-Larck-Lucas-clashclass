@@ -4,6 +4,7 @@ import clashclass.elements.ComponentFactoryImpl;
 import clashclass.engine.GameEngine;
 
 import clashclass.saveload.PlayerVillageDecoderImpl;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 import java.util.function.Supplier;
@@ -24,6 +25,7 @@ public class GameStateManagerImpl implements GameStateManager {
      * @param playerVillageStateCreator the player village state creator
      * @param battleStateCreator the battle state creator
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public GameStateManagerImpl(
             final GameEngine gameEngine,
             final Supplier<GameStateController> playerVillageStateCreator,
@@ -61,6 +63,7 @@ public class GameStateManagerImpl implements GameStateManager {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
     public GameEngine getGameEngine() {
         return this.gameEngine;
     }

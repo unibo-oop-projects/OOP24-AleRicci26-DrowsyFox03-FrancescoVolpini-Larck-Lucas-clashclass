@@ -1,6 +1,7 @@
 package clashclass.shop;
 
 import clashclass.resources.ResourceType;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +17,7 @@ public class ShopManagerImpl implements ShopManager {
      *
      * @param shopItems list of items inside the shop
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public ShopManagerImpl(final List<ShopItem> shopItems) {
         this.shopItems = shopItems;
     }
@@ -60,6 +62,7 @@ public class ShopManagerImpl implements ShopManager {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
     public List<ShopItem> getShopItems() {
         return this.shopItems;
     }

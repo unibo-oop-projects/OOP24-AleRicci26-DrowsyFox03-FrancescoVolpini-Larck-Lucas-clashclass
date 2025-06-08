@@ -1,5 +1,6 @@
 package clashclass.shop;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -21,6 +22,7 @@ public class ShopMenuJavaFXImpl implements ShopMenuView {
      *
      * @param root the root UI node
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public ShopMenuJavaFXImpl(final AnchorPane root) {
         this.root = root;
 

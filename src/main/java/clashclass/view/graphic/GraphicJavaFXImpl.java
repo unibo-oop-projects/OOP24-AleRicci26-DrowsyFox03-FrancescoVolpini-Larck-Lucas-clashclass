@@ -7,6 +7,7 @@ import clashclass.ecs.GameObject;
 import clashclass.elements.buildings.VillageElementData;
 import clashclass.elements.troops.TroopType;
 import clashclass.view.graphic.components.AbstractGraphicComponent;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -37,6 +38,7 @@ public class GraphicJavaFXImpl implements Graphic {
      * @param dpiW the window width
      * @param dpiH the window height
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public GraphicJavaFXImpl(
             final GraphicsContext gc,
             final Canvas canvas,

@@ -9,6 +9,7 @@ import clashclass.elements.commons.CommonGameObjectFactoryImpl;
 import clashclass.engine.GameEngine;
 import clashclass.view.graphic.Graphic;
 import clashclass.view.graphic.components.UIRendererImpl;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -48,6 +49,7 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
      *
      * @param root the root reference
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public BattleManagerViewJavaFXImpl(final AnchorPane root, final GameEngine gameEngine) {
         this.root = root;
         this.root.setStyle("-fx-background-color: #0A8F32;");
@@ -105,6 +107,7 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public void setController(final BattleManagerController controller) {
         this.controller = controller;
     }

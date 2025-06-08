@@ -2,6 +2,7 @@ package clashclass.engine;
 
 import clashclass.view.graphic.Graphic;
 import clashclass.view.graphic.components.AbstractGraphicComponent;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -81,6 +82,7 @@ public class GameLoopImpl implements GameLoop {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public void setCurrentScene(final GameScene scene) {
         this.currentScene = scene;
     }

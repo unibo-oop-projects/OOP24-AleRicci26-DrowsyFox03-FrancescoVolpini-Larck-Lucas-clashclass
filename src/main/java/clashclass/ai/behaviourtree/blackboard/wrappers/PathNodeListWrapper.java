@@ -1,6 +1,8 @@
 package clashclass.ai.behaviourtree.blackboard.wrappers;
 
 import clashclass.ai.pathfinding.PathNode;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.util.List;
 
 /**
@@ -10,4 +12,5 @@ import java.util.List;
  *
  * @param list the list of path nodes
  */
+@SuppressFBWarnings(value = {"EI","EI2"}, justification = "Intentional access")
 public record PathNodeListWrapper(List<PathNode> list) { }

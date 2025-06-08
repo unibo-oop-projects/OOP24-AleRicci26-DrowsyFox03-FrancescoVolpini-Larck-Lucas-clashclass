@@ -6,6 +6,7 @@ import clashclass.ecs.GameObject;
 import clashclass.elements.troops.TroopType;
 import clashclass.gamestate.GameStateManager;
 import clashclass.village.Village;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.Set;
 
@@ -22,6 +23,7 @@ public class BattleManagerControllerImpl implements BattleManagerController {
      * @param model the model
      * @param view the view
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public BattleManagerControllerImpl(final BattleManagerModel model, final BattleManagerView view) {
         this.model = model;
         this.model.buildBattleReport(view.buildBattleReportView());

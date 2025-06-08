@@ -5,6 +5,7 @@ import clashclass.battle.endbattle.AbstractBattleEvent;
 import clashclass.battle.manager.BattleManagerController;
 import clashclass.ecs.AbstractComponent;
 import clashclass.ecs.GameObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Implementation of EndBattleAllVillageDestroyed interface.
@@ -19,6 +20,7 @@ public class EndBattleAllVillageDestroyedImpl extends AbstractComponent implemen
      * @param battleManagerController the battle manager controller
      * @param battleReportController the battle report controller
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public EndBattleAllVillageDestroyedImpl(
             final BattleManagerController battleManagerController,
             final BattleReportController battleReportController) {

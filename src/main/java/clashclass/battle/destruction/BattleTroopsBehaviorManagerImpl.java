@@ -3,6 +3,7 @@ package clashclass.battle.destruction;
 import clashclass.battle.manager.BattleManagerController;
 import clashclass.ecs.AbstractComponent;
 import clashclass.ecs.GameObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class BattleTroopsBehaviorManagerImpl extends AbstractComponent implement
      *
      * @param battleManagerController the battle manager controller
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public BattleTroopsBehaviorManagerImpl(final BattleManagerController battleManagerController) {
         this.troops = new ArrayList<>();
         this.battleManagerController = battleManagerController;

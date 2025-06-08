@@ -4,6 +4,7 @@ import clashclass.battle.endbattle.AbstractBattleEvent;
 import clashclass.battle.manager.BattleManagerController;
 import clashclass.ecs.AbstractComponent;
 import clashclass.ecs.GameObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Represents a {@link EndBattleAllTroopsDead} implementation.
@@ -16,6 +17,7 @@ public class EndBattleAllTroopsDeadGameImpl extends AbstractComponent implements
      *
      * @param battleManagerController the battle manager controller
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public EndBattleAllTroopsDeadGameImpl(final BattleManagerController battleManagerController) {
         this.battleManagerController = battleManagerController;
     }

@@ -3,6 +3,7 @@ package clashclass.battle.troopdeath;
 import clashclass.battle.manager.BattleManagerController;
 import clashclass.ecs.AbstractComponent;
 import clashclass.ecs.GameObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Represents a {@link TroopDeathObserver} implementation for updating the defense buildings' AI.
@@ -15,6 +16,7 @@ public class DefenseBuildingsBattleBehaviorManager extends AbstractComponent imp
      *
      * @param battleManagerController the battle manager controller
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public DefenseBuildingsBattleBehaviorManager(final BattleManagerController battleManagerController) {
         this.battleManagerController = battleManagerController;
     }

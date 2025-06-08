@@ -43,9 +43,12 @@ import clashclass.saveload.VillageSaveLoadManager;
 import clashclass.saveload.VillageEncoderImpl;
 import clashclass.saveload.SimpleFileWriterImpl;
 import clashclass.village.Village;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -111,6 +114,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public void setGameStateManager(final GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
         this.battleReportController.setGameStateManager(gameStateManager);
@@ -144,7 +148,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
     private String readCsvFileFromResources(final Path csvPath) {
         final var fileStream = Objects.requireNonNull(ClassLoader
                 .getSystemResourceAsStream(csvPath.toString().replace("\\", "/")));
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream));
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream, StandardCharsets.UTF_8));
         return reader.lines().collect(Collectors.joining("\n"));
     }
 
@@ -187,6 +191,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
     public GameStateManager getGameStateManager() {
         return this.gameStateManager;
     }
@@ -195,6 +200,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
     public Village getPlayerVillage() {
         return this.playerVillage;
     }
@@ -203,6 +209,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
     public Village getBattleVillage() {
         return this.battleVillage;
     }
@@ -275,6 +282,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
     public Set<GameObject> getActiveTroops() {
         return this.activeTroops;
     }

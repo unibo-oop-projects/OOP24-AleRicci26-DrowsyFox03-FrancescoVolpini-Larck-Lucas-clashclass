@@ -2,6 +2,8 @@ package clashclass.battle.endbattle;
 
 import clashclass.battle.manager.BattleManagerController;
 import clashclass.ecs.GameObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.util.Optional;
 
 /**
@@ -17,6 +19,7 @@ public abstract class AbstractBattleEvent implements BattleEvent {
      *
      * @param battleManagerController the battle manager controller
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public AbstractBattleEvent(final BattleManagerController battleManagerController) {
         this.battleManagerController = battleManagerController;
     }

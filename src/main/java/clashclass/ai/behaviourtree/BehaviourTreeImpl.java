@@ -3,6 +3,7 @@ package clashclass.ai.behaviourtree;
 import clashclass.ai.behaviourtree.blackboard.Blackboard;
 import clashclass.ai.behaviourtree.blackboard.BlackboardImpl;
 import clashclass.ecs.AbstractComponent;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Represents a BehaviourTree implementation.
@@ -17,6 +18,7 @@ public class BehaviourTreeImpl extends AbstractComponent implements BehaviourTre
      *
      * @param rootNode the root node of the tree
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public BehaviourTreeImpl(final AbstractBehaviourNode rootNode) {
         this.blackboard = new BlackboardImpl();
         this.rootNode = rootNode;
@@ -37,6 +39,7 @@ public class BehaviourTreeImpl extends AbstractComponent implements BehaviourTre
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
     public Blackboard getBlackboard() {
         return this.blackboard;
     }

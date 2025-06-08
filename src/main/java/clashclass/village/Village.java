@@ -7,6 +7,7 @@ import clashclass.ecs.GameObject;
 import clashclass.elements.commons.CommonGameObjectFactoryImpl;
 import clashclass.elements.commons.CommonGameObjectsFactory;
 import clashclass.resources.Player;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -29,6 +30,7 @@ public class Village {
      *
      * @param player the player that owns the village
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public Village(final Player player) {
         this.player = player;
         this.groundGrid = new GameObject[GameConstants.VILLAGE_SIZE][GameConstants.VILLAGE_SIZE];
@@ -133,6 +135,7 @@ public class Village {
      *
      * @return the player
      */
+    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
     public Player getPlayer() {
         return this.player;
     }
@@ -162,6 +165,7 @@ public class Village {
      *
      * @return the set of buildings
      */
+    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
     public Set<GameObject> getGameObjects() {
         return this.buildings;
     }

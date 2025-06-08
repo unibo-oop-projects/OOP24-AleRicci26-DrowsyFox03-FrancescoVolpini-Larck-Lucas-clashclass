@@ -1,6 +1,7 @@
 package clashclass.ai.behaviourtree.blackboard.wrappers;
 
 import clashclass.ecs.GameObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ import java.util.List;
  *
  * @param list the list of game objects
  */
+@SuppressFBWarnings(value = {"EI", "EI2"}, justification = "Intentional access")
 public record GameObjectListWrapper(List<GameObject> list) { }

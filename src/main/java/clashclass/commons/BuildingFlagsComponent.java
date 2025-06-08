@@ -2,6 +2,7 @@ package clashclass.commons;
 
 import clashclass.ecs.AbstractComponent;
 import clashclass.elements.buildings.BuildingFlag;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.Set;
 
@@ -16,6 +17,7 @@ public class BuildingFlagsComponent extends AbstractComponent {
      *
      * @param flags the set of flags
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public BuildingFlagsComponent(final Set<BuildingFlag> flags) {
         this.buildingFlags = flags;
     }
@@ -25,6 +27,7 @@ public class BuildingFlagsComponent extends AbstractComponent {
      *
      * @return the set of flags
      */
+    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
     public Set<BuildingFlag> getFlags() {
         return this.buildingFlags;
     }
