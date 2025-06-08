@@ -36,14 +36,15 @@ public class VillageEncoderImpl implements VillageEncoder {
 
         // Resources
         builder.append("ResourceType,CurrentValue,MaxValue").append(NEW_LINE);
-        village.getPlayer().getPlayerResources().forEach((type, resource) -> builder
-                .append(type.name().toUpperCase(Locale.getDefault()))
-                .append(CSV_DELIMITER)
-                .append((int) resource.getCurrentValue())
-                .append(CSV_DELIMITER)
-                .append((int) resource.getCurrentValue())
-                .append(NEW_LINE)
-        );
+        village.getPlayer().getPlayerResources().forEach((type, resource) -> {
+            String line = type.name().toUpperCase(Locale.getDefault()) +
+                    CSV_DELIMITER +
+                    (int) resource.getCurrentValue() +
+                    CSV_DELIMITER +
+                    (int) resource.getCurrentValue() +
+                    NEW_LINE;
+            builder.append(line);
+        });
         builder.append(NEW_LINE);
 
         // Army-camp troops
