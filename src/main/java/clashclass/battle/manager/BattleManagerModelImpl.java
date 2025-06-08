@@ -258,6 +258,8 @@ public class BattleManagerModelImpl implements BattleManagerModel {
 
             this.gameStateManager.getGameEngine().addGameObject(troopGameObject);
             behaviourTree.start();
+
+            this.battleReportController.setTroopCount(this.battleReportController.getTroopCount() + 1);
         }
 
         this.battleVillage.getGameObjects().stream()

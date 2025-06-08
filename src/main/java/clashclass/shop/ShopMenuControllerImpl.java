@@ -1,5 +1,7 @@
 package clashclass.shop;
 
+import clashclass.gamestate.GameStateManager;
+import clashclass.village.manager.PlayerVillageController;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -35,8 +37,8 @@ public class ShopMenuControllerImpl implements ShopMenuController {
      */
     @Override
     public boolean tryToBuyItem(final ShopItem item) {
-        if (this.model.getShopManager().canAfford(item)) {
-            this.model.getShopManager().buyItem(item);
+        if (this.model.tryToBuyItem(item)) {
+            this.goBackToVillage();
             return true;
         }
         return false;
@@ -64,5 +66,29 @@ public class ShopMenuControllerImpl implements ShopMenuController {
     @Override
     public void clearScene() {
         this.view.clearScene();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setGameStateManager(final GameStateManager gameStateManager) {
+        this.model.setGameStateManager(gameStateManager);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void goBackToVillage() {
+       this.model.getGameStateManager().setStatePlayerVillage();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setPlayerVillageController(final PlayerVillageController playerVillageController) {
+        this.model.setPlayerVillageController(playerVillageController);
     }
 }

@@ -1,5 +1,8 @@
 package clashclass.shop;
 
+import clashclass.gamestate.GameStateManager;
+import clashclass.village.manager.PlayerVillageController;
+
 /**
  * Represents a shop menu controller.
  */
@@ -34,4 +37,23 @@ public interface ShopMenuController {
      * Clears the scene.
      */
     void clearScene();
+
+    /**
+     * Sets the game state manager.
+     *
+     * @param gameStateManager the game state manager
+     */
+    void setGameStateManager(GameStateManager gameStateManager);
+
+    /**
+     * Goes back to village
+     */
+    void goBackToVillage();
+
+    /**
+     * Sets the player village controller reference.
+     *
+     * @param playerVillageController the player village controller
+     */
+    void setPlayerVillageController(PlayerVillageController playerVillageController);
 }

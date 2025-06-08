@@ -32,6 +32,13 @@ public interface BattleReportController {
     void setTroopCount(int count);
 
     /**
+     * Get the total number of troops used in the battle.
+     *
+     * @return The total number of troops used
+     */
+    int getTroopCount();
+
+    /**
      * Gets the village destruction percentage.
      *
      * @return the destruction percentage

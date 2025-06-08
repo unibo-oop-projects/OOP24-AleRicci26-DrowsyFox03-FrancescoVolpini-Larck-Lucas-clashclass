@@ -1,6 +1,8 @@
 package clashclass.village.manager;
 
+import clashclass.elements.buildings.VillageElementData;
 import clashclass.gamestate.GameStateManager;
+import clashclass.village.Village;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -23,7 +25,7 @@ public class PlayerVillageControllerImpl implements PlayerVillageController {
         this.model = model;
         this.view = view;
 
-        this.model.buildShop(this.view.getShopMenuView());
+        this.model.buildShop(this, this.view.getShopMenuView());
         this.view.setController(this);
 
         this.updateView();
@@ -47,6 +49,22 @@ public class PlayerVillageControllerImpl implements PlayerVillageController {
     @Override
     public void openBattleMode() {
         this.model.getGameStateManager().setStateBattle();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addBuilding(final VillageElementData buildingType) {
+        this.model.addBuilding(buildingType);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Village getPlayerVillage() {
+        return this.model.getPlayerVillage();
     }
 
     /**

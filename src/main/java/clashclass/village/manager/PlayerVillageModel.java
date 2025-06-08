@@ -1,5 +1,6 @@
 package clashclass.village.manager;
 
+import clashclass.elements.buildings.VillageElementData;
 import clashclass.gamestate.GameStateManager;
 import clashclass.shop.ShopMenuView;
 import clashclass.village.Village;
@@ -39,10 +40,17 @@ public interface PlayerVillageModel {
      *
      * @param view the shop menu view
      */
-    void buildShop(ShopMenuView view);
+    void buildShop(PlayerVillageController controller, ShopMenuView view);
 
     /**
      * Opens the shop menu.
      */
     void openShop();
+
+    /**
+     * Adds a building to the village.
+     *
+     * @param buildingType the type of the building
+     */
+    void addBuilding(VillageElementData buildingType);
 }

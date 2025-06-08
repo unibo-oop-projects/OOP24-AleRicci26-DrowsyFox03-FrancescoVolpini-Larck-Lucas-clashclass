@@ -2,6 +2,7 @@ package clashclass.village.manager;
 
 import clashclass.ecs.GameObject;
 import clashclass.elements.ComponentFactoryImpl;
+import clashclass.elements.buildings.VillageElementData;
 import clashclass.gamestate.GameStateManager;
 import clashclass.saveload.PlayerVillageDecoderImpl;
 import clashclass.shop.ShopMenuController;
@@ -44,6 +45,7 @@ public class PlayerVillageModelImpl implements PlayerVillageModel {
     @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public void setGameStateManager(final GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
+        this.shopMenuController.setGameStateManager(gameStateManager);
     }
 
     private Village loadVillage(final Path csvPath) {
@@ -99,11 +101,12 @@ public class PlayerVillageModelImpl implements PlayerVillageModel {
      * {@inheritDoc}
      */
     @Override
-    public void buildShop(final ShopMenuView view) {
+    public void buildShop(final PlayerVillageController controller, final ShopMenuView view) {
         this.shopMenuController = new ShopMenuControllerImpl(
                 new ShopMenuModelImpl(this.playerVillage.getPlayer()),
                 view
         );
+        this.shopMenuController.setPlayerVillageController(controller);
         this.shopMenuController.hide();
     }
 
@@ -113,5 +116,15 @@ public class PlayerVillageModelImpl implements PlayerVillageModel {
     @Override
     public void openShop() {
         this.shopMenuController.show();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addBuilding(final VillageElementData buildingType) {
+        //final var factoryMapper = new BuildingFactoryMapper<>(new PlayerBuildingFactoryImpl());
+        //final var building = factoryMapper.getFactoryFor(buildingType).apply(new VectorInt2D(0,0));
+        //final var tileData = building.getComponentOfType(GridTileData2D.class).get();
     }
 }

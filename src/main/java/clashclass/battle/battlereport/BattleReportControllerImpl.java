@@ -137,4 +137,12 @@ public class BattleReportControllerImpl implements BattleReportController {
         model.setTroopCount(count);
         updateView();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getTroopCount() {
+        return this.model.getTroopCount();
+    }
 }
