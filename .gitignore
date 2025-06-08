@@ -7,6 +7,9 @@ bin/
 .idea
 .settings
 
+# Ignore player save data
+/Villages-Data/
+
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/

@@ -36,25 +36,33 @@ import clashclass.elements.troops.BattleTroopFactoryImpl;
 import clashclass.elements.troops.TroopType;
 import clashclass.elements.troops.TroopFactory;
 import clashclass.gamestate.GameStateManager;
-import clashclass.saveload.*;
+import clashclass.saveload.BattleVillageDecoderImpl;
+import clashclass.saveload.PlayerVillageDecoderImpl;
+import clashclass.saveload.VillageDecoder;
+import clashclass.saveload.VillageSaveLoadManager;
+import clashclass.saveload.VillageEncoderImpl;
+import clashclass.saveload.SimpleFileWriterImpl;
 import clashclass.village.Village;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.Set;
+import java.util.EnumMap;
+import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * Represents a {@link BattleManagerModel} implementation.
  */
 public class BattleManagerModelImpl implements BattleManagerModel {
     private static final String TROOPS_PROP = "troops";
-    private static final double BATTLE_DURATION_SECONDS = 10.0;
+    private static final double BATTLE_DURATION_SECONDS = 120.0;
     private final Village playerVillage;
     private final Village battleVillage;
     private final Map<TroopType, Function<Vector2D, GameObject>> troopCreatorsMap;

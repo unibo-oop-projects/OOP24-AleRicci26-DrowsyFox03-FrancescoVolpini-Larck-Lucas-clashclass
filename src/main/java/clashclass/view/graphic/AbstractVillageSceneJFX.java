@@ -44,7 +44,7 @@ public abstract class AbstractVillageSceneJFX extends AbstractBaseScene {
         final Scene scene = new Scene(root, getWindowWidth(), getWindowHeight());
         stage.setScene(scene);
         stage.setTitle(sceneTitle);
-        stage.show();
+        stage.setFullScreen(true);
 
         final Canvas canvas = new Canvas(getWindowWidth(), getWindowHeight());
         canvas.setId("canvas");
@@ -74,6 +74,8 @@ public abstract class AbstractVillageSceneJFX extends AbstractBaseScene {
         stage.setOnCloseRequest(event -> {
             this.gameStateManager.stopEngine();
         });
+
+        stage.show();
     }
 
     /**

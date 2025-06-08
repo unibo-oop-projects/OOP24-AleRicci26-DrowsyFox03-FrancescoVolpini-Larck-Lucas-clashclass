@@ -3,20 +3,20 @@ package clashclass.battle.destruction;
 import clashclass.commons.HealthComponent;
 import clashclass.ecs.AbstractComponent;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a {@link DestructionObservable} implementation.
  */
 public class DestructionObservableImpl extends AbstractComponent implements DestructionObservable {
-    private final Set<DestructionObserver> observers;
+    private final List<DestructionObserver> observers;
 
     /**
      * Constructs the observable.
      */
     public DestructionObservableImpl() {
-        observers = new HashSet<>();
+        observers = new ArrayList<>();
     }
 
     /**

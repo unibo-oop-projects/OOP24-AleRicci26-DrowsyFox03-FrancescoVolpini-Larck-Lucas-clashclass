@@ -41,7 +41,7 @@ public class VillageEncoderImpl implements VillageEncoder {
                     CSV_DELIMITER +
                     (int) resource.getCurrentValue() +
                     CSV_DELIMITER +
-                    (int) resource.getCurrentValue() +
+                    (int) resource.getMaxValue() +
                     NEW_LINE;
             builder.append(line);
         });
