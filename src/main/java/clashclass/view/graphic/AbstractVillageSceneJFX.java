@@ -14,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 

@@ -2,11 +2,10 @@ package clashclass.gamestate;
 
 import clashclass.elements.ComponentFactoryImpl;
 import clashclass.engine.GameEngine;
-import clashclass.engine.GameEngineImpl;
-import clashclass.saveload.PlayerVillageDecoderImpl;
-import clashclass.view.graphic.Graphic;
 
-import java.util.Optional;
+import clashclass.saveload.PlayerVillageDecoderImpl;
+
+
 import java.util.function.Supplier;
 
 /**

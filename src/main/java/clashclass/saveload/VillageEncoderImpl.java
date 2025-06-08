@@ -17,6 +17,7 @@ import java.util.Optional;
 public class VillageEncoderImpl implements VillageEncoder {
     private static final String CSV_DELIMITER = ",";
     private static final String NEW_LINE = "\n";
+    private static final int APPENDER_WIDTH = 800;
 
     /**
      * {@inheritDoc}
@@ -31,7 +32,7 @@ public class VillageEncoderImpl implements VillageEncoder {
      */
     @Override
     public String encode(final Village village) {
-        final StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder(APPENDER_WIDTH);
 
         // Resources
         builder.append("ResourceType,CurrentValue,MaxValue").append(NEW_LINE);
