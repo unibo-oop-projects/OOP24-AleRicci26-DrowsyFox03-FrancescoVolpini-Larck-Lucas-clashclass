@@ -1,7 +1,5 @@
 package clashclass.ai.pathfinding;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 import java.util.List;
 
 /**
@@ -10,5 +8,32 @@ import java.util.List;
  * @param pathNodes the list of path nodes
  * @param cost the total cost of the path
  */
-@SuppressFBWarnings(value = {"EI","EI2"}, justification = "Intentional access")
-public record PathResult(List<PathNode> pathNodes, float cost) { }
+public record PathResult(List<PathNode> pathNodes, float cost) {
+    /**
+     * Constructs the wrapper with a defensive copy.
+     *
+     * @param pathNodes the list of path nodes
+     *
+     */
+    public PathResult {
+        pathNodes = List.copyOf(pathNodes);
+    }
+
+    /**
+     * Gets the list.
+     *
+     * @return the list
+     */
+    public List<PathNode> pathNodes() {
+        return pathNodes;
+    }
+
+    /**
+     * Returns the cost.
+     *
+     * @return the cost
+     */
+    public float cost() {
+        return cost;
+    }
+}

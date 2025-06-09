@@ -31,18 +31,19 @@ public class VillageEncoderImpl implements VillageEncoder {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.ConsecutiveAppendsShouldReuse")
     public String encode(final Village village) {
         final StringBuilder builder = new StringBuilder(APPENDER_WIDTH);
 
         // Resources
         builder.append("ResourceType,CurrentValue,MaxValue").append(NEW_LINE);
         village.getPlayer().getPlayerResources().forEach((type, resource) -> {
-            String line = type.name().toUpperCase(Locale.getDefault()) +
-                    CSV_DELIMITER +
-                    (int) resource.getCurrentValue() +
-                    CSV_DELIMITER +
-                    (int) resource.getMaxValue() +
-                    NEW_LINE;
+            final String line = type.name().toUpperCase(Locale.getDefault())
+                    + CSV_DELIMITER
+                    + (int) resource.getCurrentValue()
+                    + CSV_DELIMITER
+                    + (int) resource.getMaxValue()
+                    + NEW_LINE;
             builder.append(line);
         });
         builder.append(NEW_LINE);

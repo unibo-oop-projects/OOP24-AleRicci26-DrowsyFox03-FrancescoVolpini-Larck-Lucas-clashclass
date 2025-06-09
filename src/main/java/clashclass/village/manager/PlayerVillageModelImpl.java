@@ -65,8 +65,11 @@ public class PlayerVillageModelImpl implements PlayerVillageModel {
         }
         final var fileStream = Objects.requireNonNull(ClassLoader
                 .getSystemResourceAsStream(csvPath.toString().replace("\\", "/")));
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream, StandardCharsets.UTF_8));
-        return reader.lines().collect(Collectors.joining("\n"));
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream, StandardCharsets.UTF_8))) {
+            return reader.lines().collect(Collectors.joining("\n"));
+        } catch (final IOException e) {
+            return "";
+        }
     }
 
     /**

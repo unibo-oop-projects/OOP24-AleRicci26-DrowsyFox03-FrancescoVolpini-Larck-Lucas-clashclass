@@ -10,6 +10,7 @@ import clashclass.saveload.VillageEncoderImpl;
 import clashclass.saveload.VillageSaveLoadManager;
 import clashclass.saveload.SimpleFileWriterImpl;
 import clashclass.village.manager.PlayerVillageController;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -61,6 +62,7 @@ public class ShopMenuModelImpl implements ShopMenuModel {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public void setGameStateManager(final GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
     }
@@ -69,6 +71,7 @@ public class ShopMenuModelImpl implements ShopMenuModel {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
     public GameStateManager getGameStateManager() {
         return this.gameStateManager;
     }
@@ -77,6 +80,7 @@ public class ShopMenuModelImpl implements ShopMenuModel {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
     public boolean tryToBuyItem(final ShopItem item) {
         if (this.shopManager.canAfford(item)) {
             this.shopManager.buyItem(item);
@@ -103,6 +107,7 @@ public class ShopMenuModelImpl implements ShopMenuModel {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public void setPlayerVillageController(final PlayerVillageController playerVillageController) {
         this.playerVillageController = playerVillageController;
     }

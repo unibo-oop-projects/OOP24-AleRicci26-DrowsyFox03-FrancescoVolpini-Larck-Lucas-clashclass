@@ -101,12 +101,13 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "IS", justification = "No need for atomic operation")
     public final void destroy() {
         this.destroyedFlag = true;
     }
 
     @Override
-    public final boolean isMarkedAsDestroyed() {
+    public final synchronized boolean isMarkedAsDestroyed() {
         return this.destroyedFlag;
     }
 

@@ -17,6 +17,7 @@ public abstract class AbstractCompositeNode extends AbstractBehaviourNode {
      *
      * @param children the list of child nodes
      */
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public AbstractCompositeNode(final List<AbstractBehaviourNode> children) {
         this.children = children;
     }
@@ -25,7 +26,6 @@ public abstract class AbstractCompositeNode extends AbstractBehaviourNode {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public void setBlackboard(final Blackboard blackboard) {
         super.setBlackboard(blackboard);
         this.children.forEach(child -> child.setBlackboard(blackboard));

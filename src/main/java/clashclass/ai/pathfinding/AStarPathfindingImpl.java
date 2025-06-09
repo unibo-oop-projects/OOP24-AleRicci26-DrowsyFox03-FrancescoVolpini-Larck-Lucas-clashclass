@@ -142,9 +142,12 @@ public class AStarPathfindingImpl implements PathfindingAlgorithm {
             if (this == obj) {
                 return true;
             }
-            final AStarPathNode other = (AStarPathNode) obj;
-            return this.getPathNode().getPosition().x() == other.getPathNode().getPosition().x()
-                && this.getPathNode().getPosition().y() == other.getPathNode().getPosition().y();
+            if (obj instanceof AStarPathNode) {
+                final AStarPathNode other = (AStarPathNode) obj;
+                return this.getPathNode().getPosition().x() == other.getPathNode().getPosition().x()
+                        && this.getPathNode().getPosition().y() == other.getPathNode().getPosition().y();
+            }
+            return false;
         }
 
         @Override

@@ -10,6 +10,7 @@ import clashclass.commons.ConversionUtility;
 import clashclass.commons.Transform2D;
 import clashclass.ecs.GameObject;
 import clashclass.elements.buildings.VillageElementData;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,7 @@ public class FindPathToTargetNode extends AbstractBehaviourNode {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
     public State onUpdate(final float deltaTime) {
         final var actor = this.actorProp.getValue();
         final var target = this.targetProp.getValue();

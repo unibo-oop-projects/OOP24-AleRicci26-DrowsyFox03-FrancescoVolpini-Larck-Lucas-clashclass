@@ -46,7 +46,7 @@ public interface ShopMenuController {
     void setGameStateManager(GameStateManager gameStateManager);
 
     /**
-     * Goes back to village
+     * Goes back to village.
      */
     void goBackToVillage();
 

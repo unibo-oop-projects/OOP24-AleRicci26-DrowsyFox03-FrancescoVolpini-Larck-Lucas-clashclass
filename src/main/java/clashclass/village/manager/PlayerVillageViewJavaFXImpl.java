@@ -43,7 +43,7 @@ public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
             final double newFontSize = newVal.doubleValue() * FONT_SIZE_MULTIPLIER;
             battleButton.setStyle("-fx-font-size: " + newFontSize + PIXEL_PROP);
         });
-        battleButton.setOnAction(event -> this.controller.openBattleMode());
+        battleButton.setOnAction(event -> this.openBattleMode());
 
         this.shopButton = new Button("Shop");
         root.getChildren().add(shopButton);
@@ -56,16 +56,27 @@ public class PlayerVillageViewJavaFXImpl implements PlayerVillageView {
             final double newFontSize = newVal.doubleValue() * FONT_SIZE_MULTIPLIER;
             shopButton.setStyle("-fx-font-size: " + newFontSize + PIXEL_PROP);
         });
-        shopButton.setOnAction(event -> this.controller.openShop());
+        shopButton.setOnAction(event -> this.openShop());
 
         final var canvas = (Canvas) this.root.lookup("#canvas");
         canvas.setOnMousePressed(event -> { });
+    }
+
+    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
+    private void openBattleMode() {
+        this.controller.openBattleMode();
+    }
+
+    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
+    private void openShop() {
+        this.controller.openShop();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public void setController(final PlayerVillageController controller) {
         this.controller = controller;
     }

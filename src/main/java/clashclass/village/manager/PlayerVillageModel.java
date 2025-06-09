@@ -38,6 +38,7 @@ public interface PlayerVillageModel {
     /**
      * Build the shop menu.
      *
+     * @param controller the player village controller reference
      * @param view the shop menu view
      */
     void buildShop(PlayerVillageController controller, ShopMenuView view);

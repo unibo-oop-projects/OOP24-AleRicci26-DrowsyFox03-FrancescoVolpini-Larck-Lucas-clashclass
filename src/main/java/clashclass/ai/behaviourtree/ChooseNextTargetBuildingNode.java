@@ -6,6 +6,7 @@ import clashclass.ai.logic.ChooseTargetLogic;
 import clashclass.commons.BuildingTypeComponentImpl;
 import clashclass.ecs.GameObject;
 import clashclass.elements.buildings.VillageElementData;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Represents a node used to choose the next building to attack.
@@ -39,6 +40,7 @@ public class ChooseNextTargetBuildingNode extends AbstractBehaviourNode {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
     public State onUpdate(final float deltaTime) {
         final var actor = this.actorProp.getValue();
         final var potentialTargets = this.potentialTargetsProp.getValue().list()

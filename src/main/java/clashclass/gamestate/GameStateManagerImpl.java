@@ -6,7 +6,6 @@ import clashclass.engine.GameEngine;
 import clashclass.saveload.PlayerVillageDecoderImpl;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-
 import java.util.function.Supplier;
 
 /**

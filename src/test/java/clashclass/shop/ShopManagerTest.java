@@ -23,6 +23,7 @@ class ShopManagerTest {
     @BeforeEach
     void setUp() {
         this.player = new Player();
+        this.player.getPlayerResources().get(ResourceType.GOLD).increase(AFFORDABLE_PRICE);
         this.affordableItem = new ShopItemImpl(VillageElementData.WALL, ResourceType.GOLD, AFFORDABLE_PRICE, player);  // can afford
         this.expensiveItem = new ShopItemImpl(VillageElementData.CANNON, ResourceType.GOLD, EXPENSIVE_PRICE, player);  // cannot afford
         this.shopManager = new ShopManagerImpl(List.of(affordableItem, expensiveItem));

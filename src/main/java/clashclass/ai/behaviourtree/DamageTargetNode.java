@@ -4,6 +4,7 @@ import clashclass.ai.behaviourtree.blackboard.BlackboardProperty;
 import clashclass.ai.logic.DamageLogicComponent;
 import clashclass.commons.HealthComponent;
 import clashclass.ecs.GameObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Represents a node used to inflict damage to the current target.
@@ -25,6 +26,7 @@ public class DamageTargetNode extends AbstractBehaviourNode {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
     public State onUpdate(final float deltaTime) {
         final var actor = this.actorProp.getValue();
         final var target = this.targetProp.getValue();

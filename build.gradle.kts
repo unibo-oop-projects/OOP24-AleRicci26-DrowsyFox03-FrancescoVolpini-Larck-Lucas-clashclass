@@ -56,18 +56,28 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+// Disable Checkstyle Test
 tasks.withType<Checkstyle> {
     if (name.contains("Test")) {
         enabled = false
     }
 }
 
+// Disable Pmd Test
 tasks.withType<Pmd> {
     if (name.contains("Test")) {
         enabled = false
     }
 }
 
+// Disable Spotbugs Test
+tasks.withType<com.github.spotbugs.snom.SpotBugsTask> {
+    if (name.contains("Test")) {
+        enabled = false
+    }
+}
+
+// Force the creation of spotbugs reports
 tasks.withType<com.github.spotbugs.snom.SpotBugsTask> {
     reports {
         create("html") {
@@ -78,10 +88,6 @@ tasks.withType<com.github.spotbugs.snom.SpotBugsTask> {
             required.set(false)
         }
     }
-}
-
-spotbugs {
-    ignoreFailures.set(true)
 }
 
 val main: String by project

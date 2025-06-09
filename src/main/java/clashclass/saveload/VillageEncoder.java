@@ -1,8 +1,6 @@
 package clashclass.saveload;
 
-
 import clashclass.village.Village;
-
 
 /**
  * Interface for encoding Village objects to CSV String format.

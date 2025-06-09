@@ -64,6 +64,7 @@ import java.util.Objects;
  * Represents a {@link BattleManagerModel} implementation.
  */
 public class BattleManagerModelImpl implements BattleManagerModel {
+    private static final String SUPPRESS_WARNING_MESSAGE = "Intentional access";
     private static final String TROOPS_PROP = "troops";
     private static final double BATTLE_DURATION_SECONDS = 120.0;
     private final Village playerVillage;
@@ -148,8 +149,11 @@ public class BattleManagerModelImpl implements BattleManagerModel {
     private String readCsvFileFromResources(final Path csvPath) {
         final var fileStream = Objects.requireNonNull(ClassLoader
                 .getSystemResourceAsStream(csvPath.toString().replace("\\", "/")));
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream, StandardCharsets.UTF_8));
-        return reader.lines().collect(Collectors.joining("\n"));
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream, StandardCharsets.UTF_8))) {
+            return reader.lines().collect(Collectors.joining("\n"));
+        } catch (final IOException e) {
+            return "";
+        }
     }
 
     private void handleBattleVillageDefenseBuildings() {
@@ -191,7 +195,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
+    @SuppressFBWarnings(value = "EI", justification = SUPPRESS_WARNING_MESSAGE)
     public GameStateManager getGameStateManager() {
         return this.gameStateManager;
     }
@@ -200,7 +204,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
+    @SuppressFBWarnings(value = "EI", justification = SUPPRESS_WARNING_MESSAGE)
     public Village getPlayerVillage() {
         return this.playerVillage;
     }
@@ -209,7 +213,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
+    @SuppressFBWarnings(value = "EI", justification = SUPPRESS_WARNING_MESSAGE)
     public Village getBattleVillage() {
         return this.battleVillage;
     }
@@ -284,7 +288,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
+    @SuppressFBWarnings(value = "EI", justification = SUPPRESS_WARNING_MESSAGE)
     public Set<GameObject> getActiveTroops() {
         return this.activeTroops;
     }

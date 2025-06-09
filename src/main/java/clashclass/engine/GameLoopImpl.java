@@ -38,6 +38,7 @@ public class GameLoopImpl implements GameLoop {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "AT", justification = "No need for atomic operation")
     public void run() {
         this.lastTime = System.nanoTime();
 
@@ -61,10 +62,12 @@ public class GameLoopImpl implements GameLoop {
         }
     }
 
+    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
     private void updateGameObjects() {
         this.currentScene.updateGameObjects(deltaTime);
     }
 
+    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
     private void drawGameObjects() {
         final var gameObjectsCopy = this.currentScene.getGameObjectsCopy();
         this.graphics.ifPresent(graphic -> graphic
@@ -74,6 +77,7 @@ public class GameLoopImpl implements GameLoop {
                         .collect(Collectors.toUnmodifiableSet())));
     }
 
+    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
     private void checkForDestroyedGameObjects() {
         this.currentScene.checkForDestroyedGameObjects();
     }
@@ -87,12 +91,14 @@ public class GameLoopImpl implements GameLoop {
         this.currentScene = scene;
     }
 
+    @SuppressFBWarnings(value = "AT", justification = "No need for atomic operation")
     private void calculateDeltaTime() {
         final long currentTime = System.nanoTime();
         this.deltaTime = ((float) (currentTime - lastTime)) / ONE_BILLION;
         lastTime = currentTime;
     }
 
+    @SuppressFBWarnings(value = "AT", justification = "No need for atomic operation")
     private void calculateSleepTime() {
         final long frameTimeNano = (long) (secondsBetweenTwoFrames * ONE_BILLION);
         final long elapsedTime = System.nanoTime() - this.lastTime;

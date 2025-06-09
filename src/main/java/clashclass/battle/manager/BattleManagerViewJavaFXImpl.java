@@ -48,6 +48,7 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
      * Constructs the view.
      *
      * @param root the root reference
+     * @param gameEngine the game engine
      */
     @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
     public BattleManagerViewJavaFXImpl(final AnchorPane root, final GameEngine gameEngine) {
@@ -165,10 +166,15 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         }
 
         this.troopTogglesContainer = new HBox(10);
-        this.troopToggles.forEach(toggle -> this.troopTogglesContainer.getChildren().add(toggle));
+        this.troopToggles.forEach(this::addToggle);
         root.getChildren().add(1, troopTogglesContainer);
         AnchorPane.setBottomAnchor(troopTogglesContainer, ANCHOR_OFFSET);
         AnchorPane.setLeftAnchor(troopTogglesContainer, ANCHOR_OFFSET);
+    }
+
+    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
+    private void addToggle(final ToggleButton toggle) {
+        this.troopTogglesContainer.getChildren().add(toggle);
     }
 
     /**
@@ -213,11 +219,12 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         return new BattleReportViewJavaFXImpl(this.root);
     }
 
+    @SuppressWarnings("PMD.UnusedFormalParameter")
     private void drawUI(final Graphic graphic) {
         Platform.runLater(() -> {
             if (this.controller != null) {
                 final var remainingTime = this.controller.getBattleRemainingTime();
-                this.battleTimeLabel.setText("Time: " + String.valueOf(remainingTime));
+                this.battleTimeLabel.setText("Time: " + remainingTime);
 
                 if (this.controller.isBattleTimeFinished()) {
                     this.controller.endBattle();

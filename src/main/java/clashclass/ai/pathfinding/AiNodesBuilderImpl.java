@@ -41,6 +41,7 @@ public class AiNodesBuilderImpl implements AiNodesBuilder {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
     public PathNodeGrid buildPathNodeList(final GameObject destroyedBuilding) {
         if (this.pathNodeGrid != null) {
             final var gridPosition = destroyedBuilding.getComponentOfType(GridTileData2D.class).get().getPosition();

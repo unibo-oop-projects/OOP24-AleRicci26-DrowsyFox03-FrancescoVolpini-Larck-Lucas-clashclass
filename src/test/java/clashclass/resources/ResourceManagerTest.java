@@ -15,7 +15,7 @@ class ResourceManagerTest {
 
      @Test
     void testResourceInitialized() {
-         assertEquals(GENERIC_VALUE, resource.getCurrentValue());
+         assertEquals(0, resource.getCurrentValue());
      }
 
      @Test

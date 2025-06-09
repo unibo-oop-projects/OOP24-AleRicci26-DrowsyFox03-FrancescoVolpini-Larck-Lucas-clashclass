@@ -58,9 +58,14 @@ public class ShopMenuJavaFXImpl implements ShopMenuView {
             final double newFontSize = newVal.doubleValue() * FONT_SIZE_MULTIPLIER;
             backButton.setStyle("-fx-font-size: " + newFontSize + "px;");
         });
-        backButton.setOnAction(event -> this.controller.goBackToVillage());
+        backButton.setOnAction(event -> this.goBackToVillage());
 
         root.getChildren().add(backButton);
+    }
+
+    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
+    private void goBackToVillage() {
+        this.controller.goBackToVillage();
     }
 
     /**
