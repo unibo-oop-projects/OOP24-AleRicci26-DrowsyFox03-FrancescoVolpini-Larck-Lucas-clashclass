@@ -1,6 +1,6 @@
 package clashclass.battle.timer;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 import java.util.Optional;
 
@@ -40,8 +40,7 @@ public class TimerImpl implements Timer {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
-    public synchronized void stop() {
+        public synchronized void stop() {
         if (!isRunning) {
             return;
         }
@@ -80,8 +79,7 @@ public class TimerImpl implements Timer {
 
     // The method that runs the timer in a separate thread.
     // The timer checks elapsed time every second until the time limit is reached.
-    @SuppressFBWarnings(value = "IS", justification = "")
-    private void runTimer() {
+        private void runTimer() {
         try {
             while (isRunning) {
                 final long elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000;

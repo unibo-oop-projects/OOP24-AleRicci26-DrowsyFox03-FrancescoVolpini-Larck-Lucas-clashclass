@@ -13,7 +13,6 @@ plugins {
      * The runnable jar will be found in build/libs/projectname-all.jar
      */
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("org.danilopianini.gradle-java-qa") version "1.117.0"
 
     id("org.danilopianini.unibo-oop-gradle-plugin") version "1.1.30"
 }
@@ -60,40 +59,6 @@ dependencies {
 tasks.withType<Test> {
     // Enables JUnit 5 Jupiter module
     useJUnitPlatform()
-}
-
-// Disable Checkstyle Test
-tasks.withType<Checkstyle> {
-    if (name.contains("Test")) {
-        enabled = false
-    }
-}
-
-// Disable Pmd Test
-tasks.withType<Pmd> {
-    if (name.contains("Test")) {
-        enabled = false
-    }
-}
-
-// Disable Spotbugs Test
-tasks.withType<com.github.spotbugs.snom.SpotBugsTask> {
-    if (name.contains("Test")) {
-        enabled = false
-    }
-}
-
-// Force the creation of spotbugs reports
-tasks.withType<com.github.spotbugs.snom.SpotBugsTask> {
-    reports {
-        create("html") {
-            required.set(true)
-            outputLocation.set(layout.buildDirectory.file("reports/spotbugs/${name}.html"))
-        }
-        create("xml") {
-            required.set(false)
-        }
-    }
 }
 
 val main: String by project

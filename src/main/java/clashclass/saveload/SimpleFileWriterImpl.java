@@ -1,6 +1,6 @@
 package clashclass.saveload;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,8 +18,7 @@ public class SimpleFileWriterImpl implements FileWriter {
      * @throws IOException IO file exception
      */
     @Override
-    @SuppressFBWarnings(value = "NP", justification = "")
-    public void writeToFile(final String data, final Path filePath) throws IOException {
+        public void writeToFile(final String data, final Path filePath) throws IOException {
         // Create parent directories if they don't exist
         if (filePath.getParent() != null) {
             Files.createDirectories(filePath.getParent());

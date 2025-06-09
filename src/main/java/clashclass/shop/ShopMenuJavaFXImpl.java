@@ -1,6 +1,6 @@
 package clashclass.shop;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -27,8 +27,7 @@ public class ShopMenuJavaFXImpl implements ShopMenuView {
      *
      * @param root the root UI node
      */
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public ShopMenuJavaFXImpl(final AnchorPane root) {
+        public ShopMenuJavaFXImpl(final AnchorPane root) {
         this.root = root;
 
         this.grid = new GridPane();
@@ -63,8 +62,7 @@ public class ShopMenuJavaFXImpl implements ShopMenuView {
         root.getChildren().add(backButton);
     }
 
-    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
-    private void goBackToVillage() {
+        private void goBackToVillage() {
         this.controller.goBackToVillage();
     }
 
@@ -72,8 +70,7 @@ public class ShopMenuJavaFXImpl implements ShopMenuView {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public void setController(final ShopMenuController controller) {
+        public void setController(final ShopMenuController controller) {
         this.controller = controller;
         final var items = controller.getShopManager().getShopItems();
 

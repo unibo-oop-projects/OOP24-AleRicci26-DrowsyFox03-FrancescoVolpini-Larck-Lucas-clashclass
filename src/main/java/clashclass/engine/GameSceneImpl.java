@@ -3,7 +3,7 @@ package clashclass.engine;
 import clashclass.ecs.Component;
 import clashclass.ecs.GameObject;
 import clashclass.ecs.UpdateProvider;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 import java.util.HashSet;
 import java.util.Set;
@@ -70,8 +70,7 @@ public class GameSceneImpl implements GameScene {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
-    public synchronized Set<GameObject> getGameObjects() {
+        public synchronized Set<GameObject> getGameObjects() {
         return this.gameObjects;
     }
 

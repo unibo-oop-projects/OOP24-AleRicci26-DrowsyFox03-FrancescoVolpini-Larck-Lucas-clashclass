@@ -4,7 +4,7 @@ import clashclass.battle.endbattle.AbstractBattleEvent;
 import clashclass.battle.manager.BattleManagerController;
 import clashclass.ecs.AbstractComponent;
 import clashclass.ecs.GameObject;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Represent the implementation of EndBattleTimerIsOver.
@@ -17,8 +17,7 @@ public class EndBattleTimerIsOverImpl extends AbstractComponent implements EndBa
      *
      * @param battleManagerController the battle manager controller
      */
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public EndBattleTimerIsOverImpl(final BattleManagerController battleManagerController) {
+        public EndBattleTimerIsOverImpl(final BattleManagerController battleManagerController) {
         this.battleManagerController = battleManagerController;
     }
 

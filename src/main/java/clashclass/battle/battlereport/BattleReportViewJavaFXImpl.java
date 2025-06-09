@@ -1,7 +1,7 @@
 package clashclass.battle.battlereport;
 
 import clashclass.resources.ResourceManager;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -29,8 +29,7 @@ public class BattleReportViewJavaFXImpl implements BattleReportView {
      *
      * @param root the root UI node
      */
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public BattleReportViewJavaFXImpl(final AnchorPane root) {
+        public BattleReportViewJavaFXImpl(final AnchorPane root) {
         this.root = root;
 
         final Label titleLabel = new Label("BATTLE REPORT");
@@ -154,8 +153,7 @@ public class BattleReportViewJavaFXImpl implements BattleReportView {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public void setController(final BattleReportController controller) {
+        public void setController(final BattleReportController controller) {
         this.controller = controller;
     }
 }

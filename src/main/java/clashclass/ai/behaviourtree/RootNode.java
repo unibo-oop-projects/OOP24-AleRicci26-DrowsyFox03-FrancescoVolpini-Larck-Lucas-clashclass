@@ -1,7 +1,7 @@
 package clashclass.ai.behaviourtree;
 
 import clashclass.ai.behaviourtree.blackboard.Blackboard;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Represents a root node, where the {@link BehaviourTree} starts.
@@ -14,8 +14,7 @@ public class RootNode extends AbstractBehaviourNode {
      *
      * @param child the child of this root node
      */
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public RootNode(final AbstractBehaviourNode child) {
+        public RootNode(final AbstractBehaviourNode child) {
         this.child = child;
     }
 

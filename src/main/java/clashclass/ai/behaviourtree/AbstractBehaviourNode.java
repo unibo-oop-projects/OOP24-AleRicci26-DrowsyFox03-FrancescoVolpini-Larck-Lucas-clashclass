@@ -1,7 +1,7 @@
 package clashclass.ai.behaviourtree;
 
 import clashclass.ai.behaviourtree.blackboard.Blackboard;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Represents an abstract implementation of Node.
@@ -45,8 +45,7 @@ public abstract class AbstractBehaviourNode implements BehaviourNode {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public void setBlackboard(final Blackboard blackboard) {
+        public void setBlackboard(final Blackboard blackboard) {
         this.blackboard = blackboard;
     }
 

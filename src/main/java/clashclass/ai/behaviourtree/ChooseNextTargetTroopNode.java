@@ -7,7 +7,7 @@ import clashclass.commons.GameConstants;
 import clashclass.commons.Transform2D;
 import clashclass.ecs.GameObject;
 import clashclass.stats.DefenseBuildingBaseStatsComponent;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Represents a node used to choose the next troop to attack.
@@ -41,8 +41,7 @@ public class ChooseNextTargetTroopNode extends AbstractBehaviourNode {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
-    public State onUpdate(final float deltaTime) {
+        public State onUpdate(final float deltaTime) {
         final var actor = this.actorProp.getValue();
         final var troops = this.troopsProp.getValue().list();
 

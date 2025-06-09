@@ -6,7 +6,7 @@ import clashclass.elements.buildings.VillageElementData;
 import clashclass.gamestate.GameStateManager;
 import clashclass.resources.ResourceManager;
 import clashclass.resources.ResourceManagerImpl;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Implementation of the BattleReportModel interface.
@@ -168,8 +168,7 @@ public class BattleReportModelImpl implements BattleReportModel {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public void setGameStateManager(final GameStateManager gameStateManager) {
+        public void setGameStateManager(final GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
     }
 
@@ -177,8 +176,7 @@ public class BattleReportModelImpl implements BattleReportModel {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
-    public GameStateManager getGameStateManager() {
+        public GameStateManager getGameStateManager() {
         return this.gameStateManager;
     }
 }

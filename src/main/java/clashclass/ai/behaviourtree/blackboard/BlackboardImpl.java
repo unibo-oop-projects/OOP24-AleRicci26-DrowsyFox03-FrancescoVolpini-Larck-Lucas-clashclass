@@ -28,8 +28,7 @@ public class BlackboardImpl implements Blackboard {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("unchecked")
-    public <T> BlackboardProperty<T> getProperty(final String name, final Class<T> type) {
+        public <T> BlackboardProperty<T> getProperty(final String name, final Class<T> type) {
         var property = map.get(name);
         if (property == null || !type.isAssignableFrom(property.getType())) {
             map.put(name, new BlackboardPropertyImpl<>(null, type));

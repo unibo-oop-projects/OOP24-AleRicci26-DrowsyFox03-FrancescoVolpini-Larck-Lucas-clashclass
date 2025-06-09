@@ -1,7 +1,7 @@
 package clashclass.ai.behaviourtree;
 
 import clashclass.ai.behaviourtree.blackboard.Blackboard;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Represents a node which repeats endlessly the children nodes' execution.
@@ -14,8 +14,7 @@ public class RepeatNode extends AbstractBehaviourNode {
      *
      * @param child the child of this repeat node
      */
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public RepeatNode(final AbstractBehaviourNode child) {
+        public RepeatNode(final AbstractBehaviourNode child) {
         this.child = child;
     }
 

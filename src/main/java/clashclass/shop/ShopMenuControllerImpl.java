@@ -2,7 +2,7 @@ package clashclass.shop;
 
 import clashclass.gamestate.GameStateManager;
 import clashclass.village.manager.PlayerVillageController;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Represents a {@link ShopMenuController} implementation.
@@ -17,8 +17,7 @@ public class ShopMenuControllerImpl implements ShopMenuController {
      * @param model the shop menu model
      * @param view the shop menu view
      */
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public ShopMenuControllerImpl(final ShopMenuModel model, final ShopMenuView view) {
+        public ShopMenuControllerImpl(final ShopMenuModel model, final ShopMenuView view) {
         this.model = model;
         this.view = view;
         this.view.setController(this);

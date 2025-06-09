@@ -2,7 +2,7 @@ package clashclass.engine;
 
 import clashclass.view.graphic.Graphic;
 import clashclass.view.graphic.components.AbstractGraphicComponent;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,8 +38,7 @@ public class GameLoopImpl implements GameLoop {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "AT", justification = "No need for atomic operation")
-    public void run() {
+        public void run() {
         this.lastTime = System.nanoTime();
 
         while (!Thread.currentThread().isInterrupted()) {
@@ -62,13 +61,11 @@ public class GameLoopImpl implements GameLoop {
         }
     }
 
-    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
-    private void updateGameObjects() {
+        private void updateGameObjects() {
         this.currentScene.updateGameObjects(deltaTime);
     }
 
-    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
-    private void drawGameObjects() {
+        private void drawGameObjects() {
         final var gameObjectsCopy = this.currentScene.getGameObjectsCopy();
         this.graphics.ifPresent(graphic -> graphic
                 .render(gameObjectsCopy.stream()
@@ -77,8 +74,7 @@ public class GameLoopImpl implements GameLoop {
                         .collect(Collectors.toUnmodifiableSet())));
     }
 
-    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
-    private void checkForDestroyedGameObjects() {
+        private void checkForDestroyedGameObjects() {
         this.currentScene.checkForDestroyedGameObjects();
     }
 
@@ -86,20 +82,17 @@ public class GameLoopImpl implements GameLoop {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public void setCurrentScene(final GameScene scene) {
+        public void setCurrentScene(final GameScene scene) {
         this.currentScene = scene;
     }
 
-    @SuppressFBWarnings(value = "AT", justification = "No need for atomic operation")
-    private void calculateDeltaTime() {
+        private void calculateDeltaTime() {
         final long currentTime = System.nanoTime();
         this.deltaTime = ((float) (currentTime - lastTime)) / ONE_BILLION;
         lastTime = currentTime;
     }
 
-    @SuppressFBWarnings(value = "AT", justification = "No need for atomic operation")
-    private void calculateSleepTime() {
+        private void calculateSleepTime() {
         final long frameTimeNano = (long) (secondsBetweenTwoFrames * ONE_BILLION);
         final long elapsedTime = System.nanoTime() - this.lastTime;
         this.sleepTime = frameTimeNano - elapsedTime;

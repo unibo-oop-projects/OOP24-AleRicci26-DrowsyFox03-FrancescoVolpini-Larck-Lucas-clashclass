@@ -10,7 +10,7 @@ import clashclass.shop.ShopMenuControllerImpl;
 import clashclass.shop.ShopMenuModelImpl;
 import clashclass.shop.ShopMenuView;
 import clashclass.village.Village;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -42,8 +42,7 @@ public class PlayerVillageModelImpl implements PlayerVillageModel {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public void setGameStateManager(final GameStateManager gameStateManager) {
+        public void setGameStateManager(final GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
         this.shopMenuController.setGameStateManager(gameStateManager);
     }
@@ -76,8 +75,7 @@ public class PlayerVillageModelImpl implements PlayerVillageModel {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
-    public GameStateManager getGameStateManager() {
+        public GameStateManager getGameStateManager() {
         return this.gameStateManager;
     }
 
@@ -85,8 +83,7 @@ public class PlayerVillageModelImpl implements PlayerVillageModel {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
-    public Village getPlayerVillage() {
+        public Village getPlayerVillage() {
         return this.playerVillage;
     }
 

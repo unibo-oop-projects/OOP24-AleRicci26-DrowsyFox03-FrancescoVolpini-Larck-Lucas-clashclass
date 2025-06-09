@@ -1,7 +1,7 @@
 package clashclass.ai.behaviourtree;
 
 import clashclass.ai.behaviourtree.blackboard.Blackboard;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 import java.util.List;
 
@@ -17,8 +17,7 @@ public abstract class AbstractCompositeNode extends AbstractBehaviourNode {
      *
      * @param children the list of child nodes
      */
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public AbstractCompositeNode(final List<AbstractBehaviourNode> children) {
+        public AbstractCompositeNode(final List<AbstractBehaviourNode> children) {
         this.children = children;
     }
 

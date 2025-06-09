@@ -4,7 +4,7 @@ import clashclass.elements.buildings.VillageElementData;
 import clashclass.resources.Player;
 import clashclass.resources.ResourceType;
 import clashclass.resources.ResourceManager;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Represents a ShopItem implementation.
@@ -23,8 +23,7 @@ public class ShopItemImpl implements ShopItem {
      * @param price the price of the ShopItem
      * @param player the player reference
      */
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public ShopItemImpl(
+        public ShopItemImpl(
             final VillageElementData building,
             final ResourceType type,
             final double price,

@@ -9,7 +9,7 @@ import clashclass.elements.commons.CommonGameObjectFactoryImpl;
 import clashclass.engine.GameEngine;
 import clashclass.view.graphic.Graphic;
 import clashclass.view.graphic.components.UIRendererImpl;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -50,8 +50,7 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
      * @param root the root reference
      * @param gameEngine the game engine
      */
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public BattleManagerViewJavaFXImpl(final AnchorPane root, final GameEngine gameEngine) {
+        public BattleManagerViewJavaFXImpl(final AnchorPane root, final GameEngine gameEngine) {
         this.root = root;
         this.root.setStyle("-fx-background-color: #0A8F32;");
 
@@ -108,8 +107,7 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public void setController(final BattleManagerController controller) {
+        public void setController(final BattleManagerController controller) {
         this.controller = controller;
     }
 
@@ -172,8 +170,7 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         AnchorPane.setLeftAnchor(troopTogglesContainer, ANCHOR_OFFSET);
     }
 
-    @SuppressFBWarnings(value = "UwF", justification = "Handled initialization")
-    private void addToggle(final ToggleButton toggle) {
+        private void addToggle(final ToggleButton toggle) {
         this.troopTogglesContainer.getChildren().add(toggle);
     }
 
@@ -219,8 +216,7 @@ public class BattleManagerViewJavaFXImpl implements BattleManagerView {
         return new BattleReportViewJavaFXImpl(this.root);
     }
 
-    @SuppressWarnings("PMD.UnusedFormalParameter")
-    private void drawUI(final Graphic graphic) {
+        private void drawUI(final Graphic graphic) {
         Platform.runLater(() -> {
             if (this.controller != null) {
                 final var remainingTime = this.controller.getBattleRemainingTime();

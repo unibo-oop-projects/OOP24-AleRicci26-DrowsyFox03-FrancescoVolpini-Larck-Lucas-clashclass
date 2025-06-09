@@ -43,7 +43,7 @@ import clashclass.saveload.VillageSaveLoadManager;
 import clashclass.saveload.VillageEncoderImpl;
 import clashclass.saveload.SimpleFileWriterImpl;
 import clashclass.village.Village;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -115,8 +115,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public void setGameStateManager(final GameStateManager gameStateManager) {
+        public void setGameStateManager(final GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
         this.battleReportController.setGameStateManager(gameStateManager);
     }
@@ -195,8 +194,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI", justification = SUPPRESS_WARNING_MESSAGE)
-    public GameStateManager getGameStateManager() {
+        public GameStateManager getGameStateManager() {
         return this.gameStateManager;
     }
 
@@ -204,8 +202,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI", justification = SUPPRESS_WARNING_MESSAGE)
-    public Village getPlayerVillage() {
+        public Village getPlayerVillage() {
         return this.playerVillage;
     }
 
@@ -213,8 +210,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI", justification = SUPPRESS_WARNING_MESSAGE)
-    public Village getBattleVillage() {
+        public Village getBattleVillage() {
         return this.battleVillage;
     }
 
@@ -288,8 +284,7 @@ public class BattleManagerModelImpl implements BattleManagerModel {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI", justification = SUPPRESS_WARNING_MESSAGE)
-    public Set<GameObject> getActiveTroops() {
+        public Set<GameObject> getActiveTroops() {
         return this.activeTroops;
     }
 

@@ -1,7 +1,7 @@
 package clashclass.saveload;
 
 import clashclass.village.Village;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,8 +27,7 @@ public class VillageSaveLoadManager {
      * @param fileWriter the file writer
      * @param savesDirectory the path to save file
      */
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public VillageSaveLoadManager(
+        public VillageSaveLoadManager(
             final VillageEncoder encoder,
             final VillageDecoder playerDecoder,
             final VillageDecoder battleDecoder,

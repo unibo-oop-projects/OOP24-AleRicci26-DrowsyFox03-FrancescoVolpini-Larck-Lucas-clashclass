@@ -1,7 +1,7 @@
 package clashclass.ecs;
 
 import clashclass.engine.GameScene;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -42,8 +42,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public void setScene(final GameScene scene) {
+        public void setScene(final GameScene scene) {
         this.scene = scene;
     }
 
@@ -92,8 +91,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "EI", justification = "Intentional access")
-    public GameScene getScene() {
+        public GameScene getScene() {
         return this.scene;
     }
 
@@ -101,8 +99,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "IS", justification = "No need for atomic operation")
-    public final void destroy() {
+        public final void destroy() {
         this.destroyedFlag = true;
     }
 

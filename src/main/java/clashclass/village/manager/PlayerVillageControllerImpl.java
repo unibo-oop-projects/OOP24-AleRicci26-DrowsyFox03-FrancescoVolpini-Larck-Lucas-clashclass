@@ -3,7 +3,7 @@ package clashclass.village.manager;
 import clashclass.elements.buildings.VillageElementData;
 import clashclass.gamestate.GameStateManager;
 import clashclass.village.Village;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Represents a {@link PlayerVillageController} implementation.
@@ -18,8 +18,7 @@ public class PlayerVillageControllerImpl implements PlayerVillageController {
      * @param model the player village model
      * @param view the player village view
      */
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public PlayerVillageControllerImpl(
+        public PlayerVillageControllerImpl(
             final PlayerVillageModel model,
             final PlayerVillageView view) {
         this.model = model;

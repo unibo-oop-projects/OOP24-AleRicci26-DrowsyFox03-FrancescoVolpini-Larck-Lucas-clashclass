@@ -4,7 +4,7 @@ import clashclass.commons.BuildingTypeComponent;
 import clashclass.ecs.AbstractComponent;
 import clashclass.ecs.GameObject;
 import clashclass.elements.buildings.VillageElementData;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Manager for tracking village destruction during battle.
@@ -19,8 +19,7 @@ public class VillageDestructionManagerImpl extends AbstractComponent implements 
      *
      * @param battleReportController The controller to update when buildings are destroyed
      */
-    @SuppressFBWarnings(value = "EI2", justification = "Intentional set")
-    public VillageDestructionManagerImpl(final BattleReportController battleReportController) {
+        public VillageDestructionManagerImpl(final BattleReportController battleReportController) {
         this.battleReportController = battleReportController;
     }
 

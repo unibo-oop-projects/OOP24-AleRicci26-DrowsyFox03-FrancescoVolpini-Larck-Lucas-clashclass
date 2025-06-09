@@ -31,8 +31,7 @@ public class VillageEncoderImpl implements VillageEncoder {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.ConsecutiveAppendsShouldReuse")
-    public String encode(final Village village) {
+        public String encode(final Village village) {
         final StringBuilder builder = new StringBuilder(APPENDER_WIDTH);
 
         // Resources
